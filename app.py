@@ -1,3 +1,4 @@
+from email import message
 from flask import Flask, render_template, request, flash, redirect
 from werkzeug.utils import secure_filename
 from PIL import Image
@@ -5,6 +6,12 @@ import os
 import uuid
 from flask_mysqldb import MySQL
 import MySQLdb
+from facebook import GraphAPI
+
+access_token = 'EAAEXTZCTdnewBAMtwJynZBKgCa1Dql5s2eLXnZBqcyhAvoaNqiQFz6tMSNvSjor4VwPsSZBd6Oo5V4ZBcuThzJOZCrfmZCSTj6cZBl6hUO4PXzZA1MWRjdk7M8k5E6W6ZCqaoS7xS14ZCk43aI1ZAYnZCY2BOZA8iMe0MwjNh4UUGih3YRK6llZCKJtRZBrhGzEbJEsqpZBz0B6wPORHwTgZDZD'
+page_id = '113136957951816'
+
+graph = GraphAPI(access_token=access_token)
 
 UPLOAD_FOLDER = 'static/images'
 ALLOWED_EXTENSIONS = {'jpg', 'jpeg', 'png'}
@@ -53,6 +60,7 @@ def form_lost_pet():
                        (uuid.uuid4(), titulo, descripcion, contacto, file.filename))
         mysql.connection.commit()
         cursor.close()
+        graph.put_photo(image=open(os.path.join(UPLOAD_FOLDER, file.filename), "rb"), message=titulo + '\n\n' + descripcion + '\n\n' + contacto, album_path=page_id + '/photos')
         return redirect(request.url)
 
 
