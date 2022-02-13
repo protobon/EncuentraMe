@@ -1,14 +1,12 @@
-from email import message
 from flask import Flask, render_template, request, flash, redirect
 from werkzeug.utils import secure_filename
-from PIL import Image
 import os
 import uuid
 from flask_mysqldb import MySQL
 import MySQLdb
 from facebook import GraphAPI
 
-access_token = 'EAAEXTZCTdnewBAMtwJynZBKgCa1Dql5s2eLXnZBqcyhAvoaNqiQFz6tMSNvSjor4VwPsSZBd6Oo5V4ZBcuThzJOZCrfmZCSTj6cZBl6hUO4PXzZA1MWRjdk7M8k5E6W6ZCqaoS7xS14ZCk43aI1ZAYnZCY2BOZA8iMe0MwjNh4UUGih3YRK6llZCKJtRZBrhGzEbJEsqpZBz0B6wPORHwTgZDZD'
+access_token = os.getenv('fb_token')
 page_id = '113136957951816'
 
 graph = GraphAPI(access_token=access_token)
