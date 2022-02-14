@@ -64,6 +64,16 @@ def form_lost_pet():
         return redirect(request.url)
 
 
+@app.route('/map')
+def map():
+    return render_template('map.html')
+
+
+@app.route('/addpet')
+def addpet():
+    return render_template('addpet.html')
+
+
 @app.route('/landing')
 def landing():
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
