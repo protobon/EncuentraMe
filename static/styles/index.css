@@ -1,0 +1,46 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    align-items: center;
+    text-align: center;
+}
+
+article {
+    margin: auto;
+}
+
+.lost_pet {
+    width: 50%;
+    margin: 2em auto;
+    padding: 5px;
+    text-align: center;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+.lost_pet img {
+    max-width: 100%;
+    height: auto;
+}
+
+nav a.navbar-brand {
+    padding: 0;
+}
+
+nav a.navbar-brand img {
+    height: 50px;
+    width: auto;
+}
+
+.form_center {
+    width: 40%;
+    margin: 40px auto;
+    text-align: center;
+}
+
+textarea {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+}
