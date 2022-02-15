@@ -1,17 +1,16 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Marker Clustering</title>
+    <title>Custom Markers</title>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-    <link rel="stylesheet" type="text/css" href="../static/styles/map_style.css"/>
-    <script src="../static/scripts/map.js"></script>
-    <script src="https://unpkg.com/@googlemaps/markerclusterer/dist/index.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/map_style.css') }}" />
+    <script src="{{ url_for('static', filename='scripts/map.js') }}"></script>
   </head>
   <body>
     <div id="map"></div>
 
     <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
-    <scriptst 
+    <script
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyABTjqDKNHu0j8LPdcj5SRSNABL9JmdgOw&callback=initMap&v=weekly"
       async
     ></script>
