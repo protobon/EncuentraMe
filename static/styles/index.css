@@ -44,3 +44,9 @@ textarea {
     margin-right: auto;
     width: 80%;
 }
+/* Set the size of the div element that contains the map */
+#map {
+    height: 400px;
+
+}
+  

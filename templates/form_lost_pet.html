@@ -2,6 +2,7 @@
 
 {% block head %}
 <link rel="stylesheet" href="{{ url_for('static', filename='styles/index.css') }}">
+<script src="{{ url_for('static', filename='scripts/index.js') }}"></script>
 <title>Mascota Perdida</title>
 {% endblock %}
 
@@ -24,7 +25,12 @@
             <label for="image"></label>
             <input type="file" name="image">
         </div>
+        <div id="map"></div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </fieldset>
 </form>
+<script
+src="https://maps.googleapis.com/maps/api/js?key=AIzaSyABTjqDKNHu0j8LPdcj5SRSNABL9JmdgOw&callback=initMap&libraries=&v=weekly"
+async
+></script>
 {% endblock %}
