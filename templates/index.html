@@ -1,13 +1,14 @@
 {% extends "base.html" %}
 
 {% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/index.css') }}">
 <title>Landing Page</title>
 {% endblock %}
 
 {% block body %}
 <article>
     {% for elem in articulos %}
-    <div>
+    <div class="lost_pet">
         <h3>{{ elem['titulo'] }}</h3>
         <p>{{ elem['descripcion'] }}</p>
         <p>{{ elem['contacto'] }}</p>
