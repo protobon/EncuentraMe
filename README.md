@@ -17,21 +17,15 @@
 
 >Public IPv4 address
 >
->>54.147.150.55
+>52.23.158.3
 >
->Private IPv4 addresses
->
->>172.31.16.214
->
->Public IPv4 DNS
->
->>ec2-54-147-150-55.compute-1.amazonaws.com
->
->url
->
->>encuentrame.app (13 euros)
->>encuentrame.pet (16 euros)
->
+>[web page](https://encuentrame.xelar.tech)
+
+## Trello project
+
+[![Portfolio Project](https://img.shields.io/static/v1?label=&message=Project%20Portfolio&color=2F333A&logo=Trello&labelColor=0052CC)](https://trello.com/b/QZYZYZQs/encuentrame)
+
+
 
 <!-- homehero -->
 
@@ -43,7 +37,8 @@
 
 <!-- ubuntu -->
 [![Ubuntu](https://img.shields.io/static/v1?label=&message=Ubuntu&color=E95420&logo=Ubuntu&logoColor=E95420&labelColor=2F333A)](https://ubuntu.com/) <!-- kali linux -->
-[![Ubuntu](https://img.shields.io/static/v1?label=&message=Kali%20Linux&color=557C94&logo=Kali%20Linux&logoColor=557C94&labelColor=2F333A)](https://www.kali.org/)
+[![Ubuntu](https://img.shields.io/static/v1?label=&message=Kali%20Linux&color=557C94&logo=Kali%20Linux&logoColor=557C94&labelColor=2F333A)](https://www.kali.org/) <!-- vagrant-->
+[![Vagrant](https://img.shields.io/static/v1?label=&message=Vagrant&color=1868F2&logo=vagrant&labelColor=2F333A)](https://app.vagrantup.com/)
 <!-- bash -->
 [![Bash](https://img.shields.io/static/v1?label=&message=GNU%20Bash&color=4EAA25&logo=GNU%20Bash&logoColor=4EAA25&labelColor=2F333A)](https://www.gnu.org/software/bash/)
 <!-- vim -->
@@ -113,11 +108,22 @@ EC2 instance.
 ```bash
 $ chmod 400 encuentrame.pem
 $
-$ ssh -i "encuentrame.pem" ubuntu@ec2-54-147-150-55.compute-1.amazonaws.com
-ubuntu@ip-172-31-16-214:~$
+$ ssh -i "encuentrame.pem" ubuntu@ec2-52-23-158-3.compute-1.amazonaws.com
+ubuntu@ip-172-31-23-111:~$
 ```
 
-``ssh -i "encuentrame.pem" ubuntu@ec2-52-23-158-3.compute-1.amazonaws.com``
+## CI/CD
+
+> run vagrant image
+
+```bash
+$ vagrant init encuentrame/ubuntu-20.04-server-ec2
+$
+$ vagrant up
+$
+```
+
+## Configure the environment
 
 > Initial configuration
 >
