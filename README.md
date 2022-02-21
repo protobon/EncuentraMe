@@ -25,8 +25,6 @@
 
 [![Portfolio Project](https://img.shields.io/static/v1?label=&message=Project%20Portfolio&color=2F333A&logo=Trello&labelColor=0052CC)](https://trello.com/b/QZYZYZQs/encuentrame)
 
-
-
 <!-- homehero -->
 
 ## General
