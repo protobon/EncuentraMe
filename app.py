@@ -1,5 +1,4 @@
 from flask import Flask, render_template, request, flash, redirect
-from werkzeug.utils import secure_filename
 import os
 import uuid
 from flask_mysqldb import MySQL
@@ -41,16 +40,16 @@ def form_lost_pet():
         # check if the post request has the file part
         if 'image' not in request.files:
             flash('Debe subir una imagen')
-            return redirect(request.url)
+            return
         file = request.files['image']
         # If the user does not select a file, the browser submits an
         # empty file without a filename.
         if file.filename == '':
             flash('Ninguna imagen seleccionada')
-            return redirect(request.url)
+            return
         file.filename = str(uuid.uuid4()) + '.' + file.filename.split('.')[1]
         if file and allowed_file(file.filename):
-            filename = secure_filename(file.filename)
+            filename = file.filename
             file.save(os.path.join(app.root_path, app.config['UPLOAD_FOLDER'], filename))
         else:
             return redirect(request.url)
