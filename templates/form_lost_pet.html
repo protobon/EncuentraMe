@@ -7,7 +7,23 @@
 
 {% block body %}
 <form action="/lost_pet" method="post" class="form_center" enctype="multipart/form-data">
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <p>{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
     <fieldset>
+        <p>¿Qué perdiste?</p>
+        <div class="form-group">
+            <input type="radio" name="mascota" value="perro" id="perro" checked>
+            <label for="perro">Perro</label>
+        </div>
+        <div class="form-group">
+            <input type="radio" name="mascota" value="gato" id="gato">
+            <label for="gato">Gato</label>
+        </div>
         <div class="form-group">
             <label for="titulo">Título</label>
             <input type="text" name="titulo">

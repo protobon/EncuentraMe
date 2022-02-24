@@ -4,6 +4,7 @@ import uuid
 from flask_mysqldb import MySQL
 import MySQLdb
 from facebook import GraphAPI
+from httplib2 import RedirectMissingLocation
 
 access_token = os.getenv('fb_token')
 page_id = '113136957951816'
@@ -40,13 +41,13 @@ def form_lost_pet():
         # check if the post request has the file part
         if 'image' not in request.files:
             flash('Debe subir una imagen')
-            return
+            return redirect(request.url)
         file = request.files['image']
         # If the user does not select a file, the browser submits an
         # empty file without a filename.
         if file.filename == '':
             flash('Ninguna imagen seleccionada')
-            return
+            return redirect(request.url)
         file.filename = str(uuid.uuid4()) + '.' + file.filename.split('.')[1]
         if file and allowed_file(file.filename):
             filename = file.filename
