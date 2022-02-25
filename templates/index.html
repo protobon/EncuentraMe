@@ -6,14 +6,25 @@
 {% endblock %}
 
 {% block body %}
-<article>
-    {% for elem in articulos %}
-    <div class="lost_pet">
-        <h3>{{ elem['titulo'] }}</h3>
-        <p>{{ elem['descripcion'] }}</p>
-        <p>{{ elem['contacto'] }}</p>
-        <img src="{{ elem['img_id'] }}" alt="">
+<div class="feed">
+    <div class="filters">
+        <div class="filter">
+            <button type="button" class="btn btn-success btn-sm">Perdidos</button>
+            <button type="button" class="btn btn-outline-success btn-sm">Encontrados</button>
+        </div>
+        <div class="post">
+            <a href="lost_pet" target="_blank" class="btn btn-primary" role="button">Publicar</a>
+        </div>
     </div>
-    {% endfor %}
-</article>
+    <article>
+        {% for elem in articulos %}
+        <div class="lost_pet">
+            <h3>{{ elem['titulo'] }}</h3>
+            <p>{{ elem['descripcion'] }}</p>
+            <p>{{ elem['contacto'] }}</p>
+            <img src="{{ elem['img_id'] }}" alt="">
+        </div>
+        {% endfor %}
+    </article>
+</div>
 {% endblock %}

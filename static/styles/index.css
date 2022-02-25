@@ -5,12 +5,43 @@ html, body {
     text-align: center;
 }
 
+.feed {
+    width: 60%;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 2px;
+    margin: auto;
+}
+
+.filters {
+    display: flex;
+    margin-top: 20px;
+    height: 4em;
+    margin: 5px auto;
+    align-items: center;
+    background-color: rgb(235, 235, 235);
+    border-radius: 5px;
+}
+
+.filter {
+    display: block;
+    margin-right: auto;
+    margin-left: 5px;
+    font-size: 0;
+}
+
+.post {
+    display: block;
+    margin-left: auto;
+    margin-right: 5px;
+}
+
 article {
     margin: auto;
 }
 
 .lost_pet {
-    width: 50%;
+    width: 80%;
     margin: 2em auto;
     padding: 5px;
     text-align: center;
@@ -36,6 +67,9 @@ nav a.navbar-brand img {
     width: 40%;
     margin: 40px auto;
     text-align: center;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 5px;
 }
 
 textarea {
