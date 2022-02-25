@@ -8,5 +8,6 @@ CREATE TABLE IF NOT EXISTS lost_pets (
     img_id VARCHAR(40) NOT NULL,
     fb_post_id VARCHAR(40),
     animal_type VARCHAR(5) NOT NULL,
-    user_id VARCHAR(36) FOREIGN KEY REFERENCES users(id)
+    user_id VARCHAR(36),
+    FOREIGN KEY (user_id) REFERENCES users(id)
 );
