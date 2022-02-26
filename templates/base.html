@@ -7,19 +7,100 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/index.css') }}">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+    <style media ="screen">
+        #fb-btn{
+            margin-right:0%;
+        }
+        #profile, #logout{display:none;}
+    </style>
     {% block head %}{% endblock %}
+    
 </head>
 <body>
+    <script>
+        window.fbAsyncInit = function() {
+            FB.init({
+                appId      : '1633098193720369',
+                cookie     : true,
+                xfbml      : true,
+                version    : 'v13.0',
+            });
+            
+            FB.getLoginStatus(function(response) {
+                statusChangeCallback(response);
+            });        
+        };
+
+    (function(d, s, id){
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement(s); js.id = id;
+        js.src = "https://connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+        
+    function setElements(isLoggedIn){
+        if(isLoggedIn){
+            document.getElementById('fb-btn').style.display = 'none';
+            document.getElementById('logout').style.display = 'block';
+        } else {
+            document.getElementById('fb-btn').style.display = 'block';
+            document.getElementById('logout').style.display = 'none'; 
+        }
+    }
+
+    function statusChangeCallback(response){
+        if(response.status === 'connected'){
+            setElements(false);
+            console.log('Logged in and anthenticated');
+        } else {
+            console.log('Not authenticated');
+            setElements(true);
+        }
+    }
+
+    function checkLoginState() {
+        FB.getLoginStatus(function(response) {
+            statusChangeCallback(response);
+        });
+    }
+
+    function testAPI(){
+        FB.api('/me?fields=public_profile,email', function(response){
+            if(response && !response.error){
+                console.log(response);
+            }
+        })
+    }
+    function logout(){
+        FB.logout(function(response){
+            setElemets(false);
+        })
+    }
+    </script>
     <nav class="navbar navbar-light bg-light justify-content-between">
         <a class="navbar-brand" href="landing">
             <img src="{{ url_for('static', filename='logo/EncuentraMe(1000x1000).png') }}" alt="">
         </a>
-        <form class="form-inline">
-          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
+        <ul class="navbar navbar-right">
+            <a id="logout" href="#" on click="logout()">Logout</a>
+            <fb:login-button
+            id="fb-btn"
+            scope="public_profile,email"
+            onlogin="checkLoginState();">
+            </fb:login-button>
+        </ul>
     </nav>
-    {% block body %}{% endblock %}
+    <div class="container">
+        <h3 id="heading">
+            Log in to post
+        </h3>
+        <div id="profile"></div>
+    </div>
+
+    {% block body %}
+    {% endblock %}
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
