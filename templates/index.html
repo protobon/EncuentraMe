@@ -19,12 +19,16 @@
     <article>
         {% for elem in articulos %}
         <div class="lost_pet">
-            <h3>{{ elem['titulo'] }}</h3>
-            <p>{{ elem['descripcion'] }}</p>
-            <p>{{ elem['contacto'] }}</p>
-            <img src="{{ elem['img_id'] }}" alt="">
+            <p>¡Se busca a <b>{{ elem['nombre'] }}</b>! Perdido/a desde el día {{ elem['fecha'] }}
+                última vez visto en las inmediaciones de {{ elem['calle_1'] }} y
+                {{ elem['calle_2'] }} barrio {{ elem['barrio'] }} a las {{ elem['hora'] }}
+                horas.
+                Si lo viste por favor comunícate con Usuario.
+            </p>
+            <img src="{{ elem['foto'] }}" alt="">
         </div>
         {% endfor %}
     </article>
 </div>
+<script src="{{ url_for('static', filename='js/index.js') }}"></script>
 {% endblock %}

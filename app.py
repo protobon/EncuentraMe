@@ -1,15 +1,15 @@
-from flask import Flask, render_template, request, flash, redirect
+from flask import Flask, render_template, request, flash, redirect, url_for
 import os
 import uuid
+from datetime import datetime
 from flask_mysqldb import MySQL
 import MySQLdb
 from facebook import GraphAPI
-from httplib2 import RedirectMissingLocation
 
-access_token = os.getenv('fb_token')
+#access_token = os.getenv('fb_token')
 page_id = '113136957951816'
 
-graph = GraphAPI(access_token=access_token)
+#graph = GraphAPI(access_token=access_token)
 
 UPLOAD_FOLDER = 'static/images'
 ALLOWED_EXTENSIONS = {'jpg', 'jpeg', 'png'}
@@ -34,15 +34,21 @@ def form_lost_pet():
     if request.method == 'GET':
         return render_template('form_lost_pet.html')
     if request.method == 'POST':
-        titulo = request.form['titulo']
-        descripcion = request.form['descripcion']
-        contacto = request.form['contacto']
+        id = uuid.uuid4()
+        created_at = datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')
+        mascota = request.form['mascota']
+        nombre = request.form['nombre']
+        fecha = request.form['fecha']
+        hora = request.form['hora']
+        calle_1 = request.form['calle_1']
+        calle_2 = request.form['calle_2']
+        barrio = request.form['barrio']
         cursor = mysql.connection.cursor()
         # check if the post request has the file part
-        if 'image' not in request.files:
+        if 'foto' not in request.files:
             flash('Debe subir una imagen')
             return redirect(request.url)
-        file = request.files['image']
+        file = request.files['foto']
         # If the user does not select a file, the browser submits an
         # empty file without a filename.
         if file.filename == '':
@@ -54,12 +60,17 @@ def form_lost_pet():
             file.save(os.path.join(app.root_path, app.config['UPLOAD_FOLDER'], filename))
         else:
             return redirect(request.url)
-        cursor.execute('INSERT INTO lost_pets VALUES (%s, %s, %s, %s, %s)',
-                       (uuid.uuid4(), titulo, descripcion, contacto, file.filename))
+        cursor.execute('INSERT INTO lost_pets VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',
+                       (id, created_at, mascota, nombre, fecha, hora, calle_1, calle_2, barrio, file.filename))
         mysql.connection.commit()
         cursor.close()
-        graph.put_photo(image=open(os.path.join(UPLOAD_FOLDER, file.filename), "rb"), message=titulo + '\n\n' + descripcion + '\n\n' + contacto, album_path=page_id + '/photos')
-        return redirect(request.url)
+        fecha_l = fecha.split('-')
+        fecha = fecha_l[2] + '/' + fecha_l[1] + '/' + fecha_l[0]
+        message = "¡Se busca a " + nombre + "! Perdido/a desde el día " + fecha +\
+            " última vez visto en las inmediaciones de " + calle_1 + " y " + calle_2 + " barrio " +\
+                barrio + " a las " + hora + " horas. Si lo viste por favor comunícate con Usuario."
+        #graph.put_photo(image=open(os.path.join(UPLOAD_FOLDER, file.filename), "rb"), message=message, album_path=page_id + '/photos')
+        return redirect(url_for('landing'))
 
 
 @app.route('/landing')
@@ -68,7 +79,8 @@ def landing():
     cursor.execute('SELECT * FROM lost_pets')
     articulos = cursor.fetchall()
     for elem in articulos:
-        elem['img_id'] = os.path.join(UPLOAD_FOLDER, elem['img_id'])
+        elem['foto'] = os.path.join(UPLOAD_FOLDER, elem['foto'])
+        elem['fecha'] = elem['fecha'].strftime('%d/%m/%y')
     cursor.close()
     return render_template('index.html', articulos=articulos)
 
