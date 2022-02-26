@@ -85,5 +85,16 @@ def landing():
     return render_template('index.html', articulos=articulos)
 
 
+@app.route('/<id>')
+def get_post(id):
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute("SELECT * FROM lost_pets WHERE id=%s", [id])
+    articulos = cursor.fetchall()
+    for elem in articulos:
+        elem['foto'] = os.path.join(UPLOAD_FOLDER, elem['foto'])
+        elem['fecha'] = elem['fecha'].strftime('%d/%m/%y')
+    cursor.close()
+    return render_template('post_by_id.html', articulos=articulos)
+
 if __name__ == "__main__":
     app.run(host="127.0.0.1", port=5000)

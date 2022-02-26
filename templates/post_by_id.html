@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/index.css') }}">
+<title>Se busca {{ articulos[0]['nombre'] }}</title>
+{% endblock %}
+
+{% block body %}
+<article>
+    {% for elem in articulos %}
+    <div class="lost_pet">
+        <p>¡Se busca a <b>{{ elem['nombre'] }}</b>! Perdido/a desde el día {{ elem['fecha'] }}
+            última vez visto en las inmediaciones de {{ elem['calle_1'] }} y
+            {{ elem['calle_2'] }} barrio {{ elem['barrio'] }} a las {{ elem['hora'] }}
+            horas.
+            Si lo viste por favor comunícate con Usuario.
+        </p>
+        <img src="{{ elem['foto'] }}" alt="">
+    </div>
+    {% endfor %}
+</article>
+{% endblock %}

@@ -2,7 +2,7 @@
 
 {% block head %}
 <link rel="stylesheet" href="{{ url_for('static', filename='styles/index.css') }}">
-<title>Landing Page</title>
+<title>EncuentraMe</title>
 {% endblock %}
 
 {% block body %}
@@ -25,7 +25,9 @@
                 horas.
                 Si lo viste por favor comunícate con Usuario.
             </p>
-            <img src="{{ elem['foto'] }}" alt="">
+            <a href="/{{ elem['id'] }}" target="_blank">
+                <img src="{{ elem['foto'] }}" alt="">
+            </a>
         </div>
         {% endfor %}
     </article>
