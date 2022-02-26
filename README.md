@@ -152,13 +152,25 @@ $
 ``sudo apt-get install pep8``
 ``sudo apt-get install pycodestyle``
 
+> netstat
+>
+
+``sudo apt install net-tools``
+
+to run ``netstat -tulpn``
+tcp
+udp
+listening
+programs
+numeric
+
 > Flask
 >
 
 virtual environment
 ``mkdir encuentrame``
 ``cd encuentrame``
-``apt install python3.8-venv``
+``sudo apt install python3.8-venv``
 ``python3 -m venv venv``
 
 activate the virtual environment
@@ -169,6 +181,80 @@ ubuntu@ip-172-31-23-111:~/encuentrame$ . venv/bin/activate
 ```
 
 ``pip install Flask``
+
+> integrate nginx, flask and guinicorn
+>
+``sudo apt update``
+``sudo apt install python3-pip python3-dev build-essential libssl-dev libffi-dev python3-setuptools``
+
+entorno virtual
+
+``sudo apt install python3-venv``
+``python3 -m venv encuentrameenv``
+
+activar entorno
+
+``source encuentrameenv/bin/activate``
+
+Configurar Flask
+
+``pip install wheel``
+
+``pip install gunicorn flask``
+
+create with hello.py
+
+``sudo ufw allow 8000``
+
+optional
+``export FLASK_RUN_PORT=8000``
+``export FLASK_APP=hello.py``
+
+``python hello.py``
+
+ubuntu@ip-172-31-23-111:~$ curl http://172.31.23.111:8000/
+<h1 style='color:blue'>Hello Andy & Ayrton!</h1>ubuntu@ip-172-31-23-111:~$
+
+config gunicorn
+``gunicorn --bind 0.0.0.0:8000 wsgi:app``
+
+deactivate virtual environment
+``deactivate``
+
+create a file in /etc/systemd/system
+``sudo vim hello.service``
+
+start the service
+``sudo systemctl start hello``
+``sudo systemctl enable hello``
+
+test service
+``sudo systemctl status hello``
+
+configure nginx
+
+``sudo vim /etc/nginx/sites-available/hello``
+
+vincular el servicio
+
+``sudo ln -s /etc/nginx/sites-available/hello /etc/nginx/sites-enabled``
+
+revision de sintaxis
+
+``sudo nginx -t``
+
+restart nginx
+
+``sudo systemctl restart nginx``
+
+clean port
+
+``sudo ufw delete allow 5000``
+``sudo ufw allow 'Nginx Full'``
+
+***************************
+
+``sudo vim /etc/nginx/nginx.conf``
 
 
 
