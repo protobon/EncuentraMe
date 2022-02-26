@@ -5,6 +5,16 @@ html, body {
     text-align: center;
 }
 
+#main_form {
+    line-height: 1.8;
+}
+
+input {
+    border: none;
+    border-color: transparent;
+    text-align: center;
+}
+
 .feed {
     width: 60%;
     border: 1px solid black;
