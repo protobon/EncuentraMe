@@ -52,11 +52,11 @@
 
     function statusChangeCallback(response){
         if(response.status === 'connected'){
-            setElements(false);
+            setElements(true);
             console.log('Logged in and anthenticated');
         } else {
             console.log('Not authenticated');
-            setElements(true);
+            setElements(false);
         }
     }
 
@@ -67,12 +67,27 @@
     }
 
     function testAPI(){
-        FB.api('/me?fields=public_profile,email', function(response){
+        FB.api('/me?fields=public_profile,name,email', function(response){
             if(response && !response.error){
-                console.log(response);
+                //console.log(response);
+                buildProfile(response);
+
             }
         })
     }
+
+    function buildProfile(user){
+        let profile = `
+            <h3>${user.name}</h3>
+            <ul class="list-group">
+                <li class "list-group-item">User ID: ${user.id}</li>
+                <li class "list-group-item">Email: ${user.email}</li>
+                <li class "list-group-item">User profile: ${user.public_profile}</li>
+        `;
+
+        document.getElementById("profile").innerHTML = profile;
+    }
+
     function logout(){
         FB.logout(function(response){
             setElemets(false);
