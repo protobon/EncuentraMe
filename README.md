@@ -152,6 +152,26 @@ $
 ``sudo apt-get install pep8``
 ``sudo apt-get install pycodestyle``
 
+> Flask
+>
+
+virtual environment
+``mkdir encuentrame``
+``cd encuentrame``
+``apt install python3.8-venv``
+``python3 -m venv venv``
+
+activate the virtual environment
+
+```bash
+ubuntu@ip-172-31-23-111:~/encuentrame$ . venv/bin/activate
+(venv) ubuntu@ip-172-31-23-111:~/encuentrame$
+```
+
+``pip install Flask``
+
+
+
 ## ssl/tls
 
 > create domain (almost a subdomain)
