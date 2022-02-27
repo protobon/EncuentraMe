@@ -4,8 +4,9 @@ $(document).ready(function () {
         const data = await response.json();
         return (data);
     }
-    async function refreshFeed() {
+    window.refreshFeed = function() {
         fetchAllPosts().then(function (data) {
+            $('article.posts').empty();
             $.each(data.lost, function () {
                 let postLostNew = $(document.createElement('div'));
                 postLostNew.attr('id', 'lost');
