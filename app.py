@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, flash, redirect, url_for
+from flask import Flask, jsonify, render_template, request, flash, redirect, url_for
 import os
 import uuid
 from datetime import datetime
@@ -116,21 +116,37 @@ def form_found_pet():
         return redirect(url_for('landing'))
 
 
-@app.route('/landing')
-def landing():
+@app.route('/api/all_posts')
+def get_all_posts():
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     cursor.execute('SELECT * FROM lost_pets')
-    articulos_lost = cursor.fetchall()
+    lost = list(cursor.fetchall())
     cursor.execute('SELECT * FROM found_pets')
-    articulos_found = cursor.fetchall()
-    for elem_lost in articulos_lost:
-        elem_lost['foto'] = os.path.join(UPLOAD_FOLDER, elem_lost['foto'])
-        elem_lost['fecha'] = elem_lost['fecha'].strftime('%d/%m/%y')
-    for elem_found in articulos_found:
-        elem_found['foto'] = os.path.join(UPLOAD_FOLDER, elem_found['foto'])
-        elem_found['fecha'] = elem_found['fecha'].strftime('%d/%m/%y')
+    found = list(cursor.fetchall())
     cursor.close()
-    return render_template('index.html', articulos_lost=articulos_lost, articulos_found=articulos_found)
+    return jsonify({"lost": lost, "found": found})
+
+
+@app.route('/landing')
+def landing():
+    return render_template('index2.html')
+
+
+# @app.route('/landing')
+# def landing():
+#     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+#     cursor.execute('SELECT * FROM lost_pets')
+#     articulos_lost = list(cursor.fetchall())
+#     cursor.execute('SELECT * FROM found_pets')
+#     articulos_found = list(cursor.fetchall())
+#     for elem_lost in articulos_lost:
+#         elem_lost['foto'] = os.path.join(UPLOAD_FOLDER, elem_lost['foto'])
+#         elem_lost['fecha'] = elem_lost['fecha'].strftime('%d/%m/%y')
+#     for elem_found in articulos_found:
+#         elem_found['foto'] = os.path.join(UPLOAD_FOLDER, elem_found['foto'])
+#         elem_found['fecha'] = elem_found['fecha'].strftime('%d/%m/%y')
+#     cursor.close()
+#     return render_template('index.html', articulos_lost=articulos_lost, articulos_found=articulos_found)
 
 
 @app.route('/<id>')
@@ -140,7 +156,7 @@ def get_post(id):
         cursor.execute("SELECT * FROM lost_pets WHERE id=%s", [id])
     else:
         cursor.execute("SELECT * FROM found_pets WHERE id=%s", [id])
-    articulos = cursor.fetchall()
+    articulos = list(cursor.fetchall())
     for elem in articulos:
         elem['foto'] = os.path.join(UPLOAD_FOLDER, elem['foto'])
         elem['fecha'] = elem['fecha'].strftime('%d/%m/%y')

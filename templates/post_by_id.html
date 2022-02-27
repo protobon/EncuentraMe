@@ -2,17 +2,13 @@
 
 {% block head %}
 <link rel="stylesheet" href="{{ url_for('static', filename='styles/index.css') }}">
-{% if 'lost' in articulos[0]['id'] %}
-    <title>Se busca a {{ articulos[0]['nombre'] }}</title>
-{% else %}
-    <title>¡Encontrado!</title>
-{% endif %}
+<title>Publicacion</title>
 {% endblock %}
 
 {% block body %}
 <article>
     {% for elem in articulos %}
-        {% if 'lost' in articulos[0]['id'] %}
+        {% if 'lost' in elem['id'] %}
             <div class="pet lost_pet">
                 <p>¡Se busca a <b>{{ elem['nombre'] }}</b>! Perdido/a desde el día {{ elem['fecha'] }}
                     última vez visto en las inmediaciones de {{ elem['calle_1'] }} y
