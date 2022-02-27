@@ -16,6 +16,7 @@ $(document).ready(function () {
         });
     });
     $('#all').click(function () {
+        refreshFeed();
         $('div.pet_lost').each(function(i, obj) {
             $(obj).show();
         });
