@@ -54,11 +54,12 @@ def form_lost_pet():
         if file.filename == '':
             flash('Ninguna imagen seleccionada')
             return redirect(request.url)
-        file.filename = str(uuid.uuid4()) + '.' + file.filename.split('.')[1]
         if file and allowed_file(file.filename):
+            file.filename = str(uuid.uuid4()) + '.' + file.filename.rsplit('.', 1)[1].lower()
             filename = file.filename
             file.save(os.path.join(app.root_path, app.config['UPLOAD_FOLDER'], filename))
         else:
+            flash('Formatos soportados: jpg, jpeg, png.')
             return redirect(request.url)
         cursor.execute('INSERT INTO lost_pets VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',
                        (id, created_at, mascota, nombre, fecha, hora, calle_1, calle_2, barrio, file.filename))
@@ -70,7 +71,7 @@ def form_lost_pet():
             " última vez visto en las inmediaciones de " + calle_1 + " y " + calle_2 + " barrio " +\
                 barrio + " a las " + hora + " horas. Si lo viste por favor comunícate con Usuario."
         #graph.put_photo(image=open(os.path.join(UPLOAD_FOLDER, file.filename), "rb"), message=message, album_path=page_id + '/photos')
-        return redirect(url_for('landing'))
+        return redirect('/' + id)
 
 
 @app.route('/found_pet', methods=['GET', 'POST'])
@@ -102,6 +103,7 @@ def form_found_pet():
             filename = file.filename
             file.save(os.path.join(app.root_path, app.config['UPLOAD_FOLDER'], filename))
         else:
+            flash('Archivo no permitido')
             return redirect(request.url)
         cursor.execute('INSERT INTO found_pets VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)',
                        (id, created_at, mascota, fecha, hora, calle_1, calle_2, barrio, file.filename))
@@ -113,7 +115,7 @@ def form_found_pet():
             " última vez visto en las inmediaciones de " + calle_1 + " y " + calle_2 + " barrio " +\
                 barrio + " a las " + hora + " horas. Si lo viste por favor comunícate con Usuario."
         #graph.put_photo(image=open(os.path.join(UPLOAD_FOLDER, file.filename), "rb"), message=message, album_path=page_id + '/photos')
-        return redirect(url_for('landing'))
+        return redirect('/' + id)
 
 
 @app.route('/api/all_posts')
