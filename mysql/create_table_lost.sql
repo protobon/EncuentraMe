@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS lost_pets (
-    id VARCHAR(36) PRIMARY KEY,
+    id VARCHAR(40) PRIMARY KEY,
     created_at VARCHAR(36) NOT NULL,
     mascota VARCHAR(10) NOT NULL,
     nombre VARCHAR(20) NOT NULL,

@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/index.css') }}">
+<title>Mascota Perdida</title>
+{% endblock %}
+
+{% block body %}
+<form action="/found_pet" method="post" class="form_center" id="main_form" enctype="multipart/form-data">
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <p>{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <fieldset>
+        <p>¿Qué encontraste?</p>
+        <div class="form-group">
+            <input type="radio" name="mascota" value="perro" id="perro" checked>
+            <label for="perro">Perro</label>
+            <input type="radio" name="mascota" value="gato" id="gato">
+            <label for="gato">Gato</label>
+        </div>
+        <div class="form-group">
+            <p>Se encontró el día 
+            <input type="date" name="fecha" placeholder="dd-mm-yyyy">
+            por barrio
+            <input type="text" name="barrio" placeholder="Barrio">
+            en las inmediaciones de 
+            <input type="text" name="calle_1" placeholder="Calle 1">
+            y 
+            <input type="text" name="calle_2" placeholder="Calle 2">
+            a las 
+            <input type="time" name="hora">
+            horas.
+            Si es tuyo o sabes de quien puede ser por favor comunícate con Usuario.</p>
+            <br>
+            <label for="image">Sube una imagen:</label>
+            <input type="file" name="foto">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </fieldset>
+</form>
+{% endblock %}

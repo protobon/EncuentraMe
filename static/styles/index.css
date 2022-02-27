@@ -50,7 +50,7 @@ article {
     margin: auto;
 }
 
-.lost_pet {
+.pet {
     width: 80%;
     margin: 2em auto;
     padding: 5px;
@@ -59,7 +59,7 @@ article {
     border-radius: 5px;
 }
 
-.lost_pet img {
+.pet img {
     max-width: 100%;
     height: auto;
 }

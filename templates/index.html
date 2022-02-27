@@ -17,8 +17,23 @@
         </div>
     </div>
     <article>
-        {% for elem in articulos %}
-        <div class="lost_pet">
+        {% for elem in articulos_lost %}
+        <div class="pet pet_lost">
+            <h1>Perdido</h1>
+            <p>¡Se busca a <b>{{ elem['nombre'] }}</b>! Perdido/a desde el día {{ elem['fecha'] }}
+                última vez visto en las inmediaciones de {{ elem['calle_1'] }} y
+                {{ elem['calle_2'] }} barrio {{ elem['barrio'] }} a las {{ elem['hora'] }}
+                horas.
+                Si lo viste por favor comunícate con Usuario.
+            </p>
+            <a href="/{{ elem['id'] }}" target="_blank">
+                <img src="{{ elem['foto'] }}" alt="">
+            </a>
+        </div>
+        {% endfor %}
+        {% for elem in articulos_found %}
+        <div class="pet pet_found">
+            <h1>Encontrado</h1>
             <p>¡Se busca a <b>{{ elem['nombre'] }}</b>! Perdido/a desde el día {{ elem['fecha'] }}
                 última vez visto en las inmediaciones de {{ elem['calle_1'] }} y
                 {{ elem['calle_2'] }} barrio {{ elem['barrio'] }} a las {{ elem['hora'] }}

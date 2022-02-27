@@ -1,9 +1,7 @@
 CREATE TABLE IF NOT EXISTS found_pets (
-    id VARCHAR(36) PRIMARY KEY,
+    id VARCHAR(41) PRIMARY KEY,
     created_at VARCHAR(36) NOT NULL,
-    updated_at VARCHAR(36) NOT NULL,
     mascota VARCHAR(10) NOT NULL,
-    nombre VARCHAR(20) NOT NULL,
     fecha DATE NOT NULL,
     hora VARCHAR(9) NOT NULL,
     calle_1 VARCHAR(30) NOT NULL,
