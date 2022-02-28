@@ -59,3 +59,10 @@ run gunicorn daemon
 
 ``sudo ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled``
 
+``http://encuentrame.org.xelar.tech`` from gunicorn to nginx
+``https://encuentrame.org.xelar.tech`` from default nginx
+
+mysql
+
+``sudo mysql -uroot -p``
+root password = encuentrame.98
