@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/index.css') }}">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+    <script src="" type="text/javascript"></script>
     <style media ="screen">
         #fb-btn{
             margin-right:0%;
@@ -59,11 +60,11 @@
             if(isLoggedIn){
                 document.getElementById('fb-btn').style.display = 'none';
                 document.getElementById('logout').style.display = 'block';
-		document.getElementById('profile').style.display = 'block';
+		        document.getElementById('profile').style.display = 'block';
             } else {
                 document.getElementById('fb-btn').style.display = 'block';
                 document.getElementById('logout').style.display = 'none';
-		document.getElementById('profile').style.display = 'block';
+		        document.getElementById('profile').style.display = 'block';
             }
         } 
 
@@ -85,11 +86,16 @@
         }
 
         function buildProfile(user){
+            let useremail = user.email
+            let userid = user.id
+            let username = user.name
             let profile = `
                 <h3>${user.name}</h3>
                 <ul class="list-group">
                     <li class "list-group-item">User ID: ${user.id}</li>
                     <li class "list-group-item">Email: ${user.email}</li>
+                    <li class "list-group-item">Link: ${user.link}</li>
+
             `;
 
             document.getElementById("profile").innerHTML = profile;
@@ -107,7 +113,7 @@
             <img src="{{ url_for('static', filename='logo/EncuentraMe(1000x1000).png') }}" alt="">
         </a>
         <ul class="navbar navbar-right">
-		<li><a id="logout" href="#" onclick="logout()">Logout</a></li>
+		<a id="logout" href="#" onclick="logout()">Logout</a>
             <fb:login-button
             	id="fb-btn"
             	scope="email"
@@ -117,7 +123,7 @@
     </nav>
     <div class="container">
         <h3 id="heading">
-            Log in to post
+            
         </h3>
         <div id="profile"></div>
     </div>

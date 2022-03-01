@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block head %}
+<title>User Profile</title>
+{% endblock %}
+
+{% block body %}
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Posts</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for key, value in result.items() %}
+        {% if key == username %}
+            <tr>
+            <td> {{ key }} </td>
+            <td> {{ value }} </td>
+            </tr>
+        {% endif %}
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}
