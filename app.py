@@ -1,16 +1,13 @@
-import email
-from unittest import result
-from flask import Flask, jsonify, render_template, request, flash, redirect, url_for, session
+from flask import Flask, jsonify, render_template, request, flash, redirect, url_for
 import os
 import uuid
 from datetime import datetime
 from flask_mysqldb import MySQL
 import MySQLdb
 from facebook import GraphAPI
-import json
 
 #access_token = os.getenv('fb_token')
-page_post= '113136957951816'
+page_id = '113136957951816'
 
 #graph = GraphAPI(access_token=access_token)
 
@@ -23,14 +20,9 @@ app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'encuentrame'
 app.config['MYSQL_PASSWORD'] = 'password'
 app.config['MYSQL_DB'] = 'encuentraMe'
-app.secret_key = 'secret_key'
+
 mysql = MySQL(app)
 
-usersDatab = {
-    "andy@gmail.com": ["post01", "post02", "post03"],
-    "ayrton@gmail.com": ["post04", "post05", "post06"],
-    "ronald@gmail.com": ["post07", "post08", "post09"]
-}
 
 def allowed_file(filename):
     return '.' in filename and \
@@ -40,14 +32,9 @@ def allowed_file(filename):
 @app.route('/lost_pet', methods=['GET', 'POST'])
 def form_lost_pet():
     if request.method == 'GET':
-        session['email'] = "andy@gmail.com"
-        user = "andy@gmail.com"
-        if session['email'] in usersDatab:
-            return render_template('form_lost_pet.html')
-        else:
-            return render_template('modal.html')
+        return render_template('form_lost_pet.html')
     if request.method == 'POST':
-        post= "lost" + str(uupostuupost())
+        id = "lost" + str(uuid.uuid4())
         created_at = datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')
         mascota = request.form['mascota']
         nombre = request.form['nombre']
@@ -68,7 +55,7 @@ def form_lost_pet():
             flash('Ninguna imagen seleccionada')
             return redirect(request.url)
         if file and allowed_file(file.filename):
-            file.filename = str(uupostuupost()) + '.' + file.filename.rsplit('.', 1)[1].lower()
+            file.filename = str(uuid.uuid4()) + '.' + file.filename.rsplit('.', 1)[1].lower()
             filename = file.filename
             file.save(os.path.join(app.root_path, app.config['UPLOAD_FOLDER'], filename))
         else:
@@ -80,10 +67,10 @@ def form_lost_pet():
         cursor.close()
         fecha_l = fecha.split('-')
         fecha = fecha_l[2] + '/' + fecha_l[1] + '/' + fecha_l[0]
-        message = "¡Se busca a " + nombre + "! Perdpost/a desde el día " + fecha +\
+        message = "¡Se busca a " + nombre + "! Perdido/a desde el día " + fecha +\
             " última vez visto en las inmediaciones de " + calle_1 + " y " + calle_2 + " barrio " +\
                 barrio + " a las " + hora + " horas. Si lo viste por favor comunícate con Usuario."
-        #graph.put_photo(image=open(os.path.join(UPLOAD_FOLDER, file.filename), "rb"), message=message, album_path=page_post+ '/photos')
+        #graph.put_photo(image=open(os.path.join(UPLOAD_FOLDER, file.filename), "rb"), message=message, album_path=page_id + '/photos')
         return redirect('/' + id)
 
 
@@ -92,7 +79,7 @@ def form_found_pet():
     if request.method == 'GET':
         return render_template('form_found_pet.html')
     if request.method == 'POST':
-        post= "found" + str(uupostuupost())
+        id = "found" + str(uuid.uuid4())
         created_at = datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')
         mascota = request.form['mascota']
         fecha = request.form['fecha']
@@ -111,12 +98,12 @@ def form_found_pet():
         if file.filename == '':
             flash('Ninguna imagen seleccionada')
             return redirect(request.url)
-        file.filename = str(uupostuupost()) + '.' + file.filename.split('.')[1]
+        file.filename = str(uuid.uuid4()) + '.' + file.filename.split('.')[1]
         if file and allowed_file(file.filename):
             filename = file.filename
             file.save(os.path.join(app.root_path, app.config['UPLOAD_FOLDER'], filename))
         else:
-            flash('Archivo no permitpost')
+            flash('Archivo no permitido')
             return redirect(request.url)
         cursor.execute('INSERT INTO found_pets VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)',
                        (id, created_at, mascota, fecha, hora, calle_1, calle_2, barrio, file.filename))
@@ -124,10 +111,10 @@ def form_found_pet():
         cursor.close()
         fecha_l = fecha.split('-')
         fecha = fecha_l[2] + '/' + fecha_l[1] + '/' + fecha_l[0]
-        message = "¡Se encontró! Perdpost/a desde el día " + fecha +\
+        message = "¡Se encontró! Perdido/a desde el día " + fecha +\
             " última vez visto en las inmediaciones de " + calle_1 + " y " + calle_2 + " barrio " +\
                 barrio + " a las " + hora + " horas. Si lo viste por favor comunícate con Usuario."
-        #graph.put_photo(image=open(os.path.join(UPLOAD_FOLDER, file.filename), "rb"), message=message, album_path=page_post+ '/photos')
+        #graph.put_photo(image=open(os.path.join(UPLOAD_FOLDER, file.filename), "rb"), message=message, album_path=page_id + '/photos')
         return redirect('/' + id)
 
 
@@ -145,17 +132,6 @@ def get_all_posts():
 @app.route('/landing')
 def landing():
     return render_template('index2.html')
-
-@app.route('/<user>')
-def userprofile(user):
-    token = "EAAXNS024VDEBALjHYCQrZBZAXpZBCEJYZCyGMVYZB0GvHNZBqvmc1CZA6KRMEIruMZBI6ict3UZAOhRYncCdPI9FKuNCNFfjxXwaKZCNT7F5ABL9jM6lfQ7a3NsbzQPqDstIUeE6X6Jnv3rXMqMnt0msHm5wvyCkycBEUAb3n8O2KLu9ekKTZBOqk8pU5LQ7CXcJZCUZD"
-    graph = GraphAPI(token)
-    profile = graph.get_object('me',fields='name,email')
-    print(json.dumps(profile, indent=4))
-    if user in usersDatab:
-        return render_template('user.html', result=usersDatab, username=user)
-    else:
-        return "Invalid user"
 
 
 # @app.route('/landing')
@@ -179,15 +155,15 @@ def userprofile(user):
 def get_post(id):
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     if "lost" in id:
-        cursor.execute("SELECT * FROM lost_pets WHERE post%s", [id])
+        cursor.execute("SELECT * FROM lost_pets WHERE id=%s", [id])
     else:
-        cursor.execute("SELECT * FROM found_pets WHERE post%s", [id])
+        cursor.execute("SELECT * FROM found_pets WHERE id=%s", [id])
     articulos = list(cursor.fetchall())
     for elem in articulos:
         elem['foto'] = os.path.join(UPLOAD_FOLDER, elem['foto'])
         elem['fecha'] = elem['fecha'].strftime('%d/%m/%y')
     cursor.close()
-    return render_template('post_by_posthtml', articulos=articulos)
+    return render_template('post_by_id.html', articulos=articulos)
 
 if __name__ == "__main__":
     app.run(host="127.0.0.1", port=5000)
