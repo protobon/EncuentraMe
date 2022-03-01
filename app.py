@@ -47,6 +47,7 @@ def form_lost_pet():
     if request.method == 'POST':
         #fb_user = graph.get_object('me', fields='id,name,email')
         id = "lost" + str(uuid.uuid4())
+        estado = "active"
         created_at = datetime.utcnow()
         mascota = request.form['mascota']
         nombre = request.form['nombre']
@@ -79,8 +80,8 @@ def form_lost_pet():
         except Exception:
             pass
         try:
-            cursor.execute('INSERT INTO lost_pets VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',
-                           (id, user_id, created_at, mascota, nombre, fecha, hora, calle_1, calle_2, barrio, file.filename))
+            cursor.execute('INSERT INTO lost_pets VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',
+                           (id, user_id, estado, created_at, mascota, nombre, fecha, hora, calle_1, calle_2, barrio, file.filename))
         except Exception as e:
             flash('Ha ocurrido un error, asegúrese de ingresar los datos correctamente')
             print(e)
@@ -109,6 +110,7 @@ def form_found_pet():
     if request.method == 'POST':
         #fb_user = graph.get_object('me', fields='id,name,email')
         id = "found" + str(uuid.uuid4())
+        estado = "active"
         created_at = datetime.utcnow()
         mascota = request.form['mascota']
         fecha = request.form['fecha']
@@ -140,8 +142,8 @@ def form_found_pet():
         except Exception:
             pass
         try:
-            cursor.execute('INSERT INTO found_pets VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',
-                        (id, user_id, created_at, mascota, fecha, hora, calle_1, calle_2, barrio, file.filename))
+            cursor.execute('INSERT INTO found_pets VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',
+                        (id, user_id, estado, created_at, mascota, fecha, hora, calle_1, calle_2, barrio, file.filename))
         except Exception as e:
             flash('Ha ocurrido un error, asegúrese de ingresar los datos correctamente')
             print(e)
@@ -157,30 +159,90 @@ def form_found_pet():
         return redirect('/')
 
 
-@app.route('/api/all_posts')
+@app.route('/api/posts/all')
 def get_all_posts():
+    """Retrieve all posts from database and return in JSON format"""
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    cursor.execute('SELECT * FROM lost_pets ORDER BY created_at ASC')
+    cursor.execute("SELECT * FROM lost_pets WHERE estado = 'active' ORDER BY created_at DESC")
     lost = list(cursor.fetchall())
-    cursor.execute('SELECT * FROM found_pets ORDER BY created_at DESC')
+    cursor.execute("SELECT * FROM found_pets WHERE estado = 'active' ORDER BY created_at DESC")
     found = list(cursor.fetchall())
     cursor.close()
     return jsonify({"lost": lost, "found": found})
 
 
-@app.route('/<id>')
+@app.route('/api/users/all')
+def get_all_users():
+    """Retrieve all users from database and return in JSON format"""
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute('SELECT * FROM users')
+    users = list(cursor.fetchall())
+    cursor.close()
+    return jsonify(users)
+
+
+@app.route('/api/<user_id>/posts')
+def posts_by_user(user_id):
+    """Retrieve all posts from user by user_id and return in JSON format"""
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute('SELECT * FROM lost_pets WHERE user_id=%s', [user_id])
+    lost = list(cursor.fetchall())
+    cursor.execute('SELECT * FROM found_pets WHERE user_id=%s', [user_id])
+    found = list(cursor.fetchall())
+    cursor.close()
+    return jsonify({"lost": lost, "found": found})
+
+
+@app.route('/api/posts/<id>', methods=['GET', 'PUT', 'DELETE'])
 def get_post(id):
+    """All user CRUD operations for one single post by ID"""
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     if "lost" in id:
         cursor.execute("SELECT * FROM lost_pets WHERE id=%s", [id])
     else:
         cursor.execute("SELECT * FROM found_pets WHERE id=%s", [id])
-    articulos = list(cursor.fetchall())
-    for elem in articulos:
-        elem['foto'] = os.path.join(UPLOAD_FOLDER, elem['foto'])
-        elem['fecha'] = elem['fecha'].strftime('%d/%m/%y')
-    cursor.close()
-    return render_template('post_by_id.html', articulos=articulos)
+    try:
+        post = list(cursor.fetchall())[0]
+    except Exception:
+        pass
+    if not post:
+        flash('Publicación no encontrada')
+        cursor.close()
+        return redirect('/')
+    if request.method == 'GET':
+        cursor.close()
+        return jsonify(post)
+    # if request.method == 'PUT':
+    #     fb_user = graph.get_object('me', fields='id,name,email')
+    #     if fb_user['id'] == post['user_id']:
+    #         if "lost" in id:
+    #             cursor.execute("UPDATE lost_pets SET estado = 'completed' WHERE id=%s", [id])
+    #         else:
+    #             cursor.execute("UPDATE found_pets SET estado = 'completed' WHERE id=%s", [id])
+    #         mysql.connection.commit()
+    #         cursor.close()
+    #         flash('¡Felicidades! Nos alegra mucho que hayas encontrado a tu mascota :D')
+    #         return redirect('/')
+    #     else:
+    #         cursor.close()
+    #         flash('No tienes permisos suficientes para ejecutar esta acción')
+    #         return redirect('/')
+    # if request.method == 'DELETE':
+    #     fb_user = graph.get_object('me', fields='id,name,email')
+    #     if fb_user['id'] == post['user_id']:
+    #         if "lost" in id:
+    #             cursor.execute("UPDATE lost_pets SET estado = 'removed' WHERE id=%s", [id])
+    #         else:
+    #             cursor.execute("UPDATE found_pets SET estado = 'removed' WHERE id=%s", [id])
+    #         mysql.connection.commit()
+    #         cursor.close()
+    #         flash('Publicación eliminada correctamente')
+    #         return redirect('/')
+    #     else:
+    #         cursor.close()
+    #         flash('No tienes permisos suficientes para ejecutar esta acción')
+    #         return redirect('/')
+
 
 if __name__ == "__main__":
     app.run(host="127.0.0.1", port=5000)
