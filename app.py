@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, render_template, request, flash, redirect, url_for
+from flask import Flask, jsonify, render_template, request, flash, redirect
 import os
 import uuid
 from datetime import datetime
@@ -29,13 +29,25 @@ def allowed_file(filename):
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
+@app.route('/')
+def landing():
+    """Landing page"""
+    return render_template('index.html')
+
 @app.route('/lost_pet', methods=['GET', 'POST'])
 def form_lost_pet():
+    fb_user = {'id': '123456'}
     if request.method == 'GET':
-        return render_template('form_lost_pet.html')
+        #fb_user = graph.get_object('me', fields='id,name,email')
+        if fb_user:
+            return render_template('form_lost_pet.html')
+        else:
+            flash('Para publicar, debe iniciar sesión con Facebook')
+            return redirect('/')
     if request.method == 'POST':
+        #fb_user = graph.get_object('me', fields='id,name,email')
         id = "lost" + str(uuid.uuid4())
-        created_at = datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')
+        created_at = datetime.utcnow()
         mascota = request.form['mascota']
         nombre = request.form['nombre']
         fecha = request.form['fecha']
@@ -43,7 +55,7 @@ def form_lost_pet():
         calle_1 = request.form['calle_1']
         calle_2 = request.form['calle_2']
         barrio = request.form['barrio']
-        cursor = mysql.connection.cursor()
+        user_id = fb_user['id']
         # check if the post request has the file part
         if 'foto' not in request.files:
             flash('Debe subir una imagen')
@@ -52,42 +64,59 @@ def form_lost_pet():
         # If the user does not select a file, the browser submits an
         # empty file without a filename.
         if file.filename == '':
-            flash('Ninguna imagen seleccionada')
+            flash('Debe subir una foto')
             return redirect(request.url)
         if file and allowed_file(file.filename):
             file.filename = str(uuid.uuid4()) + '.' + file.filename.rsplit('.', 1)[1].lower()
             filename = file.filename
             file.save(os.path.join(app.root_path, app.config['UPLOAD_FOLDER'], filename))
         else:
-            flash('Formatos soportados: jpg, jpeg, png.')
+            flash('Formatos de imagen soportados: jpg, jpeg, png.')
             return redirect(request.url)
-        cursor.execute('INSERT INTO lost_pets VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',
-                       (id, created_at, mascota, nombre, fecha, hora, calle_1, calle_2, barrio, file.filename))
+        cursor = mysql.connection.cursor()
+        try:
+            cursor.execute('INSERT INTO users VALUES (%s, %s, %s)', (fb_user['id'], fb_user['name'], fb_user['email']))
+        except Exception:
+            pass
+        try:
+            cursor.execute('INSERT INTO lost_pets VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',
+                           (id, user_id, created_at, mascota, nombre, fecha, hora, calle_1, calle_2, barrio, file.filename))
+        except Exception as e:
+            flash('Ha ocurrido un error, asegúrese de ingresar los datos correctamente')
+            print(e)
+            return redirect(request.url)
         mysql.connection.commit()
         cursor.close()
         fecha_l = fecha.split('-')
         fecha = fecha_l[2] + '/' + fecha_l[1] + '/' + fecha_l[0]
-        message = "¡Se busca a " + nombre + "! Perdido/a desde el día " + fecha +\
-            " última vez visto en las inmediaciones de " + calle_1 + " y " + calle_2 + " barrio " +\
-                barrio + " a las " + hora + " horas. Si lo viste por favor comunícate con Usuario."
+        message = f"¡Se busca a {nombre}! Perdido/a desde el día {fecha} última vez visto\
+                   en las inmediaciones de {calle_1} y {calle_2} barrio {barrio}\
+                   a las {hora} horas. Si lo viste por favor comunícate con {fb_user['name']}"
         #graph.put_photo(image=open(os.path.join(UPLOAD_FOLDER, file.filename), "rb"), message=message, album_path=page_id + '/photos')
-        return redirect('/' + id)
+        return redirect('/')
 
 
 @app.route('/found_pet', methods=['GET', 'POST'])
 def form_found_pet():
+    fb_user = {'id': '123456'}
     if request.method == 'GET':
-        return render_template('form_found_pet.html')
+        #fb_user = graph.get_object('me', fields='id,name,email')
+        if fb_user:
+            return render_template('form_found_pet.html')
+        else:
+            flash('Para publicar, debe iniciar sesión con Facebook')
+            return redirect('/')
     if request.method == 'POST':
+        #fb_user = graph.get_object('me', fields='id,name,email')
         id = "found" + str(uuid.uuid4())
-        created_at = datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')
+        created_at = datetime.utcnow()
         mascota = request.form['mascota']
         fecha = request.form['fecha']
         hora = request.form['hora']
         calle_1 = request.form['calle_1']
         calle_2 = request.form['calle_2']
         barrio = request.form['barrio']
-        cursor = mysql.connection.cursor()
+        user_id = fb_user['id']
         # check if the post request has the file part
         if 'foto' not in request.files:
             flash('Debe subir una imagen')
@@ -96,59 +125,47 @@ def form_found_pet():
         # If the user does not select a file, the browser submits an
         # empty file without a filename.
         if file.filename == '':
-            flash('Ninguna imagen seleccionada')
+            flash('Debe subir una foto')
             return redirect(request.url)
         file.filename = str(uuid.uuid4()) + '.' + file.filename.split('.')[1]
         if file and allowed_file(file.filename):
             filename = file.filename
             file.save(os.path.join(app.root_path, app.config['UPLOAD_FOLDER'], filename))
         else:
-            flash('Archivo no permitido')
+            flash('Formatos de imagen soportados: jpg, jpeg, png.')
             return redirect(request.url)
-        cursor.execute('INSERT INTO found_pets VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)',
-                       (id, created_at, mascota, fecha, hora, calle_1, calle_2, barrio, file.filename))
+        cursor = mysql.connection.cursor()
+        try:
+            cursor.execute('INSERT INTO users VALUES (%s, %s, %s)', (fb_user['id'], fb_user['name'], fb_user['email']))
+        except Exception:
+            pass
+        try:
+            cursor.execute('INSERT INTO found_pets VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',
+                        (id, user_id, created_at, mascota, fecha, hora, calle_1, calle_2, barrio, file.filename))
+        except Exception as e:
+            flash('Ha ocurrido un error, asegúrese de ingresar los datos correctamente')
+            print(e)
+            return redirect(request.url)
         mysql.connection.commit()
         cursor.close()
         fecha_l = fecha.split('-')
         fecha = fecha_l[2] + '/' + fecha_l[1] + '/' + fecha_l[0]
-        message = "¡Se encontró! Perdido/a desde el día " + fecha +\
-            " última vez visto en las inmediaciones de " + calle_1 + " y " + calle_2 + " barrio " +\
-                barrio + " a las " + hora + " horas. Si lo viste por favor comunícate con Usuario."
+        message = f"¡Se encontró! Perdido/a desde el día {fecha} última vez visto\
+                  en las inmediaciones de {calle_1} y {calle_2} barrio {barrio} a las {hora} horas.\
+                  Si lo viste por favor comunícate con {fb_user['name']}"
         #graph.put_photo(image=open(os.path.join(UPLOAD_FOLDER, file.filename), "rb"), message=message, album_path=page_id + '/photos')
-        return redirect('/' + id)
+        return redirect('/')
 
 
 @app.route('/api/all_posts')
 def get_all_posts():
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    cursor.execute('SELECT * FROM lost_pets')
+    cursor.execute('SELECT * FROM lost_pets ORDER BY created_at ASC')
     lost = list(cursor.fetchall())
-    cursor.execute('SELECT * FROM found_pets')
+    cursor.execute('SELECT * FROM found_pets ORDER BY created_at DESC')
     found = list(cursor.fetchall())
     cursor.close()
     return jsonify({"lost": lost, "found": found})
-
-
-@app.route('/landing')
-def landing():
-    return render_template('index2.html')
-
-
-# @app.route('/landing')
-# def landing():
-#     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-#     cursor.execute('SELECT * FROM lost_pets')
-#     articulos_lost = list(cursor.fetchall())
-#     cursor.execute('SELECT * FROM found_pets')
-#     articulos_found = list(cursor.fetchall())
-#     for elem_lost in articulos_lost:
-#         elem_lost['foto'] = os.path.join(UPLOAD_FOLDER, elem_lost['foto'])
-#         elem_lost['fecha'] = elem_lost['fecha'].strftime('%d/%m/%y')
-#     for elem_found in articulos_found:
-#         elem_found['foto'] = os.path.join(UPLOAD_FOLDER, elem_found['foto'])
-#         elem_found['fecha'] = elem_found['fecha'].strftime('%d/%m/%y')
-#     cursor.close()
-#     return render_template('index.html', articulos_lost=articulos_lost, articulos_found=articulos_found)
 
 
 @app.route('/<id>')
