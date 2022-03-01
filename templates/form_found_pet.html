@@ -24,20 +24,20 @@
         </div>
         <div class="form-group">
             <p>Se encontró el día 
-            <input type="date" name="fecha" placeholder="dd-mm-yyyy">
+            <input type="date" name="fecha" placeholder="dd-mm-yyyy" required>
             por barrio
-            <input type="text" name="barrio" placeholder="Barrio">
+            <input type="text" name="barrio" placeholder="Barrio" required>
             en las inmediaciones de 
-            <input type="text" name="calle_1" placeholder="Calle 1">
+            <input type="text" name="calle_1" placeholder="Calle 1" required>
             y 
-            <input type="text" name="calle_2" placeholder="Calle 2">
+            <input type="text" name="calle_2" placeholder="Calle 2" required>
             a las 
-            <input type="time" name="hora">
+            <input type="time" name="hora" required>
             horas.
             Si es tuyo o sabes de quien puede ser por favor comunícate con Usuario.</p>
             <br>
             <label for="image">Sube una imagen:</label>
-            <input type="file" name="foto">
+            <input type="file" name="foto" required>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </fieldset>

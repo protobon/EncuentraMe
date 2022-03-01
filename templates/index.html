@@ -6,46 +6,27 @@
 {% endblock %}
 
 {% block body %}
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for message in messages %}
+            <p>{{ message }}</p>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
 <div class="feed">
     <div class="filters">
         <div class="filter">
-            <button type="button" class="btn btn-success btn-sm" id="all">Todos</button>
+            <button type="button" class="btn btn-success btn-sm" id="all" onclick="refreshFeed()">Todos</button>
             <button type="button" class="btn btn-outline-success btn-sm" id="lost">Perdidos</button>
             <button type="button" class="btn btn-outline-success btn-sm" id="found">Encontrados</button>
         </div>
         <div class="post">
-            <a href="lost_pet" target="_blank" class="btn btn-primary" role="button">Publicar</a>
+            <a href="/lost_pet" class="btn btn-primary" role="button">Publicar</a>
         </div>
     </div>
-    <article>
-        {% for elem in articulos_lost %}
-        <div class="pet pet_lost">
-            <h1>Perdido</h1>
-            <p>¡Se busca a <b>{{ elem['nombre'] }}</b>! Perdido/a desde el día {{ elem['fecha'] }}
-                última vez visto en las inmediaciones de {{ elem['calle_1'] }} y
-                {{ elem['calle_2'] }} barrio {{ elem['barrio'] }} a las {{ elem['hora'] }}
-                horas.
-                Si lo viste por favor comunícate con Usuario.
-            </p>
-            <a href="/{{ elem['id'] }}" target="_blank">
-                <img src="{{ elem['foto'] }}" alt="">
-            </a>
-        </div>
-        {% endfor %}
-        {% for elem in articulos_found %}
-        <div class="pet pet_found">
-            <h1>Encontrado</h1>
-            <p>
-                Se encontró el día {{ elem['fecha'] }} por barrio {{ elem['barrio'] }} en las inmediaciones
-                de {{ elem['calle_1'] }} y {{ elem['calle_2'] }} a las {{ elem['hora'] }} horas.
-                Si es tuyo o sabes de quien puede ser por favor comunícate con Usuario.
-            </p>
-            <a href="/{{ elem['id'] }}" target="_blank">
-                <img src="{{ elem['foto'] }}" alt="">
-            </a>
-        </div>
-        {% endfor %}
+    <article class="posts">
     </article>
 </div>
 <script src="{{ url_for('static', filename='js/index.js') }}"></script>
+<script src="{{ url_for('static', filename='js/populate.js') }}"></script>
 {% endblock %}

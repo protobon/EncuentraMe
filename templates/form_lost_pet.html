@@ -6,6 +6,10 @@
 {% endblock %}
 
 {% block body %}
+<p>Atención: Este formulario es para quienes perdieron su mascota y quieren encontrarla.
+    Si encontraste un animalito en la calle y quieres publicarlo, presiona <a href="/found_pet">aquí.</a>
+</p>
+<br>
 <form action="/lost_pet" method="post" class="form_center" id="main_form" enctype="multipart/form-data">
     {% with messages = get_flashed_messages() %}
         {% if messages %}
@@ -24,22 +28,22 @@
         </div>
         <div class="form-group">
             <p>Se busca a 
-            <input type="text" name="nombre" placeholder="Nombre de tu mascota">
+            <input type="text" name="nombre" placeholder="Nombre de tu mascota" required>
             desde el día 
-            <input type="date" name="fecha" placeholder="dd-mm-yyyy">
+            <input type="date" name="fecha" placeholder="dd-mm-yyyy" required>
             última vez visto en las inmediaciones de 
-            <input type="text" name="calle_1" placeholder="Calle 1">
+            <input type="text" name="calle_1" placeholder="Calle 1" required>
             y 
-            <input type="text" name="calle_2" placeholder="Calle 2">
+            <input type="text" name="calle_2" placeholder="Calle 2" required>
             barrio
-            <input type="text" name="barrio" placeholder="Barrio">
+            <input type="text" name="barrio" placeholder="Barrio" required>
             a las 
-            <input type="time" name="hora">
+            <input type="time" name="hora" required>
             horas.
             Si lo viste por favor comunícate con Usuario.</p>
             <br>
             <label for="image">Sube una imagen:</label>
-            <input type="file" name="foto">
+            <input type="file" name="foto" required>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </fieldset>
