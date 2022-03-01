@@ -9,7 +9,6 @@ $(document).ready(function () {
             $('article.posts').empty();
             $.each(data.lost, function () {
                 let postLostNew = $(document.createElement('div'));
-                postLostNew.attr('id', 'lost');
                 postLostNew.addClass('pet');
                 postLostNew.addClass('pet_lost');
                 postLostNew.append('<p>¡Se busca a ' + this.nombre + '! Perdido/a desde el día '
@@ -22,7 +21,6 @@ $(document).ready(function () {
             });
             $.each(data.found, function () {
                 let postFoundNew = $(document.createElement('div'));
-                postFoundNew.attr('id', 'found');
                 postFoundNew.addClass('pet');
                 postFoundNew.addClass('pet_found');
                 postFoundNew.append('<p>Se encontró el día ' + this.fecha + ' por barrio '
