@@ -1,6 +1,6 @@
 $(document).ready(function () {
     async function fetchAllPosts() {
-        const response = await fetch('http://localhost:5000/api/all_posts');
+        const response = await fetch('http://localhost:5000/api/posts/all');
         const data = await response.json();
         return (data);
     }
