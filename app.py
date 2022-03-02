@@ -159,6 +159,12 @@ def form_found_pet():
         return redirect('/')
 
 
+@app.route('/<id>')
+def show_single_post(id):
+    return render_template('post_by_id.html')
+
+
+# RESTful APIs
 @app.route('/api/posts/all')
 def get_all_posts():
     """Retrieve all posts from database and return in JSON format"""

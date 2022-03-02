@@ -6,28 +6,7 @@
 {% endblock %}
 
 {% block body %}
-<article>
-    {% for elem in articulos %}
-        {% if 'lost' in elem['id'] %}
-            <div class="pet lost_pet">
-                <p>¡Se busca a <b>{{ elem['nombre'] }}</b>! Perdido/a desde el día {{ elem['fecha'] }}
-                    última vez visto en las inmediaciones de {{ elem['calle_1'] }} y
-                    {{ elem['calle_2'] }} barrio {{ elem['barrio'] }} a las {{ elem['hora'] }}
-                    horas.
-                    Si lo viste por favor comunícate con Usuario.
-                </p>
-                <img src="{{ elem['foto'] }}" alt="">
-            </div>
-        {% else %}
-            <div class="pet found_pet">
-                <p>
-                    Se encontró el día {{ elem['fecha'] }} por barrio {{ elem['barrio'] }} en las inmediaciones
-                    de {{ elem['calle_1'] }} y {{ elem['calle_2'] }} a las {{ elem['hora'] }} horas.
-                    Si es tuyo o sabes de quien puede ser por favor comunícate con Usuario.
-                </p>
-                <img src="{{ elem['foto'] }}" alt="">
-            </div>
-        {% endif %}
-    {% endfor %}
+<article class="posts">
 </article>
+<script src="{{ url_for('static', filename='js/fetchSinglePost.js') }}"></script>
 {% endblock %}
