@@ -12,7 +12,7 @@ fb_user = {'id': '123456', 'name': 'Super User', 'email': 'superuser@mail.com'}
 #graph = GraphAPI(access_token=access_token)
 
 UPLOAD_FOLDER = 'static/images'
-ALLOWED_EXTENSIONS = {'jpg', 'jpeg', 'png'}
+ALLOWED_EXTENSIONS = {'jpg', 'jpeg', 'png', 'jfif'}
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['SECRET_KEY'] = "ola_ke_ase"
@@ -71,7 +71,7 @@ def form_lost_pet():
             filename = file.filename
             file.save(os.path.join(app.root_path, app.config['UPLOAD_FOLDER'], filename))
         else:
-            flash('Formatos de imagen soportados: jpg, jpeg, png.')
+            flash('Formatos de imagen soportados: jpg, jpeg, png, jfif.')
             return redirect(request.url)
         cursor = mysql.connection.cursor()
         try:
@@ -127,12 +127,13 @@ def form_found_pet():
         if file.filename == '':
             flash('Debe subir una foto')
             return redirect(request.url)
-        file.filename = str(uuid.uuid4()) + '.' + file.filename.split('.')[1]
+        file.filename = str(uuid.uuid4()) + '.' + file.filename.rsplit('.', 1)[1].lower()
+        print(file.filename)
         if file and allowed_file(file.filename):
             filename = file.filename
             file.save(os.path.join(app.root_path, app.config['UPLOAD_FOLDER'], filename))
         else:
-            flash('Formatos de imagen soportados: jpg, jpeg, png.')
+            flash('Formatos de imagen soportados: jpg, jpeg, png, jfif.')
             return redirect(request.url)
         cursor = mysql.connection.cursor()
         try:
