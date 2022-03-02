@@ -6,10 +6,10 @@ from flask_mysqldb import MySQL
 import MySQLdb
 from facebook import GraphAPI
 
-#access_token = os.getenv('fb_token')
+access_token = os.getenv('fb_token')
 page_id = '113136957951816'
-fb_user = {'id': '123456', 'name': 'Super User', 'email': 'superuser@mail.com'}
-#graph = GraphAPI(access_token=access_token)
+#fb_user = {'id': '123456', 'name': 'Super User', 'email': 'superuser@mail.com'}
+graph = GraphAPI(access_token=access_token)
 
 UPLOAD_FOLDER = 'static/images'
 ALLOWED_EXTENSIONS = {'jpg', 'jpeg', 'png', 'jfif'}
@@ -37,14 +37,14 @@ def landing():
 @app.route('/lost_pet', methods=['GET', 'POST'])
 def form_lost_pet():
     if request.method == 'GET':
-        #fb_user = graph.get_object('me', fields='id,name,email')
+        fb_user = graph.get_object('me', fields='id,name,email')
         if fb_user:
             return render_template('form_lost_pet.html')
         else:
             flash('Para publicar, debe iniciar sesión con Facebook')
             return redirect('/')
     if request.method == 'POST':
-        #fb_user = graph.get_object('me', fields='id,name,email')
+        fb_user = graph.get_object('me', fields='id,name,email')
         id = "lost" + str(uuid.uuid4())
         estado = "active"
         created_at = datetime.utcnow()
@@ -99,14 +99,14 @@ def form_lost_pet():
 @app.route('/found_pet', methods=['GET', 'POST'])
 def form_found_pet():
     if request.method == 'GET':
-        #fb_user = graph.get_object('me', fields='id,name,email')
+        fb_user = graph.get_object('me', fields='id,name,email')
         if fb_user:
             return render_template('form_found_pet.html')
         else:
             flash('Para publicar, debe iniciar sesión con Facebook')
             return redirect('/')
     if request.method == 'POST':
-        #fb_user = graph.get_object('me', fields='id,name,email')
+        fb_user = graph.get_object('me', fields='id,name,email')
         id = "found" + str(uuid.uuid4())
         estado = "active"
         created_at = datetime.utcnow()
@@ -222,7 +222,7 @@ def get_post(id):
         cursor.close()
         return jsonify(post)
     if request.method == 'PUT':
-        #fb_user = graph.get_object('me', fields='id,name,email')
+        fb_user = graph.get_object('me', fields='id,name,email')
         if fb_user['id'] == post['user_id']:
             if "lost" in id:
                 cursor.execute("UPDATE lost_pets SET estado = 'completed' WHERE id=%s", [id])
@@ -237,7 +237,7 @@ def get_post(id):
             flash('No tienes permisos suficientes para ejecutar esta acción')
             return redirect('/')
     if request.method == 'DELETE':
-        #fb_user = graph.get_object('me', fields='id,name,email')
+        fb_user = graph.get_object('me', fields='id,name,email')
         if fb_user['id'] == post['user_id']:
             if "lost" in id:
                 cursor.execute("UPDATE lost_pets SET estado = 'removed' WHERE id=%s", [id])
