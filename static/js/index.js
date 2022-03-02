@@ -1,32 +1,3 @@
-<<<<<<< HEAD
-// $(document).ready(function () {
-//     $('#lost').click(function () {
-//         $('div.pet_found').each(function(i, obj) {
-//             $(obj).hide();
-//         });
-//         $('div.pet_lost').each(function(i, obj) {
-//             $(obj).show();
-//         });
-//     });
-//     $('#found').click(function () {
-//         $('div.pet_lost').each(function(i, obj) {
-//             $(obj).hide();
-//         });
-//         $('div.pet_found').each(function(i, obj) {
-//             $(obj).show();
-//         });
-//     });
-//     $('#all').click(function () {
-//         refreshFeed();
-//         $('div.pet_lost').each(function(i, obj) {
-//             $(obj).show();
-//         });
-//         $('div.pet_found').each(function(i, obj) {
-//             $(obj).show();
-//         });
-//     });
-// });
-=======
 $(document).ready(function () {
     $('#show').text('Te mostraremos: Todos')
     $('#gatitos').click(function () {
@@ -60,5 +31,3 @@ $(document).ready(function () {
         });
     });
 });
-
->>>>>>> fc876814b6ae18f2d8eaa4431c710ee1f3f29372
