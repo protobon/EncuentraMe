@@ -8,7 +8,7 @@ from facebook import GraphAPI
 
 #access_token = os.getenv('fb_token')
 page_id = '113136957951816'
-
+fb_user = {'id': '123456', 'name': 'Super User', 'email': 'superuser@mail.com'}
 #graph = GraphAPI(access_token=access_token)
 
 UPLOAD_FOLDER = 'static/images'
@@ -36,7 +36,6 @@ def landing():
 
 @app.route('/lost_pet', methods=['GET', 'POST'])
 def form_lost_pet():
-    fb_user = {'id': '123456'}
     if request.method == 'GET':
         #fb_user = graph.get_object('me', fields='id,name,email')
         if fb_user:
@@ -99,7 +98,6 @@ def form_lost_pet():
 
 @app.route('/found_pet', methods=['GET', 'POST'])
 def form_found_pet():
-    fb_user = {'id': '123456'}
     if request.method == 'GET':
         #fb_user = graph.get_object('me', fields='id,name,email')
         if fb_user:
@@ -218,36 +216,36 @@ def get_post(id):
     if request.method == 'GET':
         cursor.close()
         return jsonify(post)
-    # if request.method == 'PUT':
-    #     fb_user = graph.get_object('me', fields='id,name,email')
-    #     if fb_user['id'] == post['user_id']:
-    #         if "lost" in id:
-    #             cursor.execute("UPDATE lost_pets SET estado = 'completed' WHERE id=%s", [id])
-    #         else:
-    #             cursor.execute("UPDATE found_pets SET estado = 'completed' WHERE id=%s", [id])
-    #         mysql.connection.commit()
-    #         cursor.close()
-    #         flash('¡Felicidades! Nos alegra mucho que hayas encontrado a tu mascota :D')
-    #         return redirect('/')
-    #     else:
-    #         cursor.close()
-    #         flash('No tienes permisos suficientes para ejecutar esta acción')
-    #         return redirect('/')
-    # if request.method == 'DELETE':
-    #     fb_user = graph.get_object('me', fields='id,name,email')
-    #     if fb_user['id'] == post['user_id']:
-    #         if "lost" in id:
-    #             cursor.execute("UPDATE lost_pets SET estado = 'removed' WHERE id=%s", [id])
-    #         else:
-    #             cursor.execute("UPDATE found_pets SET estado = 'removed' WHERE id=%s", [id])
-    #         mysql.connection.commit()
-    #         cursor.close()
-    #         flash('Publicación eliminada correctamente')
-    #         return redirect('/')
-    #     else:
-    #         cursor.close()
-    #         flash('No tienes permisos suficientes para ejecutar esta acción')
-    #         return redirect('/')
+    if request.method == 'PUT':
+        #fb_user = graph.get_object('me', fields='id,name,email')
+        if fb_user['id'] == post['user_id']:
+            if "lost" in id:
+                cursor.execute("UPDATE lost_pets SET estado = 'completed' WHERE id=%s", [id])
+            else:
+                cursor.execute("UPDATE found_pets SET estado = 'completed' WHERE id=%s", [id])
+            mysql.connection.commit()
+            cursor.close()
+            flash('¡Felicidades! Nos alegra mucho que hayas encontrado a tu mascota :D')
+            return redirect('/')
+        else:
+            cursor.close()
+            flash('No tienes permisos suficientes para ejecutar esta acción')
+            return redirect('/')
+    if request.method == 'DELETE':
+        #fb_user = graph.get_object('me', fields='id,name,email')
+        if fb_user['id'] == post['user_id']:
+            if "lost" in id:
+                cursor.execute("UPDATE lost_pets SET estado = 'removed' WHERE id=%s", [id])
+            else:
+                cursor.execute("UPDATE found_pets SET estado = 'removed' WHERE id=%s", [id])
+            mysql.connection.commit()
+            cursor.close()
+            flash('Publicación eliminada correctamente')
+            return redirect('/')
+        else:
+            cursor.close()
+            flash('No tienes permisos suficientes para ejecutar esta acción')
+            return redirect('/')
 
 
 if __name__ == "__main__":
