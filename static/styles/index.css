@@ -81,10 +81,3 @@ nav a.navbar-brand img {
     border-radius: 5px;
     padding: 5px;
 }
-
-textarea {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 80%;
-}
