@@ -40,6 +40,16 @@ input {
     font-size: 0;
 }
 
+.selectAnimal {
+    margin-top: auto;
+    margin-bottom: auto;
+    align-items: center;
+}
+
+.selectAnimal p {
+    margin: 0;
+}
+
 .post {
     display: block;
     margin-left: auto;
