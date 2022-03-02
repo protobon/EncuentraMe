@@ -43,6 +43,9 @@ http://172.31.40.105:8000/
 
 run flask with gunicorn
 
+``sudo apt-get update``
+``sudo apt-get install gunicorn``
+
 ``gunicorn --version``
 
 gunicorn "urlshort:create_app()" -b 0.0.0.0
@@ -61,6 +64,27 @@ run gunicorn daemon
 
 ``http://encuentrame.org.xelar.tech`` from gunicorn to nginx
 ``https://encuentrame.org.xelar.tech`` from default nginx
+
+print resolved configuration
+
+``gunicorn --print-config APP_MODULE``
+
+check config
+
+``gunicorn --check-config APP_MODULE``
+
+config file (can be anywhere)
+
+``./gunicorn.conf.py``
+
+only works when specify in command line or as part of an application specific conf
+must be in the same directory where gunicorn is running
+
+Deploy using nginx
+
+sudo vim /etc/nginx/nginx.conf
+
+
 
 mysql
 
