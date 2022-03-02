@@ -21,7 +21,7 @@ $(document).ready(function() {
                 ' y ' + post.calle_2 + ' barrio ' + post.barrio + ' a las ' + post.hora + ' horas.\n'
                 + 'Si lo viste por favor comunícate con Usuario.</p>');
                 postLostAnimal.append('<a href="/' + post.id + '"></a>');
-                postLostAnimal.find('a').append('<img src="static/images/' + post.foto + '">');
+                postLostAnimal.find('a').append('<img src="/static/images/' + post.foto + '">');
                 $('article.posts').append(postLostAnimal);
             } else {
                 let postFoundAnimal = $(document.createElement('div'));
@@ -33,7 +33,7 @@ $(document).ready(function() {
                 ' y ' + post.calle_2 + ' a las ' + post.hora + ' horas.\n'
                 + 'Si es tuyo o sabes de quien puede ser por favor comunícate con Usuario.</p>');
                 postFoundAnimal.append('<a href="/' + post.id + '"></a>');
-                postFoundAnimal.find('a').append('<img src="static/images/' + post.foto + '">');
+                postFoundAnimal.find('a').append('<img src="/static/images/' + post.foto + '">');
                 $('article.posts').append(postFoundAnimal);
             }
         });

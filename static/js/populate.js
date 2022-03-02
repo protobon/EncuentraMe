@@ -18,7 +18,7 @@ $(document).ready(function () {
                 ' y ' + this.calle_2 + ' barrio ' + this.barrio + ' a las ' + this.hora + ' horas.\n'
                 + 'Si lo viste por favor comunícate con Usuario.</p>');
                 postLostNew.append('<a href="/' + this.id + '"></a>');
-                postLostNew.find('a').append('<img src="static/images/' + this.foto + '">');
+                postLostNew.find('a').append('<img src="/static/images/' + this.foto + '">');
                 $('article.posts').append(postLostNew);
             });
             $.each(data.found, function () {
@@ -31,7 +31,7 @@ $(document).ready(function () {
                 ' y ' + this.calle_2 + ' a las ' + this.hora + ' horas.\n'
                 + 'Si es tuyo o sabes de quien puede ser por favor comunícate con Usuario.</p>');
                 postFoundNew.append('<a href="/' + this.id + '"></a>');
-                postFoundNew.find('a').append('<img src="static/images/' + this.foto + '">');
+                postFoundNew.find('a').append('<img src="/static/images/' + this.foto + '">');
                 $('article.posts').append(postFoundNew);
             });
         });

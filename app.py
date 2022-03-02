@@ -163,6 +163,12 @@ def show_single_post(id):
     return render_template('post_by_id.html')
 
 
+@app.route('/profile/<user_id>')
+def user_profile(user_id):
+    """Render user profile with all owner's posts"""
+    return render_template('profile.html')
+
+
 # RESTful APIs
 @app.route('/api/posts/all')
 def get_all_posts():
