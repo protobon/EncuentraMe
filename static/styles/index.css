@@ -40,6 +40,16 @@ input {
     font-size: 0;
 }
 
+.selectAnimal {
+    margin-top: auto;
+    margin-bottom: auto;
+    align-items: center;
+}
+
+.selectAnimal p {
+    margin: 0;
+}
+
 .post {
     display: block;
     margin-left: auto;
@@ -80,11 +90,4 @@ nav a.navbar-brand img {
     border: 1px solid black;
     border-radius: 5px;
     padding: 5px;
-}
-
-textarea {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 80%;
 }

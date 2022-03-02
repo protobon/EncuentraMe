@@ -20,6 +20,12 @@
             <button type="button" class="btn btn-outline-success btn-sm" id="lost" onclick="refreshLost()">Perdidos</button>
             <button type="button" class="btn btn-outline-success btn-sm" id="found" onclick="refreshFound()">Encontrados</button>
         </div>
+        <div class="selectAnimal">
+            <input type="radio" name="animal-selection" id="todos" value="Todos" checked>Todos</input>
+            <input type="radio" name="animal-selection" id="perritos" value="Perritos">Perritos</input>
+            <input type="radio" name="animal-selection" id="gatitos" value="Gatitos">Gatitos</input>
+            <p id="show"> </p>
+        </div>
         <div class="post">
             <a href="/lost_pet" class="btn btn-primary" role="button">Publicar</a>
         </div>
