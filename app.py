@@ -208,8 +208,6 @@ def get_post(id):
     try:
         post = list(cursor.fetchall())[0]
     except Exception:
-        pass
-    if not post:
         flash('Publicación no encontrada')
         cursor.close()
         return redirect('/')
