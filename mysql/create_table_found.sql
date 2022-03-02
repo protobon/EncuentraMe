@@ -9,6 +9,6 @@ CREATE TABLE IF NOT EXISTS found_pets (
     calle_1 VARCHAR(30) NOT NULL,
     calle_2 VARCHAR(30) NOT NULL,
     barrio VARCHAR(30) NOT NULL,
-    foto VARCHAR(40) NOT NULL,
+    foto VARCHAR(41) NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
