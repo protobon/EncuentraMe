@@ -91,5 +91,4 @@ mysql
 ``sudo mysql -uroot -p``
 root password = encuentrame.98
 
-``cat script.sql | mysql -u root -p``
-
+``cat mysql/01-create_database.sql | mysql -u root -p``
