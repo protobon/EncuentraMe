@@ -142,3 +142,8 @@ gunicorn --bind 0.0.0.0:80 app:app
 ``pip install Flask-MySQLdb``
 
 ``pip install -e git+https://github.com/mobolic/facebook-sdk.git#egg=facebook-sdk``
+
+
+kill the process ctrl + c to finish gunicorn
+
+gunicorn --workers 2 --bind unix:encuentrame.sock -m 007 app:app &
