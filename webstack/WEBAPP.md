@@ -187,3 +187,59 @@ sudo systemctl restart nginx
 
 
 sudo service nginx status
+
+
+debugging the server name conflicting
+
+grep -r "encuentrame.org.xelar.tech" /etc/nginx/sites-enabled/*
+
+    sudo ufw allow 'Nginx Full'
+    sudo ufw delete allow 'Nginx HTTP'
+
+run the app on boot on the server
+
+sudo vim /lib/systemd/system/flask.service
+
+```bash
+[Unit]
+Description=Gunicorn Flask Application
+After=network.target
+After=systemd-user-sessions.service
+After=network-online.target
+
+[Service]
+User=root
+Type=simple
+ExecStart=/var/www/flask/hello-world/start.sh
+TimeoutSec=30
+Restart=on-failure
+RestartSec=15
+StartLimitInterval=350
+StartLimitBurst=10
+
+[Install]
+WantedBy=multi-user.target
+
+```
+
+sudo vim start.sh
+
+```bash
+#!/bin/bash
+echo Starting Flask example app.
+cd /var/www/flask
+source hello-world/bin/activate
+cd hello-world
+gunicorn -w 2 -b 127.0.0.1:8080 app:app
+``
+chmod 755 start.sh
+
+systemctl enable flask
+
+
+nginx deactivate the default
+
+rm /etc/nginx/sites-enabled/default
+
+restrict 8080, only nginx can access gunicorn
+iptables -A INPUT -p tcp --destination-port 8080 -j DROP
