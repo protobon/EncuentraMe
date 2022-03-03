@@ -85,7 +85,7 @@
                 setElements(false);
             });
         }
-        $('button#post').click(function() {
+        document.querySelector("#post").addEventListener("click", function() {
             alert("pressed!!!");
             FB.getLoginStatus(function(response) {
                 if (response.status === 'connected') {
