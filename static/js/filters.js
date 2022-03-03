@@ -54,7 +54,7 @@ $(document).ready(function () {
         $('#lost').addClass("btn-outline-success");
         $('#lost').removeClass("btn-success");
     });
-    $('post').click(function() {
+    $('button#post').click(function() {
         checkLoginState().then(function(response) {
             if (response.status === "connected") {
                 window.location.href = "https://encuentrame.org.xelar.tech/lost_pet";
