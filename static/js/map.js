@@ -1,25 +1,46 @@
+let map, infoWindow;
 // Initialize and add the map
 function initMap() {
-  function showLocation(position) {
-    var latitude = position.coords.latitude;
-    var longitude = position.coords.longitude;
-  }
-    // The map, centered specific location. Need to custom to ssers CurrentPosition
-      let map = new google.maps.Map(document.getElementById("map"), {
-        zoom: 13,
-        center: {lat: -34.901357, lng: -56.189205},
-      });
-      let infoWindow = new google.maps.InfoWindow({
-        // To display content (usually text or images) in a popup window above the map
-        content: "NOSENOSENOSE",
-        disableAutoPan: true,
-      });
-    //Set icons
-    const iconBase =
-      "https://developers.google.com/maps/documentation/javascript/examples/full/images/";
+  // The map, centered specific location. Need to custom to ssers CurrentPosition
+  map = new google.maps.Map(document.getElementById("map"), {
+    zoom: 13,
+    center: {lat: -34.901357, lng: -56.189205},
+  });
+  infoWindow = new google.maps.InfoWindow();
+  // To display content (usually text or images) in a popup window above the map
+  const locationButton = document.createElement("button");
+  locationButton.textContent = "Selecciona ubicación actual";
+  locationButton.classList.add("custom-map-control-button");
+  map.controls[google.maps.ControlPosition.TOP_CENTER].push(locationButton);
+  locationButton.addEventListener("click", () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const pos = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          };
+
+          infoWindow.setPosition(pos);
+          infoWindow.setContent("Location found.");
+          infoWindow.open(map);
+          map.setCenter(pos);
+        },
+        () => {
+          handleLocationError(true, infoWindow, map.getCenter());
+        }
+      );
+    } else {
+      // Browser doesn't support Geolocation
+      handleLocationError(false, infoWindow, map.getCenter());
+    }
+  });
+      //Set icons
+      const iconBase =
+      "https://www.gstatic.com/earth/images/stockicons/190201-2016-animal-paw_4x.png";
     const icons = {
       info: {
-        icon: iconBase + "parking_lot_maps.png",
+        icon: iconBase,
       },
     };
     // Add some locations for testing.
@@ -75,3 +96,12 @@ function initMap() {
       });
     };
 };
+function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+  infoWindow.setPosition(pos);
+  infoWindow.setContent(
+    browserHasGeolocation
+      ? "Error: The Geolocation service failed."
+      : "Error: Your browser doesn't support geolocation."
+  );
+  infoWindow.open(map);
+}
