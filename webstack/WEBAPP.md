@@ -243,3 +243,6 @@ rm /etc/nginx/sites-enabled/default
 
 restrict 8080, only nginx can access gunicorn
 iptables -A INPUT -p tcp --destination-port 8080 -j DROP
+
+
+gunicorn --bind 0.0.0.0:5000 wsgi:app
