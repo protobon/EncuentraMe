@@ -2,35 +2,50 @@
 
 {% block head %}
 <link rel="stylesheet" href="{{ url_for('static', filename='styles/index.css') }}">
-<script src="{{ url_for('static', filename='scripts/index.js') }}"></script>
 <title>Mascota Perdida</title>
 {% endblock %}
 
 {% block body %}
-<form action="/lost_pet" method="post" class="form_center" enctype="multipart/form-data">
+<p>Atención: Este formulario es para quienes perdieron su mascota y quieren encontrarla.
+    Si encontraste un animalito en la calle y quieres publicarlo, presiona <a href="/found_pet">aquí.</a>
+</p>
+<br>
+<form action="/lost_pet" method="post" class="form_center" id="main_form" enctype="multipart/form-data">
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <p>{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
     <fieldset>
+        <p>¿Qué perdiste?</p>
         <div class="form-group">
-            <label for="titulo">Título</label>
-            <input type="text" name="titulo">
+            <input type="radio" name="mascota" value="perro" id="perro" checked>
+            <label for="perro">Perro</label>
+            <input type="radio" name="mascota" value="gato" id="gato">
+            <label for="gato">Gato</label>
         </div>
         <div class="form-group">
-            <label for="descripcion">Descripción</label>
-            <textarea class="form-control rounded-0" name="descripcion" rows="5"></textarea>
+            <p>Se busca a 
+            <input type="text" name="nombre" placeholder="Nombre de tu mascota" required>
+            desde el día 
+            <input type="date" name="fecha" placeholder="dd-mm-yyyy" required>
+            última vez visto en las inmediaciones de 
+            <input type="text" name="calle_1" placeholder="Calle 1" required>
+            y 
+            <input type="text" name="calle_2" placeholder="Calle 2" required>
+            barrio
+            <input type="text" name="barrio" placeholder="Barrio" required>
+            a las 
+            <input type="time" name="hora" required>
+            horas.
+            Si lo viste por favor comunícate con Usuario.</p>
+            <br>
+            <label for="image">Sube una imagen:</label>
+            <input type="file" name="foto" required>
         </div>
-        <div class="form-group">
-            <label for="contacto">Contacto</label>
-            <input type="text" name="contacto" placeholder="Teléfono o email">
-        </div>
-        <div class="form-group">
-            <label for="image"></label>
-            <input type="file" name="image">
-        </div>
-        <div id="map"></div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </fieldset>
 </form>
-<script
-src="https://maps.googleapis.com/maps/api/js?key=AIzaSyABTjqDKNHu0j8LPdcj5SRSNABL9JmdgOw&callback=initMap&libraries=&v=weekly"
-async
-></script>
 {% endblock %}

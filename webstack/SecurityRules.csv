@@ -1,0 +1,15 @@
+GroupId,GroupName,Type,IpProtocol,FromPort,ToPort,IpRanges,Ipv6Ranges,PrefixListIds,UserIdGroupPairs
+sg-0f0a68441b48c1652,encuentrame_org_traffic,Inbound/Ingress,tcp,80,80,0.0.0.0/0,,,
+sg-0f0a68441b48c1652,encuentrame_org_traffic,Inbound/Ingress,tcp,80,80,,::/0,,
+sg-0f0a68441b48c1652,encuentrame_org_traffic,Inbound/Ingress,tcp,443,443,0.0.0.0/0,,,
+sg-0f0a68441b48c1652,encuentrame_org_traffic,Inbound/Ingress,tcp,443,443,,::/0,,
+sg-0f0a68441b48c1652,encuentrame_org_traffic,Outbound/Egress,-1,,,0.0.0.0/0,,,
+sg-055cba8c581eaa55a,default,Inbound/Ingress,-1,,,,,,sg-055cba8c581eaa55a
+sg-055cba8c581eaa55a,default,Outbound/Egress,-1,,,0.0.0.0/0,,,
+sg-00f1f5beb69576a17,launch-wizard-1,Inbound/Ingress,tcp,80,80,0.0.0.0/0,,,
+sg-00f1f5beb69576a17,launch-wizard-1,Inbound/Ingress,tcp,80,80,,::/0,,
+sg-00f1f5beb69576a17,launch-wizard-1,Inbound/Ingress,tcp,22,22,0.0.0.0/0,,,
+sg-00f1f5beb69576a17,launch-wizard-1,Inbound/Ingress,tcp,22,22,,::/0,,
+sg-00f1f5beb69576a17,launch-wizard-1,Inbound/Ingress,tcp,443,443,0.0.0.0/0,,,
+sg-00f1f5beb69576a17,launch-wizard-1,Inbound/Ingress,tcp,443,443,,::/0,,
+sg-00f1f5beb69576a17,launch-wizard-1,Outbound/Egress,-1,,,0.0.0.0/0,,,
