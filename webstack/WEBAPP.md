@@ -246,3 +246,31 @@ iptables -A INPUT -p tcp --destination-port 8080 -j DROP
 
 
 gunicorn --bind 0.0.0.0:5000 wsgi:app
+
+## opcion 0.1
+https://www.digitalocean.com/community/tutorials/como-preparar-aplicaciones-de-flask-con-gunicorn-y-nginx-en-ubuntu-18-04-es
+
+desactivar entorno virtual
+``deactivate``
+
+``sudo vim /etc/systemd/system/encuentrame.service``
+
+contenido del archivo
+
+```bash
+Description=Gunicorn instance to serve encuentrame.org
+After=network.target
+
+
+[Service]
+User=ubuntu
+Group=www-data
+
+WorkingDirectory=/home/ubuntu/encuentrame.org
+Environment="PATH=/home/ubuntu/encuentrame.org/env/bin"
+ExecStart=/home/ubuntu/encuentrame.org/env/bin/gunicorn --workers 2 --bind unix:encuentrame.sock -m 007 wsgi:app
+
+
+[Install]
+WantedBy=multi-user.target
+```
