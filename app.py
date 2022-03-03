@@ -8,7 +8,6 @@ import MySQLdb
 import logging
 
 access_token = os.getenv('fb_token')
-page_id = '113136957951816'
 user_test = {'id': '123456', 'name': 'Test User', 'email': 'test@encuentrame.com'}
 
 UPLOAD_FOLDER = 'static/images'
@@ -158,9 +157,9 @@ def api_posts():
 
 @app.route('/api/users/', methods=['GET', 'POST'])
 def api_users():
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     if request.method == 'GET':
         """Retrieve all users from database and return in JSON format"""
-        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         cursor.execute('SELECT * FROM users')
         users = list(cursor.fetchall())
         cursor.close()
@@ -175,6 +174,7 @@ def api_users():
             cursor.execute('INSERT INTO users VALUES (%s, %s, %s)', (user['id'], user['name'], user['email']))
         except Exception:
             pass
+        cursor.close()
         return jsonify(user)
 
 
