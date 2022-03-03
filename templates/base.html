@@ -86,6 +86,7 @@
             });
         }
         $('button#post').click(function() {
+            alert("pressed!!!");
             FB.getLoginStatus(function(response) {
                 if (response.status === 'connected') {
                 // The user is logged in and has authenticated your
