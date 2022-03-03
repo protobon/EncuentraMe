@@ -268,9 +268,79 @@ Group=www-data
 
 WorkingDirectory=/home/ubuntu/encuentrame.org
 Environment="PATH=/home/ubuntu/encuentrame.org/env/bin"
-ExecStart=/home/ubuntu/encuentrame.org/env/bin/gunicorn --workers 2 --bind unix:encuentrame.sock -m 007 wsgi:app
+ExecStart=/home/ubuntu/encuentrame.org/env/bin/gunicorn --workers 3 --bind unix:encuentrame.sock -m 007 wsgi:app
 
 
 [Install]
 WantedBy=multi-user.target
 ```
+
+iniciar el servicio Gunicorn que creamos y activarlo para que se cargue en el inicio:
+
+sudo systemctl start encuentrame
+sudo systemctl enable encuentrame
+
+Comprobemos el estado:
+
+sudo systemctl status encuentrame
+
+no funcionaba el servicio, instale pip en env sin sudo
+
+pip install gunicorn flask
+
+no encuentra mysqldb , lo instalo en el entorno virtual
+
+pip install Flask-MySQLdb
+
+falla
+
+pruebo correr el comando gunicorn en el entorno virtual y falla facebook
+
+instalo facebook en el entorno virtual
+
+pip install -e git+https://github.com/mobolic/facebook-sdk.git#egg=facebook-sdk
+
+
+configurar nginx
+
+sudo vim /etc/nginx/sites-available/encuentrame
+
+```bash
+server {
+    listen 80;
+    server_name encuentrame.org.xelar.tech;
+
+    location / {
+        include proxy_params;
+        proxy_pass http://unix:/home/ubuntu/encuentrame.org/encuentrame.sock;
+    }
+}
+
+```
+
+este me parece mejor, carga el estatico directo sin pasar por gunicorn
+
+```bash
+server {
+    listen 80;
+    server_name encuentrame.org.xelar.tech;
+    location /static {
+        alias /home/ubuntu/encuentrame.org/static;
+
+    }
+    location /media {
+        alias /home/ubuntu/encuentrame.org/media;
+    }
+    location / {
+        include proxy_params;
+        proxy_pass http://unix:/home/ubuntu/encuentrame.org/encuentrame.sock;
+    }
+}
+
+```
+
+sudo ln -s /etc/nginx/sites-available/encuentrame /etc/nginx/sites-enabled
+
+sudo nginx -t
+
+sudo ufw allow 'Nginx Full'
