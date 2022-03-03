@@ -39,12 +39,7 @@ def landing():
 @app.route('/lost_pet', methods=['GET', 'POST'])
 def form_lost_pet():
     if request.method == 'GET':
-        fb_user = graph.get_object('me', fields='id,name,email')
-        if fb_user:
-            return render_template('form_lost_pet.html')
-        else:
-            flash('Para publicar, debe iniciar sesión con Facebook')
-            return redirect('/')
+        return render_template('form_lost_pet.html')
     if request.method == 'POST':
         id = "lost" + str(uuid.uuid4())
         estado = "active"
