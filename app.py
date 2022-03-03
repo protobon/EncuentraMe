@@ -1,4 +1,5 @@
 from flask import Flask, jsonify, render_template, request, flash, redirect
+from flask_cors import CORS
 import os
 import uuid
 from datetime import datetime
@@ -13,6 +14,7 @@ graph = GraphAPI(access_token=access_token)
 UPLOAD_FOLDER = 'static/images'
 ALLOWED_EXTENSIONS = {'jpg', 'jpeg', 'png', 'jfif'}
 app = Flask(__name__)
+cors = CORS(app, resources={r"/*": {"origins": "0.0.0.0"}})
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['SECRET_KEY'] = "ola_ke_ase"
 app.config['MYSQL_HOST'] = 'localhost'
@@ -231,4 +233,4 @@ def api_post_by_id(id):
 
 
 if __name__ == "__main__":
-    app.run(host="127.0.0.1", port=5000)
+    app.run(host="localhost", port=5000, ssl_context=('cert.pem', 'key.pem'))
