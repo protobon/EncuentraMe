@@ -14,7 +14,7 @@ graph = GraphAPI(access_token=access_token)
 UPLOAD_FOLDER = 'static/images'
 ALLOWED_EXTENSIONS = {'jpg', 'jpeg', 'png', 'jfif'}
 app = Flask(__name__)
-cors = CORS(app, resources={r"/*": {"origins": "0.0.0.0"}})
+cors = CORS(app, resources={r"/api/*": {"origins": "0.0.0.0"}})
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['SECRET_KEY'] = "ola_ke_ase"
 app.config['MYSQL_HOST'] = 'localhost'
