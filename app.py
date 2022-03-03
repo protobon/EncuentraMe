@@ -175,10 +175,10 @@ def api_users():
         user = request.get_json()
         logfile(str(type(user)))
         try:
-            r = cursor.execute('INSERT INTO users VALUES (%s, %s, %s)', (user['id'], user['name'], user['email']), multi=True)
-            logfile(f"CURSOR RETURN: {str(r)}")
+            cursor.execute('INSERT INTO users VALUES (%s, %s, %s)', (user['id'], user['name'], user['email']))
         except Exception as e:
             logfile(str(e))
+            mysql.connection.commit()
         cursor.close()
         return jsonify(user)
 
