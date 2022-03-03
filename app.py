@@ -1,5 +1,8 @@
 from flask import Flask, jsonify, render_template, request, flash, redirect
+<<<<<<< HEAD
 from flask_cors import CORS
+=======
+>>>>>>> 3488ef2816d1ddf2951ccace951efaa190b0a35f
 import os
 import uuid
 from datetime import datetime
@@ -9,6 +12,10 @@ from facebook import GraphAPI
 
 access_token = os.getenv('fb_token')
 page_id = '113136957951816'
+<<<<<<< HEAD
+=======
+#fb_user = {'id': '123456', 'name': 'Super User', 'email': 'superuser@mail.com'}
+>>>>>>> 3488ef2816d1ddf2951ccace951efaa190b0a35f
 graph = GraphAPI(access_token=access_token)
 
 UPLOAD_FOLDER = 'static/images'
@@ -39,8 +46,17 @@ def landing():
 @app.route('/lost_pet', methods=['GET', 'POST'])
 def form_lost_pet():
     if request.method == 'GET':
-        return render_template('form_lost_pet.html')
+        fb_user = graph.get_object('me', fields='id,name,email')
+        if fb_user:
+            return render_template('form_lost_pet.html')
+        else:
+            flash('Para publicar, debe iniciar sesión con Facebook')
+            return redirect('/')
     if request.method == 'POST':
+<<<<<<< HEAD
+=======
+        fb_user = graph.get_object('me', fields='id,name,email')
+>>>>>>> 3488ef2816d1ddf2951ccace951efaa190b0a35f
         id = "lost" + str(uuid.uuid4())
         estado = "active"
         created_at = datetime.utcnow()
@@ -51,7 +67,11 @@ def form_lost_pet():
         calle_1 = request.form['calle_1']
         calle_2 = request.form['calle_2']
         barrio = request.form['barrio']
+<<<<<<< HEAD
         user_id = "123456"
+=======
+        user_id = fb_user['id']
+>>>>>>> 3488ef2816d1ddf2951ccace951efaa190b0a35f
         # check if the post request has the file part
         if 'foto' not in request.files:
             flash('Debe subir una imagen')
@@ -71,6 +91,13 @@ def form_lost_pet():
             return redirect(request.url)
         cursor = mysql.connection.cursor()
         try:
+<<<<<<< HEAD
+=======
+            cursor.execute('INSERT INTO users VALUES (%s, %s, %s)', (fb_user['id'], fb_user['name'], fb_user['email']))
+        except Exception:
+            pass
+        try:
+>>>>>>> 3488ef2816d1ddf2951ccace951efaa190b0a35f
             cursor.execute('INSERT INTO lost_pets VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',
                            (id, user_id, estado, created_at, mascota, nombre, fecha, hora, calle_1, calle_2, barrio, file.filename))
         except Exception as e:
@@ -83,16 +110,32 @@ def form_lost_pet():
         fecha = fecha_l[2] + '/' + fecha_l[1] + '/' + fecha_l[0]
         message = f"¡Se busca a {nombre}! Perdido/a desde el día {fecha} última vez visto\
                    en las inmediaciones de {calle_1} y {calle_2} barrio {barrio}\
+<<<<<<< HEAD
                    a las {hora} horas. Si lo viste por favor comunícate con Usuario."
         graph.put_photo(image=open(os.path.join(UPLOAD_FOLDER, file.filename), "rb"), message=message, album_path=page_id + '/photos')
+=======
+                   a las {hora} horas. Si lo viste por favor comunícate con {fb_user['name']}"
+        #graph.put_photo(image=open(os.path.join(UPLOAD_FOLDER, file.filename), "rb"), message=message, album_path=page_id + '/photos')
+>>>>>>> 3488ef2816d1ddf2951ccace951efaa190b0a35f
         return redirect('/')
 
 
 @app.route('/found_pet', methods=['GET', 'POST'])
 def form_found_pet():
     if request.method == 'GET':
+<<<<<<< HEAD
         return render_template('form_found_pet.html')
     if request.method == 'POST':
+=======
+        fb_user = graph.get_object('me', fields='id,name,email')
+        if fb_user:
+            return render_template('form_found_pet.html')
+        else:
+            flash('Para publicar, debe iniciar sesión con Facebook')
+            return redirect('/')
+    if request.method == 'POST':
+        fb_user = graph.get_object('me', fields='id,name,email')
+>>>>>>> 3488ef2816d1ddf2951ccace951efaa190b0a35f
         id = "found" + str(uuid.uuid4())
         estado = "active"
         created_at = datetime.utcnow()
@@ -102,7 +145,11 @@ def form_found_pet():
         calle_1 = request.form['calle_1']
         calle_2 = request.form['calle_2']
         barrio = request.form['barrio']
+<<<<<<< HEAD
         user_id = "123456"
+=======
+        user_id = fb_user['id']
+>>>>>>> 3488ef2816d1ddf2951ccace951efaa190b0a35f
         # check if the post request has the file part
         if 'foto' not in request.files:
             flash('Debe subir una imagen')
@@ -113,8 +160,14 @@ def form_found_pet():
         if file.filename == '':
             flash('Debe subir una foto')
             return redirect(request.url)
+<<<<<<< HEAD
         if file and allowed_file(file.filename):
             file.filename = str(uuid.uuid4()) + '.' + file.filename.rsplit('.', 1)[1].lower()
+=======
+        file.filename = str(uuid.uuid4()) + '.' + file.filename.rsplit('.', 1)[1].lower()
+        print(file.filename)
+        if file and allowed_file(file.filename):
+>>>>>>> 3488ef2816d1ddf2951ccace951efaa190b0a35f
             filename = file.filename
             file.save(os.path.join(app.root_path, app.config['UPLOAD_FOLDER'], filename))
         else:
@@ -122,6 +175,13 @@ def form_found_pet():
             return redirect(request.url)
         cursor = mysql.connection.cursor()
         try:
+<<<<<<< HEAD
+=======
+            cursor.execute('INSERT INTO users VALUES (%s, %s, %s)', (fb_user['id'], fb_user['name'], fb_user['email']))
+        except Exception:
+            pass
+        try:
+>>>>>>> 3488ef2816d1ddf2951ccace951efaa190b0a35f
             cursor.execute('INSERT INTO found_pets VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',
                         (id, user_id, estado, created_at, mascota, fecha, hora, calle_1, calle_2, barrio, file.filename))
         except Exception as e:
@@ -134,8 +194,13 @@ def form_found_pet():
         fecha = fecha_l[2] + '/' + fecha_l[1] + '/' + fecha_l[0]
         message = f"¡Se encontró! Perdido/a desde el día {fecha} última vez visto\
                   en las inmediaciones de {calle_1} y {calle_2} barrio {barrio} a las {hora} horas.\
+<<<<<<< HEAD
                   Si lo viste por favor comunícate con Usuario."
         graph.put_photo(image=open(os.path.join(UPLOAD_FOLDER, file.filename), "rb"), message=message, album_path=page_id + '/photos')
+=======
+                  Si lo viste por favor comunícate con {fb_user['name']}"
+        #graph.put_photo(image=open(os.path.join(UPLOAD_FOLDER, file.filename), "rb"), message=message, album_path=page_id + '/photos')
+>>>>>>> 3488ef2816d1ddf2951ccace951efaa190b0a35f
         return redirect('/')
 
 
@@ -151,8 +216,13 @@ def user_profile(user_id):
 
 
 # RESTful APIs
+<<<<<<< HEAD
 @app.route('/api/posts/')
 def api_posts():
+=======
+@app.route('/api/posts/all')
+def get_all_posts():
+>>>>>>> 3488ef2816d1ddf2951ccace951efaa190b0a35f
     """Retrieve all posts from database and return in JSON format"""
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     cursor.execute("SELECT * FROM lost_pets WHERE estado = 'active' ORDER BY created_at DESC")
@@ -163,6 +233,7 @@ def api_posts():
     return jsonify({"lost": lost, "found": found})
 
 
+<<<<<<< HEAD
 @app.route('/api/users/', methods=['GET', 'POST'])
 def api_users():
     if request.method == 'GET':
@@ -194,11 +265,36 @@ def api_user_posts(user_id):
     cursor.execute('SELECT * FROM found_pets WHERE user_id=%s', [user_id])
     found = list(cursor.fetchall())
     cursor.close()
+=======
+@app.route('/api/users/all')
+def get_all_users():
+    """Retrieve all users from database and return in JSON format"""
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute('SELECT * FROM users')
+    users = list(cursor.fetchall())
+    cursor.close()
+    return jsonify(users)
+
+
+@app.route('/api/<user_id>/posts')
+def posts_by_user(user_id):
+    """Retrieve all posts from user by user_id and return in JSON format"""
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute('SELECT * FROM lost_pets WHERE user_id=%s', [user_id])
+    lost = list(cursor.fetchall())
+    cursor.execute('SELECT * FROM found_pets WHERE user_id=%s', [user_id])
+    found = list(cursor.fetchall())
+    cursor.close()
+>>>>>>> 3488ef2816d1ddf2951ccace951efaa190b0a35f
     return jsonify({"lost": lost, "found": found})
 
 
 @app.route('/api/posts/<id>', methods=['GET', 'PUT', 'DELETE'])
+<<<<<<< HEAD
 def api_post_by_id(id):
+=======
+def get_post(id):
+>>>>>>> 3488ef2816d1ddf2951ccace951efaa190b0a35f
     """All user CRUD operations for one single post by ID"""
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     if "lost" in id:
@@ -215,6 +311,7 @@ def api_post_by_id(id):
         cursor.close()
         return jsonify(post)
     if request.method == 'PUT':
+<<<<<<< HEAD
         if "lost" in id:
             cursor.execute("UPDATE lost_pets SET estado = 'completed' WHERE id=%s", [id])
         else:
@@ -236,3 +333,39 @@ def api_post_by_id(id):
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0")
+=======
+        fb_user = graph.get_object('me', fields='id,name,email')
+        if fb_user['id'] == post['user_id']:
+            if "lost" in id:
+                cursor.execute("UPDATE lost_pets SET estado = 'completed' WHERE id=%s", [id])
+            else:
+                cursor.execute("UPDATE found_pets SET estado = 'completed' WHERE id=%s", [id])
+            mysql.connection.commit()
+            cursor.close()
+            flash('¡Felicidades! Nos alegra mucho que hayas encontrado a tu mascota :D')
+            return redirect('/')
+        else:
+            cursor.close()
+            flash('No tienes permisos suficientes para ejecutar esta acción')
+            return redirect('/')
+    if request.method == 'DELETE':
+        fb_user = graph.get_object('me', fields='id,name,email')
+        if fb_user['id'] == post['user_id']:
+            if "lost" in id:
+                cursor.execute("UPDATE lost_pets SET estado = 'removed' WHERE id=%s", [id])
+            else:
+                cursor.execute("UPDATE found_pets SET estado = 'removed' WHERE id=%s", [id])
+            mysql.connection.commit()
+            cursor.close()
+            flash('Publicación eliminada correctamente')
+            return redirect('/')
+        else:
+            cursor.close()
+            flash('No tienes permisos suficientes para ejecutar esta acción')
+            return redirect('/')
+
+
+if __name__ == "__main__":
+    # app.run(host="127.0.0.1", port=5000)
+    app.run(host='0.0.0.0')
+>>>>>>> 3488ef2816d1ddf2951ccace951efaa190b0a35f

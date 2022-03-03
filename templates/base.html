@@ -29,17 +29,27 @@
                 xfbml      : true,
                 version    : 'v13.0',
             });
+<<<<<<< HEAD
 
             FB.AppEvents.logPageView();
 
         };
 
         (function(d, s, id) {
+=======
+            
+            FB.getLoginStatus(function(response) {
+                statusChangeCallback(response);
+            });        
+        };
+        (function(d, s, id){
+>>>>>>> 3488ef2816d1ddf2951ccace951efaa190b0a35f
             var js, fjs = d.getElementsByTagName(s)[0];
             if (d.getElementById(id)) {return;}
             js = d.createElement(s); js.id = id;
             js.src = "https://connect.facebook.net/en_US/sdk.js";
             fjs.parentNode.insertBefore(js, fjs);
+<<<<<<< HEAD
         } (document, 'script', 'facebook-jssdk'));
 
         function statusChangeCallback(response) {
@@ -47,11 +57,21 @@
                 setElements(true);
                 console.log('Logged in and anthenticated');
                 sendCredentials();
+=======
+        }(document, 'script', 'facebook-jssdk'));
+            
+        function statusChangeCallback(response){
+            if(response.status === 'connected'){
+                setElements(true);
+                console.log('Logged in and anthenticated');
+                testAPI();
+>>>>>>> 3488ef2816d1ddf2951ccace951efaa190b0a35f
             } else {
                 console.log('Not authenticated');
                 setElements(false);
             }
         }
+<<<<<<< HEAD
         function setElements(isLoggedIn) {
             if(isLoggedIn) {
                 document.getElementById('fb-btn').style.display = 'none';
@@ -61,6 +81,17 @@
                 document.getElementById('fb-btn').style.display = 'block';
                 document.getElementById('logout').style.display = 'none';
                 document.getElementById('profile').style.display = 'block';
+=======
+        function setElements(isLoggedIn){
+            if(isLoggedIn){
+                document.getElementById('fb-btn').style.display = 'none';
+                document.getElementById('logout').style.display = 'block';
+                        document.getElementById('profile').style.display = 'block';
+            } else {
+                document.getElementById('fb-btn').style.display = 'block';
+                document.getElementById('logout').style.display = 'none';
+                        document.getElementById('profile').style.display = 'block';
+>>>>>>> 3488ef2816d1ddf2951ccace951efaa190b0a35f
             }
         }
         function checkLoginState() {
@@ -68,6 +99,7 @@
                 statusChangeCallback(response);
             });
         }
+<<<<<<< HEAD
         function sendCredentials() {
             FB.api('/me?fields=name,email,id,link', function(response) {
                 if(response && !response.error) {
@@ -99,6 +131,31 @@
         // }
         function logout() {
             FB.logout(function(response) {
+=======
+        function testAPI(){
+            FB.api('/me?fields=name,email,id,link', function(response){
+                if(response && !response.error){
+                    //console.log(response);
+                    buildProfile(response);
+                }
+            })
+        }
+        function buildProfile(user){
+            let useremail = user.email
+            let userid = user.id
+            let username = user.name
+            let profile = `
+                <h3>${user.name}</h3>
+                <ul class="list-group">
+                    <li class "list-group-item">User ID: ${user.id}</li>
+                    <li class "list-group-item">Email: ${user.email}</li>
+                    <li class "list-group-item">Link: ${user.link}</li>
+            `;
+            document.getElementById("profile").innerHTML = profile;
+        }
+        function logout(){
+            FB.logout(function(response){
+>>>>>>> 3488ef2816d1ddf2951ccace951efaa190b0a35f
                 setElements(false);
             });
         }

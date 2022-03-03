@@ -6,10 +6,13 @@
 {% endblock %}
 
 {% block body %}
+<<<<<<< HEAD
 <p>Atención: Este formulario es para quienes encontraron un animalito en la calle y desean compartirlo.
     Si perdiste a tu mascota y quieres publicarlo has click <a href="/lost_pet">aquí.</a>
 </p>
 <br>
+=======
+>>>>>>> 3488ef2816d1ddf2951ccace951efaa190b0a35f
 <form action="/found_pet" method="post" class="form_center" id="main_form" enctype="multipart/form-data">
     {% with messages = get_flashed_messages() %}
         {% if messages %}
