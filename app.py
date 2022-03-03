@@ -31,7 +31,7 @@ def allowed_file(filename):
 
 
 def logfile(traceback):
-    with open("app_traceback.txt", 'a') as f:
+    with open("app_traceback.txt", 'w') as f:
         f.write(traceback)
         f.close()
     return False
@@ -175,7 +175,7 @@ def api_users():
         user = request.get_json()
         logfile(str(type(user)))
         try:
-            r = cursor.execute('INSERT INTO users VALUES (%s, %s, %s)', (user['id'], user['name'], user['email']))
+            r = cursor.execute('INSERT INTO users VALUES (%s, %s, %s)', (user['id'], user['name'], user['email']), multi=True)
             logfile(f"CURSOR RETURN: {str(r)}")
         except Exception as e:
             logfile(str(e))
