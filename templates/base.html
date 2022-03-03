@@ -85,7 +85,7 @@
                 setElements(false);
             });
         }
-        const postButton = document.querySelector("#post");
+        window.postButton = document.querySelector("#post");
         postButton.addEventListener("click", function() {
             alert("pressed!!!");
             FB.getLoginStatus(function(response) {
