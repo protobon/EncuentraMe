@@ -30,6 +30,12 @@ def allowed_file(filename):
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
+def logfile(traceback):
+    with open("app_traceback.txt", 'a') as f:
+        f.write(traceback)
+        f.close()
+    return False
+
 @app.route('/')
 def landing():
     """Landing page"""
@@ -70,14 +76,14 @@ def form_lost_pet():
         cursor = mysql.connection.cursor()
         try:
             cursor.execute('INSERT INTO users VALUES (%s, %s, %s)', (user_test['id'], user_test['name'], user_test['email']))
-        except Exception:
-            pass
+        except Exception as e:
+            logfile(e)
         try:
             cursor.execute('INSERT INTO lost_pets VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',
                            (id, user_test['id'], estado, created_at, mascota, nombre, fecha, hora, calle_1, calle_2, barrio, file.filename))
         except Exception as e:
             flash('Ha ocurrido un error, asegúrese de ingresar los datos correctamente')
-            print(e)
+            logfile(e)
             return redirect(request.url)
         mysql.connection.commit()
         cursor.close()
@@ -117,14 +123,10 @@ def form_found_pet():
             return redirect(request.url)
         cursor = mysql.connection.cursor()
         try:
-            cursor.execute('INSERT INTO users VALUES (%s, %s, %s)', (user_test['id'], user_test['name'], user_test['email']))
-        except Exception:
-            pass
-        try:
             cursor.execute('INSERT INTO found_pets VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',
                         (id, user_test['id'], estado, created_at, mascota, fecha, hora, calle_1, calle_2, barrio, file.filename))
         except Exception as e:
-            flash(e)
+            logfile(e)
             return redirect(request.url)
         mysql.connection.commit()
         cursor.close()
@@ -171,11 +173,11 @@ def api_users():
         if (content_type != 'application/json'):
             return (jsonify("Not a JSON"), 400)
         user = request.get_json()
-        print(user)
+        logfile(str(user))
         try:
             cursor.execute('INSERT INTO users VALUES (%s, %s, %s)', (user['id'], user['name'], user['email']))
         except Exception as e:
-            return False
+            logfile(e)
         cursor.close()
         return jsonify(user)
 
