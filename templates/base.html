@@ -85,7 +85,7 @@
                 setElements(false);
             });
         }
-        window.onload(function() {
+        function validatePostButton() {
             const postButton = document.querySelector("#post");
             postButton.addEventListener("click", function() {
                 alert("pressed!!!");
@@ -105,7 +105,8 @@
                     }
                 });
             });
-        });
+        };
+        window.addEventListener("load", validatePostButton);
     </script>
     <nav class="navbar navbar-light bg-light justify-content-between">
         <a class="navbar-brand" href="/">
