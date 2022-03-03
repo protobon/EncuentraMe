@@ -75,10 +75,6 @@ def form_lost_pet():
             return redirect(request.url)
         cursor = mysql.connection.cursor()
         try:
-            cursor.execute('INSERT INTO users VALUES (%s, %s, %s)', (user_test['id'], user_test['name'], user_test['email']))
-        except Exception as e:
-            logfile(e)
-        try:
             cursor.execute('INSERT INTO lost_pets VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',
                            (id, user_test['id'], estado, created_at, mascota, nombre, fecha, hora, calle_1, calle_2, barrio, file.filename))
         except Exception as e:
