@@ -9,6 +9,7 @@ from facebook import GraphAPI
 
 access_token = os.getenv('fb_token')
 page_id = '113136957951816'
+user_test = {'id': '123456', 'name': 'Test User', 'email': 'test@encuentrame.com'}
 graph = GraphAPI(access_token=access_token)
 
 UPLOAD_FOLDER = 'static/images'
@@ -51,7 +52,6 @@ def form_lost_pet():
         calle_1 = request.form['calle_1']
         calle_2 = request.form['calle_2']
         barrio = request.form['barrio']
-        user_id = "123456"
         # check if the post request has the file part
         if 'foto' not in request.files:
             flash('Debe subir una imagen')
@@ -71,12 +71,12 @@ def form_lost_pet():
             return redirect(request.url)
         cursor = mysql.connection.cursor()
         try:
-            cursor.execute('INSERT INTO users VALUES (%s)', (user_id))
+            cursor.execute('INSERT INTO users VALUES (%s, %s, %s)', (user_test['id'], user_test['name'], user_test['email']))
         except Exception:
             pass
         try:
             cursor.execute('INSERT INTO lost_pets VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',
-                           (id, user_id, estado, created_at, mascota, nombre, fecha, hora, calle_1, calle_2, barrio, file.filename))
+                           (id, user_test['id'], estado, created_at, mascota, nombre, fecha, hora, calle_1, calle_2, barrio, file.filename))
         except Exception as e:
             flash('Ha ocurrido un error, asegúrese de ingresar los datos correctamente')
             print(e)
@@ -106,7 +106,6 @@ def form_found_pet():
         calle_1 = request.form['calle_1']
         calle_2 = request.form['calle_2']
         barrio = request.form['barrio']
-        user_id = "123456"
         # check if the post request has the file part
         if 'foto' not in request.files:
             flash('Debe subir una imagen')
@@ -126,15 +125,14 @@ def form_found_pet():
             return redirect(request.url)
         cursor = mysql.connection.cursor()
         try:
-            cursor.execute('INSERT INTO users VALUES (%s)', (user_id))
+            cursor.execute('INSERT INTO users VALUES (%s, %s, %s)', (user_test['id'], user_test['name'], user_test['email']))
         except Exception:
             pass
         try:
             cursor.execute('INSERT INTO found_pets VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',
-                        (id, user_id, estado, created_at, mascota, fecha, hora, calle_1, calle_2, barrio, file.filename))
+                        (id, user_test['id'], estado, created_at, mascota, fecha, hora, calle_1, calle_2, barrio, file.filename))
         except Exception as e:
-            flash('Ha ocurrido un error, asegúrese de ingresar los datos correctamente')
-            print(e)
+            flash(e)
             return redirect(request.url)
         mysql.connection.commit()
         cursor.close()
