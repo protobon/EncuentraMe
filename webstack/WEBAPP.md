@@ -92,3 +92,55 @@ mysql
 root password = encuentrame.98
 
 ``cat mysql/01-create_database.sql | mysql -u root -p``
+
+
+
+***
+
+## deploy flask with gunicorn
+
+``cd encuentrame.org``
+
+create virtual environment
+
+``virtualenv env``
+
+```bash
+ubuntu@ip-172-31-40-105:~/encuentrame.org$ virtualenv env
+created virtual environment CPython3.8.10.final.0-64 in 1161ms
+  creator CPython3Posix(dest=/home/ubuntu/encuentrame.org/env, clear=False, no_vcs_ignore=False, global=False)
+  seeder FromAppData(download=False, pip=bundle, setuptools=bundle, wheel=bundle, via=copy, app_data_dir=/home/ubuntu/.local/share/virtualenv)
+    added seed packages: pip==22.0.3, setuptools==60.9.3, wheel==0.37.1
+  activators BashActivator,CShellActivator,FishActivator,NushellActivator,PowerShellActivator,PythonActivator
+ubuntu@ip-172-31-40-105:~/encuentrame.org$
+```
+
+> edit the activate file
+
+``sudo vim env/bin/activate``
+
+``export FLASK_APP="app"
+export FLASK_ENV="production"
+# export APP_SETTINGS_MODULE="config.prod``
+
+> activate the virtual environment
+
+``source env/bin/activate``
+
+> install dependencies
+
+``pip install -r requirements.txt``
+
+> levantar gunicorn indicando la instancia de la aplicacion
+
+gunicorn --bind 0.0.0.0:80 app:app
+
+from flask import Flask
+app = Flask(__name__)
+@app.route('/')
+def index():
+    return 'hello world'
+if __name__ == '__main__':
+    from werkzeug.contrib.fixers import ProxyFix
+    app.wsgi_app = ProxyFix(app.wsgi_app)
+    app.run(
