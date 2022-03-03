@@ -176,7 +176,7 @@ def api_users():
         logfile(str(type(user)))
         try:
             r = cursor.execute('INSERT INTO users VALUES (%s, %s, %s)', (user['id'], user['name'], user['email']))
-            logfile(str(r))
+            logfile(f"CURSOR RETURN: {str(r)}")
         except Exception as e:
             logfile(str(e))
         cursor.close()
