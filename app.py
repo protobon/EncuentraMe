@@ -92,6 +92,7 @@ def form_lost_pet():
             graph.put_photo(image=open(os.path.join(UPLOAD_FOLDER, file.filename), "rb"), message=message, album_path=page_id + '/photos')
         except Exception as e:
             flash(e)
+            return redirect('/')
         return redirect('/')
 
 
@@ -148,6 +149,7 @@ def form_found_pet():
             graph.put_photo(image=open(os.path.join(UPLOAD_FOLDER, file.filename), "rb"), message=message, album_path=page_id + '/photos')
         except Exception as e:
             flash(e)
+            return redirect('/')
         return redirect('/')
 
 
