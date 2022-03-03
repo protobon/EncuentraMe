@@ -91,3 +91,12 @@ nav a.navbar-brand img {
     border-radius: 5px;
     padding: 5px;
 }
+
+#changeStatus {
+    float:left;
+}
+
+#report {
+    float:right;
+}
+

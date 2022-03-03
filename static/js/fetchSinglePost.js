@@ -22,6 +22,8 @@ $(document).ready(function() {
                 + 'Si lo viste por favor comunícate con Usuario.</p>');
                 postLostAnimal.append('<a href="/' + post.id + '"></a>');
                 postLostAnimal.find('a').append('<img src="/static/images/' + post.foto + '">');
+                postLostAnimal.append('<button type="button" id="changeStatus" class="btn btn-success">¡Ya estamos juntos nuevamente!</button>')                
+                postLostAnimal.append('<button type="button" id="report" class="btn">Reportar</button>')                
                 $('article.posts').append(postLostAnimal);
             } else {
                 let postFoundAnimal = $(document.createElement('div'));
@@ -34,7 +36,8 @@ $(document).ready(function() {
                 + 'Si es tuyo o sabes de quien puede ser por favor comunícate con Usuario.</p>');
                 postFoundAnimal.append('<a href="/' + post.id + '"></a>');
                 postFoundAnimal.find('a').append('<img src="/static/images/' + post.foto + '">');
-                postFoundAnimal.append('<p> Es mi mascota y ya estamos juntos nuevamente!</p>')
+                postFoundAnimal.append('<button type="button" id="changeStatus" class="btn btn-success">¡Es mi mascota y ya estamos juntos nuevamente!</button>')
+                postFoundAnimal.append('<button type="button" id="report" class="btn">Reportar</button>')
                 $('article.posts').append(postFoundAnimal);
             }
         });
