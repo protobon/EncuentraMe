@@ -147,3 +147,26 @@ gunicorn --bind 0.0.0.0:80 app:app
 kill the process ctrl + c to finish gunicorn
 
 gunicorn --workers 2 --bind unix:encuentrame.sock -m 007 app:app &
+
+
+nginx soporte a aplicaciones
+
+sudo vim /etc/nginx/sites-available/encuentrame
+
+```bash
+server {
+    listen 80;
+    server_name encuentrame.org.xelar.tech;
+    location /static {
+        alias /home/ubuntu/encuentrame.org/static;
+
+    }
+    location /media {
+        alias /home/ubuntu/encuentrame.org/media;
+    }
+    location / {
+        include proxy_params;
+        proxy_pass http://unix:/home/ubuntu/encuentrame.org/encuentrame.sock;
+    }
+}
+```
