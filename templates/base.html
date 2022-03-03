@@ -69,18 +69,16 @@
             });
         }
         function sendCredentials() {
-            FB.api('/me?fields=name,email,id,link', function(response) {
+            FB.api('/me?fields=name,email,id', function(response) {
                 if(response && !response.error) {
-                    async () => {
-                        const request = {
-                            method: 'POST',
-                            headers: {'Content-Type': 'application/json'},
-                            body: JSON.stringify(response)
-                        };
-                        const res = await fetch('https://encuentrame.org.xelar.tech/api/users/', request);
-                        const data = await res.json();
-                        console.log(data);
-                    }
+                    fetch('https://encuentrame.org.xelar.tech/api/users/', {
+                        method: 'POST',
+                        headers: {'Content-Type': 'application/json'},
+                        body: JSON.stringify(response)
+                    })
+                    .then(response => response.json())
+                    .then(json => console.log(json))
+                    .catch(err => console.log(err));
                 }
             });
         }
