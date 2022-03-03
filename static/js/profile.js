@@ -3,11 +3,7 @@ $(document).ready(function () {
     const urlArray = url.split('/');
     const userId = urlArray[urlArray.length - 1];
     async function fetchUserPosts() {
-<<<<<<< HEAD
         const response = await fetch('https://encuentrame.xelar.org.tech/api/users/' + userId + "/posts");
-=======
-        const response = await fetch('http://localhost:5000/api/' + userId + "/posts");
->>>>>>> 3488ef2816d1ddf2951ccace951efaa190b0a35f
         const data = await response.json();
         return (data);
     }
