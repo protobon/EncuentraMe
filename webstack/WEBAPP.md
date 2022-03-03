@@ -170,3 +170,20 @@ server {
     }
 }
 ```
+
+Nginx tenga en cuenta la configuración anterior, crea el siguiente enlace simbólico
+
+
+ln -s /etc/nginx/sites-available/encuentrame /etc/nginx/sites-enabled
+
+
+test
+
+sudo nginx -t
+
+restart nginx
+
+sudo systemctl restart nginx
+
+
+sudo service nginx status
