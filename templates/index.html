@@ -13,25 +13,32 @@
         {% endfor %}
     {% endif %}
 {% endwith %}
-<div class="feed">
-    <div class="filters">
-        <div class="filter">
-            <button type="button" class="btn btn-success btn-sm" id="all" onclick="refreshFeed()">Todos</button>
-            <button type="button" class="btn btn-outline-success btn-sm" id="lost" onclick="refreshLost()">Perdidos</button>
-            <button type="button" class="btn btn-outline-success btn-sm" id="found" onclick="refreshFound()">Encontrados</button>
+<div class="content">
+    <div class="feed">
+        <div class="filters">
+            <div class="filter">
+                <button type="button" class="btn btn-success btn-sm" id="all" onclick="refreshFeed()">Todos</button>
+                <button type="button" class="btn btn-outline-success btn-sm" id="lost" onclick="refreshLost()">Perdidos</button>
+                <button type="button" class="btn btn-outline-success btn-sm" id="found" onclick="refreshFound()">Encontrados</button>
+            </div>
+            <div class="selectAnimal">
+                <input type="radio" name="animal-selection" id="todos" value="Todos" checked>Todos</input>
+                <input type="radio" name="animal-selection" id="perritos" value="Perritos">Perritos</input>
+                <input type="radio" name="animal-selection" id="gatitos" value="Gatitos">Gatitos</input>
+                <p id="show"> </p>
+            </div>
+            <div class="post">
+                <a href="/lost_pet" class="btn btn-primary" role="button">Publicar</a>
+            </div>
         </div>
-        <div class="selectAnimal">
-            <input type="radio" name="animal-selection" id="todos" value="Todos" checked>Todos</input>
-            <input type="radio" name="animal-selection" id="perritos" value="Perritos">Perritos</input>
-            <input type="radio" name="animal-selection" id="gatitos" value="Gatitos">Gatitos</input>
-            <p id="show"> </p>
-        </div>
-        <div class="post">
-            <a href="/lost_pet" class="btn btn-primary" role="button">Publicar</a>
+        <article class="posts">
+        </article>
+    </div>
+    <div class="sidebar">
+        <div class="Instructions">
+            <p> Hola! Aqui encontraras un feed con todas las publicaciones de Perritos y Gatitos. </p>
         </div>
     </div>
-    <article class="posts">
-    </article>
 </div>
 <script src="{{ url_for('static', filename='js/index.js') }}"></script>
 <script src="{{ url_for('static', filename='js/populate.js') }}"></script>

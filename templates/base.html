@@ -7,13 +7,15 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/index.css') }}">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+    <script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
     <script src="" type="text/javascript"></script>
     <style media ="screen">
         #fb-btn{
             margin-right:0%;
             margin-top:0%;
         }
-        #profile, #logout{
+        #perfil, #logout{
                 display:none;
                 margin-top:10%;
         }
@@ -29,10 +31,12 @@
                 xfbml      : true,
                 version    : 'v13.0',
             });
+
+            FB.AppEvents.logPageView();
             
-            FB.getLoginStatus(function(response) {
-                statusChangeCallback(response);
-            });        
+//            FB.getLoginStatus(function(response) {
+//                statusChangeCallback(response);
+//            });        
         };
         (function(d, s, id){
             var js, fjs = d.getElementsByTagName(s)[0];
@@ -72,11 +76,11 @@
             FB.api('/me?fields=name,email,id,link', function(response){
                 if(response && !response.error){
                     //console.log(response);
-                    buildProfile(response);
+                    //buildProfile(response);
                 }
             })
         }
-        function buildProfile(user){
+/*         function buildProfile(user){
             let useremail = user.email
             let userid = user.id
             let username = user.name
@@ -88,14 +92,17 @@
                     <li class "list-group-item">Link: ${user.link}</li>
             `;
             document.getElementById("profile").innerHTML = profile;
-        }
+        } */
         function logout(){
             FB.logout(function(response){
                 setElements(false);
             });
         }
     </script>
-    <nav class="navbar navbar-light bg-light justify-content-between">
+    <nav class="navbar justify-content-between">
+        <a class="navbar-brand" href="/">
+            <img src="{{ url_for('static', filename='logo/logo.png') }}" alt="">
+        </a>
         <a class="navbar-brand" href="/">
             <img src="{{ url_for('static', filename='logo/EncuentraMe(1000x1000).png') }}" alt="">
         </a>
@@ -107,16 +114,13 @@
                 onlogin="checkLoginState();">
             </fb:login-button>
         </ul>
+        <div class="profile" id="perfil">
+            <a href="/profile/{{ user_id }}" class="btn btn-link" role="button">Perfil</a>
+        </div>
     </nav>
-    <div class="container">
-        <h3 id="heading">
-            
-        </h3>
-        <div id="profile"></div>
-    </div>
     {% block body %}{% endblock %}
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
 </html>
