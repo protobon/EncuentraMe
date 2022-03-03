@@ -85,16 +85,6 @@
                 setElements(false);
             });
         }
-        $('button#post').click(function() {
-            checkLoginState().then(function(response) {
-                if (response.status === "connected") {
-                    window.location.href = "https://encuentrame.org.xelar.tech/lost_pet";
-                } else {
-                    alert("Debes ingresar con Facebook para hacer una publicación");
-                    return;
-                }
-            });
-        });
     </script>
     <nav class="navbar navbar-light bg-light justify-content-between">
         <a class="navbar-brand" href="/">
