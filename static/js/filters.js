@@ -54,21 +54,4 @@ $(document).ready(function () {
         $('#lost').addClass("btn-outline-success");
         $('#lost').removeClass("btn-success");
     });
-    $('button#post').click(function() {
-        FB.getLoginStatus(function(response) {
-            if (response.status === 'connected') {
-              // The user is logged in and has authenticated your
-              // app, and response.authResponse supplies
-              // the user's ID, a valid access token, a signed
-              // request, and the time the access token 
-              // and signed request each expire.
-              var uid = response.authResponse.userID;
-              var accessToken = response.authResponse.accessToken;
-              window.location.href = "https://encuentrame.org.xelar.tech/lost_pet";
-            } else {
-                alert("Debes ingresar con Facebook para hacer una publicación");
-                return;
-            }
-        });
-    });
 });
