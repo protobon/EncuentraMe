@@ -36,10 +36,10 @@ def landing():
     """Landing page"""
     return render_template('index.html')
 
-@app.route('/<user_id>/lost_pet', methods=['GET', 'POST'])
-def form_lost_pet(user_id):
+@app.route('/lost_pet', methods=['GET', 'POST'])
+def form_lost_pet():
     if request.method == 'GET':
-        return render_template('form_lost_pet.html', user_id=user_id)
+        return render_template('form_lost_pet.html')
     if request.method == 'POST':
         id = "lost" + str(uuid.uuid4())
         estado = "active"
@@ -51,6 +51,7 @@ def form_lost_pet(user_id):
         calle_1 = request.form['calle_1']
         calle_2 = request.form['calle_2']
         barrio = request.form['barrio']
+        user_id = "123456"
         # check if the post request has the file part
         if 'foto' not in request.files:
             flash('Debe subir una imagen')
@@ -83,14 +84,14 @@ def form_lost_pet(user_id):
         message = f"¡Se busca a {nombre}! Perdido/a desde el día {fecha} última vez visto\
                    en las inmediaciones de {calle_1} y {calle_2} barrio {barrio}\
                    a las {hora} horas. Si lo viste por favor comunícate con Usuario."
-        #graph.put_photo(image=open(os.path.join(UPLOAD_FOLDER, file.filename), "rb"), message=message, album_path=page_id + '/photos')
+        graph.put_photo(image=open(os.path.join(UPLOAD_FOLDER, file.filename), "rb"), message=message, album_path=page_id + '/photos')
         return redirect('/')
 
 
-@app.route('/<user_id>/found_pet', methods=['GET', 'POST'])
-def form_found_pet(user_id):
+@app.route('/found_pet', methods=['GET', 'POST'])
+def form_found_pet():
     if request.method == 'GET':
-        return render_template('form_found_pet.html', user_id=user_id)
+        return render_template('form_found_pet.html')
     if request.method == 'POST':
         id = "found" + str(uuid.uuid4())
         estado = "active"
@@ -101,6 +102,7 @@ def form_found_pet(user_id):
         calle_1 = request.form['calle_1']
         calle_2 = request.form['calle_2']
         barrio = request.form['barrio']
+        user_id = "123456"
         # check if the post request has the file part
         if 'foto' not in request.files:
             flash('Debe subir una imagen')
@@ -133,7 +135,7 @@ def form_found_pet(user_id):
         message = f"¡Se encontró! Perdido/a desde el día {fecha} última vez visto\
                   en las inmediaciones de {calle_1} y {calle_2} barrio {barrio} a las {hora} horas.\
                   Si lo viste por favor comunícate con Usuario."
-        #graph.put_photo(image=open(os.path.join(UPLOAD_FOLDER, file.filename), "rb"), message=message, album_path=page_id + '/photos')
+        graph.put_photo(image=open(os.path.join(UPLOAD_FOLDER, file.filename), "rb"), message=message, album_path=page_id + '/photos')
         return redirect('/')
 
 
@@ -233,4 +235,4 @@ def api_post_by_id(id):
 
 
 if __name__ == "__main__":
-    app.run(host="localhost", port=5000, ssl_context=('cert.pem', 'key.pem'))
+    app.run(host="0.0.0.0")

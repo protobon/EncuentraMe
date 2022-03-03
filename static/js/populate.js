@@ -1,6 +1,6 @@
 $(document).ready(function () {
     async function fetchAllPosts() {
-        const response = await fetch('https://localhost:5000/api/posts/');
+        const response = await fetch('https://encuentrame.org.xelar.tech/api/posts/');
         const data = await response.json();
         return (data);
     }
