@@ -4,7 +4,7 @@ $(document).ready(function () {
     const userId = urlArray[urlArray.length - 1];
     async function fetchUserPosts() {
         try {
-            const response = await fetch('https://localhost:5000/api/users/' + userId + "/posts");
+            const response = await fetch('https://encuentrame.org.xelar.tech/api/users/' + userId + "/posts");
             if (!response.ok) {
                 throw new Error(`Error! status: ${response.status}`);
             }

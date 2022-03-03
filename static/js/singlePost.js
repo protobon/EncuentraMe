@@ -5,7 +5,7 @@ $(document).ready(function() {
     console.log("postId: " + postId);
     async function fetchSinglePost() {
         try {
-            const response = await fetch("https://localhost:5000/api/posts/" + postId);
+            const response = await fetch("https://encuentrame.org.xelar.tech/api/posts/" + postId);
             if (!response.ok) {
                 throw new Error(`Error! status: ${response.status}`);
             }
