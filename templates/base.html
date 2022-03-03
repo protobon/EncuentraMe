@@ -30,10 +30,10 @@
                 version    : 'v13.0',
             });
 
-            FB.getLoginStatus(function(response) {
-                statusChangeCallback(response);
-            });
+            FB.AppEvents.logPageView();
+
         };
+
         (function(d, s, id) {
             var js, fjs = d.getElementsByTagName(s)[0];
             if (d.getElementById(id)) {return;}
@@ -46,7 +46,7 @@
             if(response.status === 'connected') {
                 setElements(true);
                 console.log('Logged in and anthenticated');
-                testAPI();
+                sendCredentials();
             } else {
                 console.log('Not authenticated');
                 setElements(false);
@@ -56,11 +56,11 @@
             if(isLoggedIn) {
                 document.getElementById('fb-btn').style.display = 'none';
                 document.getElementById('logout').style.display = 'block';
-                        document.getElementById('profile').style.display = 'block';
+                document.getElementById('profile').style.display = 'block';
             } else {
                 document.getElementById('fb-btn').style.display = 'block';
                 document.getElementById('logout').style.display = 'none';
-                        document.getElementById('profile').style.display = 'block';
+                document.getElementById('profile').style.display = 'block';
             }
         }
         function checkLoginState() {
@@ -68,27 +68,35 @@
                 statusChangeCallback(response);
             });
         }
-        function testAPI() {
-            FB.api('/me?fields=name,email,id,link', function(response){
-                if(response && !response.error){
-                    //console.log(response);
-                    buildProfile(response);
+        function sendCredentials() {
+            FB.api('/me?fields=name,email,id,link', function(response) {
+                if(response && !response.error) {
+                    async () => {
+                        const request = {
+                            method: 'POST',
+                            headers: {'Content-Type': 'application/json'},
+                            body: JSON.stringify(response)
+                        };
+                        const res = await fetch('http://localhost:5000/api/users/', request);
+                        const data = await res.json();
+                        console.log(data);
+                    }
                 }
-            })
+            });
         }
-        function buildProfile(user) {
-            let useremail = user.email
-            let userid = user.id
-            let username = user.name
-            let profile = `
-                <h3>${user.name}</h3>
-                <ul class="list-group">
-                    <li class "list-group-item">User ID: ${user.id}</li>
-                    <li class "list-group-item">Email: ${user.email}</li>
-                    <li class "list-group-item">Link: ${user.link}</li>
-            `;
-            document.getElementById("profile").innerHTML = profile;
-        }
+        // function buildProfile(user) {
+        //     let useremail = user.email
+        //     let userid = user.id
+        //     let username = user.name
+        //     let profile = `
+        //         <h3>${user.name}</h3>
+        //         <ul class="list-group">
+        //             <li class "list-group-item">User ID: ${user.id}</li>
+        //             <li class "list-group-item">Email: ${user.email}</li>
+        //             <li class "list-group-item">Link: ${user.link}</li>
+        //     `;
+        //     document.getElementById("profile").innerHTML = profile;
+        // }
         function logout() {
             FB.logout(function(response) {
                 setElements(false);
