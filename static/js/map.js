@@ -1,14 +1,19 @@
-let map
+// Initialize and add the map
 function initMap() {
-  navigator.geolocation.getCurrentPosition(function(pos) {
-    map = new google.maps.Map(document.getElementById("map"), {
-      zoom: 13,
-      center: {lat: pos.coords.latitude, lng: pos.coords.longitude},
-    });
-    const infoWindow = new google.maps.InfoWindow({
-      content: "",
-      disableAutoPan: true,
-    });
+  function showLocation(position) {
+    var latitude = position.coords.latitude;
+    var longitude = position.coords.longitude;
+  }
+    // The map, centered specific location. Need to custom to ssers CurrentPosition
+      let map = new google.maps.Map(document.getElementById("map"), {
+        zoom: 13,
+        center: {lat: -34.901357, lng: -56.189205},
+      });
+      let infoWindow = new google.maps.InfoWindow({
+        // To display content (usually text or images) in a popup window above the map
+        content: "NOSENOSENOSE",
+        disableAutoPan: true,
+      });
     //Set icons
     const iconBase =
       "https://developers.google.com/maps/documentation/javascript/examples/full/images/";
@@ -17,7 +22,7 @@ function initMap() {
         icon: iconBase + "parking_lot_maps.png",
       },
     };
-    // Add some markers to the map.
+    // Add some locations for testing.
     const locations = [
       {
         position: new google.maps.LatLng(-34.901357, -56.189205),
@@ -55,7 +60,7 @@ function initMap() {
         content: "CatDog"
       },
     ];
-    //Create markers.
+    //Create markers based on testing locations.
     for (let i = 0; i < locations.length; i++) {
       const marker = new google.maps.Marker({
         position: locations[i].position,
@@ -69,5 +74,4 @@ function initMap() {
         infoWindow.open(map, marker);
       });
     };
-});
 };
