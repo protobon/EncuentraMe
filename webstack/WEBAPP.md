@@ -135,12 +135,55 @@ export FLASK_ENV="production"
 
 gunicorn --bind 0.0.0.0:80 app:app
 
-from flask import Flask
-app = Flask(__name__)
-@app.route('/')
-def index():
-    return 'hello world'
-if __name__ == '__main__':
-    from werkzeug.contrib.fixers import ProxyFix
-    app.wsgi_app = ProxyFix(app.wsgi_app)
-    app.run(
+> fuera del entorno virtual
+
+``apt install libmysqlclient-dev``
+
+``pip install Flask-MySQLdb``
+
+``pip install -e git+https://github.com/mobolic/facebook-sdk.git#egg=facebook-sdk``
+
+
+kill the process ctrl + c to finish gunicorn
+
+gunicorn --workers 2 --bind unix:encuentrame.sock -m 007 app:app &
+
+
+nginx soporte a aplicaciones
+
+sudo vim /etc/nginx/sites-available/encuentrame
+
+```bash
+server {
+    listen 80;
+    server_name encuentrame.org.xelar.tech;
+    location /static {
+        alias /home/ubuntu/encuentrame.org/static;
+
+    }
+    location /media {
+        alias /home/ubuntu/encuentrame.org/media;
+    }
+    location / {
+        include proxy_params;
+        proxy_pass http://unix:/home/ubuntu/encuentrame.org/encuentrame.sock;
+    }
+}
+```
+
+Nginx tenga en cuenta la configuración anterior, crea el siguiente enlace simbólico
+
+
+ln -s /etc/nginx/sites-available/encuentrame /etc/nginx/sites-enabled
+
+
+test
+
+sudo nginx -t
+
+restart nginx
+
+sudo systemctl restart nginx
+
+
+sudo service nginx status
