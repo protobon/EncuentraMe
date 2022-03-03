@@ -71,6 +71,10 @@ def form_lost_pet():
             return redirect(request.url)
         cursor = mysql.connection.cursor()
         try:
+            cursor.execute('INSERT INTO users VALUES (%s)', (user_id))
+        except Exception:
+            pass
+        try:
             cursor.execute('INSERT INTO lost_pets VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',
                            (id, user_id, estado, created_at, mascota, nombre, fecha, hora, calle_1, calle_2, barrio, file.filename))
         except Exception as e:
@@ -121,6 +125,10 @@ def form_found_pet():
             flash('Formatos de imagen soportados: jpg, jpeg, png, jfif.')
             return redirect(request.url)
         cursor = mysql.connection.cursor()
+        try:
+            cursor.execute('INSERT INTO users VALUES (%s)', (user_id))
+        except Exception:
+            pass
         try:
             cursor.execute('INSERT INTO found_pets VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',
                         (id, user_id, estado, created_at, mascota, fecha, hora, calle_1, calle_2, barrio, file.filename))
