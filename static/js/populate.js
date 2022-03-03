@@ -1,7 +1,7 @@
 $(document).ready(function () {
     async function fetchAllPosts() {
         try {
-            const response = await fetch('https://localhost:5000/api/posts/');
+            const response = await fetch('https://encuentrame.org.xelar.tech/api/posts/');
             if (!response.ok) {
                 throw new Error(`Error! status: ${response.status}`);
             }
