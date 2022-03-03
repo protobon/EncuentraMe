@@ -157,15 +157,16 @@ def api_posts():
 
 @app.route('/api/users/', methods=['GET', 'POST'])
 def api_users():
-    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     if request.method == 'GET':
         """Retrieve all users from database and return in JSON format"""
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         cursor.execute('SELECT * FROM users')
         users = list(cursor.fetchall())
         cursor.close()
         return jsonify(users)
     else:
         """Stores new user into database"""
+        cursor = mysql.connection.cursor()
         content_type = request.headers.get('Content-Type')
         if (content_type != 'application/json'):
             return (jsonify("Not a JSON"), 400)
