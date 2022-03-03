@@ -5,13 +5,11 @@ import uuid
 from datetime import datetime
 from flask_mysqldb import MySQL
 import MySQLdb
-from facebook import GraphAPI
 import logging
 
 access_token = os.getenv('fb_token')
 page_id = '113136957951816'
 user_test = {'id': '123456', 'name': 'Test User', 'email': 'test@encuentrame.com'}
-graph = GraphAPI(access_token=access_token)
 
 UPLOAD_FOLDER = 'static/images'
 ALLOWED_EXTENSIONS = {'jpg', 'jpeg', 'png', 'jfif'}
@@ -84,16 +82,6 @@ def form_lost_pet():
             return redirect(request.url)
         mysql.connection.commit()
         cursor.close()
-        fecha_l = fecha.split('-')
-        fecha = fecha_l[2] + '/' + fecha_l[1] + '/' + fecha_l[0]
-        message = f"¡Se busca a {nombre}! Perdido/a desde el día {fecha} última vez visto\
-                   en las inmediaciones de {calle_1} y {calle_2} barrio {barrio}\
-                   a las {hora} horas. Si lo viste por favor comunícate con Usuario."
-        try:
-            graph.put_photo(image=open(os.path.join(UPLOAD_FOLDER, file.filename), "rb"), message=message, album_path=page_id + '/photos')
-        except Exception as e:
-            flash(e)
-            return redirect('/')
         return redirect('/')
 
 
@@ -141,16 +129,6 @@ def form_found_pet():
             return redirect(request.url)
         mysql.connection.commit()
         cursor.close()
-        fecha_l = fecha.split('-')
-        fecha = fecha_l[2] + '/' + fecha_l[1] + '/' + fecha_l[0]
-        message = f"¡Se encontró! Perdido/a desde el día {fecha} última vez visto\
-                  en las inmediaciones de {calle_1} y {calle_2} barrio {barrio} a las {hora} horas.\
-                  Si lo viste por favor comunícate con Usuario."
-        try:
-            graph.put_photo(image=open(os.path.join(UPLOAD_FOLDER, file.filename), "rb"), message=message, album_path=page_id + '/photos')
-        except Exception as e:
-            flash(e)
-            return redirect('/')
         return redirect('/')
 
 

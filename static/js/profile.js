@@ -3,9 +3,16 @@ $(document).ready(function () {
     const urlArray = url.split('/');
     const userId = urlArray[urlArray.length - 1];
     async function fetchUserPosts() {
-        const response = await fetch('https://localhost:5000/api/users/' + userId + "/posts");
-        const data = await response.json();
-        return (data);
+        try {
+            const response = await fetch('https://localhost:5000/api/users/' + userId + "/posts");
+            if (!response.ok) {
+                throw new Error(`Error! status: ${response.status}`);
+            }
+            const data = await response.json();
+            return (data);
+        } catch (err) {
+            console.log(err);
+        }
     }
     window.loadProfile = function() {
         fetchUserPosts().then(function(data) {

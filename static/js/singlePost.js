@@ -4,9 +4,16 @@ $(document).ready(function() {
     const postId = urlArray[urlArray.length - 1];
     console.log("postId: " + postId);
     async function fetchSinglePost() {
-        const response = await fetch("https://localhost:5000/api/posts/" + postId);
-        const data = await response.json();
-        return (data);
+        try {
+            const response = await fetch("https://localhost:5000/api/posts/" + postId);
+            if (!response.ok) {
+                throw new Error(`Error! status: ${response.status}`);
+            }
+            const data = await response.json();
+            return (data);
+        } catch (err) {
+            console.log(err);
+        }
     }
     window.displayPost = function () {
         fetchSinglePost().then(function(post) {

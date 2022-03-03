@@ -1,8 +1,15 @@
 $(document).ready(function () {
     async function fetchAllPosts() {
-        const response = await fetch('https://localhost:5000/api/posts/');
-        const data = await response.json();
-        return (data);
+        try {
+            const response = await fetch('https://localhost:5000/api/posts/');
+            if (!response.ok) {
+                throw new Error(`Error! status: ${response.status}`);
+            }
+            const data = await response.json();
+            return (data);
+        } catch (err) {
+            console.log(err);
+        }
     }
     window.refreshFeed = function() {
         fetchAllPosts().then(function(data) {
