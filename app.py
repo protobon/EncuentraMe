@@ -167,15 +167,14 @@ def api_users():
     else:
         """Stores new user into database"""
         content_type = request.headers.get('Content-Type')
-        flash(content_type)
         if (content_type != 'application/json'):
             return (jsonify("Not a JSON"), 400)
         user = request.get_json()
-        flash(user)
+        print(user)
         try:
             cursor.execute('INSERT INTO users VALUES (%s, %s, %s)', (user['id'], user['name'], user['email']))
         except Exception as e:
-            flash(e)
+            return False
         cursor.close()
         return jsonify(user)
 
