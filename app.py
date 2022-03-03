@@ -173,11 +173,11 @@ def api_users():
         if (content_type != 'application/json'):
             return (jsonify("Not a JSON"), 400)
         user = request.get_json()
-        logfile(type(user))
+        logfile(str(type(user)))
         try:
             cursor.execute('INSERT INTO users VALUES (%s, %s, %s)', (user['id'], user['name'], user['email']))
         except Exception as e:
-            logfile(e)
+            logfile(str(e))
         cursor.close()
         return jsonify(user)
 
