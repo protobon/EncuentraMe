@@ -69,12 +69,13 @@
             });
         }
         function sendCredentials() {
-            FB.api('/me?fields=name,email,id', function(response) {
-                if(response && !response.error) {
+            FB.api('/me?fields=name,email,id', function(credentials) {
+                if(credentials && !credentials.error) {
+                    console.log(credentials);
                     fetch('https://encuentrame.org.xelar.tech/api/users/', {
                         method: 'POST',
                         headers: {'Content-Type': 'application/json'},
-                        body: JSON.stringify(response)
+                        body: JSON.stringify(credentials)
                     })
                     .then(response => response.json())
                     .then(json => console.log(json))
@@ -82,19 +83,6 @@
                 }
             });
         }
-        // function buildProfile(user) {
-        //     let useremail = user.email
-        //     let userid = user.id
-        //     let username = user.name
-        //     let profile = `
-        //         <h3>${user.name}</h3>
-        //         <ul class="list-group">
-        //             <li class "list-group-item">User ID: ${user.id}</li>
-        //             <li class "list-group-item">Email: ${user.email}</li>
-        //             <li class "list-group-item">Link: ${user.link}</li>
-        //     `;
-        //     document.getElementById("profile").innerHTML = profile;
-        // }
         function logout() {
             FB.logout(function(response) {
                 setElements(false);
