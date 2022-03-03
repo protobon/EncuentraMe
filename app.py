@@ -88,7 +88,10 @@ def form_lost_pet():
         message = f"¡Se busca a {nombre}! Perdido/a desde el día {fecha} última vez visto\
                    en las inmediaciones de {calle_1} y {calle_2} barrio {barrio}\
                    a las {hora} horas. Si lo viste por favor comunícate con Usuario."
-        graph.put_photo(image=open(os.path.join(UPLOAD_FOLDER, file.filename), "rb"), message=message, album_path=page_id + '/photos')
+        try:
+            graph.put_photo(image=open(os.path.join(UPLOAD_FOLDER, file.filename), "rb"), message=message, album_path=page_id + '/photos')
+        except Exception as e:
+            flash(e)
         return redirect('/')
 
 
@@ -141,7 +144,10 @@ def form_found_pet():
         message = f"¡Se encontró! Perdido/a desde el día {fecha} última vez visto\
                   en las inmediaciones de {calle_1} y {calle_2} barrio {barrio} a las {hora} horas.\
                   Si lo viste por favor comunícate con Usuario."
-        graph.put_photo(image=open(os.path.join(UPLOAD_FOLDER, file.filename), "rb"), message=message, album_path=page_id + '/photos')
+        try:
+            graph.put_photo(image=open(os.path.join(UPLOAD_FOLDER, file.filename), "rb"), message=message, album_path=page_id + '/photos')
+        except Exception as e:
+            flash(e)
         return redirect('/')
 
 
