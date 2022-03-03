@@ -34,6 +34,7 @@ $(document).ready(function() {
                 + 'Si es tuyo o sabes de quien puede ser por favor comunícate con Usuario.</p>');
                 postFoundAnimal.append('<a href="/' + post.id + '"></a>');
                 postFoundAnimal.find('a').append('<img src="/static/images/' + post.foto + '">');
+                postFoundAnimal.append('<p> Es mi mascota y ya estamos juntos nuevamente!</p>')
                 $('article.posts').append(postFoundAnimal);
             }
         });
