@@ -6,6 +6,7 @@ from datetime import datetime
 from flask_mysqldb import MySQL
 import MySQLdb
 from facebook import GraphAPI
+import logging
 
 access_token = os.getenv('fb_token')
 page_id = '113136957951816'
@@ -250,3 +251,7 @@ def api_post_by_id(id):
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0")
+else:
+    gunicorn_logger = logging.getLogger('gunicorn.error')
+    app.logger.handlers = gunicorn_logger.handlers
+    app.logger.setLevel(gunicorn_logger.level)
