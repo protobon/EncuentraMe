@@ -274,6 +274,8 @@ ExecStart=/home/ubuntu/encuentrame.org/env/bin/gunicorn --workers 3 --bind unix:
 [Install]
 WantedBy=multi-user.target
 ```
+con log de error
+ExecStart=/home/ubuntu/encuentrame.org/env/bin/gunicorn --error-logfile encuentrameglog --workers 3 --bind unix:encuentrame.sock -m 007 wsgi:app
 
 iniciar el servicio Gunicorn que creamos y activarlo para que se cargue en el inicio:
 
@@ -344,3 +346,9 @@ sudo ln -s /etc/nginx/sites-available/encuentrame /etc/nginx/sites-enabled
 sudo nginx -t
 
 sudo ufw allow 'Nginx Full'
+
+
+flask-cors
+pip install flask-cors
+
+sudo systemctl restart encuentrame
