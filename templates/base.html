@@ -55,12 +55,10 @@
             function setElements(isLoggedIn) {
                 if(isLoggedIn) {
                     document.getElementById('fb-btn').style.display = 'none';
-                    document.getElementById('logout').style.display = 'block';
-                    document.getElementById('profile').style.display = 'block';
+                    document.getElementById('btn-logout').style.display = 'block';
                 } else {
                     document.getElementById('fb-btn').style.display = 'block';
-                    document.getElementById('logout').style.display = 'none';
-                    document.getElementById('profile').style.display = 'block';
+                    document.getElementById('btn-logout').style.display = 'none';
                 }
             }
             function checkLoginState() {
@@ -78,11 +76,6 @@
                         })
                         .catch(err => console.log(err));
                     }
-                });
-            }
-            function logout() {
-                FB.logout(function(response) {
-                    setElements(false);
                 });
             }
             window.postButton = document.querySelector("#post");
@@ -123,7 +116,7 @@
             <img src="{{ url_for('static', filename='logo/EncuentraMe(1000x1000).png') }}" alt="">
         </a>
         <ul class="navbar navbar-right">
-            <a id="logout" href="#" onclick="logout()">Logout</a>
+            <button class="btn btn-danger btn-small" id="btn-logout" onclick="FB.logout();">Logout</button>
             <fb:login-button
                 id="fb-btn"
                 scope="email"
