@@ -16,6 +16,7 @@ $(document).ready(function() {
     }
     window.displayPost = function () {
         fetchSinglePost().then(function(post) {
+            $('head').append('<meta property="og:image"         content="' + urlArray[0] + '/static/images' + post.foto + '" />');
             $('article.posts').empty();
             if (postId.includes("lost")) {
                 let postLostAnimal = $(document.createElement('div'));
