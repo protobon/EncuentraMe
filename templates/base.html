@@ -22,101 +22,102 @@
     </head>
 <body>
     <script>
-        window.fbAsyncInit = function() {
-            FB.init({
-                appId      : '1633098193720369',
-                cookie     : true,
-                xfbml      : true,
-                version    : 'v13.0',
-            });
+        $(document).ready(function () {
+            window.fbAsyncInit = function() {
+                FB.init({
+                    appId      : '1633098193720369',
+                    cookie     : true,
+                    xfbml      : true,
+                    version    : 'v13.0',
+                });
 
-            FB.AppEvents.logPageView();
+                FB.AppEvents.logPageView();
+            };
 
-        };
+            (function(d, s, id) {
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) {return;}
+                js = d.createElement(s); js.id = id;
+                js.src = "https://connect.facebook.net/en_US/sdk.js";
+                fjs.parentNode.insertBefore(js, fjs);
+            } (document, 'script', 'facebook-jssdk'));
 
-        (function(d, s, id) {
-            var js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) {return;}
-            js = d.createElement(s); js.id = id;
-            js.src = "https://connect.facebook.net/en_US/sdk.js";
-            fjs.parentNode.insertBefore(js, fjs);
-        } (document, 'script', 'facebook-jssdk'));
-
-        function statusChangeCallback(response) {
-            if(response.status === 'connected') {
-                setElements(true);
-                console.log('Logged in and anthenticated');
-                sendCredentials();
-            } else {
-                console.log('Not authenticated');
-                setElements(false);
-            }
-        }
-        function setElements(isLoggedIn) {
-            if(isLoggedIn) {
-                document.getElementById('fb-btn').style.display = 'none';
-                document.getElementById('logout').style.display = 'block';
-                document.getElementById('profile').style.display = 'block';
-            } else {
-                document.getElementById('fb-btn').style.display = 'block';
-                document.getElementById('logout').style.display = 'none';
-                document.getElementById('profile').style.display = 'block';
-            }
-        }
-        function checkLoginState() {
-            FB.getLoginStatus(function(response) {
-                statusChangeCallback(response);
-            });
-        }
-        function sendCredentials() {
-            FB.api('/me?fields=name,email,id', function(credentials) {
-                if(credentials && !credentials.error) {
-                    fetch('https://encuentrame.org.xelar.tech/api/users/', {
-                        method: 'POST',
-                        headers: {'Content-Type': 'application/json'},
-                        body: JSON.stringify(credentials)
-                    })
-                    .catch(err => console.log(err));
+            function statusChangeCallback(response) {
+                if(response.status === 'connected') {
+                    setElements(true);
+                    console.log('Logged in and anthenticated');
+                    sendCredentials();
+                } else {
+                    console.log('Not authenticated');
+                    setElements(false);
                 }
-            });
-        }
-        function logout() {
-            FB.logout(function(response) {
-                setElements(false);
-            });
-        }
-        function validatePostButton() {
-            const postButton = document.querySelector("#post");
-            postButton.addEventListener("click", function() {
-                FB.getLoginStatus(function(response) {
-                    if (response.status === 'connected') {
-                        var uid = response.authResponse.userID;
-                        window.location.href = "https://encuentrame.org.xelar.tech/" + uid + "/lost_pet";
-                    } else {
-                        alert("Debes ingresar con Facebook para hacer una publicación");
-                        return false;
-                    }
-                });
-            });
-        };
-        function validateFormSubmit() {
-            if (window.location.href.includes("lost_pet")) {
-                FB.getLoginStatus(function(response) {
-                    if (response.status === 'connected') {
-                        var uid = response.authResponse.userID;
-                        var url = window.location.href;
-                        var urluid = url.split("/")[3];
-                        if (uid !== urluid) {
-                            window.location.href = "https://encuentrame.org.xelar.tech";
-                            return false;
-                        };
-                    }
-                });
-            } else {
-                return false;
             }
-        };
-        window.addEventListener("load", validatePostButton, validateFormSubmit());
+            function setElements(isLoggedIn) {
+                if(isLoggedIn) {
+                    document.getElementById('fb-btn').style.display = 'none';
+                    document.getElementById('logout').style.display = 'block';
+                    document.getElementById('profile').style.display = 'block';
+                } else {
+                    document.getElementById('fb-btn').style.display = 'block';
+                    document.getElementById('logout').style.display = 'none';
+                    document.getElementById('profile').style.display = 'block';
+                }
+            }
+            function checkLoginState() {
+                FB.getLoginStatus(function(response) {
+                    statusChangeCallback(response);
+                });
+            }
+            function sendCredentials() {
+                FB.api('/me?fields=name,email,id', function(credentials) {
+                    if(credentials && !credentials.error) {
+                        fetch('https://encuentrame.org.xelar.tech/api/users/', {
+                            method: 'POST',
+                            headers: {'Content-Type': 'application/json'},
+                            body: JSON.stringify(credentials)
+                        })
+                        .catch(err => console.log(err));
+                    }
+                });
+            }
+            function logout() {
+                FB.logout(function(response) {
+                    setElements(false);
+                });
+            }
+            function validatePostButton() {
+                const postButton = document.querySelector("#post");
+                postButton.addEventListener("click", function() {
+                    FB.getLoginStatus(function(response) {
+                        if (response.status === 'connected') {
+                            var uid = response.authResponse.userID;
+                            window.location.href = "https://encuentrame.org.xelar.tech/" + uid + "/lost_pet";
+                        } else {
+                            alert("Debes ingresar con Facebook para hacer una publicación");
+                            return false;
+                        }
+                    });
+                });
+            };
+            function validateFormSubmit() {
+                if (window.location.href.includes("lost_pet")) {
+                    FB.getLoginStatus(function(response) {
+                        if (response.status === 'connected') {
+                            var uid = response.authResponse.userID;
+                            var url = window.location.href;
+                            var urluid = url.split("/")[3];
+                            if (uid !== urluid) {
+                                window.location.href = "https://encuentrame.org.xelar.tech";
+                                return false;
+                            };
+                        }
+                    });
+                } else {
+                    return false;
+                }
+            };
+        });
+        // window.addEventListener("load", validatePostButton, validateFormSubmit());
     </script>
     <nav class="navbar navbar-light bg-light justify-content-between">
         <a class="navbar-brand" href="/">
