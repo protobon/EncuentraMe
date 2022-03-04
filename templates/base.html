@@ -47,9 +47,9 @@
 
             function statusChangeCallback(response) {
                 if(response.status === 'connected') {
-                    setElements(true);
                     sendCredentials();
                     console.log('Logged in and anthenticated');
+                    setElements(true);
                 } else {
                     console.log('Not authenticated');
                     setElements(false);
@@ -86,8 +86,8 @@
             function checkLoginState() {
                 FB.getLoginStatus(function(response) {
                     statusChangeCallback(response);
-                    window.location.reload(true);
                 });
+                window.location.reload(true);
             }
 
             function sendCredentials() {
