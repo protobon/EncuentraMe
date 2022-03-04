@@ -7,12 +7,9 @@ from flask_mysqldb import MySQL
 import MySQLdb
 from facebook import GraphAPI
 
-access_token = os.getenv('fb_token')
-page_id = '113136957951816'
-graph = GraphAPI(access_token=access_token)
-
 UPLOAD_FOLDER = 'static/images'
 ALLOWED_EXTENSIONS = {'jpg', 'jpeg', 'png', 'jfif'}
+user = {"id": "123456", "name": "nombre", "email": "correo"}
 app = Flask(__name__)
 cors = CORS(app, resources={r"/*": {"origins": "0.0.0.0"}})
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -39,12 +36,7 @@ def landing():
 @app.route('/lost_pet', methods=['GET', 'POST'])
 def form_lost_pet():
     if request.method == 'GET':
-        fb_user = graph.get_object('me', fields='id,name,email')
-        if fb_user:
-            return render_template('form_lost_pet.html')
-        else:
-            flash('Para publicar, debe iniciar sesión con Facebook')
-            return redirect('/')
+        return render_template('form_lost_pet.html')
     if request.method == 'POST':
         id = "lost" + str(uuid.uuid4())
         estado = "active"
@@ -84,12 +76,6 @@ def form_lost_pet():
             return redirect(request.url)
         mysql.connection.commit()
         cursor.close()
-        fecha_l = fecha.split('-')
-        fecha = fecha_l[2] + '/' + fecha_l[1] + '/' + fecha_l[0]
-        message = f"¡Se busca a {nombre}! Perdido/a desde el día {fecha} última vez visto\
-                   en las inmediaciones de {calle_1} y {calle_2} barrio {barrio}\
-                   a las {hora} horas. Si lo viste por favor comunícate con Usuario."
-        graph.put_photo(image=open(os.path.join(UPLOAD_FOLDER, file.filename), "rb"), message=message, album_path=page_id + '/photos')
         return redirect('/')
 
 
@@ -135,12 +121,6 @@ def form_found_pet():
             return redirect(request.url)
         mysql.connection.commit()
         cursor.close()
-        fecha_l = fecha.split('-')
-        fecha = fecha_l[2] + '/' + fecha_l[1] + '/' + fecha_l[0]
-        message = f"¡Se encontró! Perdido/a desde el día {fecha} última vez visto\
-                  en las inmediaciones de {calle_1} y {calle_2} barrio {barrio} a las {hora} horas.\
-                  Si lo viste por favor comunícate con Usuario."
-        graph.put_photo(image=open(os.path.join(UPLOAD_FOLDER, file.filename), "rb"), message=message, album_path=page_id + '/photos')
         return redirect('/')
 
 
