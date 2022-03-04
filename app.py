@@ -149,8 +149,10 @@ def api_posts():
     cursor.close()
     for post in lost:
         del post["estado"]
+        del post["user_id"]
     for post in found:
         del post["estado"]
+        del post["user_id"]
     return jsonify({"lost": lost, "found": found})
 
 
@@ -190,8 +192,10 @@ def api_user_posts(user_id):
     cursor.close()
     for post in lost:
         del post["estado"]
+        del post["user_id"]
     for post in found:
         del post["estado"]
+        del post["user_id"]
     return jsonify({"lost": lost, "found": found})
 
 
@@ -206,6 +210,7 @@ def api_post_by_id(id):
     try:
         post = list(cursor.fetchall())[0]
         del post["estado"]
+        del post["user_id"]
     except Exception:
         flash('Publicación no encontrada')
         cursor.close()

@@ -48,8 +48,9 @@
             function statusChangeCallback(response) {
                 if(response.status === 'connected') {
                     setElements(true);
-                    console.log('Logged in and anthenticated');
                     sendCredentials();
+                    window.location.reload(true);
+                    console.log('Logged in and anthenticated');
                 } else {
                     console.log('Not authenticated');
                     setElements(false);
@@ -84,7 +85,6 @@
             }
 
             function checkLoginState() {
-                window.location.href = "https://encuentrame.org.xelar.tech";
                 FB.getLoginStatus(function(response) {
                     statusChangeCallback(response);
                 });
