@@ -27,8 +27,7 @@ $(document).ready(function() {
                 + post.fecha + ' última vez visto en las inmediaciones de ' + post.calle_1 +
                 ' y ' + post.calle_2 + ' barrio ' + post.barrio + ' a las ' + post.hora + ' horas.\n'
                 + 'Si lo viste por favor comunícate con Usuario.</p>');
-                postLostAnimal.append('<a href="/' + post.id + '"></a>');
-                postLostAnimal.find('a').append('<img src="/static/images/' + post.foto + '">');
+                postLostAnimal.append('<img src="/static/images/' + post.foto + '">');
                 let shareOnFb = $('#share-on-fb');
                 shareOnFb.append('<div class="fb-share-button" data-href="' + url + '" data-layout="button" data-size="small"></div>');
                 $('article.post').append(postLostAnimal);
@@ -41,8 +40,7 @@ $(document).ready(function() {
                 + post.barrio + ' en las inmediaciones de ' + post.calle_1 +
                 ' y ' + post.calle_2 + ' a las ' + post.hora + ' horas.\n'
                 + 'Si es tuyo o sabes de quien puede ser por favor comunícate con Usuario.</p>');
-                postFoundAnimal.append('<a href="/' + post.id + '"></a>');
-                postFoundAnimal.find('a').append('<img src="/static/images/' + post.foto + '">');
+                postFoundAnimal.append('<img src="/static/images/' + post.foto + '">');
                 let shareOnFb = $('#share-on-fb');
                 shareOnFb.append('<div class="fb-share-button" data-href="' + url + '" data-layout="button" data-size="small"></div>');
                 $('article.post').append(postFoundAnimal);
