@@ -1,6 +1,7 @@
 $(document).ready(function() {
     const url = window.location.href;
     const urlArray = url.split('/');
+    console.log(urlArray[0]);
     const postId = urlArray[urlArray.length - 1];
     async function fetchSinglePost() {
         try {
@@ -16,7 +17,7 @@ $(document).ready(function() {
     }
     window.displayPost = function () {
         fetchSinglePost().then(function(post) {
-            $('head').append('<meta property="og:image"         content="' + urlArray[0] + '/static/images' + post.foto + '" />');
+            $('head').append('<meta property="og:image"         content="' + urlArray[0] + '/static/images/' + post.foto + '" />');
             $('article.posts').empty();
             if (postId.includes("lost")) {
                 let postLostAnimal = $(document.createElement('div'));
