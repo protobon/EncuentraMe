@@ -8,7 +8,6 @@ import MySQLdb
 import logging
 
 access_token = os.getenv('fb_token')
-user_test = {'id': '123456', 'name': 'Test User', 'email': 'test@encuentrame.com'}
 
 UPLOAD_FOLDER = 'static/images'
 ALLOWED_EXTENSIONS = {'jpg', 'jpeg', 'png', 'jfif'}
@@ -31,8 +30,10 @@ def allowed_file(filename):
 
 
 def logfile(traceback):
-    with open("app_traceback.txt", 'w') as f:
-        f.write(traceback)
+    with open("traceback.txt", 'a') as f:
+        send = "-------" + datetime.utcnow().strftime("%m/%d/%Y, %H:%M:%S") +\
+               "-------\n" + traceback + "\n"
+        f.write(send)
         f.close()
     return False
 
@@ -41,10 +42,10 @@ def landing():
     """Landing page"""
     return render_template('index.html')
 
-@app.route('/lost_pet', methods=['GET', 'POST'])
-def form_lost_pet():
+@app.route('/<user_id>/lost_pet', methods=['GET', 'POST'])
+def form_lost_pet(user_id):
     if request.method == 'GET':
-        return render_template('form_lost_pet.html')
+        return render_template('form_lost_pet.html', user_id=user_id)
     if request.method == 'POST':
         id = "lost" + str(uuid.uuid4())
         estado = "active"
@@ -56,10 +57,6 @@ def form_lost_pet():
         calle_1 = request.form['calle_1']
         calle_2 = request.form['calle_2']
         barrio = request.form['barrio']
-        # check if the post request has the file part
-        if 'foto' not in request.files:
-            flash('Debe subir una imagen')
-            return redirect(request.url)
         file = request.files['foto']
         # If the user does not select a file, the browser submits an
         # empty file without a filename.
@@ -76,7 +73,7 @@ def form_lost_pet():
         cursor = mysql.connection.cursor()
         try:
             cursor.execute('INSERT INTO lost_pets VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',
-                           (id, user_test['id'], estado, created_at, mascota, nombre, fecha, hora, calle_1, calle_2, barrio, file.filename))
+                           (id, user_id, estado, created_at, mascota, nombre, fecha, hora, calle_1, calle_2, barrio, file.filename))
         except Exception as e:
             flash('Ha ocurrido un error, asegúrese de ingresar los datos correctamente')
             logfile(e)
@@ -86,10 +83,10 @@ def form_lost_pet():
         return redirect('/')
 
 
-@app.route('/found_pet', methods=['GET', 'POST'])
-def form_found_pet():
+@app.route('/<user_id>/found_pet', methods=['GET', 'POST'])
+def form_found_pet(user_id):
     if request.method == 'GET':
-        return render_template('form_found_pet.html')
+        return render_template('form_found_pet.html', user_id=user_id)
     if request.method == 'POST':
         id = "found" + str(uuid.uuid4())
         estado = "active"
@@ -100,10 +97,6 @@ def form_found_pet():
         calle_1 = request.form['calle_1']
         calle_2 = request.form['calle_2']
         barrio = request.form['barrio']
-        # check if the post request has the file part
-        if 'foto' not in request.files:
-            flash('Debe subir una imagen')
-            return redirect(request.url)
         file = request.files['foto']
         # If the user does not select a file, the browser submits an
         # empty file without a filename.
@@ -120,7 +113,7 @@ def form_found_pet():
         cursor = mysql.connection.cursor()
         try:
             cursor.execute('INSERT INTO found_pets VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',
-                        (id, user_test['id'], estado, created_at, mascota, fecha, hora, calle_1, calle_2, barrio, file.filename))
+                        (id, user_id, estado, created_at, mascota, fecha, hora, calle_1, calle_2, barrio, file.filename))
         except Exception as e:
             logfile(e)
             return redirect(request.url)

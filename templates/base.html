@@ -90,22 +90,33 @@
             postButton.addEventListener("click", function() {
                 FB.getLoginStatus(function(response) {
                     if (response.status === 'connected') {
-                    // The user is logged in and has authenticated your
-                    // app, and response.authResponse supplies
-                    // the user's ID, a valid access token, a signed
-                    // request, and the time the access token 
-                    // and signed request each expire.
-                    var uid = response.authResponse.userID;
-                    var accessToken = response.authResponse.accessToken;
-                    window.location.href = "https://encuentrame.org.xelar.tech/lost_pet";
+                        var uid = response.authResponse.userID;
+                        window.location.href = "https://encuentrame.org.xelar.tech/" + uid + "/lost_pet";
                     } else {
                         alert("Debes ingresar con Facebook para hacer una publicación");
-                        return;
+                        return false;
                     }
                 });
             });
         };
-        window.addEventListener("load", validatePostButton);
+        function validateFormSubmit() {
+            if (window.location.href.includes("lost_pet")) {
+                FB.getLoginStatus(function(response) {
+                    if (response.status === 'connected') {
+                        var uid = response.authResponse.userID;
+                        var url = window.location.href;
+                        var urluid = url.split("/")[3];
+                        if (uid !== urluid) {
+                            window.location.href = "https://encuentrame.org.xelar.tech";
+                            return false;
+                        };
+                    }
+                });
+            } else {
+                return false;
+            }
+        };
+        window.addEventListener("load", validatePostButton, validateFormSubmit());
     </script>
     <nav class="navbar navbar-light bg-light justify-content-between">
         <a class="navbar-brand" href="/">

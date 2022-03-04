@@ -7,7 +7,7 @@
 
 {% block body %}
 <p>Atención: Este formulario es para quienes perdieron su mascota y quieren encontrarla.
-    Si encontraste un animalito en la calle y quieres publicarlo, presiona <a href="/found_pet">aquí.</a>
+    Si encontraste un animalito en la calle y quieres publicarlo, presiona <a href="/{{ user_id }}/found_pet">aquí.</a>
 </p>
 <br>
 <form action="/lost_pet" method="post" class="form_center" id="main_form" enctype="multipart/form-data">
@@ -45,7 +45,7 @@
             <label for="image">Sube una imagen:</label>
             <input type="file" name="foto" required>
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary" id="form-submit">Submit</button>
     </fieldset>
 </form>
 {% endblock %}
