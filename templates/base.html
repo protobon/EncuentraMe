@@ -33,6 +33,7 @@
 
                 FB.getLoginStatus(function(response) {
                     statusChangeCallback(response);
+                    validateForm(response);
                 });
             };
 
@@ -64,6 +65,22 @@
                     $('#btn-logout').hide();
                 }
                 return true;
+            }
+
+            function validateForm(response) {
+                siteUrl = window.location.href;
+                if (siteUrl.includes("lost_pet") || siteUrl.includes("found_pet")) {
+                    if (response.status === 'connected') {
+                        var uid = response.authResponse.userID;
+                        var urlUid = siteUrl.split("/")[3];
+                        if (uid !== urlUid) {
+                            window.location.href = "https://encuentrame.org.xelar.tech";
+                            return false;
+                        }
+                    } else {
+                        window.location.href = "https://encuentrame.org.xelar.tech";
+                    }
+                }
             }
 
             function checkLoginState() {
@@ -103,28 +120,6 @@
                     }
                 });
             });
-
-            window.validateForm = function() {
-                siteUrl = window.location.href;
-                if (siteUrl.includes("lost_pet") || siteUrl.includes("found_pet")) {
-                    FB.getLoginStatus(function(response) {
-                        if (response.status === 'connected') {
-                            var uid = response.authResponse.userID;
-                            var url = window.location.href;
-                            var urluid = url.split("/")[3];
-                            if (uid !== urluid) {
-                                window.location.href = "https://encuentrame.org.xelar.tech";
-                                return false;
-                            }
-                        } else {
-                            window.location.href = "https://encuentrame.org.xelar.tech";
-                        }
-                    });
-                } else {
-                    return false;
-                }
-            };
-            window.addEventListener('load', validateForm());
         });
     </script>
     <nav class="navbar navbar-light bg-light justify-content-between">
