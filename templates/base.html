@@ -52,6 +52,7 @@
                     setElements(false);
                 }
             }
+
             function setElements(isLoggedIn) {
                 if (isLoggedIn) {
                     $('#fb-btn').hide();
@@ -62,11 +63,13 @@
                 }
                 return true;
             }
+
             function checkLoginState() {
                 FB.getLoginStatus(function(response) {
                     statusChangeCallback(response);
                 });
             }
+
             function sendCredentials() {
                 FB.api('/me?fields=name,email,id', function(credentials) {
                     if(credentials && !credentials.error) {
@@ -79,6 +82,13 @@
                     }
                 });
             }
+
+            function logout() {
+                FB.logout(function () {
+                    window.location.href = "https://encuentrame.org.xelar.tech/";
+                });
+            };
+
             window.postButton = document.querySelector("#post");
             postButton.addEventListener("click", function() {
                 FB.getLoginStatus(function(response) {
@@ -91,6 +101,7 @@
                     }
                 });
             });
+
             window.validateFormSubmit = function() {
                 if (window.location.href.includes("lost_pet")) {
                     FB.getLoginStatus(function(response) {
@@ -108,16 +119,16 @@
                     return false;
                 }
             };
+            checkLoginState();
             validateFormSubmit();
         });
-        // window.addEventListener("load", validatePostButton, validateFormSubmit());
     </script>
     <nav class="navbar navbar-light bg-light justify-content-between">
         <a class="navbar-brand" href="/">
             <img src="{{ url_for('static', filename='logo/EncuentraMe(1000x1000).png') }}" alt="">
         </a>
         <ul class="navbar navbar-right">
-            <button class="btn btn-danger btn-small" id="btn-logout" onclick="FB.logout();">Logout</button>
+            <button class="btn btn-danger btn-small" id="btn-logout">Logout</button>
             <fb:login-button
                 id="fb-btn"
                 scope="email"
