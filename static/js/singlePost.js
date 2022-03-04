@@ -2,7 +2,6 @@ $(document).ready(function() {
     const url = window.location.href;
     const urlArray = url.split('/');
     const postId = urlArray[urlArray.length - 1];
-    console.log("postId: " + postId);
     async function fetchSinglePost() {
         try {
             const response = await fetch("https://encuentrame.org.xelar.tech/api/posts/" + postId);
