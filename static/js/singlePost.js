@@ -16,7 +16,7 @@ $(document).ready(function() {
     }
     window.displayPost = function () {
         fetchSinglePost().then(function(post) {
-            // $('head').append('<meta property="og:image" content="https://encuentrame.org.xelar.tech/static/images/' + post.foto + '" />');
+            $('head').append('<meta property="og:image" content="https://encuentrame.org.xelar.tech/static/images/' + post.foto + '" />');
             $('article.post').empty();
             if (postId.includes("lost")) {
                 let postLostAnimal = $(document.createElement('div'));
