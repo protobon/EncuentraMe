@@ -86,20 +86,18 @@
                 });
             }
             window.postButton = document.querySelector("#post");
-            function validatePostButton() {
-                postButton.addEventListener("click", function() {
-                    FB.getLoginStatus(function(response) {
-                        if (response.status === 'connected') {
-                            var uid = response.authResponse.userID;
-                            window.location.href = "https://encuentrame.org.xelar.tech/" + uid + "/lost_pet";
-                        } else {
-                            alert("Debes ingresar con Facebook para hacer una publicación");
-                            return false;
-                        }
-                    });
+            postButton.addEventListener("click", function() {
+                FB.getLoginStatus(function(response) {
+                    if (response.status === 'connected') {
+                        var uid = response.authResponse.userID;
+                        window.location.href = "https://encuentrame.org.xelar.tech/" + uid + "/lost_pet";
+                    } else {
+                        alert("Debes ingresar con Facebook para hacer una publicación");
+                        return false;
+                    }
                 });
-            };
-            function validateFormSubmit() {
+            });
+            window.validateFormSubmit = function() {
                 if (window.location.href.includes("lost_pet")) {
                     FB.getLoginStatus(function(response) {
                         if (response.status === 'connected') {

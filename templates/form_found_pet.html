@@ -10,7 +10,7 @@
     Si perdiste a tu mascota y quieres publicarlo has click <a href="/{{ user_id }}/lost_pet">aquí.</a>
 </p>
 <br>
-<form action="/found_pet" method="post" class="form_center" id="main_form" enctype="multipart/form-data">
+<form action="/{{ user_id }}/found_pet" method="post" class="form_center" id="main_form" enctype="multipart/form-data">
     {% with messages = get_flashed_messages() %}
         {% if messages %}
             {% for message in messages %}
