@@ -9,12 +9,12 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
     <script src="" type="text/javascript"></script>
     <style media ="screen">
-        #fb-btn{
-            margin-right:0%;
-            margin-top:0%;
+        #fb-btn {
+            margin-right: 0%;
+            margin-top: 0%;
         }
         #btn-logout{
-                display:none;
+                display: none;
         }
     </style>
     {% block head %}{% endblock %}
@@ -32,7 +32,7 @@
 
                 FB.getLoginStatus(function(response) {
                     statusChangeCallback(response);
-                    validateForm(response);
+                    validateUser(response);
                 });
             };
 
@@ -46,9 +46,9 @@
 
             function statusChangeCallback(response) {
                 if(response.status === 'connected') {
-                    sendCredentials();
                     console.log('Logged in and anthenticated');
                     setElements(true);
+                    sendCredentials();
                 } else {
                     console.log('Not authenticated');
                     setElements(false);
@@ -61,18 +61,7 @@
                 });
             }
 
-            function setElements(isLoggedIn) {
-                if (isLoggedIn) {
-                    $('#fb-btn').hide();
-                    $('#btn-logout').show();
-                } else {
-                    $('#fb-btn').show();
-                    $('#btn-logout').hide();
-                }
-                return true;
-            }
-
-            function validateForm(response) {
+            function validateUser(response) {
                 siteUrl = window.location.href;
                 if (siteUrl.includes("lost_pet") || siteUrl.includes("found_pet")) {
                     if (response.status === 'connected') {
@@ -80,7 +69,6 @@
                         var urlUid = siteUrl.split("/")[3];
                         if (uid !== urlUid) {
                             window.location.href = "https://encuentrame.org.xelar.tech";
-                            return false;
                         }
                     } else {
                         window.location.href = "https://encuentrame.org.xelar.tech";
@@ -101,8 +89,19 @@
                 });
             }
 
+            function setElements(isLoggedIn) {
+                if (isLoggedIn) {
+                    $('#fb-btn').hide();
+                    $('#btn-logout').show();
+                } else {
+                    $('#fb-btn').show();
+                    $('#btn-logout').hide();
+                }
+            }
+
             window.logout = function () {
                 FB.logout(function () {
+                    setElements(false);
                     window.location.href = "https://encuentrame.org.xelar.tech/";
                 });
             };
