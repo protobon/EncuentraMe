@@ -105,7 +105,8 @@
             });
 
             window.validateForm = function() {
-                if (window.location.href.includes("lost_pet")) {
+                siteUrl = window.location.href;
+                if (siteUrl.includes("lost_pet") || siteUrl.includes("found_pet")) {
                     FB.getLoginStatus(function(response) {
                         if (response.status === 'connected') {
                             var uid = response.authResponse.userID;
@@ -114,7 +115,7 @@
                             if (uid !== urluid) {
                                 window.location.href = "https://encuentrame.org.xelar.tech";
                                 return false;
-                            };
+                            }
                         } else {
                             window.location.href = "https://encuentrame.org.xelar.tech";
                         }
