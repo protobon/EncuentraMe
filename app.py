@@ -219,9 +219,9 @@ def api_post_by_id(id):
         return redirect('/')
 
 
-@app.route('/map')
+@app.route('/main_map')
 def new_map():
-    return render_template('map.html')
+    return render_template('main_map.html')
 
 
 if __name__ == "__main__":

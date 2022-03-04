@@ -92,7 +92,12 @@ nav a.navbar-brand img {
     padding: 5px;
 }
 
-#map {
+#post_map {
+    height: 400px;
+
+}
+
+#main_map {
     height: 400px;
 
 }

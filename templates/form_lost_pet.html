@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 
 {% block head %}
-<link rel="stylesheet" href="{{ url_for('static', filename='styles/index.css') }}">
 <title>Mascota Perdida</title>
+<script src="{{ url_for('static', filename='js/post_map.js') }}"></script>
 {% endblock %}
 
 {% block body %}
@@ -44,12 +44,15 @@
             <br>
             <label for="image">Sube una imagen:</label>
             <input type="file" name="foto" required>
+            <div id="post_map"></div>
+            <script
+                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBqNj3BPTdCSu9fTtAlj4LSLD5FAidsa7M&callback=initMap&libraries=&v=weekly"
+                async
+            ></script>
         </div>
+
         <button type="submit" class="btn btn-primary">Submit</button>
-        <script
-src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBqNj3BPTdCSu9fTtAlj4LSLD5FAidsa7M&callback=initMap&libraries=&v=weekly"
-async
-></script>
+        
     </fieldset>
 </form>
 {% endblock %}

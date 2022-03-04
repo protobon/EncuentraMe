@@ -2,7 +2,7 @@ let map, infoWindow;
 // Initialize and add the map
 function initMap() {
   // The map, centered specific location. Need to custom to ssers CurrentPosition
-  map = new google.maps.Map(document.getElementById("map"), {
+  map = new google.maps.Map(document.getElementById("main_map"), {
     zoom: 13,
     center: {lat: -34.901357, lng: -56.189205},
   });
