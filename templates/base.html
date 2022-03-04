@@ -101,7 +101,6 @@
 
             window.logout = function () {
                 FB.logout(function () {
-                    setElements(false);
                     window.location.href = "https://encuentrame.org.xelar.tech/";
                 });
             };
@@ -122,6 +121,8 @@
             };
         });
     </script>
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v13.0&appId=1633098193720369&autoLogAppEvents=1" nonce="TglWXrmf"></script>
     <nav class="navbar navbar-light bg-light justify-content-between">
         <a class="navbar-brand" href="/">
             <img src="{{ url_for('static', filename='logo/EncuentraMe(1000x1000).png') }}" alt="">
