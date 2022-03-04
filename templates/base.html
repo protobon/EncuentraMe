@@ -53,13 +53,14 @@
                 }
             }
             function setElements(isLoggedIn) {
-                if(isLoggedIn) {
-                    document.getElementById('fb-btn').style.display = 'none';
-                    document.getElementById('btn-logout').style.display = 'block';
+                if (isLoggedIn) {
+                    $('#fb-btn').hide();
+                    $('#btn-logout').show();
                 } else {
-                    document.getElementById('fb-btn').style.display = 'block';
-                    document.getElementById('btn-logout').style.display = 'none';
+                    $('#fb-btn').show();
+                    $('#btn-logout').hide();
                 }
+                return true;
             }
             function checkLoginState() {
                 FB.getLoginStatus(function(response) {
