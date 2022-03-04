@@ -98,6 +98,7 @@
                     var uid = response.authResponse.userID;
                     var accessToken = response.authResponse.accessToken;
                     window.location.href = "https://encuentrame.org.xelar.tech/lost_pet";
+                    console.log(response.userID);
                     } else {
                         alert("Debes ingresar con Facebook para hacer una publicación");
                         return;
