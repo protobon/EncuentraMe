@@ -28,7 +28,7 @@ $(document).ready(function() {
                 + 'Si lo viste por favor comunícate con Usuario.</p>');
                 postLostAnimal.append('<a href="/' + post.id + '"></a>');
                 postLostAnimal.find('a').append('<img src="/static/images/' + post.foto + '">');
-                postLostAnimal.append('<div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button" data-size="small"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Compartir</a></div>');
+                postLostAnimal.append('<div class="fb-share-button" data-href="' + url + '" data-layout="button" data-size="small"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Compartir</a></div>');
                 $('article.posts').append(postLostAnimal);
             } else {
                 let postFoundAnimal = $(document.createElement('div'));
@@ -41,7 +41,7 @@ $(document).ready(function() {
                 + 'Si es tuyo o sabes de quien puede ser por favor comunícate con Usuario.</p>');
                 postFoundAnimal.append('<a href="/' + post.id + '"></a>');
                 postFoundAnimal.find('a').append('<img src="/static/images/' + post.foto + '">');
-                postFoundAnimal.append('<div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button" data-size="small"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Compartir</a></div>');
+                postFoundAnimal.append('<div class="fb-share-button" data-href="' + url + '" data-layout="button" data-size="small"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Compartir</a></div>');
                 $('article.posts').append(postFoundAnimal);
             }
         });
