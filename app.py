@@ -143,6 +143,10 @@ def api_posts():
     cursor.execute("SELECT * FROM found_pets WHERE estado = 'active' ORDER BY created_at DESC")
     found = list(cursor.fetchall())
     cursor.close()
+    for post in lost:
+        del post["estado"]
+    for post in found:
+        del post["estado"]
     return jsonify({"lost": lost, "found": found})
 
 
@@ -151,7 +155,7 @@ def api_users():
     if request.method == 'GET':
         """Retrieve all users from database and return in JSON format"""
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('SELECT * FROM users')
+        cursor.execute('SELECT name, email FROM users')
         users = list(cursor.fetchall())
         cursor.close()
         return jsonify(users)
@@ -180,6 +184,10 @@ def api_user_posts(user_id):
     cursor.execute('SELECT * FROM found_pets WHERE user_id=%s', [user_id])
     found = list(cursor.fetchall())
     cursor.close()
+    for post in lost:
+        del post["estado"]
+    for post in found:
+        del post["estado"]
     return jsonify({"lost": lost, "found": found})
 
 
@@ -193,6 +201,7 @@ def api_post_by_id(id):
         cursor.execute("SELECT * FROM found_pets WHERE id=%s", [id])
     try:
         post = list(cursor.fetchall())[0]
+        del post["estado"]
     except Exception:
         flash('Publicación no encontrada')
         cursor.close()
