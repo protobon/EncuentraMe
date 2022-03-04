@@ -85,8 +85,8 @@
                     setElements(false);
                 });
             }
+            window.postButton = document.querySelector("#post");
             function validatePostButton() {
-                const postButton = document.querySelector("#post");
                 postButton.addEventListener("click", function() {
                     FB.getLoginStatus(function(response) {
                         if (response.status === 'connected') {
@@ -116,6 +116,7 @@
                     return false;
                 }
             };
+            validateFormSubmit();
         });
         // window.addEventListener("load", validatePostButton, validateFormSubmit());
     </script>
