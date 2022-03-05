@@ -23,6 +23,11 @@
         fjs.parentNode.insertBefore(js, fjs);
     } (document, 'script', 'facebook-jssdk'));
     </script>
+    <nav class="navbar navbar-light bg-light justify-content-between">
+        <a class="navbar-brand" href="/">
+            <img src="{{ url_for('static', filename='logo/EncuentraMe(1000x1000).png') }}" alt="">
+        </a>
+    </nav>
     <article>
         {% if 'lost' in post['id'] %}
             <div class="pet lost_pet">
