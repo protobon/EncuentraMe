@@ -132,24 +132,22 @@ def form_found_pet(user_id):
 
 @app.route('/<id>')
 def show_single_post(id):
-    logfile(id)
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     if "lost" in id:
         cursor.execute("SELECT * FROM lost_pets WHERE id=%s", [id])
     else:
         cursor.execute("SELECT * FROM found_pets WHERE id=%s", [id])
     try:
-        post = list(cursor.fetchall())
-        logfile(str(post))
+        post = list(cursor.fetchall())[0]
     except Exception as e:
+        flash("Publicación no encontrada")
         logfile(str(e))
         cursor.close()
         return redirect('/')
-    # post['foto'] = os.path.join(UPLOAD_FOLDER, post['foto'])
-    # cursor.execute("SELECT name FROM users WHERE id=%s", [post['user_id']])
+    post['foto'] = os.path.join(UPLOAD_FOLDER, post['foto'])
+    cursor.execute("SELECT name FROM users WHERE id=%s", [post['user_id']])
     try:
-        user = list(cursor.fetchall())
-        logfile(str(user))
+        user = list(cursor.fetchall())[0]
     except Exception as e:
         logfile(str(e))
     cursor.close()
