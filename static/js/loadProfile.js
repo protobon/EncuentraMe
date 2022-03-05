@@ -56,7 +56,7 @@ $(document).ready(function () {
                 deleteButton.addClass('btn');
                 deleteButton.addClass('btn-danger');
                 deleteButton.attr('type', 'button');
-                deleteButton.text('Eliminar');
+                deleteButton.html('Eliminar');
                 deleteButton.attr('onclick', 'deletePost(' + this.id + ')');
                 buttonsDiv.append(deleteButton);
                 postFoundNew.append(buttonsDiv);
