@@ -126,9 +126,27 @@ def form_found_pet(user_id):
         return redirect('/')
 
 
+# @app.route('/<id>')
+# def show_single_post(id):
+#     return render_template('post_by_id.html')
+
 @app.route('/<id>')
 def show_single_post(id):
-    return render_template('post_by_id.html')
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    if "lost" in id:
+        cursor.execute("SELECT * FROM lost_pets WHERE id=%s", [id])
+    else:
+        cursor.execute("SELECT * FROM found_pets WHERE id=%s", [id])
+    try:
+        post = list(cursor.fetchall())[0]
+    except Exception:
+        flash('Publicación no encontrada')
+        cursor.close()
+        return redirect('/')
+    post['foto'] = os.path.join(UPLOAD_FOLDER, post['foto'])
+    cursor.execute("SELECT name FROM users WHERE id=%s", [post['user_id']])
+    user = list(cursor.fetchall())[0]
+    return render_template('post_by_id.html', post=post, user=user)
 
 
 @app.route('/profile/<user_id>')
