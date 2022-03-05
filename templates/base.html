@@ -101,6 +101,7 @@
             }
 
             window.deletePost = function (postId) {
+                console.log(postId);
                 FB.getLoginStatus(function(response) {
                     if (response.status === 'connected') {
                         url = 'https://encuentrame.org.xelar.tech/api/posts/' + postId;

@@ -34,7 +34,7 @@ $(document).ready(function () {
                 deleteButton.addClass('btn-danger');
                 deleteButton.attr('type', 'button');
                 deleteButton.html('Eliminar');
-                deleteButton.attr('onclick', 'deletePost(' + this.id + ')');
+                deleteButton.attr('onclick', 'deletePost("' + this.id + '")');
                 buttonsDiv.append(deleteButton);
                 postLostNew.append(buttonsDiv);
                 $('article.posts').append(postLostNew);
@@ -57,7 +57,7 @@ $(document).ready(function () {
                 deleteButton.addClass('btn-danger');
                 deleteButton.attr('type', 'button');
                 deleteButton.html('Eliminar');
-                deleteButton.attr('onclick', 'deletePost(' + this.id + ')');
+                deleteButton.attr('onclick', 'deletePost("' + this.id + '")');
                 buttonsDiv.append(deleteButton);
                 postFoundNew.append(buttonsDiv);
                 $('article.posts').append(postFoundNew);
