@@ -33,8 +33,8 @@ $(document).ready(function () {
                 deleteButton.addClass('btn');
                 deleteButton.addClass('btn-danger');
                 deleteButton.attr('type', 'button');
-                deleteButton.attr('value', 'Eliminar');
-                deleteButton.attr('onclick', 'deletePost(this.id)');
+                deleteButton.html('Eliminar');
+                deleteButton.attr('onclick', 'deletePost(' + this.id + ')');
                 buttonsDiv.append(deleteButton);
                 postLostNew.append(buttonsDiv);
                 $('article.posts').append(postLostNew);
