@@ -130,9 +130,10 @@ def form_found_pet(user_id):
 def show_single_post(id):
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     if "lost" in id:
-        post = cursor.execute("SELECT * FROM lost_pets WHERE id=%s", [id])
+        cursor.execute("SELECT * FROM lost_pets WHERE id=%s", [id])
     else:
-        post = cursor.execute("SELECT * FROM found_pets WHERE id=%s", [id])
+        cursor.execute("SELECT * FROM found_pets WHERE id=%s", [id])
+    post = cursor.fetchall()
     del post["estado"]
     del post["user_id"]
     user = cursor.execute("SELECT name FROM users WHERE id=%s", post['user_id'])
