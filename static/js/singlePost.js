@@ -29,7 +29,7 @@ $(document).ready(function() {
                 + 'Si lo viste por favor comunícate con Usuario.</p>');
                 postLostAnimal.append('<img src="/static/images/' + post.foto + '">');
                 let shareOnFb = $('#share-on-fb');
-                shareOnFb.append('<div class="fb-share-button" data-href="' + url + '" data-layout="button" data-size="small"></div>');
+                shareOnFb.append('<div class="fb-share-button" data-href="' + url + '" data-layout="button" data-size="large"></div>');
                 $('article.post').append(postLostAnimal);
             } else {
                 let postFoundAnimal = $(document.createElement('div'));
