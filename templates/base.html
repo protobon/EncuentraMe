@@ -107,6 +107,8 @@
                         url = 'https://encuentrame.org.xelar.tech/api/posts/' + postId;
                         fetch(url, {
                             method: 'DELETE',
+                        }).then(() => {
+                            window.location.reload();
                         })
                         .catch(err => console.log(err));
                     } else {
