@@ -100,6 +100,19 @@
                 });
             }
 
+            window.deletePost = function (postId) {
+                FB.getLoginStatus(function(response) {
+                    if (response.status === 'connected') {
+                        url = 'https://encuentrame.org.xelar.tech/api/posts/' + postId;
+                        fetch(url, {
+                            method: 'DELETE',
+                            headers: {'Content-Type': 'application/json'},
+                        })
+                        .catch(err => console.log(err));
+                    }
+                });
+            }
+
             function setElements(isLoggedIn) {
                 if (isLoggedIn) {
                     $('#fb-btn').hide();
