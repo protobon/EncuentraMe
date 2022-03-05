@@ -119,7 +119,6 @@ def form_found_pet(user_id):
             cursor.execute('INSERT INTO found_pets VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',
                         (id, user_id, estado, created_at, mascota, fecha, hora, calle_1, calle_2, barrio, file.filename))
         except Exception as e:
-            flash('Ha ocurrido un error, asegúrese de ingresar los datos correctamente')
             logfile("form_found_pet(user_id) - in cursor.execute(INSERT INTO found_pets):\n" + str(e))
             return redirect(request.url)
         mysql.connection.commit()
@@ -249,8 +248,7 @@ def api_post_by_id(id):
             cursor.execute("UPDATE found_pets SET estado = 'completed' WHERE id=%s", [id])
         mysql.connection.commit()
         cursor.close()
-        flash('¡Felicidades! Nos alegra mucho que hayas encontrado a tu mascota :D')
-        return redirect('/')
+        return jsonify('¡Felicidades! Nos alegra mucho que hayas encontrado a tu mascota :D')
     if request.method == 'DELETE':
         if "lost" in id:
             cursor.execute("UPDATE lost_pets SET estado = 'removed' WHERE id=%s", [id])
@@ -258,8 +256,7 @@ def api_post_by_id(id):
             cursor.execute("UPDATE found_pets SET estado = 'removed' WHERE id=%s", [id])
         mysql.connection.commit()
         cursor.close()
-        flash('Publicación eliminada correctamente')
-        return redirect(request.url)
+        return jsonify('Publicación eliminada correctamente')
 
 
 if __name__ == "__main__":
