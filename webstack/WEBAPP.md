@@ -48,7 +48,7 @@ run flask with gunicorn
 
 ``gunicorn --version``
 
-gunicorn "urlshort:create_app()" -b 0.0.0.0
+gunicorn "app:create_app()" -b 0.0.0.0
 
 curl 172.31.40.105:8000
 
