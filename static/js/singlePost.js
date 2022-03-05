@@ -30,7 +30,7 @@ $(document).ready(function() {
                 postLostAnimal.append('<img src="/static/images/' + post.foto + '">');
                 // let shareOnFb = $('#share-on-fb');
                 // shareOnFb.append('<div class="fb-share-button" data-href="' + url + '" data-layout="button" data-size="large"></div>');
-                postLostAnimal.append('<div class="fb-share-button" data-href="' + url + '" data-layout="button" data-size="small"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Compartir</a></div>');
+                postLostAnimal.append('<div class="fb-share-button" data-href="' + url + '" data-layout="button" data-size="small"></div>');
                 $('article.post').append(postLostAnimal);
             } else {
                 let postFoundAnimal = $(document.createElement('div'));
@@ -44,7 +44,7 @@ $(document).ready(function() {
                 postFoundAnimal.append('<img src="/static/images/' + post.foto + '">');
                 // let shareOnFb = $('#share-on-fb');
                 // shareOnFb.append('<div class="fb-share-button" data-href="' + url + '" data-layout="button" data-size="small"></div>');
-                postFoundAnimal.append('<div class="fb-share-button" data-href="' + url + '" data-layout="button" data-size="small"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Compartir</a></div>');
+                postFoundAnimal.append('<div class="fb-share-button" data-href="' + url + '" data-layout="button" data-size="small"></div>');
                 $('article.post').append(postFoundAnimal);
             }
         });
