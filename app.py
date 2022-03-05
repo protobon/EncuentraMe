@@ -66,10 +66,12 @@ def form_lost_pet():
         else:
             flash('Formatos de imagen soportados: jpg, jpeg, png, jfif.')
             return redirect(request.url)
+        latitude = request.form['latitude']
+        longitude = -56.189205
         cursor = mysql.connection.cursor()
         try:
-            cursor.execute('INSERT INTO lost_pets VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',
-                           (id, user_id, estado, created_at, mascota, nombre, fecha, hora, calle_1, calle_2, barrio, file.filename))
+            cursor.execute('INSERT INTO lost_pets VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',
+                           (id, user_id, estado, created_at, mascota, nombre, fecha, hora, calle_1, calle_2, barrio, file.filename, latitude, longitude))
         except Exception as e:
             flash('Ha ocurrido un error, asegúrese de ingresar los datos correctamente')
             print(e)
@@ -111,10 +113,12 @@ def form_found_pet():
         else:
             flash('Formatos de imagen soportados: jpg, jpeg, png, jfif.')
             return redirect(request.url)
+        latitude = request.form['postLat']
+        longitude = request.form['postLng']
         cursor = mysql.connection.cursor()
         try:
-            cursor.execute('INSERT INTO found_pets VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',
-                        (id, user_id, estado, created_at, mascota, fecha, hora, calle_1, calle_2, barrio, file.filename))
+            cursor.execute('INSERT INTO found_pets VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %0.6f, %0.6f)',
+                        (id, user_id, estado, created_at, mascota, fecha, hora, calle_1, calle_2, barrio, file.filename, latitude, longitude))
         except Exception as e:
             flash('Ha ocurrido un error, asegúrese de ingresar los datos correctamente')
             print(e)
