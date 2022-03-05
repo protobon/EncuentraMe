@@ -80,7 +80,7 @@ def form_lost_pet(user_id):
                            (id, user_id, estado, created_at, mascota, nombre, fecha, hora, calle_1, calle_2, barrio, file.filename))
         except Exception as e:
             flash('Ha ocurrido un error, asegúrese de ingresar los datos correctamente')
-            logfile(e)
+            logfile(str(e))
             return redirect(request.url)
         mysql.connection.commit()
         cursor.close()
@@ -119,7 +119,7 @@ def form_found_pet(user_id):
             cursor.execute('INSERT INTO found_pets VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',
                         (id, user_id, estado, created_at, mascota, fecha, hora, calle_1, calle_2, barrio, file.filename))
         except Exception as e:
-            logfile(e)
+            logfile(str(e))
             return redirect(request.url)
         mysql.connection.commit()
         cursor.close()
@@ -138,17 +138,19 @@ def show_single_post(id):
     else:
         cursor.execute("SELECT * FROM found_pets WHERE id=%s", [id])
     try:
-        post = list(cursor.fetchall())[0]
+        post = list(cursor.fetchall())
+        logfile(str(post))
     except Exception as e:
-        logfile(e)
+        logfile(str(e))
         cursor.close()
         return redirect('/')
-    post['foto'] = os.path.join(UPLOAD_FOLDER, post['foto'])
+    # post['foto'] = os.path.join(UPLOAD_FOLDER, post['foto'])
     cursor.execute("SELECT name FROM users WHERE id=%s", [post['user_id']])
     try:
-        user = list(cursor.fetchall())[0]
+        user = list(cursor.fetchall())
+        logfile(str(user))
     except Exception as e:
-        logfile(e)
+        logfile(str(e))
     return render_template('post_by_id.html', post=post, user=user)
 
 
