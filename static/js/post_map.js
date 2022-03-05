@@ -15,7 +15,6 @@ function initMap() {
       map: map,
       draggable: true,
     });
-  // To display content (usually text or images) in a popup window above the map
   const locationButton = document.createElement("button");
   locationButton.textContent = "Selecciona ubicación actual";
   locationButton.classList.add("custom-map-control-button");
@@ -41,7 +40,7 @@ function initMap() {
         
       );
     } else {
-      // Browser doesn't support Geolocation
+      // Browser doesn'tva support Geolocation
       handleLocationError(false, infoWindow, map.getCenter());
     }
   });
@@ -49,12 +48,11 @@ function initMap() {
 
     //Show lat/lng on console
     google.maps.event.addListener(marker,'drag', function(event){
-      $("#txtLat").val(event.latLng.lat().toFixed(6));
-      $("#txtLng").val(event.latLng.lng().toFixed(6));
+      $("#postLat").val(event.latLng.lat().toFixed(6));
+      $("#postLng").val(event.latLng.lng().toFixed(6));
       map.panTo(event.latLng);
-      console.log(event.latLng.lat());
-      console.log(event.latLng.lng());
-    })
+    });
+    
       // markers can only be keyboard focusable when they have click listeners
       // open info window when marker is clicked
 };
@@ -62,8 +60,8 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
   infoWindow.setPosition(pos);
   infoWindow.setContent(
     browserHasGeolocation
-      ? "Error: The Geolocation service failed."
-      : "Error: Your browser doesn't support geolocation."
+      ? "Error: El servicio de Geolocalización falló."
+      : "Error: El navegador no soporta Geolocalización."
   );
   infoWindow.open(map);
 }

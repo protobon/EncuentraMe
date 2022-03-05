@@ -101,3 +101,7 @@ nav a.navbar-brand img {
     height: 400px;
 
 }
+
+#postLat, #postLng {
+    display:none;
+}
