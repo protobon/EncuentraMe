@@ -27,11 +27,16 @@ $(document).ready(function () {
                 + 'Si lo viste por favor comunícate con Usuario.</p>');
                 postLostNew.append('<a href="/' + this.id + '"></a>');
                 postLostNew.find('a').append('<img src="/static/images/' + this.foto + '">');
+                let buttonsDiv = $(document.createElement('div'));
+                buttonsDiv.addClass('buttons');
                 let deleteButton = $(document.createElement('button'));
                 deleteButton.addClass('btn');
                 deleteButton.addClass('btn-danger');
-                deleteButton.click(deletePost(this.id));
-                postLostNew.append(deleteButton);
+                deleteButton.attr('type', 'button');
+                deleteButton.attr('value', 'Eliminar');
+                deleteButton.attr('onclick', 'deletePost(this.id)');
+                buttonsDiv.append(deleteButton);
+                postLostNew.append(buttonsDiv);
                 $('article.posts').append(postLostNew);
             });
             $.each(data.found, function () {
@@ -45,11 +50,16 @@ $(document).ready(function () {
                 + 'Si es tuyo o sabes de quien puede ser por favor comunícate con Usuario.</p>');
                 postFoundNew.append('<a href="/' + this.id + '"></a>');
                 postFoundNew.find('a').append('<img src="/static/images/' + this.foto + '">');
+                let buttonsDiv = $(document.createElement('div'));
+                buttonsDiv.addClass('buttons');
                 let deleteButton = $(document.createElement('button'));
                 deleteButton.addClass('btn');
                 deleteButton.addClass('btn-danger');
-                deleteButton.click(deletePost(this.id));
-                postFoundNew.append(deleteButton);
+                deleteButton.attr('type', 'button');
+                deleteButton.attr('value', 'Eliminar');
+                deleteButton.attr('onclick', 'deletePost(this.id)');
+                buttonsDiv.append(deleteButton);
+                postFoundNew.append(buttonsDiv);
                 $('article.posts').append(postFoundNew);
             });
         });
