@@ -128,7 +128,17 @@ def form_found_pet(user_id):
 
 @app.route('/<id>')
 def show_single_post(id):
-    return render_template('post_by_id.html')
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    if "lost" in id:
+        post = cursor.execute("SELECT * FROM lost_pets WHERE id=%s", [id])
+    else:
+        post = cursor.execute("SELECT * FROM found_pets WHERE id=%s", [id])
+    del post["estado"]
+    del post["user_id"]
+    user = cursor.execute("SELECT name FROM users WHERE id=%s", post['user_id'])
+    fecha_list = post["fecha"].split('-')
+    fecha = fecha_list[2] + '/' + fecha_list[1] + '/' + fecha_list[0]
+    return render_template('post_by_id.html', post=post, fecha=fecha, user=user)
 
 
 @app.route('/profile/<user_id>')

@@ -3,14 +3,37 @@
 {% block head %}
 <link rel="stylesheet" href="{{ url_for('static', filename='styles/index.css') }}">
 <title>EncuentraMe</title>
+<meta property="og:url"           content="https://encuentrame.org.xelar.tech/{{ post['id'] }}" />
+<meta property="og:type"          content="article" />
+<meta property="og:title"         content="Necesito tu ayuda!!!" />
+<meta property="og:description"   content="Descripción" />
+<meta property="og:image"         content="https://encuentrame.org.xelar.tech/static/images/{{ post['foto'] }}" />
 {% endblock %}
 
 {% block body %}
 <article class="post">
+    {% if "lost" in post['id'] %}
+        <div class="pet pet_lost">
+            <p>¡Se busca a {{ post['nombre'] }}! Perdido/a desde el día {{ fecha }} última vez visto
+                en las inmediaciones de {{ post['calle_1'] }} y {{ post['calle_2'] }} barrio {{ post['barrio'] }}
+                a las {{ post['hora'] }} horas. Si lo viste por favor comunícate con {{ user }}.
+            </p>
+            <br>
+            <img src="https://encuentrame.org.xelar.tech/static/images/{{ post['foto'] }}" alt="">
+        </div>
+    {% else %}
+        <div class="pet pet_found">
+            <p>
+                Se encontró el día {{ fecha }} por barrio {{ post['barrio'] }} en las inmediaciones
+                de {{ post['calle_1'] }} y {{ post['calle_2'] }} a las {{ post['hora'] }} horas.
+                Si es tuyo o sabes de quien puede ser por favor comunícate con {{ user }}.
+            </p>
+            <br>
+            <img src="https://encuentrame.org.xelar.tech/static/images/{{ post['foto'] }}" alt="">
+        </div>
+    {% endif %}
 </article>
-<div class="fb-share-button" 
-data-href="https://www.your-domain.com/your-page.html" 
-data-layout="button_count">
+<div class="fb-share-button" data-href="https://encuentrame.org.xelar.tech/{{ post['id'] }}" data-layout="button_count" data-size="large">
 </div>
-<script src="{{ url_for('static', filename='js/singlePost.js') }}"></script>
+<!-- <script src="{{ url_for('static', filename='js/singlePost.js') }}"></script> -->
 {% endblock %}
