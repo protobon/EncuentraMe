@@ -36,15 +36,13 @@ execute sql queries
 flask run
 curl localhost
 kill process
-flask run --host=0.0.0.0 --port=8000
-kill process
+
 
 forwarded ports vagrant
 config.vm.network "forwarded_port", guest: 8000, host: 8080
-
-127.0.0.1:8080
-config.vm.network "private_network", ip: "192.168.33.10"
-192.168.33.10
+FLASK_ENV="development"
 
 
-gunicorn --workers 2 --bind unix:encuentrame.sock -m 007 app:app &
+flask run --host=0.0.0.0 --port=8000
+
+on host localhost:8080
