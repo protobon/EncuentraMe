@@ -36,6 +36,13 @@ $(document).ready(function () {
                 deleteButton.html('Eliminar');
                 deleteButton.attr('onclick', 'deletePost("' + this.id + '")');
                 buttonsDiv.append(deleteButton);
+                let updateButton = $(document.createElement('button'));
+                updateButton.addClass('btn');
+                updateButton.addClass('btn-info');
+                updateButton.attr('type', 'button');
+                updateButton.html('¡Tengo a mi mascota!');
+                updateButton.attr('onclick', 'resolvePost("' + this.id +'")');
+                buttonsDiv.append(updateButton);
                 postLostNew.append(buttonsDiv);
                 $('article.posts').append(postLostNew);
             });
@@ -59,6 +66,13 @@ $(document).ready(function () {
                 deleteButton.html('Eliminar');
                 deleteButton.attr('onclick', 'deletePost("' + this.id + '")');
                 buttonsDiv.append(deleteButton);
+                let updateButton = $(document.createElement('button'));
+                updateButton.addClass('btn');
+                updateButton.addClass('btn-info');
+                updateButton.attr('type', 'button');
+                updateButton.html('¡Tengo a mi mascota!');
+                updateButton.attr('onclick', 'resolvePost("' + this.id +'")');
+                buttonsDiv.append(updateButton);
                 postFoundNew.append(buttonsDiv);
                 $('article.posts').append(postFoundNew);
             });

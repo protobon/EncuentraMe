@@ -100,13 +100,29 @@
                 });
             }
 
-            window.deletePost = function (postId) {
-                console.log(postId);
+            window.deletePost = function(postId) {
                 FB.getLoginStatus(function(response) {
                     if (response.status === 'connected') {
                         url = 'https://encuentrame.org.xelar.tech/api/posts/' + postId;
                         fetch(url, {
                             method: 'DELETE',
+                        }).then(() => {
+                            window.location.reload();
+                        })
+                        .catch(err => console.log(err));
+                    } else {
+                        alert('Debes iniciar sesión nuevamente');
+                        window.location.href = 'https://encuentrame.org.xelar.tech';
+                    }
+                });
+            }
+
+            window.resolvePost = function(postId) {
+                FB.getLoginStatus(function(response) {
+                    if (response.status === 'connected') {
+                        url = 'https://encuentrame.org.xelar.tech/api/posts/' + postId;
+                        fetch(url, {
+                            method: 'PUT',
                         }).then(() => {
                             window.location.reload();
                         })
