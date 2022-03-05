@@ -80,7 +80,7 @@ def form_lost_pet(user_id):
                            (id, user_id, estado, created_at, mascota, nombre, fecha, hora, calle_1, calle_2, barrio, file.filename))
         except Exception as e:
             flash('Ha ocurrido un error, asegúrese de ingresar los datos correctamente')
-            logfile(str(e))
+            logfile("form_lost_pet(user_id) - in cursor.execute(INSERT INTO lost_pets):\n" + str(e))
             return redirect(request.url)
         mysql.connection.commit()
         cursor.close()
@@ -119,7 +119,8 @@ def form_found_pet(user_id):
             cursor.execute('INSERT INTO found_pets VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',
                         (id, user_id, estado, created_at, mascota, fecha, hora, calle_1, calle_2, barrio, file.filename))
         except Exception as e:
-            logfile(str(e))
+            flash('Ha ocurrido un error, asegúrese de ingresar los datos correctamente')
+            logfile("form_found_pet(user_id) - in cursor.execute(INSERT INTO found_pets):\n" + str(e))
             return redirect(request.url)
         mysql.connection.commit()
         cursor.close()
@@ -141,7 +142,7 @@ def show_single_post(id):
         post = list(cursor.fetchall())[0]
     except Exception as e:
         flash("Publicación no encontrada")
-        logfile(str(e))
+        logfile("show_single_post(id) - in post = list(cursor.fetchall())[0]:\n" + str(e))
         cursor.close()
         return redirect('/')
     post['foto'] = os.path.join(UPLOAD_FOLDER, post['foto'])
@@ -149,7 +150,7 @@ def show_single_post(id):
     try:
         user = list(cursor.fetchall())[0]
     except Exception as e:
-        logfile(str(e))
+        logfile("show_single_post(id) - in user = list(cursor.fetchall())[0]:\n" + str(e))
     cursor.close()
     return render_template('post_by_id.html', post=post, user=user)
 
@@ -197,8 +198,8 @@ def api_users():
         user = request.get_json()
         try:
             cursor.execute('INSERT INTO users VALUES (%s, %s, %s)', (user['id'], user['name'], user['email']))
-        except Exception:
-            pass
+        except Exception as e:
+            logfile("api_users() - in cursor.execute(INSERT INTO users):\n" + str(e))
         mysql.connection.commit()
         cursor.close()
         return jsonify(user)
@@ -234,8 +235,8 @@ def api_post_by_id(id):
         post = list(cursor.fetchall())[0]
         del post["estado"]
         del post["user_id"]
-    except Exception:
-        flash('Publicación no encontrada')
+    except Exception as e:
+        logfile("api_post_by_id(id) - in post = list(cursor.fetchall())[0]:\n" + str(e))
         cursor.close()
         return redirect('/')
     if request.method == 'GET':
