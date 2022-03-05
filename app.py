@@ -208,9 +208,9 @@ def api_users():
 def api_user_posts(user_id):
     """Retrieve all posts from user by user_id and return in JSON format"""
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    cursor.execute('SELECT * FROM lost_pets WHERE user_id=%s', [user_id])
+    cursor.execute('SELECT * FROM lost_pets WHERE user_id=%s AND estado=%s', [user_id, "active"])
     lost = list(cursor.fetchall())
-    cursor.execute('SELECT * FROM found_pets WHERE user_id=%s', [user_id])
+    cursor.execute('SELECT * FROM found_pets WHERE user_id=%s AND estado=%s', [user_id, "active"])
     found = list(cursor.fetchall())
     cursor.close()
     for post in lost:
