@@ -28,6 +28,9 @@ $(document).ready(function() {
                 + 'Si lo viste por favor comunícate con Usuario.</p>');
                 postLostAnimal.append('<img src="/static/images/' + post.foto + '">');
                 $('article.post').append(postLostAnimal);
+                let shareOnFb = $(document.createElement('div'));
+                shareOnFb.append('<div class="fb-share-button" data-href="' + url + '" data-layout="button" data-size="large"></div>');
+                $('article.post').append(shareOnFb);
             } else {
                 let postFoundAnimal = $(document.createElement('div'));
                 postFoundAnimal.addClass('pet');
@@ -39,6 +42,9 @@ $(document).ready(function() {
                 + 'Si es tuyo o sabes de quien puede ser por favor comunícate con Usuario.</p>');
                 postFoundAnimal.append('<img src="/static/images/' + post.foto + '">');
                 $('article.post').append(postFoundAnimal);
+                let shareOnFb = $(document.createElement('div'));
+                shareOnFb.append('<div class="fb-share-button" data-href="' + url + '" data-layout="button" data-size="large"></div>');
+                $('article.post').append(shareOnFb);
             }
         });
     }
