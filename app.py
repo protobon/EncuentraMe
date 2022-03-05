@@ -258,7 +258,7 @@ def api_post_by_id(id):
         mysql.connection.commit()
         cursor.close()
         flash('Publicación eliminada correctamente')
-        return redirect('/')
+        return redirect(request.url)
 
 
 if __name__ == "__main__":
