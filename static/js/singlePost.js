@@ -27,6 +27,7 @@ $(document).ready(function() {
                 ' y ' + post.calle_2 + ' barrio ' + post.barrio + ' a las ' + post.hora + ' horas.\n'
                 + 'Si lo viste por favor comunícate con Usuario.</p>');
                 postLostAnimal.append('<img src="/static/images/' + post.foto + '">');
+                postLostAnimal.append('<div class="fb-share-button" data-href="' + url + '" data-layout="button" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Compartir</a></div>');
                 $('article.post').append(postLostAnimal);
             } else {
                 let postFoundAnimal = $(document.createElement('div'));
@@ -38,6 +39,7 @@ $(document).ready(function() {
                 ' y ' + post.calle_2 + ' a las ' + post.hora + ' horas.\n'
                 + 'Si es tuyo o sabes de quien puede ser por favor comunícate con Usuario.</p>');
                 postFoundAnimal.append('<img src="/static/images/' + post.foto + '">');
+                postFoundAnimal.append('<div class="fb-share-button" data-href="' + url + '" data-layout="button" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Compartir</a></div>');
                 $('article.post').append(postFoundAnimal);
             }
         });
