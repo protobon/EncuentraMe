@@ -113,12 +113,11 @@ def form_found_pet():
         else:
             flash('Formatos de imagen soportados: jpg, jpeg, png, jfif.')
             return redirect(request.url)
-        latitude = request.form['latitude']
-        longitude = request.form['longitude']
+        coordinates = request.form['latitude', 'longitude']
         cursor = mysql.connection.cursor()
         try:
-            cursor.execute('INSERT INTO found_pets VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',
-                        (id, user_id, estado, created_at, mascota, fecha, hora, calle_1, calle_2, barrio, file.filename, latitude, longitude))
+            cursor.execute('INSERT INTO found_pets VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',
+                        (id, user_id, estado, created_at, mascota, fecha, hora, calle_1, calle_2, barrio, file.filename, coordinates))
         except Exception as e:
             flash('Ha ocurrido un error, asegúrese de ingresar los datos correctamente')
             print(e)
@@ -225,7 +224,30 @@ def api_post_by_id(id):
 
 @app.route('/main_map')
 def new_map():
+
     return render_template('main_map.html')
+
+
+@app.route('/api/posts/geojson')
+def api_posts_map():
+    """Retrieve all posts from database and return in JSON format"""
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute("SELECT id, latitude, longitude, foto FROM lost_pets WHERE estado = 'active' ORDER BY created_at DESC")
+    lost = list(cursor.fetchall())
+    for elem in lost:
+        coordinates = [elem["latitude"], elem["longitude"]]
+        elem["coordinates"] = coordinates
+        del elem["latitude"]
+        del elem["longitude"]
+    cursor.execute("SELECT  id, latitude, longitude, foto FROM found_pets WHERE estado = 'active' ORDER BY created_at DESC")
+    found = list(cursor.fetchall())
+    for elem in found:
+        coordinates = [elem["latitude"], elem["longitude"]]
+        elem["coordinates"] = coordinates
+        del elem["latitude"]
+        del elem["longitude"]
+    cursor.close()
+    return jsonify({"lost": lost, "found": found})
 
 
 if __name__ == "__main__":

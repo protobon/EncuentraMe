@@ -35,15 +35,32 @@ function initMap() {
       handleLocationError(false, infoWindow, map.getCenter());
     }
   });
+  var listDict = []
+  fetch('http://localhost:5000/api/posts')
+  .then(response => response.json())
+  .then(data => {
+    for (let lostAndFound in data){ //I have here a list of lost and list of found pets
+      listDict = data[lostAndFound]
+      for (let element in listDict){
+        let a = listDict[element].latitude
+        let b = listDict[element].longitude
+        latlng = new google.maps.LatLng(a , b)
+        let posit = {
+          position: latlng,
+          type: "info",
+          content: "Perrito Marron",
+        }
+        Object.assign(listDict[element], posit)
+      }
+    }
       //Set icons
-      const iconBase =
+    const iconBase =
       "https://www.gstatic.com/earth/images/stockicons/190201-2016-animal-paw_4x.png";
     const icons = {
       info: {
         icon: iconBase,
       },
     };
-    // Add some locations for testing.
     const locations = [
       {
         position: new google.maps.LatLng(-34.901357, -56.189205),
@@ -81,20 +98,22 @@ function initMap() {
         content: "CatDog"
       },
     ];
+    console.log(listDict)
     //Create markers based on testing locations.
-    for (let i = 0; i < locations.length; i++) {
+    for (let i = 0; i < listDict.length; i++) {
       const marker = new google.maps.Marker({
-        position: locations[i].position,
-        icon: icons[locations[i].type].icon,
+        position: listDict[i].position,
+        icon: icons[listDict[i].type].icon,
         map: map,
       });
       // markers can only be keyboard focusable when they have click listeners
       // open info window when marker is clicked
       marker.addListener("click", () => {
-        infoWindow.setContent(locations[i].content);
+        infoWindow.setContent(listDict[i].content);
         infoWindow.open(map, marker);
       });
     };
+  })
 };
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
   infoWindow.setPosition(pos);

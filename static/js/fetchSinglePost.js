@@ -4,7 +4,7 @@ $(document).ready(function() {
     const postId = urlArray[urlArray.length - 1];
     console.log("postId: " + postId);
     async function fetchSinglePost() {
-        const response = await fetch("https://encuentrame.org.xelar.tech/api/posts/" + postId);
+        const response = await fetch("http://192.168.253.101:5000/api/posts/" + postId);
         const data = await response.json();
         return (data);
     }
