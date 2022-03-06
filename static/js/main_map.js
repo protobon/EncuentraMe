@@ -36,23 +36,32 @@ function initMap() {
     }
   });
   var listDict = []
-  fetch('http://localhost:5000/api/posts')
+  var listofallposts = []
+  fetch('http://192.168.253.101:5000/api/posts')
   .then(response => response.json())
   .then(data => {
+
     for (let lostAndFound in data){ //I have here a list of lost and list of found pets
       listDict = data[lostAndFound]
       for (let element in listDict){
-        let a = listDict[element].latitude
-        let b = listDict[element].longitude
-        latlng = new google.maps.LatLng(a , b)
+        let postLat = listDict[element].latitude
+        let postLng = listDict[element].longitude
+        let postLink = "http://192.168.253.101:5000/"+ listDict[element].id
+        let postPhoto = '<img src="/static/images/' + listDict[element].foto + '">'
+        latlng = new google.maps.LatLng(postLat , postLng)
         let posit = {
           position: latlng,
           type: "info",
-          content: "Perrito Marron",
+          content: postPhoto,
         }
         Object.assign(listDict[element], posit)
+
       }
+      listofallposts = listofallposts.concat(listDict)
     }
+    console.log(listofallposts)
+
+
       //Set icons
     const iconBase =
       "https://www.gstatic.com/earth/images/stockicons/190201-2016-animal-paw_4x.png";
@@ -61,55 +70,18 @@ function initMap() {
         icon: iconBase,
       },
     };
-    const locations = [
-      {
-        position: new google.maps.LatLng(-34.901357, -56.189205),
-        type: "info",
-        content: "Perrito Marron"
-      },
-      {
-        position: new google.maps.LatLng(-34.901357, -56.189215),
-        type: "info",
-        content: "Gatito Azul"
-      },
-      {
-        position: new google.maps.LatLng(-34.915445, -56.159130),
-        type: "info",
-        content: "Cabra"
-      },
-      {
-        position: new google.maps.LatLng(-34.915446, -56.159131),
-        type: "info",
-        content: "Caballo con alas"
-      },
-      {
-        position: new google.maps.LatLng(-34.915447, -56.159132),
-        type: "info",
-        content: "Otro caballo con alas"
-      },
-      {
-        position: new google.maps.LatLng(-34.884641, -56.161547),
-        type: "info",
-        content: "Este si es un perrito normal"
-      },
-      {
-        position: new google.maps.LatLng(-34.853451, -56.103143),
-        type: "info",
-        content: "CatDog"
-      },
-    ];
-    console.log(listDict)
+
     //Create markers based on testing locations.
-    for (let i = 0; i < listDict.length; i++) {
+    for (let i = 0; i < listofallposts.length; i++) {
       const marker = new google.maps.Marker({
-        position: listDict[i].position,
-        icon: icons[listDict[i].type].icon,
+        position: listofallposts[i].position,
+        icon: icons[listofallposts[i].type].icon,
         map: map,
       });
       // markers can only be keyboard focusable when they have click listeners
       // open info window when marker is clicked
       marker.addListener("click", () => {
-        infoWindow.setContent(listDict[i].content);
+        infoWindow.setContent(listofallposts[i].content);
         infoWindow.open(map, marker);
       });
     };
