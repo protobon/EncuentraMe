@@ -47,7 +47,8 @@ function initMap() {
         let postLat = listDict[element].latitude
         let postLng = listDict[element].longitude
         let postLink = "http://192.168.253.101:5000/"+ listDict[element].id
-        let postPhoto = '<img src="/static/images/' + listDict[element].foto + '">'
+        let postPhoto = '<a href="'+postLink+'"> <img src="/static/images/' + listDict[element].foto + '" width="200"> </a>'
+        console.log(String(postPhoto))
         latlng = new google.maps.LatLng(postLat , postLng)
         let posit = {
           position: latlng,
