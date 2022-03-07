@@ -6,7 +6,7 @@ from datetime import datetime
 from flask_mysqldb import MySQL
 import MySQLdb
 import logging
-from OpenSSL import SSL
+# from OpenSSL import SSL
 
 
 access_token = os.getenv('fb_token')
