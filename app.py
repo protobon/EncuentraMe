@@ -45,7 +45,8 @@ def landing():
 @app.route('/<user_id>/lost_pet', methods=['GET', 'POST'])
 def form_lost_pet(user_id):
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    user = cursor.execute("SELECT * FROM users WHERE id=%s", [user_id])
+    cursor.execute("SELECT * FROM users WHERE id=%s", [user_id])
+    user = list(cursor.fetchall())[0]
     if not user:
         flash("Asegúrate de ingresar con tu usuario")
         return redirect("/")
@@ -92,7 +93,8 @@ def form_lost_pet(user_id):
 @app.route('/<user_id>/found_pet', methods=['GET', 'POST'])
 def form_found_pet(user_id):
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    user = cursor.execute("SELECT * FROM users WHERE id=%s", [user_id])
+    cursor.execute("SELECT * FROM users WHERE id=%s", [user_id])
+    user = list(cursor.fetchall())[0]
     if not user:
         flash("Asegúrate de ingresar con tu usuario")
         return redirect("/")
