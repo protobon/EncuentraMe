@@ -243,7 +243,6 @@ def api_post_by_id(id):
 
 
 if __name__ == "__main__":
-    context = ('server.crt', 'server.key')
     app.run()
 
 else:

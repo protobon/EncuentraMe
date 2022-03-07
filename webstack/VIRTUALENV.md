@@ -75,3 +75,15 @@ if __name__ == "__main__":
     app.run(ssl_context=('cert.pem', 'key.pem'))
 
 flask run --port 8000
+
+
+generate cert.pem and key.pem
+
+openssl req -x509 -newkey rsa:4096 -nodes -out cert.pem -keyout key.pem -days 365
+
+ssl_context=('server.crt', 'server.key')
+
+host='0.0.0.0', port=8000, ssl_context=('server.crt', 'server.key')
+
+--cert='server.crt' --key='server.key'
+--cert=server.crt --key=server.key

@@ -1,4 +1,3 @@
 flask_cors
-pip install Flask-Cors
 flask_mysqldb
-pip install Flask-MySQLdb
+pyOpenSSL
