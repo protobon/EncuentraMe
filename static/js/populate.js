@@ -25,6 +25,7 @@ $(document).ready(function () {
                 userInfo.append('<h4>' + this.user_name +'</h4>');
                 userInfo.append('<h3>' + this.nombre +' perdido!</h3>');
                 userInfo.append('<p>' + this.crated_at +'</p>');
+                postLostNew.append(userInfo);
                 postLostNew.append('<p>¡Se busca a ' + this.nombre + '! Perdido/a desde el día '
                 + this.fecha + ' última vez visto en las inmediaciones de ' + this.calle_1 +
                 ' y ' + this.calle_2 + ' barrio ' + this.barrio + ' a las ' + this.hora + ' horas.\n'
@@ -43,6 +44,7 @@ $(document).ready(function () {
                 userInfo.append('<h4>' + this.user_name +'</h4>');
                 userInfo.append('<h3>' + this.nombre +' encontrado!</h3>');
                 userInfo.append('<p>' + this.crated_at +'</p>');
+                postFoundNew.append(userInfo);
                 postFoundNew.append('<p>Se encontró el día ' + this.fecha + ' por barrio '
                 + this.barrio + ' en las inmediaciones de ' + this.calle_1 +
                 ' y ' + this.calle_2 + ' a las ' + this.hora + ' horas.\n'
@@ -68,6 +70,7 @@ $(document).ready(function () {
                 userInfo.append('<h4>' + this.user_name +'</h4>');
                 userInfo.append('<h3>' + this.nombre +' perdido!</h3>');
                 userInfo.append('<p>' + this.crated_at +'</p>');
+                postLostNew.append(userInfo);
                 postLostNew.append('<p>¡Se busca a ' + this.nombre + '! Perdido/a desde el día '
                 + this.fecha + ' última vez visto en las inmediaciones de ' + this.calle_1 +
                 ' y ' + this.calle_2 + ' barrio ' + this.barrio + ' a las ' + this.hora + ' horas.\n'
@@ -92,6 +95,7 @@ $(document).ready(function () {
                 userInfo.append('<h4>' + this.user_name +'</h4>');
                 userInfo.append('<h3>' + this.nombre +' encontrado!</h3>');
                 userInfo.append('<p>' + this.crated_at +'</p>');
+                postFoundNew.append(userInfo);
                 postFoundNew.append('<p>Se encontró el día ' + this.fecha + ' por barrio '
                 + this.barrio + ' en las inmediaciones de ' + this.calle_1 +
                 ' y ' + this.calle_2 + ' a las ' + this.hora + ' horas.\n'
