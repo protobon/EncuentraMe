@@ -6,6 +6,8 @@ from datetime import datetime
 from flask_mysqldb import MySQL
 import MySQLdb
 import logging
+from OpenSSL import SSL
+
 
 access_token = os.getenv('fb_token')
 
@@ -20,6 +22,8 @@ app.config['MYSQL_USER'] = 'encuentrame'
 app.config['MYSQL_PASSWORD'] = 'password'
 app.config['MYSQL_DB'] = 'encuentraMe'
 app.url_map.strict_slashes = False
+
+app.SECRET_KEY = 'abc'
 
 mysql = MySQL(app)
 
@@ -239,7 +243,9 @@ def api_post_by_id(id):
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0")
+    context = ('server.crt', 'server.key')
+    app.run()
+
 else:
     gunicorn_logger = logging.getLogger('gunicorn.error')
     app.logger.handlers = gunicorn_logger.handlers

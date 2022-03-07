@@ -42,7 +42,36 @@ forwarded ports vagrant
 config.vm.network "forwarded_port", guest: 8000, host: 8080
 FLASK_ENV="development"
 
+pip install pyopenssl
 
-flask run --host=0.0.0.0 --port=8000
+openssl req -x509 -newkey rsa:4096 -nodes -out cert.pem -keyout key.pem -days 365
+
+app.run(ssl_context=('cert.pem', 'key.pem'))
+
+flask run --cert=cert.pem --key=key.pem
+
+vagrant share
 
 on host localhost:8080
+
+
+
+comun
+flask run --host=0.0.0.0 --port=8000
+
+
+ssl
+if __name__ == "__main__":
+    app.run(ssl_context=('cert.pem', 'key.pem'))
+
+flask run --host=0.0.0.0 --port=8000 --cert=cert.pem --key=key.pem
+
+Vagrantfile
+  config.vm.network "forwarded_port", guest: 80, host: 8080, auto_correct: true
+  config.vm.network "forwarded_port", guest: 443, host: 8443, auto_correct: true
+  config.vm.network "private_network", ip: "192.168.33.10"
+
+if __name__ == "__main__":
+    app.run(ssl_context=('cert.pem', 'key.pem'))
+
+flask run --port 8000

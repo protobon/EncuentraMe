@@ -4,3 +4,5 @@ venv
 */images/*
 *localhost*
 encuentrameerrorlog
+*.pem
+
