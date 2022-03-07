@@ -78,8 +78,8 @@ def form_lost_pet(user_id):
             flash('Formatos de imagen soportados: jpg, jpeg, png, jfif.')
             return redirect(request.url)
         try:
-            cursor.execute('INSERT INTO lost_pets VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',
-                           (id, user_id, estado, created_at, mascota, nombre, fecha, hora, calle_1, calle_2, barrio, file.filename, latitude, longitude))
+            cursor.execute('INSERT INTO lost_pets VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',
+                           (id, user_id, user['name'], estado, created_at, mascota, nombre, fecha, hora, calle_1, calle_2, barrio, file.filename, latitude, longitude))
         except Exception as e:
             flash('Ha ocurrido un error, asegúrese de ingresar los datos correctamente')
             logfile("form_lost_pet(user_id) - in cursor.execute(INSERT INTO lost_pets):\n" + str(e))
@@ -91,6 +91,11 @@ def form_lost_pet(user_id):
 
 @app.route('/<user_id>/found_pet', methods=['GET', 'POST'])
 def form_found_pet(user_id):
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    user = cursor.execute("SELECT * FROM users WHERE id=%s", [user_id])
+    if not user:
+        flash("Asegúrate de ingresar con tu usuario")
+        return redirect("/")
     if request.method == 'GET':
         return render_template('form_found_pet.html', user_id=user_id)
     if request.method == 'POST':
@@ -118,10 +123,9 @@ def form_found_pet(user_id):
         else:
             flash('Formatos de imagen soportados: jpg, jpeg, png, jfif.')
             return redirect(request.url)
-        cursor = mysql.connection.cursor()
         try:
-            cursor.execute('INSERT INTO found_pets VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',
-                        (id, user_id, estado, created_at, mascota, fecha, hora, calle_1, calle_2, barrio, file.filename, latitude, longitude))
+            cursor.execute('INSERT INTO found_pets VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',
+                        (id, user_id, user["name"], estado, created_at, mascota, fecha, hora, calle_1, calle_2, barrio, file.filename, latitude, longitude))
         except Exception as e:
             logfile("form_found_pet(user_id) - in cursor.execute(INSERT INTO found_pets):\n" + str(e))
             return redirect(request.url)
