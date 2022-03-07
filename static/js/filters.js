@@ -54,5 +54,7 @@ $(document).ready(function () {
         $('#lost').addClass("btn-outline-success");
         $('#lost').removeClass("btn-success");
     });
-    $('#post').click(newPost());
+    $('#post').click(function() {
+        newPost();
+    });
 });
