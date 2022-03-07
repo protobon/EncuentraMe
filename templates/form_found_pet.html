@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block head %}
+<script src="{{ url_for('static', filename='js/post_map.js') }}"></script>
 <link rel="stylesheet" href="{{ url_for('static', filename='styles/index.css') }}">
 <title>Mascota Perdida</title>
 {% endblock %}
@@ -39,9 +40,16 @@
             <input type="time" name="hora" required>
             horas.
             Si es tuyo o sabes de quien puede ser por favor comunícate con Usuario.</p>
+            <input type="number" step="any" name="latitude"  id="postLat"  required>
+            <input type="number" step="any" name="longitude" id="postLng" required>
             <br>
             <label for="image">Sube una imagen:</label>
             <input type="file" name="foto" required>
+            <div id="post_map"></div>
+            <script
+                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBqNj3BPTdCSu9fTtAlj4LSLD5FAidsa7M&callback=initMap&libraries=&v=weekly"
+                async
+            ></script>
         </div>
         <button type="submit" class="btn btn-primary" id="form-submit">Submit</button>
     </fieldset>

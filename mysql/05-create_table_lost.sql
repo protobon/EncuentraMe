@@ -11,5 +11,7 @@ CREATE TABLE IF NOT EXISTS lost_pets (
     calle_2 VARCHAR(30) NOT NULL,
     barrio VARCHAR(30) NOT NULL,
     foto VARCHAR(41) NOT NULL,
+    latitude FLOAT(10,6) NOT NULL,
+    longitude FLOAT(10,6) NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users(id)
 );

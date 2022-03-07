@@ -63,6 +63,8 @@ def form_lost_pet(user_id):
         calle_2 = request.form['calle_2']
         barrio = request.form['barrio']
         file = request.files['foto']
+        latitude = request.form['latitude']
+        longitude = request.form['longitude']
         # If the user does not select a file, the browser submits an
         # empty file without a filename.
         if file.filename == '':
@@ -76,8 +78,8 @@ def form_lost_pet(user_id):
             flash('Formatos de imagen soportados: jpg, jpeg, png, jfif.')
             return redirect(request.url)
         try:
-            cursor.execute('INSERT INTO lost_pets VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',
-                           (id, user_id, estado, created_at, mascota, nombre, fecha, hora, calle_1, calle_2, barrio, file.filename))
+            cursor.execute('INSERT INTO lost_pets VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',
+                           (id, user_id, estado, created_at, mascota, nombre, fecha, hora, calle_1, calle_2, barrio, file.filename, latitude, longitude))
         except Exception as e:
             flash('Ha ocurrido un error, asegúrese de ingresar los datos correctamente')
             logfile("form_lost_pet(user_id) - in cursor.execute(INSERT INTO lost_pets):\n" + str(e))
@@ -102,6 +104,8 @@ def form_found_pet(user_id):
         calle_2 = request.form['calle_2']
         barrio = request.form['barrio']
         file = request.files['foto']
+        latitude = request.form['latitude']
+        longitude = request.form['longitude']
         # If the user does not select a file, the browser submits an
         # empty file without a filename.
         if file.filename == '':
@@ -116,8 +120,8 @@ def form_found_pet(user_id):
             return redirect(request.url)
         cursor = mysql.connection.cursor()
         try:
-            cursor.execute('INSERT INTO found_pets VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',
-                        (id, user_id, estado, created_at, mascota, fecha, hora, calle_1, calle_2, barrio, file.filename))
+            cursor.execute('INSERT INTO found_pets VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',
+                        (id, user_id, estado, created_at, mascota, fecha, hora, calle_1, calle_2, barrio, file.filename, latitude, longitude))
         except Exception as e:
             logfile("form_found_pet(user_id) - in cursor.execute(INSERT INTO found_pets):\n" + str(e))
             return redirect(request.url)
@@ -152,6 +156,11 @@ def show_single_post(id):
         logfile("show_single_post(id) - in user = list(cursor.fetchall())[0]:\n" + str(e))
     cursor.close()
     return render_template('post_by_id.html', post=post, user=user)
+
+
+@app.route('/main_map')
+def new_map():
+    return render_template('main_map.html')    
 
 
 @app.route('/profile/<user_id>')

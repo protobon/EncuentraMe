@@ -91,3 +91,17 @@ nav a.navbar-brand img {
     border-radius: 5px;
     padding: 5px;
 }
+
+#post_map {
+    height: 400px;
+
+}
+
+#main_map {
+    height: 600px;
+
+}
+
+#postLat, #postLng {
+    display:block;
+}
