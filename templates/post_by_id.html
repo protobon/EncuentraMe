@@ -1,15 +1,14 @@
 {% extends "base.html" %}
 
 {% block head %}
-<link rel="stylesheet" href="{{ url_for('static', filename='styles/index.css') }}">
 <title>EncuentraMe</title>
 {% endblock %}
 
 {% block body %}
 <article class="post">
 </article>
-<div class="fb-share-button" 
-data-href="https://www.your-domain.com/your-page.html" 
+<div class="fb-share-button"
+data-href="https://www.your-domain.com/your-page.html"
 data-layout="button_count">
 </div>
 <script src="{{ url_for('static', filename='js/singlePost.js') }}"></script>

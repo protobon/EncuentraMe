@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 
 {% block head %}
-<link rel="stylesheet" href="{{ url_for('static', filename='styles/index.css') }}">
 <title>Mascota Perdida</title>
 {% endblock %}
 
@@ -27,17 +26,17 @@
             <label for="gato">Gato</label>
         </div>
         <div class="form-group">
-            <p>Se busca a 
+            <p>Se busca a
             <input type="text" name="nombre" placeholder="Nombre de tu mascota" required>
-            desde el día 
+            desde el día
             <input type="date" name="fecha" placeholder="dd-mm-yyyy" required>
-            última vez visto en las inmediaciones de 
+            última vez visto en las inmediaciones de
             <input type="text" name="calle_1" placeholder="Calle 1" required>
-            y 
+            y
             <input type="text" name="calle_2" placeholder="Calle 2" required>
             barrio
             <input type="text" name="barrio" placeholder="Barrio" required>
-            a las 
+            a las
             <input type="time" name="hora" required>
             horas.
             Si lo viste por favor comunícate con Usuario.</p>
