@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, render_template, request, flash, redirect
+from flask import Flask, jsonify, render_template, request, flash, redirect, abort
 from flask_cors import CORS
 import os
 import uuid
@@ -241,6 +241,13 @@ def api_post_by_id(id):
         flash('Publicación eliminada correctamente')
         return redirect('/')
 
+@app.route('/no_encontrado')
+def salir():
+    return abort(404)
+
+@app.errorhandler(404)
+def pagina_no_encontrada(error):
+    return (render_template('404.html', error=error), 404)
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0')
