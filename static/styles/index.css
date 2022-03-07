@@ -104,4 +104,5 @@ nav a.navbar-brand img {
 
 #postLat, #postLng {
     display: none;
+    visibility: hidden;
 }
