@@ -37,7 +37,7 @@ function initMap() {
   });
   var listDict = []
   var listofallposts = []
-  fetch('http://192.168.253.101:5000/api/posts')
+  fetch('https://encuentrame.org.xelar.tech/api/posts')
   .then(response => response.json())
   .then(data => {
 
@@ -46,7 +46,7 @@ function initMap() {
       for (let element in listDict){
         let postLat = listDict[element].latitude
         let postLng = listDict[element].longitude
-        let postLink = "http://192.168.253.101:5000/"+ listDict[element].id
+        let postLink = "https://encuentrame.org.xelar.tech/"+ listDict[element].id
         let postPhoto = '<a href="'+postLink+'"> <img src="/static/images/' + listDict[element].foto + '" width="200"> </a>'
         console.log(String(postPhoto))
         latlng = new google.maps.LatLng(postLat , postLng)
