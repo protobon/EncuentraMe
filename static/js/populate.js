@@ -22,9 +22,8 @@ $(document).ready(function () {
                 postLostNew.addClass(this.mascota);
                 let userInfo = $(document.createElement('div'));
                 userInfo.addClass('user');
-                userInfo.append('<h4>' + this.user_name +'</h4>');
                 userInfo.append('<h3>' + this.nombre +' perdido!</h3>');
-                userInfo.append('<p>' + this.crated_at +'</p>');
+                userInfo.append('<p>' + this.created_at +'</p>');
                 postLostNew.append(userInfo);
                 postLostNew.append('<p>¡Se busca a ' + this.nombre + '! Perdido/a desde el día '
                 + this.fecha + ' última vez visto en las inmediaciones de ' + this.calle_1 +
@@ -41,9 +40,8 @@ $(document).ready(function () {
                 postFoundNew.addClass(this.mascota);
                 let userInfo = $(document.createElement('div'));
                 userInfo.addClass('user');
-                userInfo.append('<h4>' + this.user_name +'</h4>');
                 userInfo.append('<h3>' + this.nombre +' encontrado!</h3>');
-                userInfo.append('<p>' + this.crated_at +'</p>');
+                userInfo.append('<p>' + this.created_at +'</p>');
                 postFoundNew.append(userInfo);
                 postFoundNew.append('<p>Se encontró el día ' + this.fecha + ' por barrio '
                 + this.barrio + ' en las inmediaciones de ' + this.calle_1 +
@@ -67,9 +65,8 @@ $(document).ready(function () {
                 postLostNew.addClass(this.mascota);
                 let userInfo = $(document.createElement('div'));
                 userInfo.addClass('user');
-                userInfo.append('<h4>' + this.user_name +'</h4>');
                 userInfo.append('<h3>' + this.nombre +' perdido!</h3>');
-                userInfo.append('<p>' + this.crated_at +'</p>');
+                userInfo.append('<p>' + this.created_at +'</p>');
                 postLostNew.append(userInfo);
                 postLostNew.append('<p>¡Se busca a ' + this.nombre + '! Perdido/a desde el día '
                 + this.fecha + ' última vez visto en las inmediaciones de ' + this.calle_1 +
@@ -92,9 +89,8 @@ $(document).ready(function () {
                 postFoundNew.addClass(this.mascota);
                 let userInfo = $(document.createElement('div'));
                 userInfo.addClass('user');
-                userInfo.append('<h4>' + this.user_name +'</h4>');
                 userInfo.append('<h3>' + this.nombre +' encontrado!</h3>');
-                userInfo.append('<p>' + this.crated_at +'</p>');
+                userInfo.append('<p>' + this.created_at +'</p>');
                 postFoundNew.append(userInfo);
                 postFoundNew.append('<p>Se encontró el día ' + this.fecha + ' por barrio '
                 + this.barrio + ' en las inmediaciones de ' + this.calle_1 +
