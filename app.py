@@ -155,6 +155,8 @@ def show_single_post(id):
         cursor.close()
         return redirect('/')
     post['foto'] = os.path.join(UPLOAD_FOLDER, post['foto'])
+    fecha_l = post['fecha'].split('-')
+    post['fecha'] = fecha_l[2] + '/' + fecha_l[1] + '/' + fecha_l[0]
     cursor.execute("SELECT name FROM users WHERE id=%s", [post['user_id']])
     try:
         user = list(cursor.fetchall())[0]

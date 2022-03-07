@@ -16,13 +16,15 @@ $(document).ready(function () {
             $('article.posts').empty();
             $('#todos').prop('checked', true);
             $.each(data.lost, function () {
+                console.log(typeof(this.fecha));
+                console.log(this.fecha);
                 let postLostNew = $(document.createElement('div'));
                 postLostNew.addClass('pet');
                 postLostNew.addClass('pet_lost');
                 postLostNew.addClass(this.mascota);
                 let userInfo = $(document.createElement('div'));
                 userInfo.addClass('user');
-                userInfo.append('<h3>' + this.nombre +' perdido!</h3>');
+                userInfo.append('<h3>' + this.nombre +' perdido/a!</h3>');
                 userInfo.append('<p>' + this.created_at +'</p>');
                 postLostNew.append(userInfo);
                 postLostNew.append('<p>¡Se busca a ' + this.nombre + '! Perdido/a desde el día '
@@ -40,7 +42,7 @@ $(document).ready(function () {
                 postFoundNew.addClass(this.mascota);
                 let userInfo = $(document.createElement('div'));
                 userInfo.addClass('user');
-                userInfo.append('<h3>' + this.nombre +' encontrado!</h3>');
+                userInfo.append('<h3>' + this.mascota +' encontrado/a!</h3>');
                 userInfo.append('<p>' + this.created_at +'</p>');
                 postFoundNew.append(userInfo);
                 postFoundNew.append('<p>Se encontró el día ' + this.fecha + ' por barrio '
@@ -65,7 +67,7 @@ $(document).ready(function () {
                 postLostNew.addClass(this.mascota);
                 let userInfo = $(document.createElement('div'));
                 userInfo.addClass('user');
-                userInfo.append('<h3>' + this.nombre +' perdido!</h3>');
+                userInfo.append('<h3>' + this.nombre +' perdido/a!</h3>');
                 userInfo.append('<p>' + this.created_at +'</p>');
                 postLostNew.append(userInfo);
                 postLostNew.append('<p>¡Se busca a ' + this.nombre + '! Perdido/a desde el día '
@@ -89,7 +91,7 @@ $(document).ready(function () {
                 postFoundNew.addClass(this.mascota);
                 let userInfo = $(document.createElement('div'));
                 userInfo.addClass('user');
-                userInfo.append('<h3>' + this.nombre +' encontrado!</h3>');
+                userInfo.append('<h3>' + this.mascota +' encontrado/a!</h3>');
                 userInfo.append('<p>' + this.created_at +'</p>');
                 postFoundNew.append(userInfo);
                 postFoundNew.append('<p>Se encontró el día ' + this.fecha + ' por barrio '
