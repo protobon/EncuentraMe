@@ -60,6 +60,10 @@ article {
     margin: auto;
 }
 
+.user {
+    justify-content: space-between;
+}
+
 .pet {
     width: 80%;
     margin: 2em auto;

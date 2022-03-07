@@ -2,7 +2,7 @@ from flask import Flask, jsonify, render_template, request, flash, redirect
 from flask_cors import CORS
 import os
 import uuid
-from datetime import datetime
+from datetime import datetime, timedelta
 from flask_mysqldb import MySQL
 import MySQLdb
 import logging
@@ -55,7 +55,7 @@ def form_lost_pet(user_id):
     if request.method == 'POST':
         id = "lost" + str(uuid.uuid4())
         estado = "active"
-        created_at = datetime.utcnow()
+        created_at = datetime.utcnow() - timedelta(hours=3)
         mascota = request.form['mascota']
         nombre = request.form['nombre']
         fecha = request.form['fecha']
@@ -103,7 +103,7 @@ def form_found_pet(user_id):
     if request.method == 'POST':
         id = "found" + str(uuid.uuid4())
         estado = "active"
-        created_at = datetime.utcnow()
+        created_at = datetime.utcnow() - timedelta(hours=3)
         mascota = request.form['mascota']
         fecha = request.form['fecha']
         hora = request.form['hora']
