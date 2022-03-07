@@ -31,7 +31,7 @@
 
                 FB.getLoginStatus(function(response) {
                     statusChangeCallback(response);
-                    validateFormAccess(response);
+                    validateUserAccess(response);
                 });
             };
 
@@ -60,18 +60,21 @@
                 });
             }
 
-            function validateFormAccess(response) {
+            function validateUserAccess(response) {
                 siteUrl = window.location.href;
-                if (siteUrl.includes("lost_pet") || siteUrl.includes("found_pet")) {
-                    if (response.status === 'connected') {
-                        var uid = response.authResponse.userID;
+                if (response.status === 'connected') {
+                    var uid = response.authResponse.userID;
+                    if (siteUrl.includes("lost_pet") || siteUrl.includes("found_pet")) {
                         var urlUid = siteUrl.split("/")[3];
-                        if (uid !== urlUid) {
-                            window.location.href = "https://encuentrame.org.xelar.tech";
-                        }
-                    } else {
+                    }
+                    if (siteUrl.includes("profile")) {
+                        var urlUid = siteUrl.split("/")[4];
+                    }
+                    if (uid !== urlUid) {
                         window.location.href = "https://encuentrame.org.xelar.tech";
                     }
+                } else {
+                    window.location.href = "https://encuentrame.org.xelar.tech";
                 }
             }
 
