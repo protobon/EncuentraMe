@@ -13,7 +13,7 @@ $(document).ready(function () {
     }
     window.refreshFeed = function() {
         fetchAllPosts().then(function(data) {
-            $('div.posts').empty();
+            $('article.posts').empty();
             $('#todos').prop('checked', true);
             $.each(data.lost, function () {
                 this.created_at = new Date(this.created_at).toLocaleString('es-UY');
@@ -39,7 +39,7 @@ $(document).ready(function () {
                 reportButton.addClass('btn-sm');
                 reportButton.attr('onclick', 'reportPost("' + this.id + '")');
                 postLostNew.append(reportButton);
-                $('div.posts').append(postLostNew);
+                $('article.posts').append(postLostNew);
             });
             $.each(data.found, function () {
                 this.created_at = new Date(this.created_at).toLocaleString('es-UY');
@@ -65,14 +65,14 @@ $(document).ready(function () {
                 reportButton.addClass('btn-sm');
                 reportButton.attr('onclick', 'reportPost("' + this.id + '")');
                 postFoundNew.append(reportButton);
-                $('div.posts').append(postFoundNew);
+                $('article.posts').append(postFoundNew);
             });
         });
     }
     refreshFeed();
     window.refreshLost = function() {
         fetchAllPosts().then(function(data) {
-            $('div.posts').empty();
+            $('article.posts').empty();
             $('#todos').prop('checked', true);
             $.each(data.lost, function () {
                 this.created_at = new Date(this.created_at).toLocaleString('es-UY');
@@ -99,13 +99,13 @@ $(document).ready(function () {
                 reportButton.addClass('btn-sm');
                 reportButton.attr('onclick', 'reportPost("' + this.id + '")');
                 postLostNew.append(reportButton);
-                $('div.posts').append(postLostNew);
+                $('article.posts').append(postLostNew);
             });
         });
     }
     window.refreshFound = function() {
         fetchAllPosts().then(function(data) {
-            $('div.posts').empty();
+            $('article.posts').empty();
             $('#todos').prop('checked', true);
             $.each(data.found, function () {
                 this.created_at = new Date(this.created_at).toLocaleString('es-UY');
@@ -132,7 +132,7 @@ $(document).ready(function () {
                 reportButton.addClass('btn-sm');
                 reportButton.attr('onclick', 'reportPost("' + this.id + '")');
                 postFoundNew.append(reportButton);
-                $('div.posts').append(postFoundNew);
+                $('article.posts').append(postFoundNew);
             });
         });
     }
