@@ -1,3 +1,4 @@
+from cmath import log
 from flask import Flask, jsonify, render_template, request, flash, redirect
 from flask_cors import CORS
 import os
@@ -155,8 +156,10 @@ def show_single_post(id):
         cursor.close()
         return redirect('/')
     post['foto'] = os.path.join(UPLOAD_FOLDER, post['foto'])
-    fecha_l = post['fecha'].split('-')
-    post['fecha'] = fecha_l[2] + '/' + fecha_l[1] + '/' + fecha_l[0]
+    logfile(str(type(post['fecha'])))
+    logfile(post['fecha'])
+    # fecha_l = post['fecha'].split('-')
+    # post['fecha'] = fecha_l[2] + '/' + fecha_l[1] + '/' + fecha_l[0]
     cursor.execute("SELECT name FROM users WHERE id=%s", [post['user_id']])
     try:
         user = list(cursor.fetchall())[0]
@@ -215,7 +218,7 @@ def api_users():
         try:
             cursor.execute('INSERT INTO users VALUES (%s, %s, %s)', (user['id'], user['name'], user['email']))
         except Exception as e:
-            logfile("api_users() - in cursor.execute(INSERT INTO users):\n" + str(e))
+            pass
         mysql.connection.commit()
         cursor.close()
         return jsonify(user)
