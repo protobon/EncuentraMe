@@ -46,7 +46,7 @@ function initMap() {
 
 
     //Show lat/lng on console
-    google.maps.event.addListener(marker,'drag', function(event){
+    google.maps.event.addListener(marker,'cursor_changed', function(event){
       $("#postLat").val(event.latLng.lat().toFixed(6));
       $("#postLng").val(event.latLng.lng().toFixed(6));
       map.panTo(event.latLng);
