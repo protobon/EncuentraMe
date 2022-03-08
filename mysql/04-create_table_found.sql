@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS found_pets (
     estado VARCHAR(9) NOT NULL,
     created_at DATETIME NOT NULL,
     mascota VARCHAR(10) NOT NULL,
-    fecha DATE NOT NULL,
+    fecha VARCHAR(10) NOT NULL,
     hora VARCHAR(9) NOT NULL,
     calle_1 VARCHAR(30) NOT NULL,
     calle_2 VARCHAR(30) NOT NULL,

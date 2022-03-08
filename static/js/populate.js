@@ -11,18 +11,11 @@ $(document).ready(function () {
             console.log(err);
         }
     }
-    window.dateOptions = {
-        weekday: "short",
-        year: "numeric",
-        month: "2-digit",
-        day: "numeric"
-    };
     window.refreshFeed = function() {
         fetchAllPosts().then(function(data) {
             $('article.posts').empty();
             $('#todos').prop('checked', true);
             $.each(data.lost, function () {
-                this.fecha = new Date(this.fecha).toLocaleString('es', dateOptions);
                 this.created_at = new Date(this.created_at).toLocaleString('es-UY');
                 let postLostNew = $(document.createElement('div'));
                 postLostNew.addClass('pet');
@@ -42,7 +35,6 @@ $(document).ready(function () {
                 $('article.posts').append(postLostNew);
             });
             $.each(data.found, function () {
-                this.fecha = new Date(this.fecha).toLocaleString('es', dateOptions);
                 this.created_at = new Date(this.created_at).toLocaleString('es-UY');
                 let postFoundNew = $(document.createElement('div'));
                 postFoundNew.addClass('pet');
@@ -69,7 +61,6 @@ $(document).ready(function () {
             $('article.posts').empty();
             $('#todos').prop('checked', true);
             $.each(data.lost, function () {
-                this.fecha = new Date(this.fecha).toLocaleString('es', dateOptions);
                 this.created_at = new Date(this.created_at).toLocaleString('es-UY');
                 let postLostNew = $(document.createElement('div'));
                 postLostNew.addClass('pet');
@@ -95,7 +86,6 @@ $(document).ready(function () {
             $('article.posts').empty();
             $('#todos').prop('checked', true);
             $.each(data.found, function () {
-                this.fecha = new Date(this.fecha).toLocaleString('es', dateOptions);
                 this.created_at = new Date(this.created_at).toLocaleString('es-UY');
                 let postFoundNew = $(document.createElement('div'));
                 postFoundNew.addClass('pet');
