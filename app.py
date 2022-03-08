@@ -273,9 +273,15 @@ def api_users():
         user = request.get_json()
         logfile("LOGGED IN USER:\n" + str(user))
         for u in all_users:
-            if u['id'] == user['id']:
-                return
-        cursor.execute('INSERT INTO users VALUES (%s, %s, %s, %s)', (user['id'], user['name'], user['email'], 'active'))
+            try:
+                if u['id'] == user['id']:
+                    return
+            except Exception as e:
+                logfile(str(e))
+        try:
+            cursor.execute('INSERT INTO users VALUES (%s, %s, %s, %s)', (user['id'], user['name'], user['email'], 'active'))
+        except Exception as e:
+            logfile("/api/users - INSERT USER:\n" + str(e))
         mysql.connection.commit()
         cursor.close()
         return jsonify(user)
