@@ -27,15 +27,13 @@ function initMap() {
             lat: position.coords.latitude,
             lng: position.coords.longitude,
           };
-          console.log(pos)
-          console.log(pos.lat)
           infoWindow.setPosition(pos);
           infoWindow.setContent("Location found.");
           infoWindow.open(map);
           marker.setPosition(pos);
           map.setCenter(pos);
-          $("#postLat").val(pos.lat().toFixed(6));
-          $("#postLat").val(pos.lng().toFixed(6));
+          $("#postLat").val(pos.lat.toFixed(6));
+          $("#postLng").val(pos.lng.toFixed(6));
         },
         () => {
           handleLocationError(true, infoWindow, map.getCenter());
