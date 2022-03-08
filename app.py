@@ -272,12 +272,15 @@ def api_users():
         logfile("ALL USERS:\n" + str(all_users))
         user = request.get_json()
         logfile("LOGGED IN USER:\n" + str(user))
-        for u in all_users:
-            try:
-                if u['id'] == user['id']:
-                    return
-            except Exception as e:
-                logfile(str(e))
+        try:
+            for u in all_users:
+                try:
+                    if u['id'] == user['id']:
+                        return
+                except Exception as e:
+                    logfile(str(e))
+        except Exception as e:
+            logfile(str(e))
         try:
             cursor.execute('INSERT INTO users VALUES (%s, %s, %s, %s)', (user['id'], user['name'], user['email'], 'active'))
         except Exception as e:
