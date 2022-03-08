@@ -32,7 +32,7 @@ def allowed_file(filename):
 
 def logfile(traceback):
     with open("traceback.txt", 'a') as f:
-        send = "-------" + datetime.utcnow().strftime("%m/%d/%Y, %H:%M:%S") +\
+        send = "-------" + (datetime.utcnow() - timedelta(hours=3)).strftime("%m/%d/%Y, %H:%M:%S") +\
                "-------\n" + traceback + "\n"
         f.write(send)
         f.close()
@@ -53,10 +53,16 @@ def form_lost_pet(user_id):
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     cursor.execute("SELECT * FROM users WHERE id=%s", [user_id])
     user = list(cursor.fetchall())[0]
+    if user['estado'] == 'blocked':
+        flash('No tienes permisos para realizar una publicación')
+        return redirect('/')
     if not user:
         flash("Asegúrate de ingresar con tu usuario")
         return redirect("/")
     if request.method == 'GET':
+        if user['estado'] == 'blocked':
+            flash('No tienes permisos para publicar')
+            return redirect('/')
         return render_template('form_lost_pet.html', user_id=user_id)
     if request.method == 'POST':
         id = "lost" + str(uuid.uuid4())
@@ -101,6 +107,9 @@ def form_found_pet(user_id):
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     cursor.execute("SELECT * FROM users WHERE id=%s", [user_id])
     user = list(cursor.fetchall())[0]
+    if user['estado'] == 'blocked':
+        flash('No tienes permisos para realizar una publicación')
+        return redirect('/')
     if not user:
         flash("Asegúrate de ingresar con tu usuario")
         return redirect("/")
@@ -144,10 +153,15 @@ def form_found_pet(user_id):
 
 @app.route('/<user_id>/report/<post_id>', methods=['GET', 'POST'])
 def form_report(user_id, post_id):
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute('SELECT estado FROM users WHERE id=%s', [user_id])
+    user = list(cursor.fetchall())[0]
+    if user['estado'] == 'blocked':
+        flash('No tienes permisos para denunciar una publicación')
+        return redirect('/')
     if request.method == 'GET':
         return render_template('form_report.html', user_id=user_id, post_id=post_id)
     if request.method == 'POST':
-        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         if "lost" in post_id:
             cursor.execute("UPDATE lost_pets SET estado = 'reported' WHERE id=%s", [post_id])
             cursor.execute('SELECT user_id FROM lost_pets WHERE id=%s', [post_id])
@@ -235,29 +249,36 @@ def api_posts():
     return jsonify({"lost": lost, "found": found})
 
 
-@app.route('/api/users/', methods=['GET', 'POST'])
+@app.route('/api/users/', methods=['GET', 'POST', 'PUT'])
 def api_users():
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     if request.method == 'GET':
         """Retrieve all users from database and return in JSON format"""
-        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('SELECT name, email FROM users')
+        cursor.execute('SELECT name, email, estado FROM users')
         users = list(cursor.fetchall())
         cursor.close()
         return jsonify(users)
-    else:
+    if request.method == 'POST':
         """Stores new user into database"""
-        cursor = mysql.connection.cursor()
         content_type = request.headers.get('Content-Type')
         if (content_type != 'application/json'):
             return (jsonify("Not a JSON"), 400)
+        cursor.execute('SELECT * FROM users')
+        all_users = list(cursor.fetchall())
         user = request.get_json()
-        try:
-            cursor.execute('INSERT INTO users VALUES (%s, %s, %s)', (user['id'], user['name'], user['email']))
-        except Exception as e:
-            pass
+        for u in all_users:
+            if u['id'] == user['id']:
+                return
+        user['estado'] == 'active'
+        cursor.execute('INSERT INTO users VALUES (%s, %s, %s, %s)', (user['id'], user['name'], user['email'], user['estado']))
         mysql.connection.commit()
         cursor.close()
         return jsonify(user)
+    if request.method == 'PUT':
+        user = request.get_json()
+        cursor.execute("ALTER TABLE users MODIFY COLUMN estado = 'blocked' WHERE id=%s", [user['id']])
+        flash('Usuario bloqueado')
+        return redirect('/')
 
 
 @app.route('/api/users/<user_id>/posts')
