@@ -2,6 +2,7 @@
 
 {% block head %}
 <link rel="stylesheet" href="{{ url_for('static', filename='styles/index.css') }}">
+<script src="{{ url_for('static', filename='js/main_map.js') }}"></script>
 <title>EncuentraMe</title>
 {% endblock %}
 
@@ -32,6 +33,13 @@
     </div>
     <article class="posts">
     </article>
+</div>
+<div id="main_map">
+    <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
+      <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBqNj3BPTdCSu9fTtAlj4LSLD5FAidsa7M&callback=initMap&v=weekly"
+        async
+      ></script>
 </div>
 <script src="{{ url_for('static', filename='js/filters.js') }}"></script>
 <script src="{{ url_for('static', filename='js/populate.js') }}"></script>
