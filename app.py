@@ -270,8 +270,7 @@ def api_users():
         for u in all_users:
             if u['id'] == user['id']:
                 return
-        user['estado'] == 'active'
-        cursor.execute('INSERT INTO users VALUES (%s, %s, %s, %s)', (user['id'], user['name'], user['email'], user['estado']))
+        cursor.execute('INSERT INTO users VALUES (%s, %s, %s, %s)', (user['id'], user['name'], user['email'], 'active'))
         mysql.connection.commit()
         cursor.close()
         return jsonify(user)
