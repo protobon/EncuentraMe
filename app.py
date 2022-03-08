@@ -161,8 +161,13 @@ def form_report(user_id, post_id):
             flash("No es posible acceder a esta publicación")
             return redirect('/')
         reporte = request.form['reporte']
-        cursor.execute('INSERT INTO reports VALUES (%s, %s, %s, %s)',
-                        (user_id, reporte, post_id, reported_user_id))
+        logfile(str(reporte))
+        logfile(str(type(reporte)))
+        try:
+            cursor.execute('INSERT INTO reports VALUES (%s, %s, %s, %s)',
+                            (user_id, reporte, post_id, reported_user_id))
+        except Exception as e:
+            logfile("form_report(user_id, post_id) - in cursor.execute(INSERT INTO reports):\n" + str(e))
         mysql.connection.commit()
         cursor.close()
         flash('Gracias por denunciar esta publicación, la revisaremos lo antes posible.')
