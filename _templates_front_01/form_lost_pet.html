@@ -2,15 +2,14 @@
 
 {% block head %}
 <title>Mascota Perdida</title>
-<script src="{{ url_for('static', filename='js/post_map.js') }}"></script>
 {% endblock %}
 
 {% block body %}
 <p>Atención: Este formulario es para quienes perdieron su mascota y quieren encontrarla.
-    Si encontraste un animalito en la calle y quieres publicarlo, presiona <a href="/found_pet">aquí.</a>
+    Si encontraste un animalito en la calle y quieres publicarlo, presiona <a href="/{{ user_id }}/found_pet">aquí.</a>
 </p>
 <br>
-<form action="/lost_pet" method="post" class="form_center" id="main_form" enctype="multipart/form-data">
+<form action="/{{ user_id }}/lost_pet" method="post" class="form_center" id="main_form" enctype="multipart/form-data">
     {% with messages = get_flashed_messages() %}
         {% if messages %}
             {% for message in messages %}
@@ -27,34 +26,25 @@
             <label for="gato">Gato</label>
         </div>
         <div class="form-group">
-            <p>Se busca a 
+            <p>Se busca a
             <input type="text" name="nombre" placeholder="Nombre de tu mascota" required>
-            desde el día 
+            desde el día
             <input type="date" name="fecha" placeholder="dd-mm-yyyy" required>
-            última vez visto en las inmediaciones de 
+            última vez visto en las inmediaciones de
             <input type="text" name="calle_1" placeholder="Calle 1" required>
-            y 
+            y
             <input type="text" name="calle_2" placeholder="Calle 2" required>
             barrio
             <input type="text" name="barrio" placeholder="Barrio" required>
-            a las 
+            a las
             <input type="time" name="hora" required>
             horas.
-            <input type="number" step="any" name="latitude" placeholder="" id="postLat" required>
-            <input type="number" step="any" name="longitude" placeholder="" id="postLng" required>
             Si lo viste por favor comunícate con Usuario.</p>
             <br>
             <label for="image">Sube una imagen:</label>
             <input type="file" name="foto" required>
-            <div id="post_map"></div>
-            <script
-                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBqNj3BPTdCSu9fTtAlj4LSLD5FAidsa7M&callback=initMap&libraries=&v=weekly"
-                async
-            ></script>
         </div>
-
-        <button type="submit" class="btn btn-primary">Submit</button>
-        
+        <button type="submit" class="btn btn-primary" id="form-submit">Submit</button>
     </fieldset>
 </form>
 {% endblock %}
