@@ -6,7 +6,14 @@ function initMap() {
     zoom: 13,
     center: {lat: -34.901357, lng: -56.189205},
   });
+  a = -34.901357
+  b = -56.189205
   infoWindow = new google.maps.InfoWindow();
+    let marker = new google.maps.Marker({
+    position: new google.maps.LatLng(a , b),
+    map: map,
+    draggable: true,
+    });
     //Create markers based on testing locations.
   const locationButton = document.createElement("button");
   locationButton.textContent = "Selecciona ubicación actual";
@@ -25,11 +32,6 @@ function initMap() {
           infoWindow.open(map);
           marker.setPosition(pos);
           map.setCenter(pos);
-          let marker = new google.maps.Marker({
-            position: new google.maps.LatLng(lat , lng),
-            map: map,
-            draggable: true,
-          });
         },
         () => {
           handleLocationError(true, infoWindow, map.getCenter());
