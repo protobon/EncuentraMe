@@ -232,6 +232,11 @@ def about():
     return render_template('about.html')  
 
 
+@app.route('/politica_de_privacidad')
+def politica():
+    return render_template('politica_de_privacidad.html')  
+
+
 @app.route('/profile/<user_id>')
 def user_profile(user_id):
     """Render user profile with all owner's posts"""
