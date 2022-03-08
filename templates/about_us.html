@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block head %}
+<title>Conocenos</title>
+<script src="{{ url_for('static', filename='js/about_us.js') }}"></script>
+{% endblock %}
+{% block body %}
+<div class="about-section">
+    <h1>Nosotros</h1>
+    <p>En encuentraMe deseamos conectar personas que han perdido a sus mascotas y brindar un medio de difusión y seguimiento para facilitar el reencuentro. Es nuestro ideal el crear una comunidad de intercambio sobre mascotas en situación de calle o precariedad para salvaguardar y conectarlos con personas o instituciones que los ayuden.</p>
+    <p>A corto plazo esperamos ser la comunidad más grande del país en reencuentro de mascotas perdidas, animales encontrados y organizaciones sin fines de lucro orientadas al bienestar de los animales domésticos</p>
+  </div>
+{% endblock %}

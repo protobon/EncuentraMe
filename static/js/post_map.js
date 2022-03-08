@@ -6,15 +6,15 @@ function initMap() {
     zoom: 13,
     center: {lat: -34.901357, lng: -56.189205},
   });
+  a = -34.901357
+  b = -56.189205
   infoWindow = new google.maps.InfoWindow();
-    //Create markers based on testing locations.
-    a =  -34.901357
-    b = -56.189205
     let marker = new google.maps.Marker({
-      position: new google.maps.LatLng(a , b),
-      map: map,
-      draggable: true,
+    position: new google.maps.LatLng(a , b),
+    map: map,
+    draggable: true,
     });
+    //Create markers based on testing locations.
   const locationButton = document.createElement("button");
   locationButton.textContent = "Selecciona ubicación actual";
   locationButton.classList.add("custom-map-control-button");
@@ -32,7 +32,8 @@ function initMap() {
           infoWindow.open(map);
           marker.setPosition(pos);
           map.setCenter(pos);
-          
+          $("#postLat").val(pos.lat.toFixed(6));
+          $("#postLng").val(pos.lng.toFixed(6));
         },
         () => {
           handleLocationError(true, infoWindow, map.getCenter());
@@ -40,7 +41,7 @@ function initMap() {
         
       );
     } else {
-      // Browser doesn'tva support Geolocation
+      // Browser doesn't support Geolocation
       handleLocationError(false, infoWindow, map.getCenter());
     }
   });

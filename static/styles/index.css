@@ -60,6 +60,10 @@ article {
     margin: auto;
 }
 
+.user {
+    justify-content: space-between;
+}
+
 .pet {
     width: 80%;
     margin: 2em auto;
@@ -103,5 +107,6 @@ nav a.navbar-brand img {
 }
 
 #postLat, #postLng {
-    display:block;
+    display: none;
+    visibility: hidden;
 }

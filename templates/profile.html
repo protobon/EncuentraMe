@@ -1,11 +1,13 @@
 {% extends "base.html" %}
 {% block head %}
+<title>Perfil</title>
 {% endblock %}
 {% block body %}
+<header id="top"></header>
 <div class="feed">
     <h1>Tus Publicaciones</h1>
     <article class="posts">
     </article>
 </div>
-<script src="{{ url_for('static', filename='js/profile.js') }}"></script>
+<script src="{{ url_for('static', filename='js/loadProfile.js') }}"></script>
 {% endblock %}

@@ -7,108 +7,234 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/index.css') }}">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
-    <script src="" type="text/javascript"></script>
     <style media ="screen">
-        #fb-btn{
-            margin-right:0%;
-            margin-top:0%;
+        #fb-btn {
+            margin-right: 0%;
+            margin-top: 0%;
         }
-        #profile, #logout{
-                display:none;
-                margin-top:10%;
+        #btn-logout {
+                display: none;
         }
     </style>
     {% block head %}{% endblock %}
-    </head>
+</head>
 <body>
     <script>
-        window.fbAsyncInit = function() {
-            FB.init({
-                appId      : '1633098193720369',
-                cookie     : true,
-                xfbml      : true,
-                version    : 'v13.0',
-            });
+        $(document).ready(function () {
+            window.fbAsyncInit = function() {
+                FB.init({
+                    appId      : '1633098193720369',
+                    cookie     : true,
+                    xfbml      : true,
+                    version    : 'v13.0',
+                });
 
-            FB.AppEvents.logPageView();
+                FB.getLoginStatus(function(response) {
+                    statusChangeCallback(response);
+                    validateUserAccess(response);
+                });
+            };
 
-        };
+            (function(d, s, id) {
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) {return;}
+                js = d.createElement(s); js.id = id;
+                js.src = "https://connect.facebook.net/en_US/sdk.js";
+                fjs.parentNode.insertBefore(js, fjs);
+            } (document, 'script', 'facebook-jssdk'));
 
-        (function(d, s, id) {
-            var js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) {return;}
-            js = d.createElement(s); js.id = id;
-            js.src = "https://connect.facebook.net/en_US/sdk.js";
-            fjs.parentNode.insertBefore(js, fjs);
-        } (document, 'script', 'facebook-jssdk'));
-
-        function statusChangeCallback(response) {
-            if(response.status === 'connected') {
-                setElements(true);
-                console.log('Logged in and anthenticated');
-                sendCredentials();
-            } else {
-                console.log('Not authenticated');
-                setElements(false);
+            function statusChangeCallback(response) {
+                if(response.status === 'connected') {
+                    console.log('Logged in and anthenticated');
+                    setElements(true);
+                    sendCredentials();
+                } else {
+                    console.log('Not authenticated');
+                    setElements(false);
+                }
             }
-        }
-        function setElements(isLoggedIn) {
-            if(isLoggedIn) {
-                document.getElementById('fb-btn').style.display = 'none';
-                document.getElementById('logout').style.display = 'block';
-                document.getElementById('profile').style.display = 'block';
-            } else {
-                document.getElementById('fb-btn').style.display = 'block';
-                document.getElementById('logout').style.display = 'none';
-                document.getElementById('profile').style.display = 'block';
+
+            function checkLoginState() {
+                FB.getLoginStatus(function(response) {
+                    statusChangeCallback(response);
+                });
             }
-        }
-        function checkLoginState() {
-            FB.getLoginStatus(function(response) {
-                statusChangeCallback(response);
-            });
-        }
-        function sendCredentials() {
-            FB.api('/me?fields=name,email,id,link', function(response) {
-                if(response && !response.error) {
-                    async () => {
-                        const request = {
-                            method: 'POST',
-                            headers: {'Content-Type': 'application/json'},
-                            body: JSON.stringify(response)
-                        };
-                        const res = await fetch('https://encuentrame.org.xelar.tech/api/users/', request);
-                        const data = await res.json();
-                        console.log(data);
+
+            window.validateUserAccess = function(response) {
+                siteUrl = window.location.href;
+                if (siteUrl.includes("lost_pet") || siteUrl.includes("found_pet")) {
+                    if (response.status === 'connected') {
+                        var uid = response.authResponse.userID;
+                        var urlUid = siteUrl.split("/")[3];
+                        if (uid !== urlUid) {
+                            window.location.href = "https://encuentrame.org.xelar.tech";
+                        }
+                    } else {
+                        window.location.href = "https://encuentrame.org.xelar.tech";
                     }
                 }
-            });
-        }
-        // function buildProfile(user) {
-        //     let useremail = user.email
-        //     let userid = user.id
-        //     let username = user.name
-        //     let profile = `
-        //         <h3>${user.name}</h3>
-        //         <ul class="list-group">
-        //             <li class "list-group-item">User ID: ${user.id}</li>
-        //             <li class "list-group-item">Email: ${user.email}</li>
-        //             <li class "list-group-item">Link: ${user.link}</li>
-        //     `;
-        //     document.getElementById("profile").innerHTML = profile;
-        // }
-        function logout() {
-            FB.logout(function(response) {
-                setElements(false);
-            });
-        }
+                if (siteUrl.includes("profile")) {
+                    if (response.status === 'connected') {
+                        var uid = response.authResponse.userID;
+                        var urlUid = siteUrl.split("/")[4];
+                        if (uid !== urlUid) {
+                            if (userAdmin(uid)) {
+                                let adminReportButton = $(document.createElement('button'));
+                                adminReportButton.addClass('btn');
+                                adminReportButton.addClass('btn-dark');
+                                adminReportButton.attr('onclick', '"blockUser(' + uid + ')"');
+                                $('header#top').append(adminReportButton);
+                            }
+                            window.location.href = "https://encuentrame.org.xelar.tech";
+                        }
+                    } else {
+                        window.location.href = "https://encuentrame.org.xelar.tech";
+                    }
+                }
+            }
+
+            window.userAdmin = async function(userId) {
+                const response = await fetch('https://encuentrame.org.xelar.tech/api/users');
+                const data = await response.json();
+                data.forEach(function(user) {
+                    if (user['id'] === userId && user['estado'] === 'admin') {
+                        return true;
+                    }
+                    return false;
+                });
+            }
+
+            window.blockUser = function(userId) {
+                const user = {id: userId};
+                fetch('https://encuentrame.org.xelar.tech/api/users/', {
+                    method: 'PUT',
+                    body: JSON.stringify(user)
+                })
+                .catch(err => console.log(err));
+            }
+
+            function sendCredentials() {
+                FB.api('/me?fields=name,email,id', function(credentials) {
+                    if(credentials && !credentials.error) {
+                        console.log(credentials);
+                        fetch('https://encuentrame.org.xelar.tech/api/users/', {
+                            method: 'POST',
+                            headers: {'Content-Type': 'application/json'},
+                            body: JSON.stringify(credentials)
+                        })
+                        .catch(err => console.log(err));
+                    }
+                });
+            }
+
+            window.goToProfile = function() {
+                FB.getLoginStatus(function(response) {
+                    if (response.status === 'connected') {
+                        var uid = response.authResponse.userID;
+                        window.location.href = "https://encuentrame.org.xelar.tech/profile/" + uid;
+                    } else {
+                        alert("Debes iniciar sesión para ir a tu perfil");
+                        return false;
+                    }
+                });
+            }
+
+            window.deletePost = function(postId) {
+                FB.getLoginStatus(function(response) {
+                    if (response.status === 'connected') {
+                        url = 'https://encuentrame.org.xelar.tech/api/posts/' + postId;
+                        fetch(url, {
+                            method: 'DELETE',
+                        }).then(() => {
+                            window.location.reload();
+                        })
+                        .catch(err => console.log(err));
+                    } else {
+                        alert('Debes iniciar sesión nuevamente');
+                        window.location.href = 'https://encuentrame.org.xelar.tech';
+                    }
+                });
+            }
+
+            window.resolvePost = function(postId) {
+                FB.getLoginStatus(function(response) {
+                    if (response.status === 'connected') {
+                        url = 'https://encuentrame.org.xelar.tech/api/posts/' + postId;
+                        fetch(url, {
+                            method: 'PUT',
+                        }).then(() => {
+                            window.location.reload();
+                        })
+                        .catch(err => console.log(err));
+                    } else {
+                        alert('Debes iniciar sesión nuevamente');
+                        window.location.href = 'https://encuentrame.org.xelar.tech';
+                    }
+                });
+            }
+
+            window.reportPost = function(postId) {
+                FB.getLoginStatus(function(response) {
+                    if (response.status === 'connected') {
+                        var uid = response.authResponse.userID;
+                        window.location.href = 'https://encuentrame.org.xelar.tech/' + uid + '/report/' + postId;
+                    } else {
+                        alert("Debes iniciar sesión para denunciar una publicación.");
+                        return;
+                    }
+                });
+            }
+
+            window.setElements = function(isLoggedIn) {
+                if (isLoggedIn) {
+                    $('#fb-btn').hide();
+                    $('#btn-logout').show();
+                    $('#btn-profile').show();
+                } else {
+                    $('#fb-btn').show();
+                    $('#btn-logout').hide();
+                    $('#btn-profile').hide();
+                }
+            }
+
+            window.logout = function () {
+                FB.logout(function () {
+                    window.location.href = "https://encuentrame.org.xelar.tech/";
+                });
+            };
+
+            window.postButton = document.querySelector("#post");
+            if (postButton) {
+                postButton.addEventListener("click", function() {
+                    FB.getLoginStatus(function(response) {
+                        if (response.status === 'connected') {
+                            var uid = response.authResponse.userID;
+                            window.location.href = "https://encuentrame.org.xelar.tech/" + uid + "/lost_pet";
+                        } else {
+                            alert("Debes ingresar con Facebook para hacer una publicación");
+                            return false;
+                        }
+                    });
+                });
+            };
+
+            // if (window.location.href.includes("profile")) {
+            //     FB.getLoginStatus(function(response) {
+            //         if (response.status === 'connected') {
+            //             var uid = response.authResponse.userID;
+            //             if (userAdmin(uid))
+            //         }
+            //     });
+            // }
+        });
     </script>
     <nav class="navbar navbar-light bg-light justify-content-between">
         <a class="navbar-brand" href="/">
             <img src="{{ url_for('static', filename='logo/EncuentraMe(1000x1000).png') }}" alt="">
         </a>
         <ul class="navbar navbar-right">
-            <a id="logout" href="#" onclick="logout()">Logout</a>
+            <button class="btn btn-danger btn-small" id="btn-logout" onclick="logout()">Logout</button>
+            <button class="btn btn-primary" id="btn-profile" onclick="goToProfile()">Perfil</button>
             <fb:login-button
                 id="fb-btn"
                 scope="email"
@@ -116,15 +242,9 @@
             </fb:login-button>
         </ul>
     </nav>
-    <div class="container">
-        <h3 id="heading">
-            
-        </h3>
-        <div id="profile"></div>
-    </div>
     {% block body %}{% endblock %}
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
 </html>

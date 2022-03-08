@@ -1,17 +1,19 @@
+from cmath import log
 from flask import Flask, jsonify, render_template, request, flash, redirect
 from flask_cors import CORS
 import os
 import uuid
-from datetime import datetime
+from datetime import datetime, timedelta
 from flask_mysqldb import MySQL
 import MySQLdb
-from facebook import GraphAPI
+import logging
+
+access_token = os.getenv('fb_token')
 
 UPLOAD_FOLDER = 'static/images'
 ALLOWED_EXTENSIONS = {'jpg', 'jpeg', 'png', 'jfif'}
-user = {"id": "123456", "name": "nombre", "email": "correo"}
 app = Flask(__name__)
-cors = CORS(app, resources={r"/*": {"origins": "0.0.0.0"}})
+cors = CORS(app, resources={r"/api/*": {"origins": "0.0.0.0"}})
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['SECRET_KEY'] = "ola_ke_ase"
 app.config['MYSQL_HOST'] = 'localhost'
@@ -28,32 +30,55 @@ def allowed_file(filename):
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
+def logfile(traceback):
+    with open("traceback.txt", 'a') as f:
+        send = "-------" + (datetime.utcnow() - timedelta(hours=3)).strftime("%m/%d/%Y, %H:%M:%S") +\
+               "-------\n" + traceback + "\n"
+        f.write(send)
+        f.close()
+    return False
+
+def date_format(fecha):
+    fecha_l = fecha.split('-')
+    fecha = fecha_l[2] + '/' + fecha_l[1] + '/' + fecha_l[0]
+    return fecha
+
 @app.route('/')
 def landing():
     """Landing page"""
     return render_template('index.html')
 
-@app.route('/lost_pet', methods=['GET', 'POST'])
-def form_lost_pet():
+@app.route('/<user_id>/lost_pet', methods=['GET', 'POST'])
+def form_lost_pet(user_id):
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute("SELECT * FROM users WHERE id=%s", [user_id])
+    user = list(cursor.fetchall())
+    if not user:
+        flash("Asegúrate de ingresar con tu usuario")
+        return redirect("/")
+    user = user[0]
+    if user['estado'] == 'blocked':
+        flash('No tienes permisos para realizar una publicación')
+        return redirect('/')
     if request.method == 'GET':
-        return render_template('form_lost_pet.html')
+        if user['estado'] == 'blocked':
+            flash('No tienes permisos para publicar')
+            return redirect('/')
+        return render_template('form_lost_pet.html', user_id=user_id)
     if request.method == 'POST':
         id = "lost" + str(uuid.uuid4())
         estado = "active"
         created_at = datetime.utcnow()
         mascota = request.form['mascota']
         nombre = request.form['nombre']
-        fecha = request.form['fecha']
+        fecha = date_format(request.form['fecha'])
         hora = request.form['hora']
         calle_1 = request.form['calle_1']
         calle_2 = request.form['calle_2']
         barrio = request.form['barrio']
-        user_id = "123456"
-        # check if the post request has the file part
-        if 'foto' not in request.files:
-            flash('Debe subir una imagen')
-            return redirect(request.url)
         file = request.files['foto']
+        latitude = request.form['latitude']
+        longitude = request.form['longitude']
         # If the user does not select a file, the browser submits an
         # empty file without a filename.
         if file.filename == '':
@@ -66,25 +91,31 @@ def form_lost_pet():
         else:
             flash('Formatos de imagen soportados: jpg, jpeg, png, jfif.')
             return redirect(request.url)
-        latitude = request.form['latitude']
-        longitude = request.form['longitude']
-        cursor = mysql.connection.cursor()
         try:
-            cursor.execute('INSERT INTO lost_pets VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',
-                           (id, user_id, estado, created_at, mascota, nombre, fecha, hora, calle_1, calle_2, barrio, file.filename, latitude, longitude))
+            cursor.execute('INSERT INTO lost_pets VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',
+                           (id, user_id, user['name'], estado, created_at, mascota, nombre, fecha, hora, calle_1, calle_2, barrio, file.filename, latitude, longitude))
         except Exception as e:
             flash('Ha ocurrido un error, asegúrese de ingresar los datos correctamente')
-            print(e)
+            logfile("form_lost_pet(user_id) - in cursor.execute(INSERT INTO lost_pets):\n" + str(e))
             return redirect(request.url)
         mysql.connection.commit()
         cursor.close()
         return redirect('/')
 
 
-@app.route('/found_pet', methods=['GET', 'POST'])
-def form_found_pet():
+@app.route('/<user_id>/found_pet', methods=['GET', 'POST'])
+def form_found_pet(user_id):
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute("SELECT * FROM users WHERE id=%s", [user_id])
+    user = list(cursor.fetchall())[0]
+    if user['estado'] == 'blocked':
+        flash('No tienes permisos para realizar una publicación')
+        return redirect('/')
+    if not user:
+        flash("Asegúrate de ingresar con tu usuario")
+        return redirect("/")
     if request.method == 'GET':
-        return render_template('form_found_pet.html')
+        return render_template('form_found_pet.html', user_id=user_id)
     if request.method == 'POST':
         id = "found" + str(uuid.uuid4())
         estado = "active"
@@ -95,12 +126,9 @@ def form_found_pet():
         calle_1 = request.form['calle_1']
         calle_2 = request.form['calle_2']
         barrio = request.form['barrio']
-        user_id = "123456"
-        # check if the post request has the file part
-        if 'foto' not in request.files:
-            flash('Debe subir una imagen')
-            return redirect(request.url)
         file = request.files['foto']
+        latitude = request.form['latitude']
+        longitude = request.form['longitude']
         # If the user does not select a file, the browser submits an
         # empty file without a filename.
         if file.filename == '':
@@ -113,24 +141,95 @@ def form_found_pet():
         else:
             flash('Formatos de imagen soportados: jpg, jpeg, png, jfif.')
             return redirect(request.url)
-        latitude = request.form['latitude']
-        longitude = request.form['longitude']
-        cursor = mysql.connection.cursor()
         try:
-            cursor.execute('INSERT INTO found_pets VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',
-                           (id, user_id, estado, created_at, mascota, fecha, hora, calle_1, calle_2, barrio, file.filename, latitude, longitude))
+            cursor.execute('INSERT INTO found_pets VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',
+                        (id, user_id, user["name"], estado, created_at, mascota, fecha, hora, calle_1, calle_2, barrio, file.filename, latitude, longitude))
         except Exception as e:
-            flash('Ha ocurrido un error, asegúrese de ingresar los datos correctamente')
-            print(e)
+            logfile("form_found_pet(user_id) - in cursor.execute(INSERT INTO found_pets):\n" + str(e))
             return redirect(request.url)
         mysql.connection.commit()
         cursor.close()
         return redirect('/')
 
 
+@app.route('/<user_id>/report/<post_id>', methods=['GET', 'POST'])
+def form_report(user_id, post_id):
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute('SELECT estado FROM users WHERE id=%s', [user_id])
+    user = list(cursor.fetchall())[0]
+    if user['estado'] == 'blocked':
+        flash('No tienes permisos para denunciar una publicación')
+        return redirect('/')
+    if request.method == 'GET':
+        return render_template('form_report.html', user_id=user_id, post_id=post_id)
+    if request.method == 'POST':
+        if "lost" in post_id:
+            cursor.execute("UPDATE lost_pets SET estado = 'reported' WHERE id=%s", [post_id])
+            cursor.execute('SELECT user_id FROM lost_pets WHERE id=%s', [post_id])
+        else:
+            cursor.execute("UPDATE found_pets SET estado = 'reported' WHERE id=%s", [post_id])
+            cursor.execute('SELECT user_id FROM found_pets WHERE id=%s', [post_id])
+        try:
+            reported_user_id = list(cursor.fetchall())[0]['user_id']
+        except Exception as e:
+            logfile("form_report(user_id, post_id) - in reported_user = list(cursor.fetchall())[0]:\n" + str(e))
+            flash("No es posible acceder a esta publicación")
+            return redirect('/')
+        reporte = request.form['reporte']
+        created_at = datetime.utcnow() - timedelta(hours=3)
+        try:
+            cursor.execute('INSERT INTO reports VALUES (%s, %s, %s, %s, %s)',
+                            (created_at, user_id, reporte, post_id, reported_user_id))
+        except Exception as e:
+            logfile("form_report(user_id, post_id) - in cursor.execute(INSERT INTO reports):\n" + str(e))
+        mysql.connection.commit()
+        cursor.close()
+        flash('Gracias por denunciar esta publicación, la revisaremos lo antes posible.')
+        return redirect('/')
+
+
 @app.route('/<id>')
 def show_single_post(id):
-    return render_template('post_by_id.html')
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    if "lost" in id:
+        logfile(str(cursor.execute("SELECT * FROM lost_pets WHERE id=%s", [id])))
+    else:
+        cursor.execute("SELECT * FROM found_pets WHERE id=%s", [id])
+    try:
+        post = list(cursor.fetchone())[0]
+    except Exception as e:
+        flash("Publicación no encontrada")
+        logfile("show_single_post(id) - in post = list(cursor.fetchone())[0]:\n" + str(e))
+        cursor.close()
+        return redirect('/')
+    try:
+        if post['estado'] != 'active':
+            flash('No es posible acceder a esta publicación.')
+            return redirect('/')
+        post['foto'] = os.path.join(UPLOAD_FOLDER, post['foto'])
+    except Exception as e:
+        logfile("show_single_post:\n" + str(e))
+        pass
+    cursor.execute("SELECT name FROM users WHERE id=%s", [post['user_id']])
+    try:
+        result = list(cursor.fetchall())
+        if len(result) >= 1:
+            user = result[0]
+    except Exception as e:
+        logfile("show_single_post(id) - in user = list(cursor.fetchall())[0]:\n" + str(e))
+        pass
+    cursor.close()
+    return render_template('post_by_id.html', post=post, user=user)
+
+
+@app.route('/main_map')
+def new_map():
+    return render_template('main_map.html')    
+
+
+@app.route('/about')
+def about():
+    return render_template('about.html')  
 
 
 @app.route('/profile/<user_id>')
@@ -149,40 +248,75 @@ def api_posts():
     cursor.execute("SELECT * FROM found_pets WHERE estado = 'active' ORDER BY created_at DESC")
     found = list(cursor.fetchall())
     cursor.close()
+    for post in lost:
+        del post["estado"]
+        del post["user_id"]
+    for post in found:
+        del post["estado"]
+        del post["user_id"]
     return jsonify({"lost": lost, "found": found})
 
 
-@app.route('/api/users/', methods=['GET', 'POST'])
+@app.route('/api/users/', methods=['GET', 'POST', 'PUT'])
 def api_users():
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     if request.method == 'GET':
         """Retrieve all users from database and return in JSON format"""
-        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('SELECT * FROM users')
+        try:
+            cursor.execute('SELECT name, email, estado FROM users')
+        except Exception as e:
+            logfile("/api/users GET - in SELECT:\n" + str(e))
         users = list(cursor.fetchall())
         cursor.close()
         return jsonify(users)
-    else:
+    if request.method == 'POST':
         """Stores new user into database"""
         content_type = request.headers.get('Content-Type')
         if (content_type != 'application/json'):
             return (jsonify("Not a JSON"), 400)
+        cursor.execute('SELECT * FROM users')
+        all_users = list(cursor.fetchall())
         user = request.get_json()
         try:
-            cursor.execute('INSERT INTO users VALUES (%s, %s, %s)', (user['id'], user['name'], user['email']))
-        except Exception:
+            for u in all_users:
+                try:
+                    if u['id'] == user['id']:
+                        return
+                except Exception as e:
+                    logfile(str(e))
+        except Exception as e:
+            logfile(str(e))
             pass
+        try:
+            cursor.execute('INSERT INTO users VALUES (%s, %s, %s, %s)', (user['id'], user['name'], user['email'], 'active'))
+        except Exception as e:
+            logfile("/api/users - INSERT USER:\n" + str(e))
+            pass
+        mysql.connection.commit()
+        cursor.close()
         return jsonify(user)
+    if request.method == 'PUT':
+        user = request.get_json()
+        cursor.execute("ALTER TABLE users MODIFY COLUMN estado = 'blocked' WHERE id=%s", [user['id']])
+        flash('Usuario bloqueado')
+        return redirect('/')
 
 
 @app.route('/api/users/<user_id>/posts')
 def api_user_posts(user_id):
     """Retrieve all posts from user by user_id and return in JSON format"""
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    cursor.execute('SELECT * FROM lost_pets WHERE user_id=%s', [user_id])
+    cursor.execute('SELECT * FROM lost_pets WHERE user_id=%s AND estado=%s', [user_id, "active"])
     lost = list(cursor.fetchall())
-    cursor.execute('SELECT * FROM found_pets WHERE user_id=%s', [user_id])
+    cursor.execute('SELECT * FROM found_pets WHERE user_id=%s AND estado=%s', [user_id, "active"])
     found = list(cursor.fetchall())
     cursor.close()
+    for post in lost:
+        del post["estado"]
+        del post["user_id"]
+    for post in found:
+        del post["estado"]
+        del post["user_id"]
     return jsonify({"lost": lost, "found": found})
 
 
@@ -196,8 +330,10 @@ def api_post_by_id(id):
         cursor.execute("SELECT * FROM found_pets WHERE id=%s", [id])
     try:
         post = list(cursor.fetchall())[0]
-    except Exception:
-        flash('Publicación no encontrada')
+        del post["estado"]
+        del post["user_id"]
+    except Exception as e:
+        logfile("api_post_by_id(id) - in post = list(cursor.fetchall())[0]:\n" + str(e))
         cursor.close()
         return redirect('/')
     if request.method == 'GET':
@@ -210,8 +346,7 @@ def api_post_by_id(id):
             cursor.execute("UPDATE found_pets SET estado = 'completed' WHERE id=%s", [id])
         mysql.connection.commit()
         cursor.close()
-        flash('¡Felicidades! Nos alegra mucho que hayas encontrado a tu mascota :D')
-        return redirect('/')
+        return jsonify('¡Felicidades! Nos alegra mucho que hayas encontrado a tu mascota :D')
     if request.method == 'DELETE':
         if "lost" in id:
             cursor.execute("UPDATE lost_pets SET estado = 'removed' WHERE id=%s", [id])
@@ -219,37 +354,21 @@ def api_post_by_id(id):
             cursor.execute("UPDATE found_pets SET estado = 'removed' WHERE id=%s", [id])
         mysql.connection.commit()
         cursor.close()
-        flash('Publicación eliminada correctamente')
-        return redirect('/')
+        return jsonify('Publicación eliminada correctamente')
 
 
-@app.route('/main_map')
-def new_map():
-
-    return render_template('main_map.html')
-
-
-@app.route('/api/posts/geojson')
-def api_posts_map():
-    """Retrieve all posts from database and return in JSON format"""
+@app.route('/api/reports')
+def get_reports():
+    """Get all reports in JSON format"""
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    cursor.execute("SELECT id, latitude, longitude, foto FROM lost_pets WHERE estado = 'active' ORDER BY created_at DESC")
-    lost = list(cursor.fetchall())
-    for elem in lost:
-        coordinates = [elem["latitude"], elem["longitude"]]
-        elem["coordinates"] = coordinates
-        del elem["latitude"]
-        del elem["longitude"]
-    cursor.execute("SELECT  id, latitude, longitude, foto FROM found_pets WHERE estado = 'active' ORDER BY created_at DESC")
-    found = list(cursor.fetchall())
-    for elem in found:
-        coordinates = [elem["latitude"], elem["longitude"]]
-        elem["coordinates"] = coordinates
-        del elem["latitude"]
-        del elem["longitude"]
-    cursor.close()
-    return jsonify({"lost": lost, "found": found})
+    cursor.execute("SELECT * FROM reports")
+    reports = list(cursor.fetchall())
+    return jsonify(reports)
 
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0")
+else:
+    gunicorn_logger = logging.getLogger('gunicorn.error')
+    app.logger.handlers = gunicorn_logger.handlers
+    app.logger.setLevel(gunicorn_logger.level)
