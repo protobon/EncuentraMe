@@ -255,7 +255,10 @@ def api_users():
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     if request.method == 'GET':
         """Retrieve all users from database and return in JSON format"""
-        cursor.execute('SELECT name, email, estado FROM users')
+        try:
+            cursor.execute('SELECT name, email, estado FROM users')
+        except Exception as e:
+            logfile("/api/users GET - in SELECT:\n" + str(e))
         users = list(cursor.fetchall())
         cursor.close()
         return jsonify(users)
@@ -266,9 +269,9 @@ def api_users():
             return (jsonify("Not a JSON"), 400)
         cursor.execute('SELECT * FROM users')
         all_users = list(cursor.fetchall())
-        logfile(str(all_users))
+        logfile("ALL USERS:\n" + str(all_users))
         user = request.get_json()
-        logfile(str(user))
+        logfile("LOGGED IN USER:\n" + str(user))
         for u in all_users:
             if u['id'] == user['id']:
                 return
