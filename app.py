@@ -198,7 +198,7 @@ def show_single_post(id):
     try:
         result = list(cursor.fetchall())
         if not result:
-            return
+            return redirect('/')
         post = result[0]
     except Exception as e:
         flash("Publicación no encontrada")
