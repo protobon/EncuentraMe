@@ -204,11 +204,13 @@ def show_single_post(id):
         logfile("show_single_post(id) - in post = list(cursor.fetchall())[0]:\n" + str(e))
         cursor.close()
         return redirect('/')
-    if post:
+    try:
         if post['estado'] != 'active':
             flash('No es posible acceder a esta publicación.')
             return redirect('/')
         post['foto'] = os.path.join(UPLOAD_FOLDER, post['foto'])
+    except Exception as e:
+        logfile("show_single_post:\n" + str(e))
     cursor.execute("SELECT name FROM users WHERE id=%s", [post['user_id']])
     try:
         result = list(cursor.fetchall())
