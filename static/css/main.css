@@ -15,3 +15,8 @@ user-select: none;
     font-size: 3.5rem;
 }
 }
+
+#main_map {
+    height: 600px;
+
+}
