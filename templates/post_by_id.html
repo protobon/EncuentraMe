@@ -23,6 +23,7 @@
         fjs.parentNode.insertBefore(js, fjs);
     } (document, 'script', 'facebook-jssdk'));
     </script>
+    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
     <nav class="navbar navbar-light bg-light justify-content-between">
         <a class="navbar-brand" href="/">
             <img src="{{ url_for('static', filename='logo/EncuentraMe(1000x1000).png') }}" alt="">
@@ -50,10 +51,13 @@
             </div>
         {% endif %}
     </article>
-    <div class="fb-share-button" 
-    data-href="https://encuentrame.org.xelar.tech/{{ post['id'] }}" 
-    data-layout="button_count"
-    data-size="large">
+    <div class="share">
+        <div class="fb-share-button" 
+        data-href="https://encuentrame.org.xelar.tech/{{ post['id'] }}" 
+        data-layout="button_count"
+        data-size="large">
+        </div>
+        <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-size="large">Tweet</a>
     </div>
 </body>
 </html>

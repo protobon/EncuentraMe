@@ -61,7 +61,7 @@ def form_lost_pet(user_id):
     if request.method == 'POST':
         id = "lost" + str(uuid.uuid4())
         estado = "active"
-        created_at = datetime.utcnow() - timedelta(hours=3)
+        created_at = datetime.utcnow()
         mascota = request.form['mascota']
         nombre = request.form['nombre']
         fecha = date_format(request.form['fecha'])
@@ -109,7 +109,7 @@ def form_found_pet(user_id):
     if request.method == 'POST':
         id = "found" + str(uuid.uuid4())
         estado = "active"
-        created_at = datetime.utcnow() - timedelta(hours=3)
+        created_at = datetime.utcnow()
         mascota = request.form['mascota']
         fecha = request.form['fecha']
         hora = request.form['hora']
