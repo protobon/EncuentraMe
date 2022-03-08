@@ -145,7 +145,7 @@ def form_found_pet(user_id):
 @app.route('/<user_id>/report/<post_id>', methods=['GET', 'POST'])
 def form_report(user_id, post_id):
     if request.method == 'GET':
-        return render_template('form_report.html', user_id=user_id,post_id=post_id)
+        return render_template('form_report.html', user_id=user_id, post_id=post_id)
     if request.method == 'POST':
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         if "lost" in post_id:
@@ -155,17 +155,16 @@ def form_report(user_id, post_id):
             cursor.execute("UPDATE found_pets SET estado = 'reported' WHERE id=%s", [post_id])
             cursor.execute('SELECT user_id FROM found_pets WHERE id=%s', [post_id])
         try:
-            reported_user_id = list(cursor.fetchall())[0]
+            reported_user_id = list(cursor.fetchall())[0]['user_id']
         except Exception as e:
             logfile("form_report(user_id, post_id) - in reported_user = list(cursor.fetchall())[0]:\n" + str(e))
             flash("No es posible acceder a esta publicación")
             return redirect('/')
         reporte = request.form['reporte']
-        logfile(str(reporte))
-        logfile(str(type(reporte)))
+        created_at = datetime.utcnow() - timedelta(hours=3)
         try:
-            cursor.execute('INSERT INTO reports VALUES (%s, %s, %s, %s)',
-                            (user_id, reporte, post_id, reported_user_id))
+            cursor.execute('INSERT INTO reports VALUES (%s, %s, %s, %s, %s)',
+                            (created_at, user_id, reporte, post_id, reported_user_id))
         except Exception as e:
             logfile("form_report(user_id, post_id) - in cursor.execute(INSERT INTO reports):\n" + str(e))
         mysql.connection.commit()
