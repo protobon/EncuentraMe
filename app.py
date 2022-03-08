@@ -219,6 +219,7 @@ def show_single_post(id):
             user = result[0]
     except Exception as e:
         logfile("show_single_post(id) - in user = list(cursor.fetchall())[0]:\n" + str(e))
+        pass
     cursor.close()
     return render_template('post_by_id.html', post=post, user=user)
 
@@ -287,10 +288,12 @@ def api_users():
                     logfile(str(e))
         except Exception as e:
             logfile(str(e))
+            pass
         try:
             cursor.execute('INSERT INTO users VALUES (%s, %s, %s, %s)', (user['id'], user['name'], user['email'], 'active'))
         except Exception as e:
             logfile("/api/users - INSERT USER:\n" + str(e))
+            pass
         mysql.connection.commit()
         cursor.close()
         return jsonify(user)
