@@ -266,7 +266,9 @@ def api_users():
             return (jsonify("Not a JSON"), 400)
         cursor.execute('SELECT * FROM users')
         all_users = list(cursor.fetchall())
+        logfile(str(all_users))
         user = request.get_json()
+        logfile(str(user))
         for u in all_users:
             if u['id'] == user['id']:
                 return

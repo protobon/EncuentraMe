@@ -116,6 +116,7 @@
             function sendCredentials() {
                 FB.api('/me?fields=name,email,id', function(credentials) {
                     if(credentials && !credentials.error) {
+                        console.log(credentials);
                         fetch('https://encuentrame.org.xelar.tech/api/users/', {
                             method: 'POST',
                             headers: {'Content-Type': 'application/json'},
