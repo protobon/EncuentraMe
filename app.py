@@ -38,6 +38,11 @@ def logfile(traceback):
         f.close()
     return False
 
+def date_format(fecha):
+    fecha_l = fecha.split('-')
+    fecha = fecha_l[2] + '/' + fecha_l[1] + '/' + fecha_l[0]
+    return fecha
+
 @app.route('/')
 def landing():
     """Landing page"""
@@ -59,9 +64,7 @@ def form_lost_pet(user_id):
         created_at = datetime.utcnow() - timedelta(hours=3)
         mascota = request.form['mascota']
         nombre = request.form['nombre']
-        fecha = request.form['fecha']
-        logfile(str(fecha))
-        logfile(str(type(fecha)))
+        fecha = date_format(request.form['fecha'])
         hora = request.form['hora']
         calle_1 = request.form['calle_1']
         calle_2 = request.form['calle_2']
@@ -139,10 +142,6 @@ def form_found_pet(user_id):
         return redirect('/')
 
 
-# @app.route('/<id>')
-# def show_single_post(id):
-#     return render_template('post_by_id.html')
-
 @app.route('/<id>')
 def show_single_post(id):
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
@@ -160,7 +159,6 @@ def show_single_post(id):
         cursor.close()
         return redirect('/')
     post['foto'] = os.path.join(UPLOAD_FOLDER, post['foto'])
-    post['fecha'] = post['fecha'].strftime("%d/%m/%Y")
     cursor.execute("SELECT name FROM users WHERE id=%s", [post['user_id']])
     try:
         result = list(cursor.fetchall())
