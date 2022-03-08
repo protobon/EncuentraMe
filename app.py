@@ -145,7 +145,7 @@ def form_found_pet(user_id):
 @app.route('/<user_id>/report/<post_id>', methods=['GET', 'POST'])
 def form_report(user_id, post_id):
     if request.method == 'GET':
-        return render_template('form_report.html', post_id=post_id)
+        return render_template('form_report.html', user_id=user_id,post_id=post_id)
     if request.method == 'POST':
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         if "lost" in post_id:
