@@ -211,6 +211,7 @@ def show_single_post(id):
         post['foto'] = os.path.join(UPLOAD_FOLDER, post['foto'])
     except Exception as e:
         logfile("show_single_post:\n" + str(e))
+        pass
     cursor.execute("SELECT name FROM users WHERE id=%s", [post['user_id']])
     try:
         result = list(cursor.fetchall())
@@ -271,9 +272,7 @@ def api_users():
             return (jsonify("Not a JSON"), 400)
         cursor.execute('SELECT * FROM users')
         all_users = list(cursor.fetchall())
-        logfile("ALL USERS:\n" + str(all_users))
         user = request.get_json()
-        logfile("LOGGED IN USER:\n" + str(user))
         try:
             for u in all_users:
                 try:
