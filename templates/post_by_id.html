@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/index.css') }}">
+<title>Publicacion</title>
+{% endblock %}
+
+{% block body %}
+<article class="posts">
+</article>
+<script src="{{ url_for('static', filename='js/fetchSinglePost.js') }}"></script>
+{% endblock %}
