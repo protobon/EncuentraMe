@@ -52,13 +52,14 @@ def landing():
 def form_lost_pet(user_id):
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     cursor.execute("SELECT * FROM users WHERE id=%s", [user_id])
-    user = list(cursor.fetchall())[0]
-    if user['estado'] == 'blocked':
-        flash('No tienes permisos para realizar una publicación')
-        return redirect('/')
+    user = list(cursor.fetchall())
     if not user:
         flash("Asegúrate de ingresar con tu usuario")
         return redirect("/")
+    user = user[0]
+    if user['estado'] == 'blocked':
+        flash('No tienes permisos para realizar una publicación')
+        return redirect('/')
     if request.method == 'GET':
         if user['estado'] == 'blocked':
             flash('No tienes permisos para publicar')
