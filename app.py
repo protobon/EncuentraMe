@@ -196,9 +196,7 @@ def show_single_post(id):
     else:
         cursor.execute("SELECT * FROM found_pets WHERE id=%s", [id])
     try:
-        result = list(cursor.fetchall())
-        if len(result) >= 1:
-            post = result[0]
+        post = list(cursor.fetchone())
     except Exception as e:
         flash("Publicación no encontrada")
         logfile("show_single_post(id) - in post = list(cursor.fetchall())[0]:\n" + str(e))
