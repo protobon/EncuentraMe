@@ -142,6 +142,33 @@ def form_found_pet(user_id):
         return redirect('/')
 
 
+@app.route('/<user_id>/report/<post_id>', methods=['GET', 'POST'])
+def form_report(user_id, post_id):
+    if request.method == 'GET':
+        return render_template('form_report.html', post_id=post_id)
+    if request.method == 'POST':
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        if "lost" in post_id:
+            cursor.execute("UPDATE lost_pets SET estado = 'reported' WHERE id=%s", [post_id])
+            cursor.execute('SELECT user_id FROM lost_pets WHERE id=%s', [post_id])
+        else:
+            cursor.execute("UPDATE found_pets SET estado = 'reported' WHERE id=%s", [post_id])
+            cursor.execute('SELECT user_id FROM found_pets WHERE id=%s', [post_id])
+        try:
+            reported_user_id = list(cursor.fetchall())[0]
+        except Exception as e:
+            logfile("form_report(user_id, post_id) - in reported_user = list(cursor.fetchall())[0]:\n" + str(e))
+            flash("No es posible acceder a esta publicación")
+            return redirect('/')
+        reporte = request.form['reporte']
+        cursor.execute('INSERT INTO reports VALUES (%s, %s, %s, %s)',
+                        (user_id, reporte, post_id, reported_user_id))
+        mysql.connection.commit()
+        cursor.close()
+        flash('Gracias por denunciar esta publicación, la revisaremos lo antes posible.')
+        return redirect('/')
+
+
 @app.route('/<id>')
 def show_single_post(id):
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
@@ -158,7 +185,11 @@ def show_single_post(id):
         logfile("show_single_post(id) - in post = list(cursor.fetchall())[0]:\n" + str(e))
         cursor.close()
         return redirect('/')
-    post['foto'] = os.path.join(UPLOAD_FOLDER, post['foto'])
+    if post:
+        if post['estado'] != 'active':
+            flash('No es posible acceder a esta publicación.')
+            return redirect('/')
+        post['foto'] = os.path.join(UPLOAD_FOLDER, post['foto'])
     cursor.execute("SELECT name FROM users WHERE id=%s", [post['user_id']])
     try:
         result = list(cursor.fetchall())

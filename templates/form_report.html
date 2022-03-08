@@ -2,7 +2,7 @@
 {% block head %}
 {% endblock %}
 {% block body %}
-<form action="/report/{{  }}">
+<form action="/{{ user_id }}/report/{{ post_id }}" method="post" class="form_center" id="main_form">
 {% with messages = get_flashed_messages() %}
     {% if messages %}
         {% for message in messages %}
@@ -10,5 +10,19 @@
         {% endfor %}
     {% endif %}
 {% endwith %}
+<p>Este formulario sirve para denunciar una publicación que no cumpla con el propósito de
+    la plataforma, es decir publicar contenido destinado a la búsqueda de animales perdidos.
+    Por favor, envíanos un reporte detallando el motivo de la denuncia si y solo si:
+</p>
+<ul>
+    <li>La foto no contiene un animalito.</li>
+    <li>La foto tiene contenido obsceno o gore (No ATP).</li>
+    <li>El contenido de la publicación contiene palabras obscenas o sin sentido.</li>
+    <li>Es una publicación duplicada (SPAM)</li>
+</ul>
+<br>
+<label for="reporte">Por favor, danos una descripción del reporte:</label>
+<textarea name="reporte" cols="50" rows="20" minlength="10" maxlength="256"></textarea>
+<button type="submit" class="btn btn-primary" id="form-submit">Enviar</button>
 </form>
 {% endblock %}

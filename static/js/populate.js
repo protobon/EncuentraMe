@@ -32,6 +32,12 @@ $(document).ready(function () {
                 + 'Si lo viste por favor comunícate con ' + this.user_name + '.</p>');
                 postLostNew.append('<a href="/' + this.id + '"></a>');
                 postLostNew.find('a').append('<img src="/static/images/' + this.foto + '">');
+                let reportButton = $(document.createElement('button'));
+                reportButton.addClass('btn');
+                reportButton.addClass('btn-link');
+                reportButton.addClass('btn-sm');
+                reportButton.attr('onclick', 'reportPost("' + this.id + '")');
+                postLostNew.append(reportButton);
                 $('article.posts').append(postLostNew);
             });
             $.each(data.found, function () {
@@ -51,6 +57,12 @@ $(document).ready(function () {
                 + 'Si es tuyo o sabes de quien puede ser por favor comunícate con ' + this.user_name + '.</p>');
                 postFoundNew.append('<a href="/' + this.id + '"></a>');
                 postFoundNew.find('a').append('<img src="/static/images/' + this.foto + '">');
+                let reportButton = $(document.createElement('button'));
+                reportButton.addClass('btn');
+                reportButton.addClass('btn-link');
+                reportButton.addClass('btn-sm');
+                reportButton.attr('onclick', 'reportPost("' + this.id + '")');
+                postLostNew.append(reportButton);
                 $('article.posts').append(postFoundNew);
             });
         });
@@ -77,6 +89,13 @@ $(document).ready(function () {
                 + 'Si lo viste por favor comunícate con ' + this.user_name + '.</p>');
                 postLostNew.append('<a href="/' + this.id + '"></a>');
                 postLostNew.find('a').append('<img src="static/images/' + this.foto + '">');
+                postLostNew.append('<a href="https://encuentrame.org.xelar.tech/report/' + this.id + '">Denunciar publicación</a>');
+                let reportButton = $(document.createElement('button'));
+                reportButton.addClass('btn');
+                reportButton.addClass('btn-link');
+                reportButton.addClass('btn-sm');
+                reportButton.attr('onclick', 'reportPost("' + this.id + '")');
+                postLostNew.append(reportButton);
                 $('article.posts').append(postLostNew);
             });
         });
@@ -102,6 +121,13 @@ $(document).ready(function () {
                 + 'Si es tuyo o sabes de quien puede ser por favor comunícate con ' + this.user_name + '.</p>');
                 postFoundNew.append('<a href="/' + this.id + '"></a>');
                 postFoundNew.find('a').append('<img src="static/images/' + this.foto + '">');
+                postFoundNew.append('<a href="https://encuentrame.org.xelar.tech/report/' + this.id + '">Denunciar publicación</a>');
+                let reportButton = $(document.createElement('button'));
+                reportButton.addClass('btn');
+                reportButton.addClass('btn-link');
+                reportButton.addClass('btn-sm');
+                reportButton.attr('onclick', 'reportPost("' + this.id + '")');
+                postLostNew.append(reportButton);
                 $('article.posts').append(postFoundNew);
             });
         });

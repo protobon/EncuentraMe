@@ -145,6 +145,18 @@
                 });
             }
 
+            window.reportPost = function(postId) {
+                FB.getLoginStatus(function(response) {
+                    if (response.status === 'connected') {
+                        var uid = response.authResponse.userID;
+                        window.location.href = 'https://encuentrame.org.xelar.tech/' + uid + '/report/' + postId;
+                    } else {
+                        alert("Debes iniciar sesión para denunciar una publicación.");
+                        return;
+                    }
+                });
+            }
+
             window.setElements = function(isLoggedIn) {
                 if (isLoggedIn) {
                     $('#fb-btn').hide();
