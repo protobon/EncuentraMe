@@ -9,8 +9,6 @@ function initMap() {
   infoWindow = new google.maps.InfoWindow();
     //Create markers based on testing locations.
   const locationButton = document.createElement("button");
-  locationButton.addClass('btn');
-  locationButton.addClass('btn-primary');
   locationButton.textContent = "Selecciona ubicación actual";
   locationButton.classList.add("custom-map-control-button");
   map.controls[google.maps.ControlPosition.TOP_CENTER].push(locationButton);
