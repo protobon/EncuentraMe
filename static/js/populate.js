@@ -16,8 +16,8 @@ $(document).ready(function () {
             $('article.posts').empty();
             $('#todos').prop('checked', true);
             $.each(data.lost, function () {
-                this.fecha = new Date(this.fecha).toLocaleDateString('es-UY');
-                this.created_at = new Date(this.created_at).toLocaleString('es-UY');
+                this.fecha = new Date(this.fecha).toLocaleDateString('es-UY', {timeZone: 'UTC-3'});
+                this.created_at = new Date(this.created_at).toLocaleString('es-UY', {timeZone: 'UTC-3'});
                 let postLostNew = $(document.createElement('div'));
                 postLostNew.addClass('pet');
                 postLostNew.addClass('pet_lost');
@@ -36,8 +36,8 @@ $(document).ready(function () {
                 $('article.posts').append(postLostNew);
             });
             $.each(data.found, function () {
-                this.fecha = new Date(this.fecha).toLocaleDateString('es-UY');
-                this.created_at = new Date(this.created_at).toLocaleString('es-UY');
+                this.fecha = new Date(this.fecha).toLocaleDateString('es-UY', {timeZone: 'UTC-3'});
+                this.created_at = new Date(this.created_at).toLocaleString('es-UY', {timeZone: 'UTC-3'});
                 let postFoundNew = $(document.createElement('div'));
                 postFoundNew.addClass('pet');
                 postFoundNew.addClass('pet_found');
@@ -63,8 +63,8 @@ $(document).ready(function () {
             $('article.posts').empty();
             $('#todos').prop('checked', true);
             $.each(data.lost, function () {
-                this.fecha = new Date(this.fecha).toLocaleDateString('es-UY');
-                this.created_at = new Date(this.created_at).toLocaleString('es-UY');
+                this.fecha = new Date(this.fecha).toLocaleDateString('es-UY', {timeZone: 'UTC-3'});
+                this.created_at = new Date(this.created_at).toLocaleString('es-UY', {timeZone: 'UTC-3'});
                 let postLostNew = $(document.createElement('div'));
                 postLostNew.addClass('pet');
                 postLostNew.addClass('pet_lost');
@@ -89,8 +89,8 @@ $(document).ready(function () {
             $('article.posts').empty();
             $('#todos').prop('checked', true);
             $.each(data.found, function () {
-                this.fecha = new Date(this.fecha).toLocaleDateString('es-UY');
-                this.created_at = new Date(this.created_at).toLocaleString('es-UY');
+                this.fecha = new Date(this.fecha).toLocaleDateString('es-UY', {timeZone: 'UTC-3'});
+                this.created_at = new Date(this.created_at).toLocaleString('es-UY', {timeZone: 'UTC-3'});
                 let postFoundNew = $(document.createElement('div'));
                 postFoundNew.addClass('pet');
                 postFoundNew.addClass('pet_found');
