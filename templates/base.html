@@ -246,8 +246,8 @@
     </script>
     <div class="collapse" id="navbarToggleExternalContent">
         <div class="bg-dark p-4">
-          <h5 class="text-white h4">Collapsed content</h5>
-          <span class="text-muted">Toggleable via the navbar brand.</span>
+          <h5 class="text-white h4"></h5>
+          <span class="text-muted"></span>
         </div>
       </div>
       <nav class="navbar navbar-dark bg-dark">
@@ -257,11 +257,9 @@
           </button>
         </div>
       </nav>
-
-    <nav class="navbar navbar-light bg-light justify-content-between">
-        <a class="navbar-brand" href="/">
-            <img src="{{ url_for('static', filename='logo/EncuentraMe(1000x1000).png') }}" alt="">
-        </a>
+      <a href="{{url_for('landing')}}" class="navbar-brand d-flex align-items-center">
+        <img id="logo" src="{{ url_for('static', filename='img/logo_pos_trans.svg')}}" alt="encuentrame">
+    </a>
         <ul class="navbar navbar-right">
             <button class="btn btn-danger btn-small" id="btn-logout" onclick="logout()">Logout</button>
             <button class="btn btn-primary" id="btn-profile" onclick="goToProfile()">Perfil</button>
@@ -271,7 +269,6 @@
                 onlogin="checkLoginState();">
             </fb:login-button>
         </ul>
-    </nav>
     {% block body %}{% endblock %}
     <footer class="text-muted py-5">
         <div class="container">
