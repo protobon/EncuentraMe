@@ -192,11 +192,14 @@ def form_report(user_id, post_id):
 def show_single_post(id):
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     if "lost" in id:
-        logfile(str(cursor.execute("SELECT * FROM lost_pets WHERE id=%s", [id])))
+        cursor.execute("SELECT * FROM lost_pets WHERE id=%s", [id])
     else:
         cursor.execute("SELECT * FROM found_pets WHERE id=%s", [id])
     try:
-        post = list(cursor.fetchone())[0]
+        result = list(cursor.fetchall())
+        if not result:
+            return
+        post = result[0]
     except Exception as e:
         flash("Publicación no encontrada")
         logfile("show_single_post(id) - in post = list(cursor.fetchone())[0]:\n" + str(e))
