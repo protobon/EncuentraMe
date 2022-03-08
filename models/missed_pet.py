@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-""" 
+"""
 Contains class pet
 """
 import datetime
@@ -18,4 +18,4 @@ class Pet():
         self.post__status = ""
         self.fbpost_link = ""
         self.fbpost_id = ""
-        self.animal_type =""  
+        self.animal_type =""

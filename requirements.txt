@@ -1,6 +1,6 @@
 flask_cors
 flask_mysqldb
 pyOpenSSL
-
+flask
 mysqlclient~=2.1.0
 Flask~=2.0.3
