@@ -32,8 +32,6 @@ function initMap() {
             map: map,
             draggable: true,
           });
-          $("#postLat").val(lat.toFixed(6));
-          $("#postLng").val(lng.toFixed(6));
         },
         () => {
           handleLocationError(true, infoWindow, map.getCenter());
