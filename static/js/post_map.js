@@ -8,14 +8,9 @@ function initMap() {
   });
   infoWindow = new google.maps.InfoWindow();
     //Create markers based on testing locations.
-    a =  -34.901357
-    b = -56.189205
-    let marker = new google.maps.Marker({
-      position: new google.maps.LatLng(a , b),
-      map: map,
-      draggable: true,
-    });
   const locationButton = document.createElement("button");
+  locationButton.addClass('btn');
+  locationButton.addClass('btn-primary');
   locationButton.textContent = "Selecciona ubicación actual";
   locationButton.classList.add("custom-map-control-button");
   map.controls[google.maps.ControlPosition.TOP_CENTER].push(locationButton);
@@ -32,6 +27,11 @@ function initMap() {
           infoWindow.open(map);
           marker.setPosition(pos);
           map.setCenter(pos);
+          let marker = new google.maps.Marker({
+            position: new google.maps.LatLng(lat , lng),
+            map: map,
+            draggable: true,
+          });
           
         },
         () => {
