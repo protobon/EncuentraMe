@@ -227,6 +227,11 @@ def new_map():
     return render_template('main_map.html')    
 
 
+@app.route('/about')
+def about():
+    return render_template('about.html')  
+
+
 @app.route('/profile/<user_id>')
 def user_profile(user_id):
     """Render user profile with all owner's posts"""
