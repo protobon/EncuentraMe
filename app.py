@@ -5,7 +5,7 @@ import uuid
 from datetime import datetime
 from flask_mysqldb import MySQL
 import MySQLdb
-from facebook import GraphAPI
+# from facebook import GraphAPI
 
 UPLOAD_FOLDER = 'static/images'
 ALLOWED_EXTENSIONS = {'jpg', 'jpeg', 'png', 'jfif'}
