@@ -59,7 +59,9 @@ def form_lost_pet(user_id):
         created_at = datetime.utcnow() - timedelta(hours=3)
         mascota = request.form['mascota']
         nombre = request.form['nombre']
-        fecha = request.form['fecha'].strftime("%d/%m/%Y")
+        fecha = request.form['fecha']
+        logfile(str(fecha))
+        logfile(str(type(fecha)))
         hora = request.form['hora']
         calle_1 = request.form['calle_1']
         calle_2 = request.form['calle_2']
@@ -106,7 +108,7 @@ def form_found_pet(user_id):
         estado = "active"
         created_at = datetime.utcnow() - timedelta(hours=3)
         mascota = request.form['mascota']
-        fecha = request.form['fecha'].strftime("%d/%m/%Y")
+        fecha = request.form['fecha']
         hora = request.form['hora']
         calle_1 = request.form['calle_1']
         calle_2 = request.form['calle_2']
