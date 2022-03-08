@@ -1,9 +1,7 @@
 {% extends "base.html" %}
 
 {% block head %}
-<link rel="stylesheet" href="{{ url_for('static', filename='styles/index.css') }}">
 <script src="{{ url_for('static', filename='js/main_map.js') }}"></script>
-<title>EncuentraMe</title>
 {% endblock %}
 
 {% block body %}
@@ -14,21 +12,21 @@
         {% endfor %}
     {% endif %}
 {% endwith %}
-<div class="feed">
-    <div class="filters">
-        <div class="filter">
-            <button type="button" class="btn btn-success btn-sm" id="all" onclick="refreshFeed()">Todos</button>
-            <button type="button" class="btn btn-outline-success btn-sm" id="lost" onclick="refreshLost()">Perdidos</button>
-            <button type="button" class="btn btn-outline-success btn-sm" id="found" onclick="refreshFound()">Encontrados</button>
+<div class="feed py-5 text-center container">
+    <div class="filters row py-lg-5">
+        <div class="filter col-lg-6 col-md-8 mx-auto">
+            <button type="button" class="btn btn-success btn-sm" id="all" onclick="refreshFeed()" autofocus>Todos</button>
+            <button type="button" class="btn btn-success btn-sm" id="lost" onclick="refreshLost()">Perdidos</button>
+            <button type="button" class="btn btn-success btn-sm" id="found" onclick="refreshFound()">Encontrados</button>
         </div>
         <div class="selectAnimal">
             <input type="radio" name="animal-selection" id="todos" value="Todos" checked>Todos</input>
             <input type="radio" name="animal-selection" id="perritos" value="Perritos">Perritos</input>
             <input type="radio" name="animal-selection" id="gatitos" value="Gatitos">Gatitos</input>
-            <p id="show"> </p>
+            <p id="show"></p>
         </div>
         <div class="post">
-            <button class="btn btn-primary" id="post">Publicar</button>
+            <a href="/lost_pet" class="btn btn-primary my-2" role="button">Publicar</a>
         </div>
     </div>
     <article class="posts">
