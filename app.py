@@ -316,6 +316,15 @@ def api_post_by_id(id):
         return jsonify('Publicación eliminada correctamente')
 
 
+@app.route('/api/reports')
+def get_reports():
+    """Get all reports in JSON format"""
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute("SELECT * FROM reports")
+    reports = list(cursor.fetchall())
+    return jsonify(reports)
+
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0")
 else:
