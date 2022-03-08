@@ -33,6 +33,7 @@ $(document).ready(function () {
                 postLostNew.append('<a href="/' + this.id + '"></a>');
                 postLostNew.find('a').append('<img src="/static/images/' + this.foto + '">');
                 let reportButton = $(document.createElement('button'));
+                reportButton.html('Denunciar publicación');
                 reportButton.addClass('btn');
                 reportButton.addClass('btn-link');
                 reportButton.addClass('btn-sm');
@@ -58,6 +59,7 @@ $(document).ready(function () {
                 postFoundNew.append('<a href="/' + this.id + '"></a>');
                 postFoundNew.find('a').append('<img src="/static/images/' + this.foto + '">');
                 let reportButton = $(document.createElement('button'));
+                reportButton.html('Denunciar publicación');
                 reportButton.addClass('btn');
                 reportButton.addClass('btn-link');
                 reportButton.addClass('btn-sm');
@@ -91,6 +93,7 @@ $(document).ready(function () {
                 postLostNew.find('a').append('<img src="static/images/' + this.foto + '">');
                 postLostNew.append('<a href="https://encuentrame.org.xelar.tech/report/' + this.id + '">Denunciar publicación</a>');
                 let reportButton = $(document.createElement('button'));
+                reportButton.html('Denunciar publicación');
                 reportButton.addClass('btn');
                 reportButton.addClass('btn-link');
                 reportButton.addClass('btn-sm');
@@ -123,6 +126,7 @@ $(document).ready(function () {
                 postFoundNew.find('a').append('<img src="static/images/' + this.foto + '">');
                 postFoundNew.append('<a href="https://encuentrame.org.xelar.tech/report/' + this.id + '">Denunciar publicación</a>');
                 let reportButton = $(document.createElement('button'));
+                reportButton.html('Denunciar publicación');
                 reportButton.addClass('btn');
                 reportButton.addClass('btn-link');
                 reportButton.addClass('btn-sm');
