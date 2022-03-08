@@ -64,7 +64,7 @@ $(document).ready(function () {
                 reportButton.addClass('btn-link');
                 reportButton.addClass('btn-sm');
                 reportButton.attr('onclick', 'reportPost("' + this.id + '")');
-                postLostNew.append(reportButton);
+                postFoundNew.append(reportButton);
                 $('article.posts').append(postFoundNew);
             });
         });
@@ -131,7 +131,7 @@ $(document).ready(function () {
                 reportButton.addClass('btn-link');
                 reportButton.addClass('btn-sm');
                 reportButton.attr('onclick', 'reportPost("' + this.id + '")');
-                postLostNew.append(reportButton);
+                postFoundNew.append(reportButton);
                 $('article.posts').append(postFoundNew);
             });
         });
