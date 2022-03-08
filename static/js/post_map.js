@@ -41,14 +41,14 @@ function initMap() {
         
       );
     } else {
-      // Browser doesn'tva support Geolocation
+      // Browser doesn't support Geolocation
       handleLocationError(false, infoWindow, map.getCenter());
     }
   });
 
 
     //Show lat/lng on console
-    google.maps.event.addListener(marker,'drag', function(event){
+    google.maps.event.addListener(marker,'idle', function(event){
       $("#postLat").val(event.latLng.lat().toFixed(6));
       $("#postLng").val(event.latLng.lng().toFixed(6));
       map.panTo(event.latLng);
