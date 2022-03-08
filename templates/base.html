@@ -255,11 +255,12 @@
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
-        </div>
-      </nav>
-      <a href="{{url_for('landing')}}" class="navbar-brand d-flex align-items-center">
+          <a href="{{url_for('landing')}}" class="navbar-brand d-flex align-items-center">
         <img id="logo" src="{{ url_for('static', filename='img/logo_pos_trans.svg')}}" alt="encuentrame">
     </a>
+        </div>
+      </nav>
+
         <ul class="navbar navbar-right">
             <button class="btn btn-danger btn-small" id="btn-logout" onclick="logout()">Logout</button>
             <button class="btn btn-primary" id="btn-profile" onclick="goToProfile()">Perfil</button>
