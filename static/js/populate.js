@@ -23,12 +23,17 @@ $(document).ready(function () {
                 postLostNew.addClass('pet');
                 postLostNew.addClass('pet_lost');
                 postLostNew.addClass(this.mascota);
+                const card = $(document.createElement('div'));
+                card.addClass('card shadow-sm');
                 let userInfo = $(document.createElement('div'));
-                postLostNew.append('<a href="/' + this.id + '"></a>');
-                postLostNew.find('a').append('<img src="/static/images/' + this.foto + '">');
                 userInfo.addClass('user');
-                userInfo.append('<h3>' + this.nombre + ' perdido/a!</h3>');
-                userInfo.append('<p>Fecha de publicación: ' + this.created_at + '</p>');
+                card.append('<a href="/' + this.id + '"></a>');
+                card.find('a').append('<img src="/static/images/' + this.foto + '">');
+                const cardBody = $(document.createElement('div'));
+                cardBody.addClass('card-body');
+                cardBody.append('<h5 class="card-title">' + this.nombre + ' perdido/a!</h5>');
+                cardBody.append('<p>Fecha de publicación: ' + this.created_at + '</p>');
+                cardBody.find('p').addClass('card-text');
                 postLostNew.append(userInfo);
                 postLostNew.append('<p>¡Se busca a ' + this.nombre + '! Perdido/a desde el día '
                 + this.fecha + ' última vez visto en las inmediaciones de ' + this.calle_1 +
