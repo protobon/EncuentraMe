@@ -47,22 +47,24 @@ $(document).ready(function () {
             $.each(data.found, function () {
                 this.created_at = new Date(this.created_at).toLocaleString('es-UY');
                 let postFoundNew = $(document.createElement('div'));
+                postFoundNew.addClass('col-8');
                 postFoundNew.addClass('pet');
                 postFoundNew.addClass('pet_found');
                 postFoundNew.addClass(this.mascota);
+                postFoundNew.append('<div class="card shadow-sm"></div>');
+                postFoundNew.append('<a href="/' + this.id + '"></a>');
+                postFoundNew.find('a').append('<img src="/static/images/' + this.foto + '">');
                 let userInfo = $(document.createElement('div'));
                 userInfo.addClass('user');
+                userInfo.addClass('card-body');
                 userInfo.append('<h3>' + this.mascota +' encontrado/a!</h3>');
-                userInfo.append('<p>Fecha de publicación: ' + this.created_at +'</p>');
+                userInfo.append('<p class="card-text">Fecha de publicación: ' + this.created_at + '</p>');
                 postFoundNew.append(userInfo);
                 postFoundNew.append('<p>Se encontró el día ' + this.fecha + ' por barrio '
                 + this.barrio + ' en las inmediaciones de ' + this.calle_1 +
                 ' y ' + this.calle_2 + ' a las ' + this.hora + ' horas.\n'
                 + 'Si es tuyo o sabes de quien puede ser por favor comunícate con ' + this.user_name + '.</p>');
-                postFoundNew.append('<a href="/' + this.id + '"></a>');
-                postFoundNew.find('a').append('<img src="/static/images/' + this.foto + '">');
                 let reportButton = $(document.createElement('button'));
-                reportButton.prop({ type: 'button' });
                 reportButton.html('Denunciar publicación');
                 reportButton.addClass('btn');
                 reportButton.addClass('btn-link');
@@ -81,21 +83,23 @@ $(document).ready(function () {
             $.each(data.lost, function () {
                 this.created_at = new Date(this.created_at).toLocaleString('es-UY');
                 let postLostNew = $(document.createElement('div'));
+                postLostNew.addClass('col-8');
                 postLostNew.addClass('pet');
                 postLostNew.addClass('pet_lost');
                 postLostNew.addClass(this.mascota);
+                postLostNew.append('<div class="card shadow-sm"></div>');
+                postLostNew.append('<a href="/' + this.id + '"></a>');
+                postLostNew.find('a').append('<img src="/static/images/' + this.foto + '">');
                 let userInfo = $(document.createElement('div'));
                 userInfo.addClass('user');
-                userInfo.append('<h3>' + this.nombre +' perdido/a!</h3>');
-                userInfo.append('<p>Fecha de publicación: ' + this.created_at +'</p>');
+                userInfo.addClass('card-body');
+                userInfo.append('<h3>' + this.nombre + ' perdido/a!</h3>');
+                userInfo.append('<p class="card-text">Fecha de publicación: ' + this.created_at + '</p>');
                 postLostNew.append(userInfo);
                 postLostNew.append('<p>¡Se busca a ' + this.nombre + '! Perdido/a desde el día '
                 + this.fecha + ' última vez visto en las inmediaciones de ' + this.calle_1 +
                 ' y ' + this.calle_2 + ' barrio ' + this.barrio + ' a las ' + this.hora + ' horas.\n'
                 + 'Si lo viste por favor comunícate con ' + this.user_name + '.</p>');
-                postLostNew.append('<a href="/' + this.id + '"></a>');
-                postLostNew.find('a').append('<img src="static/images/' + this.foto + '">');
-                postLostNew.append('<a href="https://encuentrame.org.xelar.tech/report/' + this.id + '">Denunciar publicación</a>');
                 let reportButton = $(document.createElement('button'));
                 reportButton.html('Denunciar publicación');
                 reportButton.addClass('btn');
@@ -114,21 +118,23 @@ $(document).ready(function () {
             $.each(data.found, function () {
                 this.created_at = new Date(this.created_at).toLocaleString('es-UY');
                 let postFoundNew = $(document.createElement('div'));
+                postFoundNew.addClass('col-8');
                 postFoundNew.addClass('pet');
                 postFoundNew.addClass('pet_found');
                 postFoundNew.addClass(this.mascota);
+                postFoundNew.append('<div class="card shadow-sm"></div>');
+                postFoundNew.append('<a href="/' + this.id + '"></a>');
+                postFoundNew.find('a').append('<img src="/static/images/' + this.foto + '">');
                 let userInfo = $(document.createElement('div'));
                 userInfo.addClass('user');
+                userInfo.addClass('card-body');
                 userInfo.append('<h3>' + this.mascota +' encontrado/a!</h3>');
-                userInfo.append('<p>Fecha de publicación: ' + this.created_at +'</p>');
+                userInfo.append('<p class="card-text">Fecha de publicación: ' + this.created_at + '</p>');
                 postFoundNew.append(userInfo);
                 postFoundNew.append('<p>Se encontró el día ' + this.fecha + ' por barrio '
                 + this.barrio + ' en las inmediaciones de ' + this.calle_1 +
                 ' y ' + this.calle_2 + ' a las ' + this.hora + ' horas.\n'
                 + 'Si es tuyo o sabes de quien puede ser por favor comunícate con ' + this.user_name + '.</p>');
-                postFoundNew.append('<a href="/' + this.id + '"></a>');
-                postFoundNew.find('a').append('<img src="static/images/' + this.foto + '">');
-                postFoundNew.append('<a href="https://encuentrame.org.xelar.tech/report/' + this.id + '">Denunciar publicación</a>');
                 let reportButton = $(document.createElement('button'));
                 reportButton.html('Denunciar publicación');
                 reportButton.addClass('btn');
