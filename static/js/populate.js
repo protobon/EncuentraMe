@@ -18,9 +18,12 @@ $(document).ready(function () {
             $.each(data.lost, function () {
                 this.created_at = new Date(this.created_at).toLocaleString('es-UY');
                 let postLostNew = $(document.createElement('div'));
+                postLostNew.addClass('col')
                 postLostNew.addClass('pet');
                 postLostNew.addClass('pet_lost');
                 postLostNew.addClass(this.mascota);
+                postLostNew.append('<a href="/' + this.id + '"></a>');
+                postLostNew.find('a').append('<img src="/static/images/' + this.foto + '">');
                 let userInfo = $(document.createElement('div'));
                 userInfo.addClass('user');
                 userInfo.append('<h3>' + this.nombre +' perdido/a!</h3>');
@@ -30,8 +33,6 @@ $(document).ready(function () {
                 + this.fecha + ' última vez visto en las inmediaciones de ' + this.calle_1 +
                 ' y ' + this.calle_2 + ' barrio ' + this.barrio + ' a las ' + this.hora + ' horas.\n'
                 + 'Si lo viste por favor comunícate con ' + this.user_name + '.</p>');
-                postLostNew.append('<a href="/' + this.id + '"></a>');
-                postLostNew.find('a').append('<img src="/static/images/' + this.foto + '">');
                 let reportButton = $(document.createElement('button'));
                 reportButton.html('Denunciar publicación');
                 reportButton.addClass('btn');
