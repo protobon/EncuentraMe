@@ -1,16 +1,16 @@
 $(document).ready(function () {
-    async function fetchAllPosts() {
-        try {
-            const response = await fetch('https://encuentrame.org.xelar.tech/api/posts/');
-            if (!response.ok) {
-                throw new Error(`Error! status: ${response.status}`);
-            }
-            const data = await response.json();
-            return (data);
-        } catch (err) {
-            console.log(err);
-        }
-    }
+  async function fetchAllPosts() {
+      try {
+          const response = await fetch('https://encuentrame.org.xelar.tech/api/posts/');
+          if (!response.ok) {
+              throw new Error(`Error! status: ${response.status}`);
+          }
+          const data = await response.json();
+          return (data);
+      } catch (err) {
+          console.log(err);
+      }
+  }
     window.refreshFeed = function () {
         fetchAllPosts().then(function (data) {
             $('div.posts').empty();
@@ -18,6 +18,7 @@ $(document).ready(function () {
             $.each(data.lost, function () {
                 this.created_at = new Date(this.created_at).toLocaleString('es-UY');
                 let postLostNew = $(document.createElement('div'));
+                postLostNew.addClass('col');
                 postLostNew.addClass('pet');
                 postLostNew.addClass('pet_lost');
                 postLostNew.addClass(this.mascota);
