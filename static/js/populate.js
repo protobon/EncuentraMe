@@ -22,6 +22,10 @@ $(document).ready(function () {
                 postLostNew.addClass('pet');
                 postLostNew.addClass('pet_lost');
                 postLostNew.addClass(this.mascota);
+
+                let card = $(document.createElement('div'));
+                card.addClass('card');
+                card.addClass('shadow-sm');
                 postLostNew.append('<a href="/' + this.id + '"></a>');
                 postLostNew.find('a').append('<img src="/static/images/' + this.foto + '">');
                 let userInfo = $(document.createElement('div'));
