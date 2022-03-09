@@ -27,8 +27,9 @@ $(document).ready(function () {
                 postLostNew.find('a').append('<img src="/static/images/' + this.foto + '">');
                 let userInfo = $(document.createElement('div'));
                 userInfo.addClass('user');
-                userInfo.append('<h3>' + this.nombre +' perdido/a!</h3>');
-                userInfo.append('<p>Fecha de publicación: ' + this.created_at +'</p>');
+                userInfo.addClass('card-body');
+                userInfo.append('<h3>' + this.nombre + ' perdido/a!</h3>');
+                userInfo.append('<p class="card-text">Fecha de publicación: ' + this.created_at + '</p>');
                 postLostNew.append(userInfo);
                 postLostNew.append('<p>¡Se busca a ' + this.nombre + '! Perdido/a desde el día '
                 + this.fecha + ' última vez visto en las inmediaciones de ' + this.calle_1 +
@@ -61,6 +62,7 @@ $(document).ready(function () {
                 postFoundNew.append('<a href="/' + this.id + '"></a>');
                 postFoundNew.find('a').append('<img src="/static/images/' + this.foto + '">');
                 let reportButton = $(document.createElement('button'));
+                reportButton.type = 'button';
                 reportButton.html('Denunciar publicación');
                 reportButton.addClass('btn');
                 reportButton.addClass('btn-link');
