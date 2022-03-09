@@ -14,7 +14,7 @@
         <h5 id="date--color-input-support">Atención: Este formulario es para quienes perdieron su mascota y quieren encontrarla.</h5>
         <p>    Si encontraste un animalito en la calle y quieres publicarlo, presiona <a href="/{{ user_id }}/found_pet">aquí.</a>
         </p></div>
-
+<div class="mb-3">
 <form action="/{{ user_id }}/lost_pet" method="post" class="form_center" id="main_form" enctype="multipart/form-data">
     {% with messages = get_flashed_messages() %}
         {% if messages %}
@@ -61,6 +61,7 @@
         <button type="submit" class="w-100 btn btn-primary btn-lg" id="form-submit">Submit</button>
     </fieldset>
 </form>
+</div>
 </main>
 </div>
 {% endblock %}
