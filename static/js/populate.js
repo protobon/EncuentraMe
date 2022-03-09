@@ -62,7 +62,7 @@ $(document).ready(function () {
                 postFoundNew.append('<a href="/' + this.id + '"></a>');
                 postFoundNew.find('a').append('<img src="/static/images/' + this.foto + '">');
                 let reportButton = $(document.createElement('button'));
-                reportButton.type = 'button';
+                reportButton.prop({ type: 'button' });
                 reportButton.html('Denunciar publicación');
                 reportButton.addClass('btn');
                 reportButton.addClass('btn-link');
