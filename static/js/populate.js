@@ -18,7 +18,7 @@ $(document).ready(function () {
             $.each(data.lost, function () {
                 this.created_at = new Date(this.created_at).toLocaleString('es-UY');
                 let postLostNew = $(document.createElement('div'));
-                postLostNew.addClass('col');
+                postLostNew.addClass('col-8');
                 postLostNew.addClass('pet');
                 postLostNew.addClass('pet_lost');
                 postLostNew.addClass(this.mascota);
