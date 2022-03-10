@@ -232,7 +232,17 @@ def new_map():
 
 @app.route('/about')
 def about():
-    return render_template('about.html')  
+    return render_template('about.html') 
+
+
+@app.route('/politica_de_privacidad')
+def politica():
+    return render_template('politica_de_privacidad.html') 
+
+
+@app.route('/landing')
+def politica():
+    return render_template('politica_de_privacidad.html') 
 
 
 @app.route('/profile/<user_id>')
