@@ -44,3 +44,21 @@ user-select: none;
 
 }
 
+/********************/
+/* form validation */
+
+#post_map {
+    height: 400px;
+
+}
+
+#main_map {
+    height: 600px;
+
+}
+
+#postLat, #postLng {
+    display: none;
+    visibility: hidden;
+}
+
