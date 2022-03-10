@@ -241,8 +241,8 @@ def politica():
 
 
 @app.route('/landing')
-def landing():
-    return render_template('politica_de_privacidad.html') 
+def landing_page():
+    return render_template('landing.html') 
 
 
 @app.route('/profile/<user_id>')
