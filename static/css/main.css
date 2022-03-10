@@ -52,11 +52,6 @@ user-select: none;
 
 }
 
-#main_map {
-    height: 600px;
-
-}
-
 #postLat, #postLng {
     display: none;
     visibility: hidden;
