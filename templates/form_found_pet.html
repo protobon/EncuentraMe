@@ -3,10 +3,49 @@
 {% block head %}
 <script src="{{ url_for('static', filename='js/post_map.js') }}"></script>
 <link rel="stylesheet" href="{{ url_for('static', filename='styles/index.css') }}">
-<title>Mascota Encontrada</title>
+<title>Mascota encontrada</title>
 {% endblock %}
 
 {% block body %}
+
+<div class="container">
+  <main>
+    <div class="py-5 text-center">
+      <h2>Mascota encontrada</h2>
+      <b id="date--color-input-support">Atención: Este formulario es para quienes encontraron su mascota y quieren publicarlo.</b>
+      <p class="lead">Si perdiste un animalito en la calle y quieres publicarlo, presiona <a href="/{{ user_id }}/lost_pet">aquí.</a></p>
+    </div>
+
+    <div class="row col-12"> <!--form -->
+      <div class="col-12 col-md-10 col-lg-8">
+        <form action="/{{ user_id }}/found_pet" method="post" class="needs-validation" id="main_form" enctype="multipart/form-data" novalidate>
+          {% with messages = get_flashed_messages() %}
+            {% if messages %}
+              {% for message in messages %}
+                <p>{{ message }}</p>
+              {% endfor %}
+            {% endif %}
+          {% endwith %}
+          <fieldset>
+            <h4 class="mb-3">¿Qué encontraste?</h4>
+
+            <div class="my-3"><!-- radio check perro-->
+              <div class="form-check">
+                <input type="radio" class="form-check-input" name="mascota" value="perro" id="perro" checked required>
+                <label for="perro">Perro</label>
+              </div>
+            </div><!-- radio check perro-->
+
+            <div class="my-3"><!-- radio check gato-->
+              <div class="form-check">
+                <input type="radio" class="form-check-input" name="mascota" value="gato" id="gato">
+                <label for="gato">Gato</label>
+              </div>
+            </div><!-- radio check gato-->
+
+            <hr class="my-4">
+  </main>
+</div>
 <p>Atención: Este formulario es para quienes encontraron un animalito en la calle y desean compartirlo.
     Si perdiste a tu mascota y quieres publicarlo has click <a href="/{{ user_id }}/lost_pet">aquí.</a>
 </p>
@@ -28,15 +67,15 @@
             <label for="gato">Gato</label>
         </div>
         <div class="form-group">
-            <p>Se encontró el día 
+            <p>Se encontró el día
             <input type="date" name="fecha" placeholder="dd-mm-yyyy" required>
             por barrio
             <input type="text" name="barrio" placeholder="Barrio" required>
-            en las inmediaciones de 
+            en las inmediaciones de
             <input type="text" name="calle_1" placeholder="Calle 1" required>
-            y 
+            y
             <input type="text" name="calle_2" placeholder="Calle 2" required>
-            a las 
+            a las
             <input type="time" name="hora" required>
             horas.</p>
             <input type="number" step="any" name="latitude"  id="postLat"  required>
