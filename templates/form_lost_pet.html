@@ -104,16 +104,18 @@
 
   </div><!--row g-3-->
 
-  <hr class="my-4">
-
-    <input type="number" step="any" name="latitude"  id="postLat" required>
+  <hr class="my-4"> <!-- google maps-->
+    <label for="map_coord"></label>
+    <input id="map_coord" type="number" step="any" name="latitude"  id="postLat" required>
     <input type="number" step="any" name="longitude" id="postLng" required>
-
-    <div class ="googleMaps"><!-- google maps-->
+    <div class="invalid-feedback">
+      Ingresa la ubicación de tu mascota.
+    </div>
+    <div class ="googleMaps">
     <div id="post_map"></div>
     <script
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBqNj3BPTdCSu9fTtAlj4LSLD5FAidsa7M&callback=initMap&libraries=&v=weekly"
-      async></script>
+      async></script> <!-- google maps-->
   </div>
 
   <hr class="my-4">
