@@ -17,9 +17,9 @@
       <p class="lead">Si encontraste un animalito en la calle y quieres publicarlo, presiona <a href="/{{ user_id }}/found_pet">aquí.</a></p>
     </div>
 
-    <div class="row g-5"> <!--form 5-->
-      <div class="col-md-7 col-lg-8">
-        <form action="/{{ user_id }}/lost_pet" method="post" class="needs-validation" id="main_form" enctype="multipart/form-data">
+    <div class="col-8"> <!--form 5-->
+      <div class="col-12">
+        <form action="/{{ user_id }}/lost_pet" method="post" class="needs-validation" id="main_form" enctype="multipart/form-data" novalidate>
           {% with messages = get_flashed_messages() %}
             {% if messages %}
               {% for message in messages %}
@@ -50,14 +50,21 @@
                 <label for="mascotaNombre" class="form-label">Se busca a</label>
                 <input type="text" class="form-control" value="" name="nombre" id="mascotaNombre" placeholder="Nombre de tu mascota" required>
                 <div class="invalid-feedback">
-                  Por favor ingresa el nombre de tu mascota.
+                  Ingresa el nombre de tu mascota.
               </div>
             </div> <!-- nombre mascota -->
 
+            <div class="col-12"> <!-- fecha perdido -->
+              <label for="perdidaDesde">desde el día</label>
+              <input type="date" class="form-control" name="fecha" id="perdidaDesde" placeholder="dd-mm-yyyy" required>
+              <div class="invalid-feedback">
+                Ingresa la fecha en la que perdiste tu mascota.
+            </div>
+          </div> <!-- fecha perdido -->
+
             <div class="form-group">
 
-              <label for="perdidaDesde">desde el día</label>
-              <input type="date" name="fecha" id="perdidaDesde" placeholder="dd-mm-yyyy" required>
+
               <label for="ultimaVista">última vez visto en las inmediaciones de</label>
               <input type="text" name="calle_1" placeholder="Calle 1" id="ultimaVista" required>
               <label for= "y">y</label>
