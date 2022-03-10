@@ -64,29 +64,40 @@
 
           <div class="row g-3"> <!-- donde lo viste -->
             <div class="col-sm-6">
-              <label for="ultimaVista">última vez visto en las inmediaciones de</label>
-              <input type="text" class="form-control" name="calle_1" placeholder="Calle 1" id="ultimaVista" required>
+              <label for="calle1">última vez visto en las inmediaciones de</label>
+              <input type="text" id="calle1" class="form-control" name="calle_1" placeholder="Calle 1" id="ultimaVista" required>
               <div class="invalid-feedback">
-                Ingresa la fecha en la que perdiste tu mascota.
+                Ingresa la calle donde se perdió.
               </div>
           </div>
           <div class="col-sm-6">
-            <label for= "y">y</label>
-            <input type="text" class="form-control" id="y" name="calle_2" placeholder="Calle 2" required>
+            <label for="calle2" class="form-label" >y</label>
+            <input type="text" class="form-control" id="calle2" name="calle_2" placeholder="Calle 2" required>
             <div class="invalid-feedback">
-              Ingresa la fecha en la que perdiste tu mascota.
+              Ingresa la intersección dónde se perdió.
             </div>
         </div>
         </div> <!-- donde lo viste -->
 
+        <div class="col-12"> <!-- barrio -->
+          <label for="barrioNombre" class="form-label">barrio</label>
+          <input type="text" id="barrioNombre" class="form-control" name="barrio" placeholder="Barrio" required>
+          <div class="invalid-feedback">
+            Ingresa el barrio donde perdiste tu mascota.
+        </div>
+      </div> <!-- barrio -->
+
+      <div class="col-12"> <!-- hora -->
+        <label for="mascotaNombre" class="form-label">¿a que hora?</label>
+        <input type="text" class="form-control" name="barrio" placeholder="Barrio" required>
+        <div class="invalid-feedback">
+          Ingresa el barrio donde perdiste tu mascota.
+      </div>
+    </div> <!-- hora -->
+
+
             <div class="form-group">
 
-
-
-
-              barrio
-              <input type="text" name="barrio" placeholder="Barrio" required>
-              a las
               <input type="time" name="hora" required>
               horas.</p>
               <input type="number" step="any" name="latitude"  id="postLat"  required>
