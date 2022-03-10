@@ -63,13 +63,13 @@
             </div> <!-- fecha perdido -->
 
 
-              <div class="col-sm-6"> <!-- donde lo viste 1-->
+            <div class="col-sm-6"> <!-- donde lo viste 1-->
                 <label for="calle1">¿Dónde lo viste por última vez?</label>
                 <input type="text" id="calle1" class="form-control" name="calle_1" placeholder="Calle 1" id="ultimaVista" required>
                 <div class="invalid-feedback">
                   Ingresa la calle donde se perdió.
                 </div>
-            </div> <!-- donde lo viste 1-->
+          </div> <!-- donde lo viste 1-->
             <div class="col-sm-6"> <!-- donde lo viste 2-->
               <label for="calle2" class="form-label" >Esquina</label>
               <input type="text" class="form-control" id="calle2" name="calle_2" placeholder="Calle 2" required>
@@ -79,34 +79,36 @@
           </div> <!-- donde lo viste 2-->
 
           <div class="col-12"> <!-- barrio -->
-            <label for="barrioNombre" class="form-label">barrio</label>
+            <label for="barrioNombre" class="form-label">¿En cuál barrio?</label>
             <input type="text" id="barrioNombre" class="form-control" name="barrio" placeholder="Barrio" required>
             <div class="invalid-feedback">
               Ingresa el barrio donde se perdió.
           </div>
         </div> <!-- barrio -->
 
-        <div class="col-12"> <!-- hora -->
-          <label for="horaVisto" class="form-label">¿a que hora?</label>
-          <input type="time" class="form-control" id="horaVisto" name="hora" required>
-          <div class="invalid-feedback">
-            Ingresa la hora cuándo se perdió.
-        </div>
-      </div> <!-- hora -->
+          <div class="col-12"> <!-- hora -->
+            <label for="horaVisto" class="form-label">¿a que hora?</label>
+            <input type="time" class="form-control" id="horaVisto" name="hora" required>
+            <div class="invalid-feedback">
+              Ingresa la hora cuándo se perdió.
+          </div>
+        </div> <!-- hora -->
 
-      <div class="col-12"> <!-- foto -->
-        <label for="image" class="form-label">Sube una imagen:</label>
-        <input class="form-control" aria-describedby="inputGroupFileAddon03" aria-label="subir" id="image" type="file" name="foto" required>
-        <div class="invalid-feedback">
-          Sube su foto
-      </div>
-    </div> <!-- foto -->
+        <div class="col-12"> <!-- foto -->
+          <label for="image" class="form-label">Sube una imagen:</label>
+          <input class="form-control" aria-describedby="inputGroupFileAddon03" aria-label="subir" id="image" type="file" name="foto" required>
+          <div class="invalid-feedback">
+            Sube su foto
+        </div>
+      </div> <!-- foto -->
+
   </div><!--row g-3-->
 
   <hr class="my-4">
 
     <input type="number" step="any" name="latitude"  id="postLat" required>
     <input type="number" step="any" name="longitude" id="postLng" required>
+
     <div class ="googleMaps"><!-- google maps-->
     <div id="post_map"></div>
     <script
@@ -124,4 +126,6 @@
     </div>
   </main>
 </div>
+
+<script src="{{ url_for('static', filename='js/form-validation.js') }}"></script>
 {% endblock %}
