@@ -55,16 +55,16 @@
             </div> <!-- nombre mascota -->
 
             <div class="col-12"> <!-- fecha perdido -->
-              <label for="perdidaDesde">desde el día</label>
+              <label for="perdidaDesde">¿Cuándo lo viste por última vez?</label>
               <input type="date" class="form-control" name="fecha" id="perdidaDesde" placeholder="dd-mm-yyyy" required>
               <div class="invalid-feedback">
-                Ingresa la fecha en la que perdiste tu mascota.
+                Ingresa la fecha cuando se perdió.
             </div>
           </div> <!-- fecha perdido -->
 
           <div class="row g-3"> <!-- donde lo viste -->
             <div class="col-sm-6">
-              <label for="calle1">última vez visto en las inmediaciones de</label>
+              <label for="calle1">¿Dónde lo viste por última vez?</label>
               <input type="text" id="calle1" class="form-control" name="calle_1" placeholder="Calle 1" id="ultimaVista" required>
               <div class="invalid-feedback">
                 Ingresa la calle donde se perdió.
@@ -83,33 +83,31 @@
           <label for="barrioNombre" class="form-label">barrio</label>
           <input type="text" id="barrioNombre" class="form-control" name="barrio" placeholder="Barrio" required>
           <div class="invalid-feedback">
-            Ingresa el barrio donde perdiste tu mascota.
+            Ingresa el barrio donde se perdió.
         </div>
       </div> <!-- barrio -->
 
       <div class="col-12"> <!-- hora -->
-        <label for="mascotaNombre" class="form-label">¿a que hora?</label>
-        <input type="text" class="form-control" name="barrio" placeholder="Barrio" required>
+        <label class="form-label">¿a que hora?</label>
+        <input type="time" name="hora" required>
         <div class="invalid-feedback">
-          Ingresa el barrio donde perdiste tu mascota.
+          Ingresa la hora cuándo se perdió.
       </div>
     </div> <!-- hora -->
 
+    <div class="col-12"> <!-- foto -->
+      <label for="image" class="form-label">Sube una imagen:</label>
+      <input class="form-control" aria-describedby="inputGroupFileAddon03" aria-label="subir" id="image" type="file" name="foto" required>
+      <div class="invalid-feedback">
+        Sube su foto
+    </div>
+  </div> <!-- foto -->
 
             <div class="form-group">
 
-              <input type="time" name="hora" required>
-              horas.</p>
-              <input type="number" step="any" name="latitude"  id="postLat"  required>
-              <input type="number" step="any" name="longitude" id="postLng" required>
-
-              <div class="input-group mb-3">
-              <label for="image">Sube una imagen:</label>
-              <input class="form-control" aria-describedby="inputGroupFileAddon03" aria-label="subir" id="image" type="file" name="foto" required>
-              </div>
-
               <hr class="my-4">
-
+              <input type="number" step="any" name="latitude"  id="postLat" required>
+              <input type="number" step="any" name="longitude" id="postLng" required>
               <div class =""><!-- google maps-->
               <div id="post_map"></div>
               <script
