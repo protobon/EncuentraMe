@@ -88,8 +88,8 @@
       </div> <!-- barrio -->
 
       <div class="col-12"> <!-- hora -->
-        <label class="form-label">¿a que hora?</label>
-        <input type="time" name="hora" required>
+        <label for="horaVisto" class="form-label">¿a que hora?</label>
+        <input type="time" id="horaVisto" name="hora" required>
         <div class="invalid-feedback">
           Ingresa la hora cuándo se perdió.
       </div>
@@ -103,22 +103,21 @@
     </div>
   </div> <!-- foto -->
 
-            <div class="form-group">
+  <hr class="my-4">
 
-              <hr class="my-4">
-              <input type="number" step="any" name="latitude"  id="postLat" required>
-              <input type="number" step="any" name="longitude" id="postLng" required>
-              <div class =""><!-- google maps-->
-              <div id="post_map"></div>
-              <script
-                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBqNj3BPTdCSu9fTtAlj4LSLD5FAidsa7M&callback=initMap&libraries=&v=weekly"
-                async></script>
-            </div>
-            </div>
+    <input type="number" step="any" name="latitude"  id="postLat" required>
+    <input type="number" step="any" name="longitude" id="postLng" required>
+    <div class ="googleMaps"><!-- google maps-->
+    <div id="post_map"></div>
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBqNj3BPTdCSu9fTtAlj4LSLD5FAidsa7M&callback=initMap&libraries=&v=weekly"
+      async></script>
+  </div>
 
-            <hr class="my-4">
+  <hr class="my-4">
 
             <button type="submit" class="w-100 btn btn-primary btn-lg" id="form-submit">Submit</button>
+
           </fieldset>
         </form>
       </div>
