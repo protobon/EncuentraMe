@@ -9,62 +9,83 @@
 {% block body %}
 
 <div class="container">
-    <main>
-    <div class="bd-callout bd-callout-warning">
-        <h5 id="date--color-input-support">Atención: Este formulario es para quienes perdieron su mascota y quieren encontrarla.</h5>
-        <p>    Si encontraste un animalito en la calle y quieres publicarlo, presiona <a href="/{{ user_id }}/found_pet">aquí.</a>
-        </p></div>
-<div class="mb-3">
-<form action="/{{ user_id }}/lost_pet" method="post" class="form_center" id="main_form" enctype="multipart/form-data">
-    {% with messages = get_flashed_messages() %}
-        {% if messages %}
-            {% for message in messages %}
-                <p>{{ message }}</p>
-            {% endfor %}
-        {% endif %}
-    {% endwith %}
-    <fieldset>
-        <p>¿Qué perdiste?</p>
-        <div class="form-group">
-            <input type="radio" class="form-check-input" name="mascota" value="perro" id="perro" checked>
-            <label for="perro">Perro</label>
-            <input type="radio" class="form-check-input" name="mascota" value="gato" id="gato">
-            <label for="gato">Gato</label>
-        </div>
-        <div class="form-group">
-            <label for="mascotaNombre">Se busca a</label>
-            <input type="text" name="nombre" id="mascotaNombre" placeholder="Nombre de tu mascota" required>
-            <label for="perdidaDesde">desde el día</label>
-            <input type="date" name="fecha" id="perdidaDesde" placeholder="dd-mm-yyyy" required>
-            <label for="ultimaVista">última vez visto en las inmediaciones de</label>
-            <input type="text" name="calle_1" placeholder="Calle 1" id="ultimaVista" required>
-            <label for= "y">y</label>
-            <input type="text" id="y" name="calle_2" placeholder="Calle 2" required>
-            barrio
-            <input type="text" name="barrio" placeholder="Barrio" required>
-            a las
-            <input type="time" name="hora" required>
-            horas.</p>
-            <input type="number" step="any" name="latitude"  id="postLat"  required>
-            <input type="number" step="any" name="longitude" id="postLng" required>
+  <main>
 
-            <div class="input-group mb-3">
-            <label for="image">Sube una imagen:</label>
-            <input class="form-control" aria-describedby="inputGroupFileAddon03" aria-label="subir" id="image" type="file" name="foto" required>
+    <div class="py-5 text-center">
+      <h2>Mascota perdida</h2>
+      <b id="date--color-input-support">Atención: Este formulario es para quienes perdieron su mascota y quieren encontrarla.</b>
+      <p class="lead">Si encontraste un animalito en la calle y quieres publicarlo, presiona <a href="/{{ user_id }}/found_pet">aquí.</a></p>
+    </div>
+
+    <div class="row g-5"> <!--form 5-->
+      <div class="col-md-7 col-lg-8">
+        <h4 class="mb-3">Que perdiste</h4>
+        <form action="/{{ user_id }}/lost_pet" method="post" class="needs-validation" id="main_form" enctype="multipart/form-data">
+          {% with messages = get_flashed_messages() %}
+            {% if messages %}
+              {% for message in messages %}
+                <p>{{ message }}</p>
+              {% endfor %}
+            {% endif %}
+          {% endwith %}
+          <fieldset>
+            <h4 class="mb-3">¿Qué perdiste?</h4>
+
+            <div class="my-3"><!-- radio check perro-->
+              <div class="form-check">
+                <input type="radio" class="form-check-input" name="mascota" value="perro" id="perro" checked required>
+                <label for="perro">Perro</label>
+              </div>
+            </div><!-- radio check perro-->
+
+            <div class="my-3"><!-- radio check gato-->
+              <div class="form-check">
+                <input type="radio" class="form-check-input" name="mascota" value="gato" id="gato">
+                <label for="gato">Gato</label>
+              </div>
+            </div><!-- radio check gato-->
+
+            <hr class="my-4">
+
+            <div class="form-group">
+              <label for="mascotaNombre">Se busca a</label>
+              <input type="text" name="nombre" id="mascotaNombre" placeholder="Nombre de tu mascota" required>
+              <label for="perdidaDesde">desde el día</label>
+              <input type="date" name="fecha" id="perdidaDesde" placeholder="dd-mm-yyyy" required>
+              <label for="ultimaVista">última vez visto en las inmediaciones de</label>
+              <input type="text" name="calle_1" placeholder="Calle 1" id="ultimaVista" required>
+              <label for= "y">y</label>
+              <input type="text" id="y" name="calle_2" placeholder="Calle 2" required>
+              barrio
+              <input type="text" name="barrio" placeholder="Barrio" required>
+              a las
+              <input type="time" name="hora" required>
+              horas.</p>
+              <input type="number" step="any" name="latitude"  id="postLat"  required>
+              <input type="number" step="any" name="longitude" id="postLng" required>
+
+              <div class="input-group mb-3">
+              <label for="image">Sube una imagen:</label>
+              <input class="form-control" aria-describedby="inputGroupFileAddon03" aria-label="subir" id="image" type="file" name="foto" required>
+              </div>
+
+              <hr class="my-4">
+
+              <div class =""><!-- google maps-->
+              <div id="post_map"></div>
+              <script
+                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBqNj3BPTdCSu9fTtAlj4LSLD5FAidsa7M&callback=initMap&libraries=&v=weekly"
+                async></script>
+            </div>
             </div>
 
-            <div class ="card p2">
-            <div id="post_map"></div>
-            <script
-                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBqNj3BPTdCSu9fTtAlj4LSLD5FAidsa7M&callback=initMap&libraries=&v=weekly"
-                async
-            ></script>
-        </div>
-        </div>
-        <button type="submit" class="w-100 btn btn-primary btn-lg" id="form-submit">Submit</button>
-    </fieldset>
-</form>
-</div>
-</main>
+            <hr class="my-4">
+
+            <button type="submit" class="w-100 btn btn-primary btn-lg" id="form-submit">Submit</button>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+  </main>
 </div>
 {% endblock %}
