@@ -17,8 +17,8 @@
       <p class="lead">Si encontraste un animalito en la calle y quieres publicarlo, presiona <a href="/{{ user_id }}/found_pet">aquí.</a></p>
     </div>
 
-    <div class="col-8"> <!--form 5-->
-      <div class="col-12">
+    <div class="col-12"> <!--form 5-->
+      <div class="col-10">
         <form action="/{{ user_id }}/lost_pet" method="post" class="needs-validation" id="main_form" enctype="multipart/form-data" novalidate>
           {% with messages = get_flashed_messages() %}
             {% if messages %}
