@@ -8,7 +8,6 @@ from flask_mysqldb import MySQL
 import MySQLdb
 import logging
 
-access_token = os.getenv('fb_token')
 
 UPLOAD_FOLDER = 'static/images'
 ALLOWED_EXTENSIONS = {'jpg', 'jpeg', 'png', 'jfif'}
@@ -54,18 +53,21 @@ def form_lost_pet(user_id):
     cursor.execute("SELECT * FROM users WHERE id=%s", [user_id])
     user = list(cursor.fetchall())
     if not user:
-        flash("Asegúrate de ingresar con tu usuario")
+        flash("Asegúrate de ingresar con tu usuario", "info")
         return redirect("/")
     user = user[0]
     if user['estado'] == 'blocked':
-        flash('No tienes permisos para realizar una publicación')
+        flash('No tienes permisos para realizar una publicación', "error")
         return redirect('/')
     if request.method == 'GET':
         if user['estado'] == 'blocked':
-            flash('No tienes permisos para publicar')
+            flash('No tienes permisos para publicar', "error")
             return redirect('/')
         return render_template('form_lost_pet.html', user_id=user_id)
     if request.method == 'POST':
+        if request.form['telefono']:
+            if not user['phone']:
+                cursor.execute("ALTER TABLE users MODIFY COLUMN phone=%s WHERE id=%s", [request.form['telefono'], user_id])
         id = "lost" + str(uuid.uuid4())
         estado = "active"
         created_at = datetime.utcnow()
@@ -82,20 +84,20 @@ def form_lost_pet(user_id):
         # If the user does not select a file, the browser submits an
         # empty file without a filename.
         if file.filename == '':
-            flash('Debe subir una foto')
+            flash('Debe subir una foto', "info")
             return redirect(request.url)
         if file and allowed_file(file.filename):
             file.filename = str(uuid.uuid4()) + '.' + file.filename.rsplit('.', 1)[1].lower()
             filename = file.filename
             file.save(os.path.join(app.root_path, app.config['UPLOAD_FOLDER'], filename))
         else:
-            flash('Formatos de imagen soportados: jpg, jpeg, png, jfif.')
+            flash('Formatos de imagen soportados: jpg, jpeg, png, jfif.', "info")
             return redirect(request.url)
         try:
-            cursor.execute('INSERT INTO lost_pets VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',
-                           (id, user_id, user['name'], estado, created_at, mascota, nombre, fecha, hora, calle_1, calle_2, barrio, file.filename, latitude, longitude))
+            cursor.execute('INSERT INTO lost_pets VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',
+                           (id, user_id, user['name'], request.form['telefono'], estado, created_at, mascota, nombre, fecha, hora, calle_1, calle_2, barrio, file.filename, latitude, longitude))
         except Exception as e:
-            flash('Ha ocurrido un error, asegúrese de ingresar los datos correctamente')
+            flash('Ha ocurrido un error, asegúrese de ingresar los datos correctamente', "error")
             logfile("form_lost_pet(user_id) - in cursor.execute(INSERT INTO lost_pets):\n" + str(e))
             return redirect(request.url)
         mysql.connection.commit()
@@ -107,16 +109,23 @@ def form_lost_pet(user_id):
 def form_found_pet(user_id):
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     cursor.execute("SELECT * FROM users WHERE id=%s", [user_id])
-    user = list(cursor.fetchall())[0]
+    user = list(cursor.fetchall())
+    if not user:
+        flash("Asegúrate de ingresar con tu usuario", "info")
+        return redirect("/")
+    user = user[0]
     if user['estado'] == 'blocked':
-        flash('No tienes permisos para realizar una publicación')
+        flash('No tienes permisos para realizar una publicación', "error")
         return redirect('/')
     if not user:
-        flash("Asegúrate de ingresar con tu usuario")
+        flash("Asegúrate de ingresar con tu usuario", "info")
         return redirect("/")
     if request.method == 'GET':
         return render_template('form_found_pet.html', user_id=user_id)
     if request.method == 'POST':
+        if request.form['telefono']:
+            if not user['phone']:
+                cursor.execute("ALTER TABLE users MODIFY COLUMN phone=%s WHERE id=%s", [request.form['telefono'], user_id])
         id = "found" + str(uuid.uuid4())
         estado = "active"
         created_at = datetime.utcnow()
@@ -132,18 +141,18 @@ def form_found_pet(user_id):
         # If the user does not select a file, the browser submits an
         # empty file without a filename.
         if file.filename == '':
-            flash('Debe subir una foto')
+            flash('Debe subir una foto', "info")
             return redirect(request.url)
         if file and allowed_file(file.filename):
             file.filename = str(uuid.uuid4()) + '.' + file.filename.rsplit('.', 1)[1].lower()
             filename = file.filename
             file.save(os.path.join(app.root_path, app.config['UPLOAD_FOLDER'], filename))
         else:
-            flash('Formatos de imagen soportados: jpg, jpeg, png, jfif.')
+            flash('Formatos de imagen soportados: jpg, jpeg, png, jfif.', "info")
             return redirect(request.url)
         try:
-            cursor.execute('INSERT INTO found_pets VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',
-                        (id, user_id, user["name"], estado, created_at, mascota, fecha, hora, calle_1, calle_2, barrio, file.filename, latitude, longitude))
+            cursor.execute('INSERT INTO found_pets VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',
+                        (id, user_id, user["name"], request.form["telefono"], estado, created_at, mascota, fecha, hora, calle_1, calle_2, barrio, file.filename, latitude, longitude))
         except Exception as e:
             logfile("form_found_pet(user_id) - in cursor.execute(INSERT INTO found_pets):\n" + str(e))
             return redirect(request.url)
@@ -158,7 +167,7 @@ def form_report(user_id, post_id):
     cursor.execute('SELECT estado FROM users WHERE id=%s', [user_id])
     user = list(cursor.fetchall())[0]
     if user['estado'] == 'blocked':
-        flash('No tienes permisos para denunciar una publicación')
+        flash('No tienes permisos para denunciar una publicación', "error")
         return redirect('/')
     if request.method == 'GET':
         return render_template('form_report.html', user_id=user_id, post_id=post_id)
@@ -173,7 +182,7 @@ def form_report(user_id, post_id):
             reported_user_id = list(cursor.fetchall())[0]['user_id']
         except Exception as e:
             logfile("form_report(user_id, post_id) - in reported_user = list(cursor.fetchall())[0]:\n" + str(e))
-            flash("No es posible acceder a esta publicación")
+            flash("No es posible acceder a esta publicación", "info")
             return redirect('/')
         reporte = request.form['reporte']
         created_at = datetime.utcnow() - timedelta(hours=3)
@@ -184,7 +193,7 @@ def form_report(user_id, post_id):
             logfile("form_report(user_id, post_id) - in cursor.execute(INSERT INTO reports):\n" + str(e))
         mysql.connection.commit()
         cursor.close()
-        flash('Gracias por denunciar esta publicación, la revisaremos lo antes posible.')
+        flash('Gracias por denunciar esta publicación, la revisaremos lo antes posible.', "success")
         return redirect('/')
 
 
@@ -201,13 +210,13 @@ def show_single_post(id):
             return redirect('/')
         post = result[0]
     except Exception as e:
-        flash("Publicación no encontrada")
+        flash("Publicación no encontrada", "info")
         logfile("show_single_post(id) - in post = list(cursor.fetchone())[0]:\n" + str(e))
         cursor.close()
         return redirect('/')
     try:
         if post['estado'] != 'active':
-            flash('No es posible acceder a esta publicación.')
+            flash('No es posible acceder a esta publicación.', "info")
             return redirect('/')
         post['foto'] = os.path.join(UPLOAD_FOLDER, post['foto'])
     except Exception as e:
@@ -311,7 +320,7 @@ def api_users():
     if request.method == 'PUT':
         user = request.get_json()
         cursor.execute("ALTER TABLE users MODIFY COLUMN estado = 'blocked' WHERE id=%s", [user['id']])
-        flash('Usuario bloqueado')
+        flash('Usuario bloqueado', "info")
         return redirect('/')
 
 

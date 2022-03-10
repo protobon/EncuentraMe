@@ -2,7 +2,6 @@
 
 {% block head %}
 <script src="{{ url_for('static', filename='js/post_map.js') }}"></script>
-<link rel="stylesheet" href="{{ url_for('static', filename='styles/index.css') }}">
 <title>Mascota Perdida</title>
 {% endblock %}
 
@@ -12,13 +11,25 @@
 </p>
 <br>
 <form action="/{{ user_id }}/lost_pet" method="post" class="form_center" id="main_form" enctype="multipart/form-data">
-    {% with messages = get_flashed_messages() %}
-        {% if messages %}
-            {% for message in messages %}
-                <p>{{ message }}</p>
-            {% endfor %}
-        {% endif %}
-    {% endwith %}
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            {% if category == "success" %}
+                <div class="alert alert-success mb-3" role="alert">
+                    <p>{{ message }}</p>
+                </div>
+            {% elif category == "info" %}
+                <div class="alert alert-info mb-3" role="alert">
+                    <p>{{ message }}</p>
+                </div>
+            {% else %}
+                <div class="alert alert-danger mb-3" role="alert">
+                    <p>{{ message }}</p>
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+{% endwith %}
     <fieldset>
         <p>¿Qué perdiste?</p>
         <div class="form-group">
@@ -41,6 +52,8 @@
             a las 
             <input type="time" name="hora" required>
             horas.</p>
+            <label for="telefono">Teléfono (Opcional):</label>
+            <input type="text" name="telefono" pattern="/^\d+$/">
             <input type="number" step="any" name="latitude"  id="postLat"  required>
             <input type="number" step="any" name="longitude" id="postLng" required>
             <br>
