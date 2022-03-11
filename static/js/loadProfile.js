@@ -18,6 +18,7 @@ $(document).ready(function () {
         fetchUserPosts().then(function(data) {
             $.each(data.lost, function () {
                 let postLostNew = $(document.createElement('div'));
+                postLostNew.addClass('card');
                 postLostNew.addClass('pet');
                 postLostNew.addClass('pet_lost');
                 postLostNew.addClass(this.mascota);
