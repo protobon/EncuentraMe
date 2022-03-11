@@ -173,6 +173,16 @@
                 });
             }
 
+            window.forgivePost = function(postId) {
+                url = 'https://encuentrame.org.xelar.tech/api/posts/' + postId;
+                fetch(url, {
+                    method: 'POST',
+                }).then(() => {
+                    window.location.reload();
+                })
+                .catch(err => console.log(err));
+            }
+
             window.reportPost = function(postId) {
                 FB.getLoginStatus(function(response) {
                     if (response.status === 'connected') {

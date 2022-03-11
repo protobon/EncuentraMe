@@ -183,6 +183,8 @@ def form_report(user_id, post_id):
         else:
             cursor.execute("UPDATE found_pets SET estado = 'reported' WHERE id=%s", [post_id])
             cursor.execute('SELECT user_id FROM found_pets WHERE id=%s', [post_id])
+        cursor.execute("SELECT name FROM users WHERE id=%s", [user_id])
+        sender_username = list(cursor.fetchall())[0]
         try:
             reported_user_id = list(cursor.fetchall())[0]['user_id']
         except Exception as e:
@@ -192,8 +194,8 @@ def form_report(user_id, post_id):
         reporte = request.form['reporte']
         created_at = datetime.utcnow() - timedelta(hours=3)
         try:
-            cursor.execute('INSERT INTO reports VALUES (%s, %s, %s, %s, %s)',
-                            (created_at, user_id, reporte, post_id, reported_user_id))
+            cursor.execute('INSERT INTO reports VALUES (%s, %s, %s, %s, %s, %s)',
+                            (created_at, user_id, sender_username, reporte, post_id, reported_user_id))
         except Exception as e:
             logfile("form_report(user_id, post_id) - in cursor.execute(INSERT INTO reports):\n" + str(e))
         mysql.connection.commit()
@@ -263,6 +265,11 @@ def landing_page():
 def user_profile(user_id):
     """Render user profile with all owner's posts"""
     return render_template('profile.html')
+
+
+@app.route('/posts/reported')
+def moderate_posts():
+    return render_template('moderate.html')
 
 
 # RESTful APIs
@@ -347,7 +354,7 @@ def api_user_posts(user_id):
     return jsonify({"lost": lost, "found": found})
 
 
-@app.route('/api/posts/<id>', methods=['GET', 'PUT', 'DELETE'])
+@app.route('/api/posts/<id>', methods=['GET', 'POST', 'PUT', 'DELETE'])
 def api_post_by_id(id):
     """All user CRUD operations for one single post by ID"""
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
@@ -366,6 +373,14 @@ def api_post_by_id(id):
     if request.method == 'GET':
         cursor.close()
         return jsonify(post)
+    if request.method == 'POST':
+        if "lost" in id:
+            cursor.execute("UPDATE lost_pets SET estado = 'active' WHERE id=%s", [id])
+        else:
+            cursor.execute("UPDATE found_pets SET estado = 'active' WHERE id=%s", [id])
+        mysql.connection.commit()
+        cursor.close()
+        return jsonify('Publicación activa nuevamente')
     if request.method == 'PUT':
         if "lost" in id:
             cursor.execute("UPDATE lost_pets SET estado = 'completed' WHERE id=%s", [id])
@@ -405,8 +420,8 @@ def reported_posts():
             reported_users[post['user_name']] = []
         reported_users[post['user_name']].append(post)
     reports = {}
-    reports["all"] = all_reports
-    reports["users"] = reported_users
+    reports["reports"] = all_reports
+    reports["reported_user_posts"] = reported_users
     return jsonify(reports)
 
 
