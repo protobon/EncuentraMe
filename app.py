@@ -158,6 +158,7 @@ def form_found_pet(user_id):
             cursor.execute('INSERT INTO found_pets VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',
                         (id, user_id, user["name"], tel, estado, created_at, mascota, fecha, hora, calle_1, calle_2, barrio, file.filename, latitude, longitude))
         except Exception as e:
+            flash('Ha ocurrido un error, asegúrese de ingresar los datos correctamente', "error")
             logfile("form_found_pet(user_id) - in cursor.execute(INSERT INTO found_pets):\n" + str(e))
             return redirect(request.url)
         mysql.connection.commit()
@@ -383,12 +384,29 @@ def api_post_by_id(id):
         return jsonify('Publicación eliminada correctamente')
 
 
-@app.route('/api/reports')
-def get_reports():
-    """Get all reports in JSON format"""
+@app.route('/api/posts/reported')
+def reported_posts():
+    """Retrieve all reported posts and their users"""
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute("SELECT * FROM lost_pets WHERE estado='reported'")
+    reported_lost = list(cursor.fetchall())
+    cursor.execute("SELECT * FROM found_pets WHERE estado='reported'")
+    reported_found = list(cursor.fetchall())
     cursor.execute("SELECT * FROM reports")
-    reports = list(cursor.fetchall())
+    all_reports = list(cursor.fetchall())
+    cursor.close()
+    reported_users = {}
+    for post in reported_lost:
+        if post['user_name'] not in reported_users:
+            reported_users[post['user_name']] = []
+        reported_users[post['user_name']].append(post)
+    for post in reported_found:
+        if post['user_name'] not in reported_users:
+            reported_users[post['user_name']] = []
+        reported_users[post['user_name']].append(post)
+    reports = {}
+    reports["all"] = all_reports
+    reports["users"] = reported_users
     return jsonify(reports)
 
 
