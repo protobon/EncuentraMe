@@ -6,7 +6,7 @@ $(document).ready(function () {
     }
     window.loadReports = function() {
         fetchReports().then(function(data) {
-            $.each(data.reported_user_posts, function(user) {
+            $.each(JSON.parse(data.reported_user_posts), function(user) {
                 $.each(user, function(post) {
                     let userName = $(document.createElement('div'));
                     userName.append('<h3>' + post.user_name + '</h3>');
