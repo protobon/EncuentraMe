@@ -308,7 +308,7 @@ def api_users():
                     logfile(str(e))
         except Exception as e:
             logfile(str(e))
-            pass
+            return jsonify(str(e))
         try:
             cursor.execute('INSERT INTO users VALUES (%s, %s, %s, %s)', (user['id'], user['name'], user['email'], 'active'))
         except Exception as e:
