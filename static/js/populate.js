@@ -129,9 +129,9 @@ $(document).ready(function () {
                 let userInfo = $(document.createElement('div'));
                 userInfo.addClass('user');
                 postFoundNew.append('<a href="/' + this.id + '"></a>');
-                postFoundNew.find('a').append('<img src="static/images/' + this.foto + '">');
-                userInfo.append('<h3>' + this.mascota +' encontrado/a!</h3>');
-                userInfo.append('<p>Fecha de publicación: ' + this.created_at +'</p>');
+                postFoundNew.find('a').append('<img class="card-img-top" src="static/images/' + this.foto + '">');
+                userInfo.append('<h3 class="card-title">' + this.mascota +' encontrado/a!</h3>');
+                userInfo.append('<p class="card-text">Fecha de publicación: ' + this.created_at +'</p>');
                 postFoundNew.append(userInfo);
                 postFoundNew.append('<p>Se encontró el día ' + this.fecha + ' por barrio '
                 + this.barrio + ' en las inmediaciones de ' + this.calle_1 +
