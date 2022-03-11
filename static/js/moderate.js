@@ -39,7 +39,7 @@ $(document).ready(function () {
                 post.addClass('pet-found');
                 post.append('<h3>' + this.user_name + '</h3>');
                 post.append('<p>' + this.user_id + '</p>');
-                post.append(';<img src="/static/images/' + this.foto + '">');
+                post.append('<img src="/static/images/' + this.foto + '">');
                 post.append('<p>' + this.created_at + '</p>');
                 $.each(this.comments, function() {
                     post.append('<p>' + this + '</p>');
