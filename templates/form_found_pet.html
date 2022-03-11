@@ -22,10 +22,22 @@
     <div class="row col-12"> <!--form -->
       <div class="col-12 col-md-10 col-lg-8">
         <form action="/{{ user_id }}/found_pet" method="post" class="form_center needs-validation" id="main_form" enctype="multipart/form-data" novalidate>
-          {% with messages = get_flashed_messages() %}
+          {% with messages = get_flashed_messages(with_categories=true) %}
           {% if messages %}
-              {% for message in messages %}
-                  <p>{{ message }}</p>
+              {% for category, message in messages %}
+                  {% if category == "success" %}
+                      <div class="alert alert-success mb-3" role="alert">
+                          <p>{{ message }}</p>
+                      </div>
+                  {% elif category == "info" %}
+                      <div class="alert alert-info mb-3" role="alert">
+                          <p>{{ message }}</p>
+                      </div>
+                  {% else %}
+                      <div class="alert alert-danger mb-3" role="alert">
+                          <p>{{ message }}</p>
+                      </div>
+                  {% endif %}
               {% endfor %}
           {% endif %}
       {% endwith %}
