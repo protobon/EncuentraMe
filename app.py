@@ -331,7 +331,7 @@ def api_users():
         return jsonify(user)
     if request.method == 'PUT':
         user = request.get_json()
-        cursor.execute("ALTER TABLE users MODIFY COLUMN estado = 'blocked' WHERE id=%s", [user['id']])
+        cursor.execute("UPDATE users SET estado='blocked' WHERE id=%s", [user['id']])
         flash('Usuario bloqueado', "info")
         return redirect('/')
 

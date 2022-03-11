@@ -82,6 +82,7 @@
                                 let adminReportButton = $(document.createElement('button'));
                                 adminReportButton.addClass('btn');
                                 adminReportButton.addClass('btn-dark');
+                                adminReportButton.html('Bloquear Usuario');
                                 adminReportButton.attr('onclick', '"blockUser(' + uid + ')"');
                                 $('header#top').append(adminReportButton);
                             } else {
