@@ -107,14 +107,11 @@
             }
 
             window.blockUser = function(userId) {
+                userId = JSON.stringify(userId);
                 const user = {id: userId};
-                console.log(user);
-                const userJson = JSON.stringify(user);
-                console.log(userJson);
-                console.log(typeof(userJson));
                 fetch('https://encuentrame.org.xelar.tech/api/users/', {
                     method: 'PUT',
-                    body: userJson
+                    body: JSON.stringify(user)
                 })
                 .catch(err => console.log(err));
             }
