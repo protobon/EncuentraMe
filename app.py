@@ -183,14 +183,14 @@ def form_report(user_id, post_id):
         else:
             cursor.execute("UPDATE found_pets SET estado = 'reported' WHERE id=%s", [post_id])
             cursor.execute('SELECT user_id FROM found_pets WHERE id=%s', [post_id])
-        cursor.execute("SELECT name FROM users WHERE id=%s", [user_id])
-        sender_username = list(cursor.fetchall())[0]
         try:
             reported_user_id = list(cursor.fetchall())[0]['user_id']
         except Exception as e:
             logfile("form_report(user_id, post_id) - in reported_user = list(cursor.fetchall())[0]:\n" + str(e))
             flash("No es posible acceder a esta publicación", "info")
             return redirect('/')
+        cursor.execute("SELECT name FROM users WHERE id=%s", [user_id])
+        sender_username = list(cursor.fetchall())[0]
         reporte = request.form['reporte']
         created_at = datetime.utcnow() - timedelta(hours=3)
         try:
