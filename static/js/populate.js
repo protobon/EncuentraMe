@@ -24,6 +24,7 @@ $(document).ready(function () {
                 postLostNew.addClass(this.mascota);
                 let userInfo = $(document.createElement('div'));
                 userInfo.addClass('user');
+                userInfo.addClass('card-body');
                 postLostNew.append('<a href="/' + this.id + '"></a>');
                 postLostNew.find('a').append('<img class="card-img-top" src="/static/images/' + this.foto + '">');
                 userInfo.append('<h5 class="card-title">' + this.nombre +' perdido/a!</h5>');
@@ -54,6 +55,7 @@ $(document).ready(function () {
                 postFoundNew.addClass(this.mascota);
                 let userInfo = $(document.createElement('div'));
                 userInfo.addClass('user');
+                userInfo.addClass('card-body');
                 postFoundNew.append('<a href="/' + this.id + '"></a>');
                 postFoundNew.find('a').append('<img class="card-img-top" src="/static/images/' + this.foto + '">');
                 userInfo.append('<h5 class="card-title">' + this.mascota +' encontrado/a!</h5>');
@@ -91,6 +93,7 @@ $(document).ready(function () {
                 postLostNew.addClass(this.mascota);
                 let userInfo = $(document.createElement('div'));
                 userInfo.addClass('user');
+                userInfo.addClass('card-body');
                 postLostNew.append('<a href="/' + this.id + '"></a>');
                 postLostNew.find('a').append('<img class="card-img-top" src="static/images/' + this.foto + '">');
                 userInfo.append('<h5 class="card-title">' + this.nombre +' perdido/a!</h5>');
@@ -128,6 +131,7 @@ $(document).ready(function () {
                 postFoundNew.addClass(this.mascota);
                 let userInfo = $(document.createElement('div'));
                 userInfo.addClass('user');
+                userInfo.addClass('card-body');
                 postFoundNew.append('<a href="/' + this.id + '"></a>');
                 postFoundNew.find('a').append('<img class="card-img-top" src="static/images/' + this.foto + '">');
                 userInfo.append('<h5 class="card-title">' + this.mascota +' encontrado/a!</h5>');
