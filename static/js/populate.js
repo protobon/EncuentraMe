@@ -47,9 +47,12 @@ $(document).ready(function () {
             $.each(data.found, function () {
                 this.created_at = new Date(this.created_at).toLocaleString('es-UY');
                 let postFoundNew = $(document.createElement('div'));
+                postFoundNew.addClass('card');
                 postFoundNew.addClass('pet');
                 postFoundNew.addClass('pet_found');
                 postFoundNew.addClass(this.mascota);
+                postFoundNew.append('<a href="/' + this.id + '"></a>');
+                postFoundNew.find('a').append('<img src="/static/images/' + this.foto + '">');
                 let userInfo = $(document.createElement('div'));
                 userInfo.addClass('user');
                 userInfo.append('<h3>' + this.mascota +' encontrado/a!</h3>');
@@ -62,8 +65,6 @@ $(document).ready(function () {
                 if (this.phone) {
                     postFoundNew.append('<p>Teléfono: ' + this.phone + '</p>');
                 }
-                postFoundNew.append('<a href="/' + this.id + '"></a>');
-                postFoundNew.find('a').append('<img src="/static/images/' + this.foto + '">');
                 let reportButton = $(document.createElement('button'));
                 reportButton.html('Denunciar publicación');
                 reportButton.addClass('btn');
