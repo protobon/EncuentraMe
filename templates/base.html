@@ -106,14 +106,17 @@
                 });
             }
 
-            window.blockUser = function(userId) {
+            window.blockUser = async function(userId) {
                 userId = JSON.stringify(userId);
-                const user = {id: userId};
-                fetch('https://encuentrame.org.xelar.tech/api/users', {
+                const user = { id: userId };
+                const url = 'https://encuentrame.org.xelar.tech/api/users';
+                const response = await fetch(url, {
                     method: 'PUT',
                     body: JSON.stringify(user)
                 })
                 .catch(err => console.log(err));
+                const data = await response.json();
+                return window.location.reload();
             }
 
             function sendCredentials() {
