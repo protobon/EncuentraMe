@@ -333,8 +333,6 @@ def api_users():
     if request.method == 'PUT':
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         user = request.get_json()
-        logfile(str(user))
-        logfile(str(type(user)))
         try:
             cursor.execute("UPDATE users SET estado='blocked' WHERE id=%s", [user['id']])
         except Exception as e:
