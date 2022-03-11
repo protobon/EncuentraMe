@@ -65,7 +65,9 @@ def form_lost_pet(user_id):
             return redirect('/')
         return render_template('form_lost_pet.html', user_id=user_id)
     if request.method == 'POST':
+        tel = ''
         if request.form['telefono']:
+            tel = request.form['telefono']
             if not user['phone']:
                 cursor.execute("ALTER TABLE users MODIFY COLUMN phone=%s WHERE id=%s", [request.form['telefono'], user_id])
         id = "lost" + str(uuid.uuid4())
@@ -95,7 +97,7 @@ def form_lost_pet(user_id):
             return redirect(request.url)
         try:
             cursor.execute('INSERT INTO lost_pets VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',
-                           (id, user_id, user['name'], request.form['telefono'], estado, created_at, mascota, nombre, fecha, hora, calle_1, calle_2, barrio, file.filename, latitude, longitude))
+                           (id, user_id, user['name'], tel, estado, created_at, mascota, nombre, fecha, hora, calle_1, calle_2, barrio, file.filename, latitude, longitude))
         except Exception as e:
             flash('Ha ocurrido un error, asegúrese de ingresar los datos correctamente', "error")
             logfile("form_lost_pet(user_id) - in cursor.execute(INSERT INTO lost_pets):\n" + str(e))
@@ -123,7 +125,9 @@ def form_found_pet(user_id):
     if request.method == 'GET':
         return render_template('form_found_pet.html', user_id=user_id)
     if request.method == 'POST':
+        tel = ''
         if request.form['telefono']:
+            tel = request.form['telefono']
             if not user['phone']:
                 cursor.execute("ALTER TABLE users MODIFY COLUMN phone=%s WHERE id=%s", [request.form['telefono'], user_id])
         id = "found" + str(uuid.uuid4())
@@ -152,7 +156,7 @@ def form_found_pet(user_id):
             return redirect(request.url)
         try:
             cursor.execute('INSERT INTO found_pets VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',
-                        (id, user_id, user["name"], request.form["telefono"], estado, created_at, mascota, fecha, hora, calle_1, calle_2, barrio, file.filename, latitude, longitude))
+                        (id, user_id, user["name"], tel, estado, created_at, mascota, fecha, hora, calle_1, calle_2, barrio, file.filename, latitude, longitude))
         except Exception as e:
             logfile("form_found_pet(user_id) - in cursor.execute(INSERT INTO found_pets):\n" + str(e))
             return redirect(request.url)
