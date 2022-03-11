@@ -14,19 +14,21 @@
     <div class="py-5 text-center">
       <h2>Mascota encontrada</h2>
       <b id="date--color-input-support">Atención: Este formulario es para quienes encontraron un animal en la calle y quieren publicarlo.</b>
-      <p class="lead">Si perdiste un animalito y quieres publicarlo, presiona <a href="/{{ user_id }}/lost_pet">aquí.</a></p>
+      <div class="bd-callout bd-callout-warning">
+        <p class="lead">Si perdiste un animalito y quieres publicarlo, presiona <a href="/{{ user_id }}/lost_pet">aquí.</a></p>
+    </div>
     </div>
 
     <div class="row col-12"> <!--form -->
       <div class="col-12 col-md-10 col-lg-8">
-        <form action="/{{ user_id }}/found_pet" method="post" class="needs-validation" id="main_form" enctype="multipart/form-data" novalidate>
+        <form action="/{{ user_id }}/found_pet" method="post" class="form_center needs-validation" id="main_form" enctype="multipart/form-data" novalidate>
           {% with messages = get_flashed_messages() %}
-            {% if messages %}
+          {% if messages %}
               {% for message in messages %}
-                <p>{{ message }}</p>
+                  <p>{{ message }}</p>
               {% endfor %}
-            {% endif %}
-          {% endwith %}
+          {% endif %}
+      {% endwith %}
           <fieldset>
             <h4 class="mb-3">¿Qué encontraste?</h4>
 
@@ -57,12 +59,13 @@
 
 
             <div class="col-sm-6"> <!-- donde lo viste 1-->
-                <label for="calle1">¿Dónde lo viste por última vez?</label>
-                <input type="text" id="calle1" class="form-control" name="calle_1" placeholder="Calle 1" id="ultimaVista" required>
+                <label for="calleUno">¿Dónde lo viste por última vez?</label>
+                <input type="text" id="calleUno" class="form-control" name="calle_1" placeholder="Calle 1" id="ultimaVista" required>
                 <div class="invalid-feedback">
                   Ingresa la calle donde se perdió.
                 </div>
           </div> <!-- donde lo viste 1-->
+
             <div class="col-sm-6"> <!-- donde lo viste 2-->
               <label for="calle2" class="form-label" >Esquina</label>
               <input type="text" class="form-control" id="calle2" name="calle_2" placeholder="Calle 2" required>
@@ -107,8 +110,7 @@
     <div class ="googleMaps">
     <div id="post_map"></div>
     <script
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBqNj3BPTdCSu9fTtAlj4LSLD5FAidsa7M&callback=initMap&libraries=&v=weekly"
-      async></script> <!-- google maps-->
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBqNj3BPTdCSu9fTtAlj4LSLD5FAidsa7M&callback=initMap&libraries=&v=weekly" async></script> <!-- google maps-->
   </div>
   </div> <!-- row g-3-->
 
