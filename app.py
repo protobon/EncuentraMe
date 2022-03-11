@@ -190,7 +190,7 @@ def form_report(user_id, post_id):
             flash("No es posible acceder a esta publicación", "info")
             return redirect('/')
         cursor.execute("SELECT name FROM users WHERE id=%s", [user_id])
-        sender_username = list(cursor.fetchall())[0]
+        sender_username = list(cursor.fetchall())[0]['name']
         reporte = request.form['reporte']
         created_at = datetime.utcnow() - timedelta(hours=3)
         try:

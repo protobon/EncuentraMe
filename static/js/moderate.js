@@ -8,6 +8,8 @@ $(document).ready(function () {
         fetchReports().then(function(data) {
             $.each(data.lost, function() {
                 let post = $(document.createElement('div'));
+                post.addClass('pet');
+                post.addClass('pet-lost');
                 post.append('<h3>' + this.user_name + '</h3>');
                 post.append(';<img src="/static/images/' + this.foto + '">');
                 post.append('<p>' + this.created_at + '</p>');
@@ -32,6 +34,8 @@ $(document).ready(function () {
             });
             $.each(data.found, function() {
                 let post = $(document.createElement('div'));
+                post.addClass('pet');
+                post.addClass('pet-found');
                 post.append('<h3>' + this.user_name + '</h3>');
                 post.append(';<img src="/static/images/' + this.foto + '">');
                 post.append('<p>' + this.created_at + '</p>');
