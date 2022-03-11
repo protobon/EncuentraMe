@@ -25,16 +25,16 @@ $(document).ready(function () {
                 let userInfo = $(document.createElement('div'));
                 userInfo.addClass('user');
                 postLostNew.append('<a href="/' + this.id + '"></a>');
-                postLostNew.find('a').append('<img src="/static/images/' + this.foto + '">');
-                userInfo.append('<h3>' + this.nombre +' perdido/a!</h3>');
-                userInfo.append('<p>Fecha de publicación: ' + this.created_at +'</p>');
+                postLostNew.find('a').append('<img class="card-img-top" src="/static/images/' + this.foto + '">');
+                userInfo.append('<h5 class="card-title">' + this.nombre +' perdido/a!</h5>');
+                userInfo.append('<p class="card-text">Fecha de publicación: ' + this.created_at +'</p class="card-text">');
                 postLostNew.append(userInfo);
-                postLostNew.append('<p>¡Se busca a ' + this.nombre + '! Perdido/a desde el día '
+                postLostNew.append('<p class="card-text">¡Se busca a ' + this.nombre + '! Perdido/a desde el día '
                 + this.fecha + ' última vez visto en las inmediaciones de ' + this.calle_1 +
                 ' y ' + this.calle_2 + ' barrio ' + this.barrio + ' a las ' + this.hora + ' horas.\n'
-                + 'Si lo viste por favor comunícate con ' + this.user_name + '.</p>');
+                + 'Si lo viste por favor comunícate con ' + this.user_name + '.</p class="card-text">');
                 if (this.phone) {
-                    postLostNew.append('<p>Teléfono: ' + this.phone + '</p>');
+                    postLostNew.append('<p class="card-text">Teléfono: ' + this.phone + '</p class="card-text">');
                 }
                 let reportButton = $(document.createElement('button'));
                 reportButton.html('Denunciar publicación');
@@ -55,16 +55,16 @@ $(document).ready(function () {
                 let userInfo = $(document.createElement('div'));
                 userInfo.addClass('user');
                 postFoundNew.append('<a href="/' + this.id + '"></a>');
-                postFoundNew.find('a').append('<img src="/static/images/' + this.foto + '">');
-                userInfo.append('<h3>' + this.mascota +' encontrado/a!</h3>');
-                userInfo.append('<p>Fecha de publicación: ' + this.created_at +'</p>');
+                postFoundNew.find('a').append('<img class="card-img-top" src="/static/images/' + this.foto + '">');
+                userInfo.append('<h5 class="card-title">' + this.mascota +' encontrado/a!</h5>');
+                userInfo.append('<p class="card-text">Fecha de publicación: ' + this.created_at +'</p class="card-text">');
                 postFoundNew.append(userInfo);
-                postFoundNew.append('<p>Se encontró el día ' + this.fecha + ' por barrio '
+                postFoundNew.append('<p class="card-text">Se encontró el día ' + this.fecha + ' por barrio '
                 + this.barrio + ' en las inmediaciones de ' + this.calle_1 +
                 ' y ' + this.calle_2 + ' a las ' + this.hora + ' horas.\n'
-                + 'Si es tuyo o sabes de quien puede ser por favor comunícate con ' + this.user_name + '.</p>');
+                + 'Si es tuyo o sabes de quien puede ser por favor comunícate con ' + this.user_name + '.</p class="card-text">');
                 if (this.phone) {
-                    postFoundNew.append('<p>Teléfono: ' + this.phone + '</p>');
+                    postFoundNew.append('<p class="card-text">Teléfono: ' + this.phone + '</p class="card-text">');
                 }
                 let reportButton = $(document.createElement('button'));
                 reportButton.html('Denunciar publicación');
@@ -92,16 +92,16 @@ $(document).ready(function () {
                 let userInfo = $(document.createElement('div'));
                 userInfo.addClass('user');
                 postLostNew.append('<a href="/' + this.id + '"></a>');
-                postLostNew.find('a').append('<img src="static/images/' + this.foto + '">');
-                userInfo.append('<h3>' + this.nombre +' perdido/a!</h3>');
-                userInfo.append('<p>Fecha de publicación: ' + this.created_at +'</p>');
+                postLostNew.find('a').append('<img class="card-img-top" src="static/images/' + this.foto + '">');
+                userInfo.append('<h5 class="card-title">' + this.nombre +' perdido/a!</h5>');
+                userInfo.append('<p class="card-text">Fecha de publicación: ' + this.created_at +'</p class="card-text">');
                 postLostNew.append(userInfo);
-                postLostNew.append('<p>¡Se busca a ' + this.nombre + '! Perdido/a desde el día '
+                postLostNew.append('<p class="card-text">¡Se busca a ' + this.nombre + '! Perdido/a desde el día '
                 + this.fecha + ' última vez visto en las inmediaciones de ' + this.calle_1 +
                 ' y ' + this.calle_2 + ' barrio ' + this.barrio + ' a las ' + this.hora + ' horas.\n'
-                + 'Si lo viste por favor comunícate con ' + this.user_name + '.</p>');
+                + 'Si lo viste por favor comunícate con ' + this.user_name + '.</p class="card-text">');
                 if (this.phone) {
-                    postLostNew.append('<p>Teléfono: ' + this.phone + '</p>');
+                    postLostNew.append('<p class="card-text">Teléfono: ' + this.phone + '</p class="card-text">');
                 }
                 postLostNew.append('<a href="https://encuentrame.org.xelar.tech/report/' + this.id + '">Denunciar publicación</a>');
                 let reportButton = $(document.createElement('button'));
@@ -130,15 +130,15 @@ $(document).ready(function () {
                 userInfo.addClass('user');
                 postFoundNew.append('<a href="/' + this.id + '"></a>');
                 postFoundNew.find('a').append('<img class="card-img-top" src="static/images/' + this.foto + '">');
-                userInfo.append('<h3 class="card-title">' + this.mascota +' encontrado/a!</h3>');
-                userInfo.append('<p class="card-text">Fecha de publicación: ' + this.created_at +'</p>');
+                userInfo.append('<h5 class="card-title">' + this.mascota +' encontrado/a!</h5>');
+                userInfo.append('<p class="card-text" class="card-text">Fecha de publicación: ' + this.created_at +'</p class="card-text">');
                 postFoundNew.append(userInfo);
-                postFoundNew.append('<p>Se encontró el día ' + this.fecha + ' por barrio '
+                postFoundNew.append('<p class="card-text">Se encontró el día ' + this.fecha + ' por barrio '
                 + this.barrio + ' en las inmediaciones de ' + this.calle_1 +
                 ' y ' + this.calle_2 + ' a las ' + this.hora + ' horas.\n'
-                + 'Si es tuyo o sabes de quien puede ser por favor comunícate con ' + this.user_name + '.</p>');
+                + 'Si es tuyo o sabes de quien puede ser por favor comunícate con ' + this.user_name + '.</p class="card-text">');
                 if (this.phone) {
-                    postFoundNew.append('<p>Teléfono: ' + this.phone + '</p>');
+                    postFoundNew.append('<p class="card-text">Teléfono: ' + this.phone + '</p class="card-text">');
                 }
                 postFoundNew.append('<a href="https://encuentrame.org.xelar.tech/report/' + this.id + '">Denunciar publicación</a>');
                 let reportButton = $(document.createElement('button'));
