@@ -99,6 +99,10 @@
 <main>
   <div class="container">
 
+
+
+
+
     <div id="fb-root"></div>
     <script>
     (function(d, s, id) {
@@ -110,34 +114,41 @@
     } (document, 'script', 'facebook-jssdk'));
     </script>
     <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-    <nav class="navbar navbar-light bg-light justify-content-between">
-        <a class="navbar-brand" href="/">
-            <img src="{{ url_for('static', filename='logo/EncuentraMe(1000x1000).png') }}" alt="">
-        </a>
-    </nav>
+
     <article>
+
+      <div class="card" style="width: 18rem;">
         {% if 'lost' in post['id'] %}
-            <div class="pet lost_pet">
-                <p>¡Se busca a <b>{{ post['nombre'] }}</b>! Perdido/a desde el día {{ post['fecha'] }}
-                    última vez visto en las inmediaciones de {{ post['calle_1'] }} y
-                    {{ post['calle_2'] }} barrio {{ post['barrio'] }} a las {{ post['hora'] }}
-                    horas.
-                    Si lo viste por favor comunícate con {{ user["name"] }}.
-                </p>
-                <img src="{{ post['foto'] }}" alt="">
-            </div>
-        {% else %}
-            <div class="pet found_pet">
-                <p>
-                    Se encontró el día {{ post['fecha'] }} por barrio {{ post['barrio'] }} en las inmediaciones
-                    de {{ post['calle_1'] }} y {{ post['calle_2'] }} a las {{ post['hora'] }} horas.
-                    Si es tuyo o sabes de quien puede ser por favor comunícate con {{ user["name"] }}.
-                </p>
-                <img src="{{ post['foto'] }}" alt="">
-            </div>
-        {% endif %}
+        <div class="pet lost_pet">
+            <p>¡Se busca a <b>{{ post['nombre'] }}</b>! Perdido/a desde el día {{ post['fecha'] }}
+                última vez visto en las inmediaciones de {{ post['calle_1'] }} y
+                {{ post['calle_2'] }} barrio {{ post['barrio'] }} a las {{ post['hora'] }}
+                horas.
+                Si lo viste por favor comunícate con {{ user["name"] }}.
+            </p>
+            <img class="card-img-top" src="{{ post['foto'] }}" alt="">
+        </div>
+    {% else %}
+        <div class="pet found_pet">
+          <div class="card-body">
+            <p class="card-text">
+                Se encontró el día {{ post['fecha'] }} por barrio {{ post['barrio'] }} en las inmediaciones
+                de {{ post['calle_1'] }} y {{ post['calle_2'] }} a las {{ post['hora'] }} horas.
+                Si es tuyo o sabes de quien puede ser por favor comunícate con {{ user["name"] }}.
+            </p>
+          </div>
+            <img class="card-img-top" src="{{ post['foto'] }}" alt="">
+        </div>
+    {% endif %}
+
+      </div>
+
+
+
+
     </article>
-    <div class="share">
+
+    <div class="share"> <!-- share -->
         <div class="fb-share-button"
         data-href="https://encuentrame.org.xelar.tech/{{ post['id'] }}"
         data-layout="button_count"
@@ -147,11 +158,12 @@
         class="twitter-share-button"
         data-text="¡Ayúdame a encontrar a mi humano! Ingresa al link para más información #EncuentraMe"
         data-size="large">Tweet</a>
-    </div>
+    </div> <!-- share -->
+
   </div><!-- /.container -->
 
 </main>
-<div class="container">
+<div class="container"> <!--footer -->
   <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
     <div class="col-md-4 d-flex align-items-center">
       <a href="/" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
