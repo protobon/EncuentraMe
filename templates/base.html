@@ -109,7 +109,7 @@
             window.blockUser = function(userId) {
                 userId = JSON.stringify(userId);
                 const user = {id: userId};
-                fetch('https://encuentrame.org.xelar.tech/api/users/', {
+                fetch('https://encuentrame.org.xelar.tech/api/users', {
                     method: 'PUT',
                     body: JSON.stringify(user)
                 })
