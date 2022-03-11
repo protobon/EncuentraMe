@@ -339,6 +339,8 @@ def api_users():
             cursor.execute("UPDATE users SET estado='blocked' WHERE id=%s", [user['id']])
         except Exception as e:
             logfile("/api/users - UPDATE users:\n" + str(e))
+            flash("Ha ocurrido un error", "error")
+            return jsonify("ERROR")
         mysql.connection.commit()
         cursor.close()
         flash('Usuario bloqueado', "info")
