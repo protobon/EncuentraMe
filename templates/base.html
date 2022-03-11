@@ -108,6 +108,7 @@
 
             window.blockUser = function(userId) {
                 const user = {id: userId};
+                console.log(user);
                 fetch('https://encuentrame.org.xelar.tech/api/users/', {
                     method: 'PUT',
                     body: JSON.stringify(user)

@@ -333,7 +333,12 @@ def api_users():
     if request.method == 'PUT':
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         user = request.get_json()
-        cursor.execute("UPDATE users SET estado='blocked' WHERE id=%s", [user['id']])
+        logfile(str(user))
+        try:
+            cursor.execute("UPDATE users SET estado='blocked' WHERE id=%s", [user['id']])
+        except Exception as e:
+            logfile(str(e))
+        mysql.connection.commit()
         cursor.close()
         flash('Usuario bloqueado', "info")
         return redirect('/')
