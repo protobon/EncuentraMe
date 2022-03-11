@@ -4,29 +4,14 @@
 {% endblock %}
 {% block body %}
 <header id="top"></header>
-{% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-        {% for category, message in messages %}
-            {% if category == "success" %}
-                <div class="alert alert-success mb-3" role="alert">
-                    <p>{{ message }}</p>
-                </div>
-            {% elif category == "info" %}
-                <div class="alert alert-info mb-3" role="alert">
-                    <p>{{ message }}</p>
-                </div>
-            {% else %}
-                <div class="alert alert-danger mb-3" role="alert">
-                    <p>{{ message }}</p>
-                </div>
-            {% endif %}
-        {% endfor %}
-    {% endif %}
-{% endwith %}
-<div class="feed">
-    <h1>Tus Publicaciones</h1>
-    <article class="posts">
-    </article>
+<div class="container">
+  <div class="feed row">
+    <div class="">
+      <h1>Mis publicaciones</h1>
+      <article class="posts col-sm-6">
+      </article>
+    </div>
+  </div>
 </div>
 <script src="{{ url_for('static', filename='js/loadProfile.js') }}"></script>
 {% endblock %}

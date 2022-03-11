@@ -1,11 +1,11 @@
 from cmath import log
 from flask import Flask, jsonify, render_template, request, flash, redirect
 from flask_cors import CORS
-from flask_mail import Mail
 import os
 import uuid
 from datetime import datetime, timedelta
 from flask_mysqldb import MySQL
+from flask_mail import Mail
 import MySQLdb
 import logging
 
@@ -13,7 +13,6 @@ import logging
 UPLOAD_FOLDER = 'static/images'
 ALLOWED_EXTENSIONS = {'jpg', 'jpeg', 'png', 'jfif'}
 app = Flask(__name__)
-mail = Mail(app)
 cors = CORS(app, resources={r"/api/*": {"origins": "0.0.0.0"}})
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['SECRET_KEY'] = "ola_ke_ase"
@@ -197,13 +196,11 @@ def form_report(user_id, post_id):
             logfile("form_report(user_id, post_id) - in reported_user = list(cursor.fetchall())[0]:\n" + str(e))
             flash("No es posible acceder a esta publicación", "info")
             return redirect('/')
-        cursor.execute("SELECT name FROM users WHERE id=%s", [user_id])
-        sender_username = list(cursor.fetchall())[0]['name']
         reporte = request.form['reporte']
         created_at = datetime.utcnow() - timedelta(hours=3)
         try:
-            cursor.execute('INSERT INTO reports VALUES (%s, %s, %s, %s, %s, %s)',
-                            (created_at, user_id, sender_username, reporte, post_id, reported_user_id))
+            cursor.execute('INSERT INTO reports VALUES (%s, %s, %s, %s, %s)',
+                            (created_at, user_id, reporte, post_id, reported_user_id))
         except Exception as e:
             logfile("form_report(user_id, post_id) - in cursor.execute(INSERT INTO reports):\n" + str(e))
         mysql.connection.commit()
@@ -254,33 +251,28 @@ def show_single_post(id):
 
 @app.route('/main_map')
 def new_map():
-    return render_template('main_map.html')    
+    return render_template('main_map.html')
 
 
 @app.route('/about')
 def about():
-    return render_template('about.html') 
+    return render_template('about.html')
 
 
 @app.route('/politica_de_privacidad')
 def politica():
-    return render_template('politica_de_privacidad.html') 
+    return render_template('politica_de_privacidad.html')
 
 
 @app.route('/landing')
 def landing_page():
-    return render_template('landing.html') 
+    return render_template('landing.html')
 
 
 @app.route('/profile/<user_id>')
 def user_profile(user_id):
     """Render user profile with all owner's posts"""
     return render_template('profile.html')
-
-
-@app.route('/posts/reported')
-def moderate_posts():
-    return render_template('moderate.html')
 
 
 # RESTful APIs
@@ -304,9 +296,9 @@ def api_posts():
 
 @app.route('/api/users/', methods=['GET', 'POST', 'PUT'])
 def api_users():
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     if request.method == 'GET':
         """Retrieve all users from database and return in JSON format"""
-        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         try:
             cursor.execute('SELECT name, email, estado FROM users')
         except Exception as e:
@@ -316,7 +308,6 @@ def api_users():
         return jsonify(users)
     if request.method == 'POST':
         """Stores new user into database"""
-        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         content_type = request.headers.get('Content-Type')
         if (content_type != 'application/json'):
             return (jsonify("Not a JSON"), 400)
@@ -342,18 +333,10 @@ def api_users():
         cursor.close()
         return jsonify(user)
     if request.method == 'PUT':
-        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         user = request.get_json()
-        try:
-            cursor.execute("UPDATE users SET estado='blocked' WHERE id=%s", [user['id']])
-        except Exception as e:
-            logfile("/api/users - UPDATE users:\n" + str(e))
-            flash("Ha ocurrido un error", "error")
-            return jsonify("ERROR")
-        mysql.connection.commit()
-        cursor.close()
+        cursor.execute("ALTER TABLE users MODIFY COLUMN estado = 'blocked' WHERE id=%s", [user['id']])
         flash('Usuario bloqueado', "info")
-        return jsonify("Usuario bloqueado")
+        return redirect('/')
 
 
 @app.route('/api/users/<user_id>/posts')
@@ -374,7 +357,7 @@ def api_user_posts(user_id):
     return jsonify({"lost": lost, "found": found})
 
 
-@app.route('/api/posts/<id>', methods=['GET', 'POST', 'PUT', 'DELETE'])
+@app.route('/api/posts/<id>', methods=['GET', 'PUT', 'DELETE'])
 def api_post_by_id(id):
     """All user CRUD operations for one single post by ID"""
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
@@ -393,14 +376,6 @@ def api_post_by_id(id):
     if request.method == 'GET':
         cursor.close()
         return jsonify(post)
-    if request.method == 'POST':
-        if "lost" in id:
-            cursor.execute("UPDATE lost_pets SET estado = 'active' WHERE id=%s", [id])
-        else:
-            cursor.execute("UPDATE found_pets SET estado = 'active' WHERE id=%s", [id])
-        mysql.connection.commit()
-        cursor.close()
-        return jsonify('Publicación activa nuevamente')
     if request.method == 'PUT':
         if "lost" in id:
             cursor.execute("UPDATE lost_pets SET estado = 'completed' WHERE id=%s", [id])
@@ -430,21 +405,18 @@ def reported_posts():
     cursor.execute("SELECT * FROM reports")
     all_reports = list(cursor.fetchall())
     cursor.close()
-    reports = {}
+    reported_users = {}
     for post in reported_lost:
-        post['comments'] = []
-        for report in all_reports:
-            if post['id'] == report['post_id']:
-                comment = report['sender_uname'] + ": " + report['reporte']
-                post['comments'].append(comment)
+        if post['user_name'] not in reported_users:
+            reported_users[post['user_name']] = []
+        reported_users[post['user_name']].append(post)
     for post in reported_found:
-        post['comments'] = []
-        for report in all_reports:
-            if post['id'] == report['post_id']:
-                comment = report['sender_uname'] + ": " + report['reporte']
-                post['comments'].append(comment)
-    reports['lost'] = reported_lost
-    reports['found'] = reported_found
+        if post['user_name'] not in reported_users:
+            reported_users[post['user_name']] = []
+        reported_users[post['user_name']].append(post)
+    reports = {}
+    reports["all"] = all_reports
+    reports["users"] = reported_users
     return jsonify(reports)
 
 

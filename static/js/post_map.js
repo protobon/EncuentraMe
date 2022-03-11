@@ -38,7 +38,7 @@ function initMap() {
         () => {
           handleLocationError(true, infoWindow, map.getCenter());
         }
-        
+
       );
     } else {
       // Browser doesn't support Geolocation
@@ -53,7 +53,7 @@ function initMap() {
       $("#postLng").val(event.latLng.lng().toFixed(6));
       map.panTo(event.latLng);
     });
-    
+
       // markers can only be keyboard focusable when they have click listeners
       // open info window when marker is clicked
 };

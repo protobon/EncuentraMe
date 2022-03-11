@@ -2,7 +2,6 @@
 
 {% block head %}
 <script src="{{ url_for('static', filename='js/main_map.js') }}"></script>
-<title>EncuentraMe</title>
 {% endblock %}
 
 {% block body %}
@@ -25,33 +24,49 @@
         {% endfor %}
     {% endif %}
 {% endwith %}
-<div class="feed">
-    <div class="filters">
-        <div class="filter">
-            <button type="button" class="btn btn-success btn-sm" id="all" onclick="refreshFeed()">Todos</button>
-            <button type="button" class="btn btn-outline-success btn-sm" id="lost" onclick="refreshLost()">Perdidos</button>
-            <button type="button" class="btn btn-outline-success btn-sm" id="found" onclick="refreshFound()">Encontrados</button>
+
+<div class="feed py-5 text-center container">
+    <div class="filters row py-lg-5">
+        <div class="filter col-lg-6 col-md-8 mx-auto">
+            <button type="button" class="btn btn-success btn-sm" id="all" onclick="refreshFeed()" autofocus>Todos</button>
+            <button type="button" class="btn btn-success btn-sm" id="lost" onclick="refreshLost()">Perdidos</button>
+            <button type="button" class="btn btn-success btn-sm" id="found" onclick="refreshFound()">Encontrados</button>
         </div>
         <div class="selectAnimal">
             <input type="radio" name="animal-selection" id="todos" value="Todos" checked>Todos</input>
             <input type="radio" name="animal-selection" id="perritos" value="Perritos">Perritos</input>
             <input type="radio" name="animal-selection" id="gatitos" value="Gatitos">Gatitos</input>
-            <p id="show"> </p>
+            <p id="show"></p>
         </div>
         <div class="post">
-            <button class="btn btn-primary" id="post">Publicar</button>
+            <a id="post" class="btn btn-primary my-2" role="button">Publicar</a>
         </div>
     </div>
-    <article class="posts">
-    </article>
+
 </div>
-<div id="main_map">
-    <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
-      <script
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBqNj3BPTdCSu9fTtAlj4LSLD5FAidsa7M&callback=initMap&v=weekly"
-        async
-      ></script>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-8">
+            <div class="container"><!-- feed-->
+                <div class="row row-cols-1 row-cols-md-2 g-4"></div>
+                    <div class="posts col">
+                    </div>
+                </div> <!-- feed -->
+        </div>
+        <div class="col-sm-4">
+            <div id="main_map">
+                <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
+                  <script
+                    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBqNj3BPTdCSu9fTtAlj4LSLD5FAidsa7M&callback=initMap&v=weekly"
+                    async
+                  ></script>
+            </div>
+        </div>
+    </div>
 </div>
+
 <script src="{{ url_for('static', filename='js/filters.js') }}"></script>
 <script src="{{ url_for('static', filename='js/populate.js') }}"></script>
+
 {% endblock %}
