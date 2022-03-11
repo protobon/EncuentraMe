@@ -22,12 +22,12 @@ $(document).ready(function () {
                 postLostNew.addClass('pet');
                 postLostNew.addClass('pet_lost');
                 postLostNew.addClass(this.mascota);
+                postLostNew.append('<a href="/' + this.id + '"></a>');
+                postLostNew.find('a').append('<img src="/static/images/' + this.foto + '">');
                 postLostNew.append('<p>¡Se busca a ' + this.nombre + '! Perdido/a desde el día '
                 + this.fecha + ' última vez visto en las inmediaciones de ' + this.calle_1 +
                 ' y ' + this.calle_2 + ' barrio ' + this.barrio + ' a las ' + this.hora + ' horas.\n'
                 + 'Si lo viste por favor comunícate con Usuario.</p>');
-                postLostNew.append('<a href="/' + this.id + '"></a>');
-                postLostNew.find('a').append('<img src="/static/images/' + this.foto + '">');
                 let buttonsDiv = $(document.createElement('div'));
                 buttonsDiv.addClass('buttons');
                 let deleteButton = $(document.createElement('button'));
