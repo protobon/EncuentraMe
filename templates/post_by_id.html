@@ -99,10 +99,6 @@
 <main>
   <div class="container">
 
-
-
-
-
     <div id="fb-root"></div>
     <script>
     (function(d, s, id) {
@@ -116,36 +112,38 @@
     <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
     <article>
-
-      <div class="card" style="width: 18rem;">
+      <div class="card" style="width: 33rem;">
         {% if 'lost' in post['id'] %}
         <div class="pet lost_pet">
-            <p>¡Se busca a <b>{{ post['nombre'] }}</b>! Perdido/a desde el día {{ post['fecha'] }}
+          <img class="card-img-top" src="{{ post['foto'] }}" alt="foto de mascota perdida">
+          <div class="card-body">
+            <h5 class="card-title">Perdido</h5>
+            <p class="card-text">¡Se busca a <b>{{ post['nombre'] }}</b>! Perdido/a desde el día {{ post['fecha'] }}
                 última vez visto en las inmediaciones de {{ post['calle_1'] }} y
                 {{ post['calle_2'] }} barrio {{ post['barrio'] }} a las {{ post['hora'] }}
                 horas.
                 Si lo viste por favor comunícate con {{ user["name"] }}.
             </p>
-            <img class="card-img-top" src="{{ post['foto'] }}" alt="">
-        </div>
-    {% else %}
-        <div class="pet found_pet">
-          <div class="card-body">
-            <p class="card-text">
-                Se encontró el día {{ post['fecha'] }} por barrio {{ post['barrio'] }} en las inmediaciones
-                de {{ post['calle_1'] }} y {{ post['calle_2'] }} a las {{ post['hora'] }} horas.
-                Si es tuyo o sabes de quien puede ser por favor comunícate con {{ user["name"] }}.
-            </p>
           </div>
-            <img class="card-img-top" src="{{ post['foto'] }}" alt="">
         </div>
-    {% endif %}
-
       </div>
 
-
-
-
+    {% else %}
+    <div class="card" style="width: 33rem;">
+      <div class="pet found_pet">
+        <img class="card-img-top" src="{{ post['foto'] }}" alt="foto de mascota encontrada">
+        <div class="card-body">
+          <h5 class="card-title">Encontrado</h5>
+          <p class="card-text">
+              Se encontró el día {{ post['fecha'] }} por barrio {{ post['barrio'] }} en las inmediaciones
+              de {{ post['calle_1'] }} y {{ post['calle_2'] }} a las {{ post['hora'] }} horas.
+              Si es tuyo o sabes de quien puede ser por favor comunícate con {{ user["name"] }}.
+          </p>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+      </div> <!-- card -->
     </article>
 
     <div class="share"> <!-- share -->
