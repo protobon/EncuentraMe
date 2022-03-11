@@ -19,7 +19,7 @@
 
     <div class="row col-12"> <!--form -->
       <div class="col-12 col-md-10 col-lg-8">
-        <form action="/{{ user_id }}/lost_pet" method="post" class="needs-validation" id="main_form" enctype="multipart/form-data">
+        <form action="/{{ user_id }}/lost_pet" method="post" class="needs-validation" id="main_form" enctype="multipart/form-data" novalidate>
           {% with messages = get_flashed_messages() %}
             {% if messages %}
               {% for message in messages %}
