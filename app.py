@@ -303,7 +303,7 @@ def api_users():
             for u in all_users:
                 try:
                     if u['id'] == user['id']:
-                        return
+                        return jsonify('User already saved')
                 except Exception as e:
                     logfile(str(e))
         except Exception as e:
@@ -313,7 +313,7 @@ def api_users():
             cursor.execute('INSERT INTO users VALUES (%s, %s, %s, %s)', (user['id'], user['name'], user['email'], 'active'))
         except Exception as e:
             logfile("/api/users - INSERT USER:\n" + str(e))
-            pass
+            return jsonify('User already saved')
         mysql.connection.commit()
         cursor.close()
         return jsonify(user)
