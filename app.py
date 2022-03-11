@@ -5,7 +5,7 @@ import os
 import uuid
 from datetime import datetime, timedelta
 from flask_mysqldb import MySQL
-from flask_mail import Mail
+from flask_mail import Mail, Message
 import MySQLdb
 import logging
 
@@ -13,6 +13,7 @@ import logging
 UPLOAD_FOLDER = 'static/images'
 ALLOWED_EXTENSIONS = {'jpg', 'jpeg', 'png', 'jfif'}
 app = Flask(__name__)
+mail = Mail(app)
 cors = CORS(app, resources={r"/api/*": {"origins": "0.0.0.0"}})
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['SECRET_KEY'] = "ola_ke_ase"
