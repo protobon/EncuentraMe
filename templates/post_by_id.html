@@ -114,7 +114,7 @@
     <article>
       <div class="row">
         <div class="col-sm-6">
-        <div class="card">
+          <div class="card">
           {% if 'lost' in post['id'] %}
           <div class="pet lost_pet">
             <img class="card-img-top" src="{{ post['foto'] }}" alt="foto de mascota perdida">
@@ -132,8 +132,6 @@
       </div>
     </div>
     {% else %}
-    <div class="row">
-      <div class="col-sm-6">
         <div class="card">
           <div class="pet found_pet">
             <img class="card-img-top" src="{{ post['foto'] }}" alt="foto de mascota encontrada">
@@ -147,8 +145,6 @@
             </div>
           </div>
         </div>
-      </div>
-    </div>
     {% endif %}
     </article>
 
