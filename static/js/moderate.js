@@ -7,23 +7,23 @@ $(document).ready(function () {
     window.loadReports = function() {
         fetchReports().then(function(data) {
             $.each(data.reported_user_posts, function(user) {
-                let userName = $(document.createElement('div'));
-                userName.append('<h3>' + this + '</h3>');
                 $.each(user, function(post) {
+                    let userName = $(document.createElement('div'));
+                    userName.append('<h3>' + post.user_name + '</h3>');
                     let userPost = $(document.createElement('div'));
-                    userPost.append('<img src="/static/images/' + this.foto + '">');
-                    $.each(data.reports, function() {
-                        if (this.post_id === post.id) {
-                            userPost.append('<p>' + this.sender_uname + ': '  + this.reporte + '</p>');
+                    userPost.append('<img src="/static/images/' + post.foto + '">');
+                    $.each(data.reports, function(report) {
+                        if (report.post_id === post.id) {
+                            userPost.append('<p>' + report.sender_uname + ': '  + report.reporte + '</p>');
                         }
                     });
                     let removeButton = $(document.createElement('button'));
                     removeButton.html('Eliminar');
-                    removeButton.attr('onclick', 'deletePost("' + this.id + '")');
+                    removeButton.attr('onclick', 'deletePost("' + post.id + '")');
                     userPost.append(removeButton);
                     let forgiveButton = $(document.createElement('button'));
                     forgiveButton.html('Perdonar');
-                    forgiveButton.attr('onclick', 'forgivePost("' + this.id + '")');
+                    forgiveButton.attr('onclick', 'forgivePost("' + post.id + '")');
                     userPost.append(forgiveButton);
                     userName.append(userPost);
                 });
