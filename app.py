@@ -69,7 +69,7 @@ def form_lost_pet(user_id):
         if request.form['telefono']:
             tel = request.form['telefono']
             if not user['phone']:
-                cursor.execute("ALTER TABLE users MODIFY COLUMN phone=%s WHERE id=%s", [request.form['telefono'], user_id])
+                cursor.execute("UPDATE users SET phone=%s WHERE id=%s", [request.form['telefono'], user_id])
         id = "lost" + str(uuid.uuid4())
         estado = "active"
         created_at = datetime.utcnow()
@@ -129,7 +129,7 @@ def form_found_pet(user_id):
         if request.form['telefono']:
             tel = request.form['telefono']
             if not user['phone']:
-                cursor.execute("ALTER TABLE users MODIFY COLUMN phone=%s WHERE id=%s", [request.form['telefono'], user_id])
+                cursor.execute("UPDATE users SET phone=%s WHERE id=%s", [request.form['telefono'], user_id])
         id = "found" + str(uuid.uuid4())
         estado = "active"
         created_at = datetime.utcnow()
@@ -269,9 +269,9 @@ def user_profile(user_id):
 def api_posts():
     """Retrieve all posts from database and return in JSON format"""
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    cursor.execute("SELECT * FROM lost_pets WHERE estado = 'active' ORDER BY created_at DESC")
+    cursor.execute("SELECT * FROM lost_pets WHERE estado='active' OR estado='reported' ORDER BY created_at DESC")
     lost = list(cursor.fetchall())
-    cursor.execute("SELECT * FROM found_pets WHERE estado = 'active' ORDER BY created_at DESC")
+    cursor.execute("SELECT * FROM found_pets WHERE estado='active' OR estado='reported' ORDER BY created_at DESC")
     found = list(cursor.fetchall())
     cursor.close()
     for post in lost:
