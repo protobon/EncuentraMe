@@ -30,6 +30,9 @@ $(document).ready(function () {
                 + this.fecha + ' última vez visto en las inmediaciones de ' + this.calle_1 +
                 ' y ' + this.calle_2 + ' barrio ' + this.barrio + ' a las ' + this.hora + ' horas.\n'
                 + 'Si lo viste por favor comunícate con ' + this.user_name + '.</p>');
+                if (this.phone) {
+                    postLostNew.append('<p>Teléfono: ' + this.phone + '</p>');
+                }
                 postLostNew.append('<a href="/' + this.id + '"></a>');
                 postLostNew.find('a').append('<img src="/static/images/' + this.foto + '">');
                 let reportButton = $(document.createElement('button'));
@@ -56,6 +59,9 @@ $(document).ready(function () {
                 + this.barrio + ' en las inmediaciones de ' + this.calle_1 +
                 ' y ' + this.calle_2 + ' a las ' + this.hora + ' horas.\n'
                 + 'Si es tuyo o sabes de quien puede ser por favor comunícate con ' + this.user_name + '.</p>');
+                if (this.phone) {
+                    postFoundNew.append('<p>Teléfono: ' + this.phone + '</p>');
+                }
                 postFoundNew.append('<a href="/' + this.id + '"></a>');
                 postFoundNew.find('a').append('<img src="/static/images/' + this.foto + '">');
                 let reportButton = $(document.createElement('button'));
@@ -64,7 +70,7 @@ $(document).ready(function () {
                 reportButton.addClass('btn-link');
                 reportButton.addClass('btn-sm');
                 reportButton.attr('onclick', 'reportPost("' + this.id + '")');
-                postLostNew.append(reportButton);
+                postFoundNew.append(reportButton);
                 $('article.posts').append(postFoundNew);
             });
         });
@@ -89,6 +95,9 @@ $(document).ready(function () {
                 + this.fecha + ' última vez visto en las inmediaciones de ' + this.calle_1 +
                 ' y ' + this.calle_2 + ' barrio ' + this.barrio + ' a las ' + this.hora + ' horas.\n'
                 + 'Si lo viste por favor comunícate con ' + this.user_name + '.</p>');
+                if (this.phone) {
+                    postLostNew.append('<p>Teléfono: ' + this.phone + '</p>');
+                }
                 postLostNew.append('<a href="/' + this.id + '"></a>');
                 postLostNew.find('a').append('<img src="static/images/' + this.foto + '">');
                 postLostNew.append('<a href="https://encuentrame.org.xelar.tech/report/' + this.id + '">Denunciar publicación</a>');
@@ -122,6 +131,9 @@ $(document).ready(function () {
                 + this.barrio + ' en las inmediaciones de ' + this.calle_1 +
                 ' y ' + this.calle_2 + ' a las ' + this.hora + ' horas.\n'
                 + 'Si es tuyo o sabes de quien puede ser por favor comunícate con ' + this.user_name + '.</p>');
+                if (this.phone) {
+                    postFoundNew.append('<p>Teléfono: ' + this.phone + '</p>');
+                }
                 postFoundNew.append('<a href="/' + this.id + '"></a>');
                 postFoundNew.find('a').append('<img src="static/images/' + this.foto + '">');
                 postFoundNew.append('<a href="https://encuentrame.org.xelar.tech/report/' + this.id + '">Denunciar publicación</a>');
@@ -131,7 +143,7 @@ $(document).ready(function () {
                 reportButton.addClass('btn-link');
                 reportButton.addClass('btn-sm');
                 reportButton.attr('onclick', 'reportPost("' + this.id + '")');
-                postLostNew.append(reportButton);
+                postFoundNew.append(reportButton);
                 $('article.posts').append(postFoundNew);
             });
         });

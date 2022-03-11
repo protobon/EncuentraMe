@@ -311,7 +311,7 @@ Create security groups for http and https traffic in AWS Console
 > Andres
 
 <!-- twitter -->
-[![Twitter](https://img.shields.io/twitter/follow/Potterhead_uy?style=social)](https://twitter.com/Potterhead_uy) <!-- linkedin --> [![Linkedin](https://img.shields.io/badge/LinkedIn-blue?style=social&logo=linkedin)](https://www.linkedin.com/in/aortizm09/) <!-- github --> [![Github](https://img.shields.io/github/followers/Aortiz91?style=social)](https://github.com/Aortiz91)
+[![Twitter](https://img.shields.io/twitter/follow/aortiz91_?style=social)](https://twitter.com/aortiz91_) <!-- linkedin --> [![Linkedin](https://img.shields.io/badge/LinkedIn-blue?style=social&logo=linkedin)](https://www.linkedin.com/in/aortizm09/) <!-- github --> [![Github](https://img.shields.io/github/followers/Aortiz91?style=social)](https://github.com/Aortiz91)
 
 > Ayrton
 
