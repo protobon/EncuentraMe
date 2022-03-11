@@ -293,9 +293,9 @@ def api_posts():
 
 @app.route('/api/users/', methods=['GET', 'POST', 'PUT'])
 def api_users():
-    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     if request.method == 'GET':
         """Retrieve all users from database and return in JSON format"""
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         try:
             cursor.execute('SELECT name, email, estado FROM users')
         except Exception as e:
@@ -305,6 +305,7 @@ def api_users():
         return jsonify(users)
     if request.method == 'POST':
         """Stores new user into database"""
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         content_type = request.headers.get('Content-Type')
         if (content_type != 'application/json'):
             return (jsonify("Not a JSON"), 400)
@@ -330,8 +331,10 @@ def api_users():
         cursor.close()
         return jsonify(user)
     if request.method == 'PUT':
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         user = request.get_json()
         cursor.execute("UPDATE users SET estado='blocked' WHERE id=%s", [user['id']])
+        cursor.close()
         flash('Usuario bloqueado', "info")
         return redirect('/')
 
