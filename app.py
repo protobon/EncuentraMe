@@ -1,6 +1,7 @@
 from cmath import log
 from flask import Flask, jsonify, render_template, request, flash, redirect
 from flask_cors import CORS
+from flask_mail import Mail
 import os
 import uuid
 from datetime import datetime, timedelta
@@ -12,6 +13,7 @@ import logging
 UPLOAD_FOLDER = 'static/images'
 ALLOWED_EXTENSIONS = {'jpg', 'jpeg', 'png', 'jfif'}
 app = Flask(__name__)
+mail = Mail(app)
 cors = CORS(app, resources={r"/api/*": {"origins": "0.0.0.0"}})
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['SECRET_KEY'] = "ola_ke_ase"
@@ -20,6 +22,12 @@ app.config['MYSQL_USER'] = 'encuentrame'
 app.config['MYSQL_PASSWORD'] = 'password'
 app.config['MYSQL_DB'] = 'encuentraMe'
 app.url_map.strict_slashes = False
+app.config['MAIL_SERVER']='smtp.gmail.com'
+app.config['MAIL_PORT'] = 465
+app.config['MAIL_USERNAME'] = 'encuentrame.reports@gmail.com'
+app.config['MAIL_PASSWORD'] = 'encuentrame'
+app.config['MAIL_USE_TLS'] = False
+app.config['MAIL_USE_SSL'] = True
 
 mysql = MySQL(app)
 
@@ -200,6 +208,9 @@ def form_report(user_id, post_id):
             logfile("form_report(user_id, post_id) - in cursor.execute(INSERT INTO reports):\n" + str(e))
         mysql.connection.commit()
         cursor.close()
+        msg = Message('Hello from the other side!', sender =   'encuentrame.reports@gmail.com', recipients = ['aortizm.09@gmail.com'])
+        msg.body = "Testing"
+        mail.send(msg)
         flash('Gracias por denunciar esta publicación, la revisaremos lo antes posible.', "success")
         return redirect('/')
 
