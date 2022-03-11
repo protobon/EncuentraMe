@@ -2,126 +2,55 @@
 
 {% block head %}
 <script src="{{ url_for('static', filename='js/post_map.js') }}"></script>
-<link rel="stylesheet" href="{{ url_for('static', filename='css/form-validation.css') }}">
-<title>Mascota encontrada</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/index.css') }}">
+<title>Mascota Encontrada</title>
 {% endblock %}
 
 {% block body %}
-
-<div class="container">
-  <main>
-
-    <div class="py-5 text-center">
-      <h2>Mascota encontrada</h2>
-      <b id="date--color-input-support">Atención: Este formulario es para quienes encontraron un animal en la calle y quieren publicarlo.</b>
-      <div class="bd-callout bd-callout-warning">
-        <p class="lead">Si perdiste un animalito y quieres publicarlo, presiona <a href="/{{ user_id }}/lost_pet">aquí.</a></p>
-    </div>
-    </div>
-
-    <div class="row col-12"> <!--form -->
-      <div class="col-12 col-md-10 col-lg-8">
-        <form action="/{{ user_id }}/found_pet" method="post" class="form_center needs-validation" id="main_form" enctype="multipart/form-data" novalidate>
-          {% with messages = get_flashed_messages() %}
-          {% if messages %}
-              {% for message in messages %}
-                  <p>{{ message }}</p>
-              {% endfor %}
-          {% endif %}
-      {% endwith %}
-          <fieldset>
-            <h4 class="mb-3">¿Qué encontraste?</h4>
-
-            <div class="my-3"><!-- radio check perro-->
-              <div class="form-check">
-                <input type="radio" class="form-check-input" name="mascota" value="perro" id="perro" checked required>
-                <label for="perro">Perro</label>
-              </div>
-            </div><!-- radio check perro-->
-
-            <div class="my-3"><!-- radio check gato-->
-              <div class="form-check">
-                <input type="radio" class="form-check-input" name="mascota" value="gato" id="gato">
-                <label for="gato">Gato</label>
-              </div>
-            </div><!-- radio check gato-->
-
-            <hr class="my-4">
-
-            <div class="row g-3">
-              <div class="col-12"> <!-- fecha encontrado -->
-                <label for="perdidaDesde">¿Cuándo lo encontraste?</label>
-                <input type="date" class="form-control" name="fecha" id="perdidaDesde" placeholder="dd-mm-yyyy" required>
-                <div class="invalid-feedback">
-                  Ingresa la fecha cuando lo encontraste.
-              </div>
-            </div> <!-- fecha encontrado -->
-
-
-            <div class="col-sm-6"> <!-- donde lo viste 1-->
-                <label for="calleUno">¿Dónde lo viste por última vez?</label>
-                <input type="text" id="calleUno" class="form-control" name="calle_1" placeholder="Calle 1" id="ultimaVista" required>
-                <div class="invalid-feedback">
-                  Ingresa la calle donde se perdió.
-                </div>
-          </div> <!-- donde lo viste 1-->
-
-            <div class="col-sm-6"> <!-- donde lo viste 2-->
-              <label for="calle2" class="form-label" >Esquina</label>
-              <input type="text" class="form-control" id="calle2" name="calle_2" placeholder="Calle 2" required>
-              <div class="invalid-feedback">
-                Ingresa la intersección dónde se perdió.
-              </div>
-          </div> <!-- donde lo viste 2-->
-
-          <div class="col-12"> <!-- barrio -->
-            <label for="barrioNombre" class="form-label">¿En cuál barrio?</label>
-            <input type="text" id="barrioNombre" class="form-control" name="barrio" placeholder="Barrio" required>
-            <div class="invalid-feedback">
-              Ingresa el barrio donde se perdió.
-          </div>
-        </div> <!-- barrio -->
-
-          <div class="col-12"> <!-- hora -->
-            <label for="horaVisto" class="form-label">¿a que hora?</label>
-            <input type="time" class="form-control" id="horaVisto" name="hora" required>
-            <div class="invalid-feedback">
-              Ingresa la hora cuándo se perdió.
-          </div>
-        </div> <!-- hora -->
-
-        <div class="col-12"> <!-- foto -->
-          <label for="image" class="form-label">Sube una imagen:</label>
-          <input class="form-control" aria-describedby="inputGroupFileAddon03" aria-label="subir" id="image" type="file" name="foto" required>
-          <div class="invalid-feedback">
-            Sube su foto
+<p>Atención: Este formulario es para quienes encontraron un animalito en la calle y desean compartirlo.
+    Si perdiste a tu mascota y quieres publicarlo has click <a href="/{{ user_id }}/lost_pet">aquí.</a>
+</p>
+<br>
+<form action="/{{ user_id }}/found_pet" method="post" class="form_center" id="main_form" enctype="multipart/form-data">
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <p>{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <fieldset>
+        <p>¿Qué encontraste?</p>
+        <div class="form-group">
+            <input type="radio" name="mascota" value="perro" id="perro" checked>
+            <label for="perro">Perro</label>
+            <input type="radio" name="mascota" value="gato" id="gato">
+            <label for="gato">Gato</label>
         </div>
-      </div> <!-- foto -->
-
-  </div><!--row g-3-->
-
-  <hr class="my-4">
-  <div class="row g-3">
-    <input type="number" step="any" name="latitude"  id="postLat" required> <!-- google maps-->
-    <input type="number" step="any" name="longitude" id="postLng" required>
-    <div class="invalid-feedback">
-      Selecciona la ubicación en el mapa.
-    </div>
-    <div class ="googleMaps">
-    <div id="post_map"></div>
-    <script
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBqNj3BPTdCSu9fTtAlj4LSLD5FAidsa7M&callback=initMap&libraries=&v=weekly" async></script> <!-- google maps-->
-  </div>
-  </div> <!-- row g-3-->
-
-  <hr class="my-4">
-
-            <button type="submit" class="w-100 btn btn-primary btn-lg" id="form-submit">Publicar</button>
-
-          </fieldset>
-        </form>
-      </div>
-    </div>
-  </main>
-</div>
+        <div class="form-group">
+            <p>Se encontró el día
+            <input type="date" name="fecha" placeholder="dd-mm-yyyy" required>
+            por barrio
+            <input type="text" name="barrio" placeholder="Barrio" required>
+            en las inmediaciones de
+            <input type="text" name="calle_1" placeholder="Calle 1" required>
+            y
+            <input type="text" name="calle_2" placeholder="Calle 2" required>
+            a las
+            <input type="time" name="hora" required>
+            horas.</p>
+            <input type="number" step="any" name="latitude"  id="postLat"  required>
+            <input type="number" step="any" name="longitude" id="postLng" required>
+            <br>
+            <label for="image">Sube una imagen:</label>
+            <input type="file" name="foto" required>
+            <div id="post_map"></div>
+            <script
+                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBqNj3BPTdCSu9fTtAlj4LSLD5FAidsa7M&callback=initMap&libraries=&v=weekly"
+                async
+            ></script>
+        </div>
+        <button type="submit" class="btn btn-primary" id="form-submit">Submit</button>
+    </fieldset>
+</form>
 {% endblock %}
