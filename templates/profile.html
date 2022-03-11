@@ -7,6 +7,24 @@
 <div class="feed">
     <h1>Mis publicaciones</h1>
     <article class="posts">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="pet lost_pet">
+                        <img class="card-img-top" src="{{ post['foto'] }}" alt="foto de mascota perdida">
+                        <div class="card-body">
+                            <h5 class="card-title">Perdido</h5>
+                            <p class="card-text">¡Se busca a <b>{{ post['nombre'] }}</b>! Perdido/a desde el día {{ post['fecha'] }}
+                                última vez visto en las inmediaciones de {{ post['calle_1'] }} y
+                                {{ post['calle_2'] }} barrio {{ post['barrio'] }} a las {{ post['hora'] }}
+                                horas.
+                                Si lo viste por favor comunícate con {{ user["name"] }}.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </article>
 </div>
 <script src="{{ url_for('static', filename='js/loadProfile.js') }}"></script>
