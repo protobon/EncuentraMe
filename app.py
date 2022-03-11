@@ -410,18 +410,21 @@ def reported_posts():
     cursor.execute("SELECT * FROM reports")
     all_reports = list(cursor.fetchall())
     cursor.close()
-    reported_users = {}
-    for post in reported_lost:
-        if post['user_name'] not in reported_users:
-            reported_users[post['user_name']] = []
-        reported_users[post['user_name']].append(post)
-    for post in reported_found:
-        if post['user_name'] not in reported_users:
-            reported_users[post['user_name']] = []
-        reported_users[post['user_name']].append(post)
     reports = {}
-    reports["reports"] = all_reports
-    reports["reported_user_posts"] = reported_users
+    for post in reported_lost:
+        post['comments'] = []
+        for report in all_reports:
+            if post['id'] == report['post_id']:
+                comment = report['sender_uname'] + ": " + report['reporte']
+                post['comments'].append(comment)
+    for post in reported_found:
+        post['comments'] = []
+        for report in all_reports:
+            if post['id'] == report['post_id']:
+                comment = report['sender_uname'] + ": " + report['reporte']
+                post['comments'].append(comment)
+    reports['lost'] = reported_lost
+    reports['found'] = reported_found
     return jsonify(reports)
 
 

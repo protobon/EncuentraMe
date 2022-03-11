@@ -6,28 +6,53 @@ $(document).ready(function () {
     }
     window.loadReports = function() {
         fetchReports().then(function(data) {
-            $.each(JSON.parse(data.reported_user_posts), function(user) {
-                $.each(user, function(post) {
-                    let userName = $(document.createElement('div'));
-                    userName.append('<h3>' + post.user_name + '</h3>');
-                    let userPost = $(document.createElement('div'));
-                    userPost.append('<img src="/static/images/' + post.foto + '">');
-                    $.each(data.reports, function(report) {
-                        if (report.post_id === post.id) {
-                            userPost.append('<p>' + report.sender_uname + ': '  + report.reporte + '</p>');
-                        }
-                    });
-                    let removeButton = $(document.createElement('button'));
-                    removeButton.html('Eliminar');
-                    removeButton.attr('onclick', 'deletePost("' + post.id + '")');
-                    userPost.append(removeButton);
-                    let forgiveButton = $(document.createElement('button'));
-                    forgiveButton.html('Perdonar');
-                    forgiveButton.attr('onclick', 'forgivePost("' + post.id + '")');
-                    userPost.append(forgiveButton);
-                    userName.append(userPost);
+            $.each(data.lost, function() {
+                let post = $(document.createElement('div'));
+                post.append('<h3>' + this.user_name + '</h3>');
+                post.append(';<img src="/static/images/' + this.foto + '">');
+                post.append('<p>' + this.created_at + '</p>');
+                $.each(this.comments, function() {
+                    post.append('<p>' + this + '</p>');
                 });
-                $('article.posts').append(userName);
+                let deleteButton = $(document.createElement('button'));
+                deleteButton.addClass('btn');
+                deleteButton.addClass('btn-danger');
+                deleteButton.attr('type', 'button');
+                deleteButton.html('Eliminar');
+                deleteButton.attr('onclick', 'deletePost("' + this.id + '")');
+                post.append(deleteButton);
+                let forgiveButton = $(document.createElement('button'));
+                forgiveButton.addClass('btn');
+                forgiveButton.addClass('btn-primary');
+                forgiveButton.attr('type', 'button');
+                forgiveButton.html('Perdonar');
+                forgiveButton.attr('onclick', 'forgivePost("' + this.id + '")');
+                post.append(forgiveButton);
+                $('article.posts').append(post);
+            });
+            $.each(data.found, function() {
+                let post = $(document.createElement('div'));
+                post.append('<h3>' + this.user_name + '</h3>');
+                post.append(';<img src="/static/images/' + this.foto + '">');
+                post.append('<p>' + this.created_at + '</p>');
+                $.each(this.comments, function() {
+                    post.append('<p>' + this + '</p>');
+                });
+                let deleteButton = $(document.createElement('button'));
+                deleteButton.addClass('btn');
+                deleteButton.addClass('btn-danger');
+                deleteButton.attr('type', 'button');
+                deleteButton.html('Eliminar');
+                deleteButton.attr('onclick', 'deletePost("' + this.id + '")');
+                post.append(deleteButton);
+                let forgiveButton = $(document.createElement('button'));
+                forgiveButton.addClass('btn');
+                forgiveButton.addClass('btn-primary');
+                forgiveButton.attr('type', 'button');
+                forgiveButton.html('Perdonar');
+                forgiveButton.attr('onclick', 'forgivePost("' + this.id + '")');
+                post.append(forgiveButton);
+                $('article.posts').append(post);
             });
         });
     }
