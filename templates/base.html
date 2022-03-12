@@ -116,10 +116,12 @@
                                 let adminReportButton = $(document.createElement('button'));
                                 adminReportButton.addClass('btn');
                                 adminReportButton.addClass('btn-dark');
-                                adminReportButton.attr('onclick', '"blockUser(' + uid + ')"');
+                                adminReportButton.html('Bloquear Usuario');
+                                adminReportButton.attr('onclick', 'blockUser(' + urlUid + ')');
                                 $('header#top').append(adminReportButton);
+                            } else {
+                                window.location.href = "https://encuentrame.org.xelar.tech";
                             }
-                            window.location.href = "https://encuentrame.org.xelar.tech";
                         }
                     } else {
                         window.location.href = "https://encuentrame.org.xelar.tech";
@@ -138,13 +140,18 @@
                 });
             }
 
-            window.blockUser = function(userId) {
-                const user = {id: userId};
-                fetch('https://encuentrame.org.xelar.tech/api/users/', {
+            window.blockUser = async function(userId) {
+                userId = JSON.stringify(userId);
+                const user = { id: userId };
+                const url = 'https://encuentrame.org.xelar.tech/api/users';
+                const response = await fetch(url, {
                     method: 'PUT',
+                    headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify(user)
                 })
                 .catch(err => console.log(err));
+                const data = await response.json();
+                return window.location.reload();
             }
 
             function sendCredentials() {
@@ -205,6 +212,16 @@
                         window.location.href = 'https://encuentrame.org.xelar.tech';
                     }
                 });
+            }
+
+            window.forgivePost = function(postId) {
+                url = 'https://encuentrame.org.xelar.tech/api/posts/' + postId;
+                fetch(url, {
+                    method: 'POST',
+                }).then(() => {
+                    window.location.reload();
+                })
+                .catch(err => console.log(err));
             }
 
             window.reportPost = function(postId) {
