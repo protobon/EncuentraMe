@@ -23,11 +23,11 @@ app.config['MYSQL_PASSWORD'] = 'password'
 app.config['MYSQL_DB'] = 'encuentraMe'
 app.url_map.strict_slashes = False
 app.config['MAIL_SERVER']='smtp.gmail.com'
-app.config['MAIL_PORT'] = 465
+app.config['MAIL_PORT'] = 587
 app.config['MAIL_USERNAME'] = 'encuentrame.reports@gmail.com'
 app.config['MAIL_PASSWORD'] = 'encuentrame'
-app.config['MAIL_USE_TLS'] = False
-app.config['MAIL_USE_SSL'] = True
+app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_USE_SSL'] = False
 
 mysql = MySQL(app)
 
@@ -206,7 +206,10 @@ def form_report(user_id, post_id):
             logfile("form_report(user_id, post_id) - in cursor.execute(INSERT INTO reports):\n" + str(e))
         mysql.connection.commit()
         cursor.close()
-        msg = Message('Hello from the other side!', sender =   'encuentrame.reports@gmail.com', recipients = ['aortizm.09@gmail.com'])
+        msg = Message('Hello from the other side!',
+                      sender = app.config['MAIL_USERNAME'],
+                      recipients = ['aortizm.09@gmail.com'])
+
         msg.body = "Testing"
         mail.send(msg)
         flash('Gracias por denunciar esta publicación, la revisaremos lo antes posible.', "success")
