@@ -218,7 +218,7 @@ def form_report(user_id, post_id):
         smtpserver.ehlo
         smtpserver.login(gmail_user, gmail_pwd)
         header = 'To:' + to + '\n' + 'From: ' + gmail_user + '\n' + 'Subject:New Report \n'
-        msg = header + '\n New report received from user: '+ user_id + 'on post: ' + post_id
+        msg = header + '\n New report received\nUser: '+ user_id + '\nPost: ' + post_id + '\nReport: ' + reporte + '\n Date: ' + created_at
         smtpserver.sendmail(gmail_user, to, msg)
         smtpserver.close()
         flash('Gracias por denunciar esta publicación, la revisaremos lo antes posible.', "success")
