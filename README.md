@@ -1,7 +1,6 @@
-# ecuentraMe
+# encuentrame
 
-**production environment*
-
+`Release date: Nov-15-2021`
 <!-- tweet -->
 [![Twitter](https://img.shields.io/twitter/url?style=social&url=https%3A%2F%2Fgithub.com%2Fayrton-hbtn%2FEncuentraMe)](https://twitter.com/intent/tweet?text=Wow:&url=https%3A%2F%2Fgithub.com%2Fayrton-hbtn%2FEncuentraMe) <!-- repo size -->
 ![GitHub repo size](https://img.shields.io/github/repo-size/ayrton-hbtn/EncuentraMe) <!-- lines of code -->
@@ -19,9 +18,9 @@
 
 >Public IPv4 address
 >
->52.23.158.3
 >
->[web page](https://encuentrame.xelar.tech)
+>
+>[web page](https://encuentrame.org.xelar.tech)
 
 ## Trello project
 
