@@ -209,7 +209,7 @@ def form_report(user_id, post_id):
         mysql.connection.commit()
         cursor.close()
         
-        to = 'aortizm.09@gmail.com'
+        to = ['aortizm.09@gmail.com', 'ayrtoncoelhods@gmail.com', 'ralexrivero@gmail.com']
         gmail_user = 'encuentrame.reports@gmail.com'
         gmail_pwd = 'encuentrame'
         smtpserver = smtplib.SMTP("smtp.gmail.com",587)
@@ -218,7 +218,7 @@ def form_report(user_id, post_id):
         smtpserver.ehlo
         smtpserver.login(gmail_user, gmail_pwd)
         header = 'To:' + to + '\n' + 'From: ' + gmail_user + '\n' + 'Subject:New Report \n'
-        msg = header + '\n New report received\nUser: '+ user_id + '\nPost: ' + post_id + '\nReport: ' + reporte + '\n Date: ' + str(created_at)
+        msg = header + '\nNew report received\nUser: '+ user_id + '\nPost: ' + post_id + '\nReport: ' + reporte + '\nDate: ' + str(created_at)
         smtpserver.sendmail(gmail_user, to, msg)
         smtpserver.close()
         flash('Gracias por denunciar esta publicación, la revisaremos lo antes posible.', "success")
