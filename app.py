@@ -203,8 +203,8 @@ def form_report(user_id, post_id):
         cursor.close()
         
         to = 'aortizm.09@gmail.com,ayrtoncoelhods@gmail.com,ralexrivero@gmail.com'
-        gmail_user = os.getenv('report_user')
-        gmail_pwd = os.getenv('report_pwd')
+        gmail_user = str(os.getenv('report_user'))
+        gmail_pwd = str(os.getenv('report_pwd'))
         smtpserver = smtplib.SMTP("smtp.gmail.com",587)
         smtpserver.ehlo()
         smtpserver.starttls()
