@@ -217,8 +217,8 @@ def form_report(user_id, post_id):
         smtpserver.starttls()
         smtpserver.ehlo
         smtpserver.login(gmail_user, gmail_pwd)
-        header = 'To:' + to + '\n' + 'From: ' + gmail_user + '\n' + 'Subject:testing \n'
-        msg = header + '\n this is test msg from mkyong.com \n\n'
+        header = 'To:' + to + '\n' + 'From: ' + gmail_user + '\n' + 'Subject:New Report \n'
+        msg = header + '\n New report received from user: '+ user_id + 'on post: ' + post_id
         smtpserver.sendmail(gmail_user, to, msg)
         smtpserver.close()
         flash('Gracias por denunciar esta publicación, la revisaremos lo antes posible.', "success")
