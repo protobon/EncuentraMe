@@ -8,6 +8,8 @@ from flask_mysqldb import MySQL
 from flask_mail import Mail, Message
 import MySQLdb
 import logging
+import smtplib
+
 
 
 UPLOAD_FOLDER = 'static/images'
@@ -22,7 +24,7 @@ app.config['MYSQL_USER'] = 'encuentrame'
 app.config['MYSQL_PASSWORD'] = 'password'
 app.config['MYSQL_DB'] = 'encuentraMe'
 app.url_map.strict_slashes = False
-app.config['MAIL_SERVER']= 'smtp.gmail.com'
+app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 587
 app.config['MAIL_USERNAME'] = 'encuentrame.reports@gmail.com'
 app.config['MAIL_PASSWORD'] = 'encuentrame'
@@ -206,12 +208,19 @@ def form_report(user_id, post_id):
             logfile("form_report(user_id, post_id) - in cursor.execute(INSERT INTO reports):\n" + str(e))
         mysql.connection.commit()
         cursor.close()
-        msg = Message('Hello from the other side!',
-                      sender = app.config['MAIL_USERNAME'],
-                      recipients = ['aortizm.09@gmail.com'])
-
-        msg.body = "Testing"
-        mail.send(msg)
+        
+        to = 'aortizm.09@gmail.com'
+        gmail_user = 'encuentrame.reports@gmail.com'
+        gmail_pwd = 'encuentrame'
+        smtpserver = smtplib.SMTP("smtp.gmail.com",587)
+        smtpserver.ehlo()
+        smtpserver.starttls()
+        smtpserver.ehlo
+        smtpserver.login(gmail_user, gmail_pwd)
+        header = 'To:' + to + '\n' + 'From: ' + gmail_user + '\n' + 'Subject:testing \n'
+        msg = header + '\n this is test msg from mkyong.com \n\n'
+        smtpserver.sendmail(gmail_user, to, msg)
+        smtpserver.close()
         flash('Gracias por denunciar esta publicación, la revisaremos lo antes posible.', "success")
         return redirect('/')
 
