@@ -22,8 +22,8 @@ app.config['MYSQL_USER'] = 'encuentrame'
 app.config['MYSQL_PASSWORD'] = 'password'
 app.config['MYSQL_DB'] = 'encuentraMe'
 app.url_map.strict_slashes = False
-gmail_user = os.getenv('report_user')
-gmail_pwd = os.getenv('report_pwd')
+gmail_user = os.getenv['report_user']
+gmail_pwd = os.getenv['report_pwd']
 print(gmail_pwd)
 print(type(gmail_pwd))
 print(gmail_user)
