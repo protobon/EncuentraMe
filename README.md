@@ -3,8 +3,10 @@
 **production environment*
 
 <!-- tweet -->
-[![Twitter](https://img.shields.io/twitter/url?style=social&url=https%3A%2F%2Fgithub.com%2Fralexrivero%2Fencuentrame.pet_ronald)](https://twitter.com/intent/tweet?text=Wow:&url=https%3A%2F%2Fgithub.com%2Fralexrivero%2Fencuentrame.pet_ronald) <!-- size -->
-![size](https://img.shields.io/github/repo-size/ralexrivero/encuentrame.prod)
+![Twitter URL](https://img.shields.io/twitter/url?style=social&url=https%3A%2F%2Fgithub.com%2Fayrton-hbtn%2FEncuentraMe)<!-- repo size -->
+![GitHub repo size](https://img.shields.io/github/repo-size/ayrton-hbtn/EncuentraMe) <!-- lines of code -->
+![Lines of code](https://img.shields.io/tokei/lines/github/ayrton-hbtn/EncuentraMe) <!-- code size -->
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/ayrton-hbtn/EncuentraMe)
 
 <!-- ascii art ansi -->
 ```bash
