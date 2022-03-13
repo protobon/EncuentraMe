@@ -243,22 +243,22 @@ def show_single_post(id):
 
 @app.route('/main_map')
 def new_map():
-    return render_template('main_map.html')    
+    return render_template('main_map.html')
 
 
 @app.route('/about')
 def about():
-    return render_template('about.html') 
+    return render_template('about.html')
 
 
 @app.route('/politica_de_privacidad')
 def politica():
-    return render_template('politica_de_privacidad.html') 
+    return render_template('politica_de_privacidad.html')
 
 
 @app.route('/landing')
 def landing_page():
-    return render_template('landing.html') 
+    return render_template('landing.html')
 
 
 @app.route('/profile/<user_id>')

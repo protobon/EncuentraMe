@@ -1,0 +1,59 @@
+#logo{
+    height:34px;
+}
+
+.bd-placeholder-img {
+font-size: 1.125rem;
+text-anchor: middle;
+-webkit-user-select: none;
+-moz-user-select: none;
+user-select: none;
+}
+
+@media (min-width: 768px) {
+.bd-placeholder-img-lg {
+    font-size: 3.5rem;
+}
+}
+
+#main_map {
+    height: 600px;
+
+}
+
+/************************/
+/* navbar */
+
+
+/***********************************************************************************************/
+/*  posts                                                                                     */
+/***********************************************************************************************/
+/* .pet {
+    width: 720px;
+    align-items: center;
+} */
+.pet a img{
+    width:100%;
+}
+
+.pet_lost, .pet_found{
+
+}
+
+.perro, .gato {
+
+}
+
+/********************/
+/* form validation */
+
+#post_map {
+    height: 400px;
+
+}
+
+#postLat, #postLng {
+    display: none;
+    visibility: hidden;
+}
+

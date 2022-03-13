@@ -1,1 +1,19 @@
-flask_mysqld
+blinker==1.4
+certifi==2021.10.8
+charset-normalizer==2.0.12
+click==8.0.4
+-e git+https://github.com/mobolic/facebook-sdk.git@3fa89fec6a20dd070ccf57968c6f89256f237f54#egg=facebook_sdk
+Flask==2.0.3
+Flask-Cors==3.0.10
+Flask-Mail==0.9.1
+Flask-MySQLdb==1.0.1
+gunicorn==20.1.0
+idna==3.3
+itsdangerous==2.1.0
+Jinja2==3.0.3
+MarkupSafe==2.1.0
+mysqlclient==2.1.0
+requests==2.27.1
+six==1.16.0
+urllib3==1.26.8
+Werkzeug==2.0.3
