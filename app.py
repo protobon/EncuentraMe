@@ -22,7 +22,8 @@ app.config['MYSQL_USER'] = 'encuentrame'
 app.config['MYSQL_PASSWORD'] = 'password'
 app.config['MYSQL_DB'] = 'encuentraMe'
 app.url_map.strict_slashes = False
-
+gmail_user = os.getenv('report_user')
+gmail_pwd = os.getenv('report_pwd')
 
 mysql = MySQL(app)
 
@@ -207,10 +208,10 @@ def form_report(user_id, post_id):
         smtpserver.ehlo()
         smtpserver.starttls()
         smtpserver.ehlo
-        smtpserver.login(os.getenv('report_user'), os.getenv('report_pwd'))
-        header = 'To:' + to + '\n' + 'From: ' + os.getenv('report_user') + '\n' + 'Subject:New Report \n'
+        smtpserver.login(gmail_user, gmail_pwd)
+        header = 'To:' + to + '\n' + 'From: ' + gmail_user + '\n' + 'Subject:New Report \n'
         msg = header + '\nNew report received\nUser: '+ user_id + '\nPost: ' + post_id + '\nReport: ' + reporte + '\nDate: ' + str(created_at)
-        smtpserver.sendmail(os.getenv('report_user'), to, msg)
+        smtpserver.sendmail(gmail_user, to, msg)
         smtpserver.close()
         flash('Gracias por denunciar esta publicación, la revisaremos lo antes posible.', "success")
         return redirect('/')
