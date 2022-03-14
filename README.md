@@ -1,6 +1,6 @@
 # encuentrame
 
-`Release date: Nov-15-2021`
+`Release date: Mar-23-2022`
 <!-- tweet -->
 [![Twitter](https://img.shields.io/twitter/url?style=social&url=https%3A%2F%2Fgithub.com%2Fayrton-hbtn%2FEncuentraMe)](https://twitter.com/intent/tweet?text=Wow:&url=https%3A%2F%2Fgithub.com%2Fayrton-hbtn%2FEncuentraMe) <!-- repo size -->
 ![GitHub repo size](https://img.shields.io/github/repo-size/ayrton-hbtn/EncuentraMe) <!-- lines of code -->
