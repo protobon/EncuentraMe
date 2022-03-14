@@ -26,9 +26,17 @@ user-select: none;
 /* navbar */
 
 .btn-user {
+    transition: ease-in-out 0.2s;
     background-color: #009874;
     border-color: #006948;
     color: #FFF;
+}
+
+.btn-user:hover {
+    transition: ease-in-out 0.2s;
+    background-color: #006948;
+    border-color: #FFF;
+    color: #009874;;
 }
 
 .dropstart::before {
