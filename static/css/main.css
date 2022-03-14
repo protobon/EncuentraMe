@@ -65,11 +65,8 @@ user-select: none;
 /* navbar */
 
 .navbar-links {
-    display: flex;
-    justify-content: space-between;
-    align-items: left;
     background-color: #009874;
-    color: #FFF;
+    color: #FFF !important;
 }
 
 
