@@ -222,7 +222,7 @@ def show_single_post(id):
         cursor.close()
         return redirect('/')
     try:
-        if post['estado'] != 'active':
+        if post['estado'] == 'removed':
             flash('No es posible acceder a esta publicación.', "info")
             return redirect('/')
         post['foto'] = os.path.join(UPLOAD_FOLDER, post['foto'])
