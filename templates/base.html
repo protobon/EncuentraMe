@@ -289,7 +289,8 @@
             <span class="navbar-toggler-icon"></span>
           </button>
           <a href="{{url_for('landing')}}" class="navbar-brand d-flex align-items-center">
-        <img id="logo" src="../static/img/logo_pos_trans.svg" alt="encuentrame"></a>
+            <img id="logo" src="{{ url_for('static', filename='img/logo_pos_trans.svg')}}" alt="encuentrame">
+    </a>
     <div class="dropstart text-end">
         <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
             <button type="button" class="btn btn-success">
