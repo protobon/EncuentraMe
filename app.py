@@ -437,6 +437,12 @@ def reported_posts():
     return jsonify(reports)
 
 
+""" only for test, will be deleted """
+@app.route('/layout')
+def layout():
+    return render_template('layout.html')
+
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0")
 else:
