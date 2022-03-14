@@ -16,9 +16,10 @@ user-select: none;
 }
 }
 
+/*******************/
+/* map */
 #main_map {
     height: 600px;
-
 }
 
 /************************/
@@ -36,13 +37,6 @@ user-select: none;
     width:100%;
 }
 
-.pet_lost, .pet_found{
-
-}
-
-.perro, .gato {
-
-}
 
 /********************/
 /* form validation */
@@ -57,3 +51,9 @@ user-select: none;
     visibility: hidden;
 }
 
+/*******************/
+/* filter */
+.py-5 {
+    padding-top: 1rem !important;
+    padding-bottom: 2rem !important;
+}
