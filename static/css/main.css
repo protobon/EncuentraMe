@@ -25,6 +25,15 @@ user-select: none;
 /************************/
 /* navbar */
 
+.btn-user {
+    background-color: #009874;
+    border-color: #006948;
+    color: #FFF;
+}
+
+.dropstart::before {
+    color: #006948;
+}
 
 /***********************************************************************************************/
 /*  posts                                                                                     */
