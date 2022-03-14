@@ -7,6 +7,8 @@
     }
     .mapa {
         background-color: blue;
+        border: 1px solid black;
+        border-radius: 4px;
     }
     .landing-intro {
         background-color: green;
@@ -18,32 +20,36 @@
         border-radius: 4px;
     }
 
+.individual {
+    background-color: yellow;
+    border: 1px solid black;
+    border-radius: 4px;
+}
+
+.mapa-imagen {
+    width: 100%;
+}
 </style>
 {% endblock %}
 
 {% block body %}
-<div class="container">
-    <div class="row g-2">
-        <div class="col-md-8 publicaciones"><!-- publicaciones -->
-            <div class="row g-2">
-                <div class="animal col-md-6 p-3">
-                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Porro, earum dolores tenetur recusandae dolor id aliquid accusantium harum, ut corrupti ea omnis natus hic distinctio, similique a? Sequi, saepe fugit?</p>
+<div class="container-lg">
+    <div class="row">
+        <div class="animal col-md-8">
+            <div class="row">
+                <div class="individual col-md-6">
+                    <h1>Foto</h1>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. At incidunt molestiae, dolore aut nemo quod dolorem rem quia ex iste accusantium hic natus assumenda enim tenetur qui laborum porro! Commodi.</p>
                 </div>
-                <div class="animal col-md-6 p-3">
-                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Porro, earum dolores tenetur recusandae dolor id aliquid accusantium harum, ut corrupti ea omnis natus hic distinctio, similique a? Sequi, saepe fugit?</p>
+                <div class="individual col-md-6">
+                    <h1>Foto</h1>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. At incidunt molestiae, dolore aut nemo quod dolorem rem quia ex iste accusantium hic natus assumenda enim tenetur qui laborum porro! Commodi.</p>
                 </div>
-                <div class="animal col-md-6 p-3">
-                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Porro, earum dolores tenetur recusandae dolor id aliquid accusantium harum, ut corrupti ea omnis natus hic distinctio, similique a? Sequi, saepe fugit?</p>
-                </div>
-                <div class="animal col-md-6 p-3">
-                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Porro, earum dolores tenetur recusandae dolor id aliquid accusantium harum, ut corrupti ea omnis natus hic distinctio, similique a? Sequi, saepe fugit?</p>
-                </div>
+            </div>
         </div>
-        </div><!-- publicaciones -->
-        <div class="col-md-4 mapa"><!-- mapa -->
-            <p>mapa</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. At explicabo odio dolores aspernatur expedita atque, iure saepe magnam veritatis quibusdam ducimus modi itaque amet vel, sequi totam rem? Suscipit, inventore.</p>
-        </div><!-- mapa -->
+        <div class="mapa col-md-4">
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias ratione rem, quis modi tempore cupiditate sit fuga corporis, earum eos aliquam ipsam quaerat dolorum consequatur suscipit, et magni architecto reiciendis.</p>
+        </div>
     </div>
 </div>
 {% endblock %}
