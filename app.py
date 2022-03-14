@@ -22,12 +22,8 @@ app.config['MYSQL_USER'] = 'encuentrame'
 app.config['MYSQL_PASSWORD'] = 'password'
 app.config['MYSQL_DB'] = 'encuentraMe'
 app.url_map.strict_slashes = False
-gmail_user = os.getenv['report_user']
-gmail_pwd = os.getenv['report_pwd']
-print(gmail_pwd)
-print(type(gmail_pwd))
-print(gmail_user)
-print(type(gmail_user))
+gmail_user = 'encuentrame.reports@gmail.com'
+gmail_pwd = 'encuentrame'
 mysql = MySQL(app)
 
 
@@ -208,7 +204,7 @@ def form_report(user_id, post_id):
         mysql.connection.commit()
         cursor.close()
         
-        to = 'aortizm.09@gmail.com,ayrtoncoelhods@gmail.com,ralexrivero@gmail.com'
+        to = 'aortizm.09@gmail.com, ayrtoncoelhods@gmail.com, ralexrivero@gmail.com'
         smtpserver = smtplib.SMTP("smtp.gmail.com",587)
         smtpserver.ehlo()
         smtpserver.starttls()
