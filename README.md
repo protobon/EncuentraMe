@@ -1,12 +1,5 @@
 # encuentrame
 
-`Release date: Mar-23-2022`
-<!-- tweet -->
-[![Twitter](https://img.shields.io/twitter/url?style=social&url=https%3A%2F%2Fgithub.com%2Fayrton-hbtn%2FEncuentraMe)](https://twitter.com/intent/tweet?text=Wow:&url=https%3A%2F%2Fgithub.com%2Fayrton-hbtn%2FEncuentraMe) <!-- repo size -->
-![GitHub repo size](https://img.shields.io/github/repo-size/ayrton-hbtn/EncuentraMe) <!-- lines of code -->
-![Lines of code](https://img.shields.io/tokei/lines/github/ayrton-hbtn/EncuentraMe) <!-- code size -->
-![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/ayrton-hbtn/EncuentraMe)
-
 <!-- ascii art ansi -->
 ```bash
 ███████ ███    ██  ██████ ██    ██ ███████ ███    ██ ████████ ██████   █████  ███    ███ ███████ 
@@ -16,75 +9,77 @@
 ███████ ██   ████  ██████  ██████  ███████ ██   ████    ██    ██   ██ ██   ██ ██      ██ ███████ 
 ```
 
->Public IPv4 address
->
->
->
->[web page](https://encuentrame.org.xelar.tech)
+`Release date: Mar-23-2022`
+<!-- tweet -->
+[![Twitter](https://img.shields.io/twitter/url?style=social&url=https%3A%2F%2Fgithub.com%2Fayrton-hbtn%2FEncuentraMe)](https://twitter.com/intent/tweet?text=Wow:&url=https%3A%2F%2Fgithub.com%2Fayrton-hbtn%2FEncuentraMe) <!-- repo size -->
+![GitHub repo size](https://img.shields.io/github/repo-size/ayrton-hbtn/EncuentraMe) <!-- lines of code -->
+![Lines of code](https://img.shields.io/tokei/lines/github/ayrton-hbtn/EncuentraMe) <!-- code size -->
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/ayrton-hbtn/EncuentraMe)
+
+>[visit website](https://encuentrame.org.xelar.tech)
 
 ## Trello project
 
 [![Portfolio Project](https://img.shields.io/static/v1?label=&message=Project%20Portfolio&color=2F333A&logo=Trello&labelColor=0052CC)](https://trello.com/b/iS9gBOQm/portfolio-project)
 
 <!-- homehero -->
+![HomeHero](/static/img/encuentrame_home_hero.svg)
 
-## General
+## General overview
 
-## Environment
+### Environment
 
 > A Ubuntu Server running over AWS EC2 with LEMP stack
+[![Bash](https://img.shields.io/static/v1?label=&message=GNU%20Bash&color=4EAA25&logo=GNU%20Bash&logoColor=4EAA25&labelColor=2F333A)](https://www.gnu.org/software/bash/)<!-- bash -->
+[![Vim](https://img.shields.io/static/v1?label=&message=Vim&color=019733&logo=Vim&logoColor=019733&labelColor=2F333A)](https://www.vim.org/)<!-- vim -->
+[![VS Code](https://img.shields.io/static/v1?label=&message=Visual%20Studio%20Code&color=007ACC&logo=Visual%20Studio%20Code&logoColor=007ACC&labelColor=2F333A)](https://code.visualstudio.com/)<!-- vs code -->
+[![Pycharm](https://img.shields.io/static/v1?label=&message=Pycharm&color=000000&logo=pycharm&logoColor=000000&labelColor=f3f3f3)](https://www.jetbrains.com/pycharm/)<!-- pycharm -->
 
-<!-- ubuntu -->
-[![Ubuntu](https://img.shields.io/static/v1?label=&message=Ubuntu&color=E95420&logo=Ubuntu&logoColor=E95420&labelColor=2F333A)](https://ubuntu.com/) <!-- kali linux -->
-[![Ubuntu](https://img.shields.io/static/v1?label=&message=Kali%20Linux&color=557C94&logo=Kali%20Linux&logoColor=557C94&labelColor=2F333A)](https://www.kali.org/) <!-- vagrant-->
-[![Vagrant](https://img.shields.io/static/v1?label=&message=Vagrant&color=1868F2&logo=vagrant&labelColor=2F333A)](https://app.vagrantup.com/)
-<!-- bash -->
-[![Bash](https://img.shields.io/static/v1?label=&message=GNU%20Bash&color=4EAA25&logo=GNU%20Bash&logoColor=4EAA25&labelColor=2F333A)](https://www.gnu.org/software/bash/)
-<!-- vim -->
-[![Vim](https://img.shields.io/static/v1?label=&message=Vim&color=019733&logo=Vim&logoColor=019733&labelColor=2F333A)](https://www.vim.org/) <!-- vs code -->
-[![VS Code](https://img.shields.io/static/v1?label=&message=Visual%20Studio%20Code&color=007ACC&logo=Visual%20Studio%20Code&logoColor=007ACC&labelColor=2F333A)](https://code.visualstudio.com/) <!-- pycharm -->
-[![Pycharm](https://img.shields.io/static/v1?label=&message=Pycharm&color=000000&logo=pycharm&logoColor=000000&labelColor=f3f3f3)](https://www.jetbrains.com/pycharm/)
-
-### languages
-
-<!-- python-->
-[![Python](https://img.shields.io/static/v1?label=&message=Python&color=FFD43B&logo=python&logoColor=3776AB&labelColor=2F333A)](https://www.python.org) <!--HTML5-->
-[![HTML5](https://img.shields.io/static/v1?label=&message=HTML5&color=E34F26&logo=HTML5&logoColor=E34F26&labelColor=2F333A)](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5) <!-- CSS3 -->
-[![CSS3](https://img.shields.io/static/v1?label=&message=CSS3&color=0071B5&logo=CSS3&logoColor=1572B6&labelColor=2F333A)](https://developer.mozilla.org/en-US/docs/Web/CSS) <!-- JS -->
-[![JS](https://img.shields.io/static/v1?label=&message=JavaScript&color=D4B830&logo=JavaScript&logoColor=F7DF1E&labelColor=2F333A)](https://www.javascript.com) <!-- sql -->
-[![SQL](https://img.shields.io/static/v1?label=SQL&message=SQL&color=4479A1&logo=SQL&logoColor=4479A1&labelColor=E8E8E8)](https://www.w3schools.com/sql/)
-
-## frameworks
-
-## database
-
-<!-- mysql -->
-[![MySQL](https://img.shields.io/static/v1?label=&message=MySQL&color=4479A1&logo=MySQL&logoColor=4479A1&labelColor=F5F5F5)](https://www.mysql.com/)
-
-## technologies
-
+### cloud
 <!-- AWS -->
 [![AWS](https://img.shields.io/static/v1?label=&message=Amazon%20AWS&color=232F3E&logo=Amazon%20AWS&logoColor=232F3E&labelColor=F5F5F5)](https://aws.amazon.com/)
 
-## apis
+### server stack
+
+[![Ubuntu](https://img.shields.io/static/v1?label=&message=Ubuntu&color=E95420&logo=Ubuntu&logoColor=E95420&labelColor=2F333A)](https://ubuntu.com/)<!-- ubuntu -->
+[![Gunicorn](https://img.shields.io/static/v1?label=&message=Gunicorn&color=499848&logo=Gunicorn&logoColor=499848&labelColor=2F333A)](https://gunicorn.org/)<!-- gunicorn -->
+[![Flask](https://img.shields.io/static/v1?label=&message=Flask&color=000000&logo=Flask&logoColor=ffffff&labelColor=2F333A)](https://flask.palletsprojects.com/)<!-- flask   -->
+[![Jija](https://img.shields.io/static/v1?label=&message=Jinja&color=B41717&logo=jinja&logoColor=B41717&labelColor=2F333A)](https://jinja.palletsprojects.com/)<!-- jinja -->
+[![Nginx](https://img.shields.io/static/v1?label=&message=NGINX&color=009639&logo=NGINX&logoColor=009639&labelColor=2F333A)](https://nginx.org/)<!-- nginx -->
+
+### database
+<!-- mysql -->
+[![MySQL](https://img.shields.io/static/v1?label=&message=MySQL&color=4479A1&logo=MySQL&logoColor=4479A1&labelColor=F5F5F5)](https://www.mysql.com/)
+
+### languages
+[![Python](https://img.shields.io/static/v1?label=&message=Python&color=FFD43B&logo=python&logoColor=3776AB&labelColor=2F333A)](https://www.python.org)<!-- python-->
+[![SQL](https://img.shields.io/static/v1?label=SQL&message=SQL&color=4479A1&logo=SQL&logoColor=4479A1&labelColor=E8E8E8)](https://www.w3schools.com/sql/)<!-- sql -->
+[![HTML5](https://img.shields.io/static/v1?label=&message=HTML5&color=E34F26&logo=HTML5&logoColor=E34F26&labelColor=2F333A)](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5)<!--HTML5-->
+[![CSS3](https://img.shields.io/static/v1?label=&message=CSS3&color=0071B5&logo=CSS3&logoColor=1572B6&labelColor=2F333A)](https://developer.mozilla.org/en-US/docs/Web/CSS)<!-- CSS3 -->
+[![JS](https://img.shields.io/static/v1?label=&message=JavaScript&color=D4B830&logo=JavaScript&logoColor=F7DF1E&labelColor=2F333A)](https://www.javascript.com)<!-- JS -->
+
+### apis
 
 * Facebook: ``facebook api``
 * Google: ``google maps api``
 
-## style guideliness
+### css framework
+<!-- bootstrap -->
+[![Bootstrap](https://img.shields.io/static/v1?label=&message=Bootstrap&color=7952B3&logo=Bootstrap&logoColor=7952B3&labelColor=2F333A)](https://getbootstrap.com/)
 
+### style guideliness
 <!-- semistandard -->
-[![Semi-Standard](https://raw.githubusercontent.com/standard/semistandard/master/badge.svg)](https://github.com/standard/semistandard)
 <!-- w3 validator -->
-<!-- Betty style -->
 <!-- pep8 -->
 <!-- pycodestyle -->
 <!-- shellcheck -->
 
-## Testing
+<!-- web stack arquitecture -->
+## Web arquitecture
 
-* unit testing: ``unitest``
+![web stack](/static/img/web_arquitecture.svg)
 
+<!-- Introducing the cloud computing -->
 ## Cloud computing
 
 Cloud based deployment: Run all parts of the application in the cloud
@@ -101,6 +96,11 @@ EC2 instance.
 * ufw
 * nginx
 * mysql
+
+>Public IPv4 address
+>
+>
+>
 
 ### ssh to the instance
 
