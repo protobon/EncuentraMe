@@ -88,5 +88,13 @@ posts {
 
 .footer {
     background-color: #F5F5F6;
-
 }
+
+.SocialMedia ul li i{
+    color: #006F98;
+}
+
+.u-flowText ul li i{
+    font-size: 1.5rem;
+}
+
