@@ -204,7 +204,7 @@ def form_report(user_id, post_id):
         mysql.connection.commit()
         cursor.close()
         
-        to = 'aortizm.09@gmail.com, ayrtoncoelhods@gmail.com, ralexrivero@gmail.com'
+        to = 'ayrtoncoelhods@gmail.com, ralexrivero@gmail.com, aortizm.09@gmail.com'
         smtpserver = smtplib.SMTP("smtp.gmail.com",587)
         smtpserver.ehlo()
         smtpserver.starttls()
