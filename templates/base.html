@@ -11,6 +11,16 @@
     <meta name="googlebot" content="index, follow">
     <meta name="google" content="notranslate">
 
+    {% if request.path == '/post_by_id.html' %}
+            <!-- if post-id use this og-->
+    <meta property="og:url"           content="https://encuentrame.org.xelar.tech/{{ post['id'] }}" />
+    <meta property="og:type"          content="article" />
+    <meta property="og:title"         content="EncuentraMe" />
+    <meta property="og:description"   content="¡Ayúdame a encontrar a mi humano! Ingresa al link para más información" />
+    <meta property="og:image"         content="https://encuentrame.org.xelar.tech/{{ post['foto'] }}" />
+    {% else %}
+            <!-- generic og -->
+
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:description" content="Si perdiste tu mascota o encontraste una en situacion de calle publica ahora mismo su foto y ubicacion." />
     <meta name="twitter:image" content="https://encuentrame.org.xelar.tech/static/img/og/share_tw_01.jpg" />
@@ -25,6 +35,7 @@
     <meta property="og:type" content="website">
     <meta property="og:locale" content="es_LA">
     <meta property="fb:app_id" content="1633098193720369">
+    {% endif %}
 
     <title>encuentrame</title>
 
