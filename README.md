@@ -1,29 +1,18 @@
 # encuentrame
-
-<!-- ascii art ansi -->
-```bash
-███████ ███    ██  ██████ ██    ██ ███████ ███    ██ ████████ ██████   █████  ███    ███ ███████ 
-██      ████   ██ ██      ██    ██ ██      ████   ██    ██    ██   ██ ██   ██ ████  ████ ██      
-█████   ██ ██  ██ ██      ██    ██ █████   ██ ██  ██    ██    ██████  ███████ ██ ████ ██ █████ 
-██      ██  ██ ██ ██      ██    ██ ██      ██  ██ ██    ██    ██   ██ ██   ██ ██  ██  ██ ██    
-███████ ██   ████  ██████  ██████  ███████ ██   ████    ██    ██   ██ ██   ██ ██      ██ ███████ 
-```
-
-`Release date: Mar-23-2022`
 <!-- tweet -->
 [![Twitter](https://img.shields.io/twitter/url?style=social&url=https%3A%2F%2Fgithub.com%2Fayrton-hbtn%2FEncuentraMe)](https://twitter.com/intent/tweet?text=Wow:&url=https%3A%2F%2Fgithub.com%2Fayrton-hbtn%2FEncuentraMe) <!-- repo size -->
 ![GitHub repo size](https://img.shields.io/github/repo-size/ayrton-hbtn/EncuentraMe) <!-- lines of code -->
 ![Lines of code](https://img.shields.io/tokei/lines/github/ayrton-hbtn/EncuentraMe) <!-- code size -->
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/ayrton-hbtn/EncuentraMe)
+<!-- homehero -->
+![HomeHero](/static/img/encuentrame_home_hero.svg)
+`Release date: Mar-23-2022`
 
 >[visit website](https://encuentrame.org.xelar.tech)
 
 ## Trello project
 
 [![Portfolio Project](https://img.shields.io/static/v1?label=&message=Project%20Portfolio&color=2F333A&logo=Trello&labelColor=0052CC)](https://trello.com/b/iS9gBOQm/portfolio-project)
-
-<!-- homehero -->
-![HomeHero](/static/img/encuentrame_home_hero.svg)
 
 ## General overview
 
