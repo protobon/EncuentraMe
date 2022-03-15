@@ -64,9 +64,6 @@
                     xfbml      : true,
                     version    : 'v13.0',
                 });
-                FB.Event.subscribe("auth.login", function(response) {
-                    window.location.reload();
-                });
 
                 FB.getLoginStatus(function(response) {
                     statusChangeCallback(response);
