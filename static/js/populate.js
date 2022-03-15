@@ -52,21 +52,28 @@ $(document).ready(function () {
                 postLostNew.append(reportButton);
                 $('div.posts').append(individualPost);
             });
+
+
+
+
             $.each(data.found, function () {
                 this.created_at = new Date(this.created_at).toLocaleString('es-UY');
                 let postFoundNew = $(document.createElement('div'));/*1*/
-                postFoundNew.addClass('card');
+                postFoundNew.addClass('row justify-content-around g-2');
                 postFoundNew.addClass('pet');
                 postFoundNew.addClass('pet_found');
                 postFoundNew.addClass(this.mascota);
+                let individualPost = $(document.createElement('div'));
+                individualPost.addClass('individual col-sm-12 col-md-6 col-lg-6 col-xl-4 p-3');
+
                 let cardImg = $(document.createElement('div'));
                 cardImg.addClass('user'); /*2*/
                 cardImg.addClass('card-img-top');/*2*/
                 cardImg.append('<a href="/' + this.id + '"></a>');/*3*/
-                cardImg.find('a').append('<img class="card-img-top" src="/static/images/' + this.foto + '">');/*4*/
+                cardImg.find('a').append('<img class="img-fluid" src="/static/images/' + this.foto + '">');/*4*/
                 let cardBody = $(document.createElement('div'));/*5*/
                 cardBody.addClass('card-body');/*5*/
-                cardBody.append('<h5 class="card-title">' + this.nombre +' perdido/a!</h5>');/*6*/
+                cardBody.append('<h5 class="card-title">' + this.nombre +' encontrado/a!</h5>');/*6*/
                 cardBody.append('<p class="card-text">Fecha de publicación: ' + this.created_at +'</p">');/*7*/
                 cardBody.append('<p class="card-text">Se encontró el día ' + this.fecha + ' por barrio '
                 + this.barrio + ' en las inmediaciones de ' + this.calle_1 +
@@ -81,9 +88,11 @@ $(document).ready(function () {
                 reportButton.addClass('btn-link');
                 reportButton.addClass('btn-sm');
                 reportButton.attr('onclick', 'reportPost("' + this.id + '")');
+                individualPost.append(postFoundNew);
                 postFoundNew.append(cardImg);
                 postFoundNew.append(cardBody);
-                $('div.posts').append(postFoundNew);
+                postFoundNew.append(reportButton);
+                $('div.posts').append(individualPost);
             });
         });
     }
