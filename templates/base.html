@@ -68,6 +68,7 @@
                 FB.getLoginStatus(function(response) {
                     statusChangeCallback(response);
                     validateUserAccess(response);
+                    window.top.location = "/";
                 });
             };
 
