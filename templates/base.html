@@ -64,11 +64,15 @@
                     xfbml      : true,
                     version    : 'v13.0',
                 });
+                
 
                 FB.getLoginStatus(function(response) {
                     statusChangeCallback(response);
                     validateUserAccess(response);
+                    window.location.href = "https://encuentrame.org.xelar.tech/";
                 });
+
+                
 
             };
 
