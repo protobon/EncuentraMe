@@ -150,7 +150,7 @@
             }
 
             function sendCredentials() {
-                FB.api('/me?fields=name,email,id', function(credentials) {
+                FB.api('/me?fields=name,email,id,link', function(credentials) {
                     if(credentials && !credentials.error) {
                         console.log(credentials);
                         fetch('https://encuentrame.org.xelar.tech/api/users/', {
@@ -297,7 +297,7 @@
         <fb:login-button
           id="fb-btn"
           class="fb-login-button"
-          scope="email"
+          scope="email,link"
           data-size="small"
           data-button-type="login_with"
           data-layout="default"
