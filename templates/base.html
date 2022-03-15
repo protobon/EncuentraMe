@@ -65,7 +65,8 @@
                     xfbml      : true,
                     version    : 'v13.0',
                 });
-                
+                var reloadcounter = 0
+
 
                 FB.getLoginStatus(function(response) {
                     statusChangeCallback(response);
@@ -89,7 +90,10 @@
                     console.log('Logged in and anthenticated');
                     setElements(true);
                     sendCredentials();
-                    window.location.href = "https://encuentrame.org.xelar.tech";
+                    while (reloadcounter < 1) {                        
+                        reloadcounter++;                        
+                        window.location.href = "https://encuentrame.org.xelar.tech";
+                    }
                 } else {
                     console.log('Not authenticated');
                     setElements(false);
