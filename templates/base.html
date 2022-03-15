@@ -64,6 +64,9 @@
                     xfbml      : true,
                     version    : 'v13.0',
                 });
+                FB.Event.subscribe("auth.login", function(response) {
+                    window.location.reload();
+                });
 
                 FB.getLoginStatus(function(response) {
                     statusChangeCallback(response);
@@ -94,6 +97,9 @@
             function checkLoginState() {
                 FB.getLoginStatus(function(response) {
                     statusChangeCallback(response);
+                    if (statusChangeCallback(response) {
+
+                    })
                 });
             }
 
@@ -260,11 +266,6 @@
                     });
                 });
             };
-            FB.login(function(response) {
-                if (response.authResponse) {
-                    window.top.location = "http://www.Yourpageurl.com";
-                }
-            });  
         });
     </script>
 
@@ -303,7 +304,7 @@
           <li><button class="dropdown-item btn btn-danger btn-small" id="btn-logout" onclick="logout()">Logout</button></li>
         </ul>
       </div>
-      <div class="fb-login-button" id="fb-btn" data-width="" data-size="small" data-button-type="login_with" data-layout="default" data-auto-logout-link="false" data-use-continue-as="false" scope="public_profile,email" onlogin="refresh();"></div>
+      <div class="fb-login-button" id="fb-btn" data-width="" data-size="small" data-button-type="login_with" data-layout="default" data-auto-logout-link="false" data-use-continue-as="false" scope="public_profile,email" onlogin="checkLoginState();refresh();"></div>
 
         </div>
       </nav> <!-- navbar-->
