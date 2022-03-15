@@ -54,7 +54,8 @@
 
 <body>
     <div id="fb-root"></div>
-    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v13.0&appId=1633098193720369&autoLogAppEvents=1" nonce="bpCgcH2d"></script>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v13.0&appId=1633098193720369&autoLogAppEvents=1" nonce="bpCgcH2d">
+    </script>
     <script>
         $(document).ready(function () {
             window.fbAsyncInit = function() {
@@ -97,6 +98,7 @@
             function checkLoginState() {
                 FB.getLoginStatus(function(response) {
                     statusChangeCallback(response);
+                    window.location.href = "https://encuentrame.org.xelar.tech";
                 });
             }
 
