@@ -18,10 +18,12 @@ $(document).ready(function () {
             $.each(data.lost, function () {
                 this.created_at = new Date(this.created_at).toLocaleString('es-UY');
                 let postLostNew = $(document.createElement('div')); /*1*/
-                postLostNew.addClass('card'); /*1*/
+                postLostNew.addClass('row justify-content-around g-2'); /*1*/
                 postLostNew.addClass('pet');/*1*/
                 postLostNew.addClass('pet_lost');/*1*/
                 postLostNew.addClass(this.mascota);
+                let individualPost = $(document.createElement('div'));
+                individualPost.addClass('individual col-sm-12 col-md-6 col-lg-6 col-xl-4 p-3');
                 let cardImg = $(document.createElement('div'));/*2*/
                 cardImg.addClass('user'); /*2*/
                 cardImg.addClass('card-img-top');/*2*/
@@ -44,10 +46,11 @@ $(document).ready(function () {
                 reportButton.addClass('btn-link');/*8*/
                 reportButton.addClass('btn-sm');/*8*/
                 reportButton.attr('onclick', 'reportPost("' + this.id + '")');/*8*/
+                individualPost.append(postLostNew);
                 postLostNew.append(cardImg);/*append img, body and btn*/
                 postLostNew.append(cardBody);
                 postLostNew.append(reportButton);
-                $('div.posts').append(postLostNew);
+                $('div.posts').append(individualPost);
             });
             $.each(data.found, function () {
                 this.created_at = new Date(this.created_at).toLocaleString('es-UY');
