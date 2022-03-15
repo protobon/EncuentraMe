@@ -17,34 +17,34 @@ $(document).ready(function () {
             $('#todos').prop('checked', true);
             $.each(data.lost, function () {
                 this.created_at = new Date(this.created_at).toLocaleString('es-UY');
-                let postLostNew = $(document.createElement('div'));
-                postLostNew.addClass('card');
-                postLostNew.addClass('pet');
-                postLostNew.addClass('pet_lost');
+                let postLostNew = $(document.createElement('div')); /*1*/
+                postLostNew.addClass('card'); /*1*/
+                postLostNew.addClass('pet');/*1*/
+                postLostNew.addClass('pet_lost');/*1*/
                 postLostNew.addClass(this.mascota);
-                let userInfo = $(document.createElement('div'));
-                userInfo.addClass('user'); /**/
-                userInfo.addClass('card-img-top');
-                userInfo.append('<a href="/' + this.id + '"></a>');
-                postLostNew.find('a').append('<img class="card-img-top" src="/static/images/' + this.foto + '">');
-                let cardBody = $(document.createElement('div'));
-                cardBody.addClass('card-body');
-                cardBody.append('<h5 class="card-title">' + this.nombre +' perdido/a!</h5>');
-                cardBody.append('<p class="card-text">Fecha de publicación: ' + this.created_at +'</p">');
+                let cardImg = $(document.createElement('div'));/*2*/
+                cardImg.addClass('user'); /*2*/
+                cardImg.addClass('card-img-top');/*2*/
+                cardImg.append('<a href="/' + this.id + '"></a>');/*3*/
+                postLostNew.find('a').append('<img class="card-img-top" src="/static/images/' + this.foto + '">');/*4*/
+                let cardBody = $(document.createElement('div'));/*5*/
+                cardBody.addClass('card-body');/*5*/
+                cardBody.append('<h5 class="card-title">' + this.nombre +' perdido/a!</h5>');/*6*/
+                cardBody.append('<p class="card-text">Fecha de publicación: ' + this.created_at +'</p">');/*7*/
                 cardBody.append('<p class="card-text">¡Se busca a ' + this.nombre + '! Perdido/a desde el día '
                 + this.fecha + ' última vez visto en las inmediaciones de ' + this.calle_1 +
                 ' y ' + this.calle_2 + ' barrio ' + this.barrio + ' a las ' + this.hora + ' horas.\n'
-                + 'Si lo viste por favor comunícate con ' + this.user_name + '.</p class="card-text">');
+                + 'Si lo viste por favor comunícate con ' + this.user_name + '.</p class="card-text">');/*7*/
                 if (this.phone) {
                     postLostNew.append('<p class="card-text">Teléfono: ' + this.phone + '</p class="card-text">');
-                }
-                let reportButton = $(document.createElement('button'));
+                }/*7*/
+                let reportButton = $(document.createElement('button'));/*8*/
                 reportButton.html('Denunciar publicación');
-                reportButton.addClass('btn');
-                reportButton.addClass('btn-link');
-                reportButton.addClass('btn-sm');
-                reportButton.attr('onclick', 'reportPost("' + this.id + '")');
-                postLostNew.append(userInfo);
+                reportButton.addClass('btn');/*8*/
+                reportButton.addClass('btn-link');/*8*/
+                reportButton.addClass('btn-sm');/*8*/
+                reportButton.attr('onclick', 'reportPost("' + this.id + '")');/*8*/
+                postLostNew.append(cardImg);/*append img, body and btn*/
                 postLostNew.append(cardBody);
                 postLostNew.append(reportButton);
                 $('div.posts').append(postLostNew);
