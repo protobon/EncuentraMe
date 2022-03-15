@@ -44,16 +44,29 @@
     </div>
 </div>
 
+<div class="card text-center"><!-- navigation -->
+    <div class="card-header">
+      <ul class="nav nav-tabs card-header-tabs">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="true" href="#">Publicaciones</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Mapa</a>
+        </li>
+      </ul>
+    </div>
+  </div><!-- navigation -->
+
 <div class="container-md justify-content-center overflow-hidden">
     <div class="row">
-        <div class="col-md-8"><!-- feed -->
+        <div class="animal col-md-12 col-lg-8 col-xl-9"><!-- feed -->
             <div class="row justify-content-around g-2">
-                <div class="posts col-sm-10 col-md-6 col-xxl-4 p-3">
-                </div>
+                <div class="posts individual col-sm-12 col-md-6 col-lg-6 col-xl-4 p-3"><!-- inidvidual post -->
+                </div><!-- inidvidual post -->
                 </div> <!-- feed -->
         </div>
-        <div class="col-md-4">
-            <div id="main_map">
+        <div class="mapa col-md-12 col-lg-4 col-xl-3">
+            <div id="main_map img-fluid">
                 <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
                   <script
                     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBqNj3BPTdCSu9fTtAlj4LSLD5FAidsa7M&callback=initMap&v=weekly"
