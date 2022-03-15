@@ -23,14 +23,15 @@ $(document).ready(function () {
                 postLostNew.addClass('pet_lost');
                 postLostNew.addClass(this.mascota);
                 let userInfo = $(document.createElement('div'));
-                userInfo.addClass('user');
-                userInfo.addClass('card-body');
-                postLostNew.append('<a href="/' + this.id + '"></a>');
+                userInfo.addClass('user'); /**/
+                userInfo.addClass('card-img-top');
+                userInfo.append('<a href="/' + this.id + '"></a>');
                 postLostNew.find('a').append('<img class="card-img-top" src="/static/images/' + this.foto + '">');
-                userInfo.append('<h5 class="card-title">' + this.nombre +' perdido/a!</h5>');
-                userInfo.append('<p class="card-text">Fecha de publicación: ' + this.created_at +'</p class="card-text">');
-                postLostNew.append(userInfo);
-                postLostNew.append('<p class="card-text">¡Se busca a ' + this.nombre + '! Perdido/a desde el día '
+                let cardBody = $(document.createElement('div'));
+                cardBody.addClass('card-body');
+                cardBody.append('<h5 class="card-title">' + this.nombre +' perdido/a!</h5>');
+                cardBody.append('<p class="card-text">Fecha de publicación: ' + this.created_at +'</p">');
+                cardBody.append('<p class="card-text">¡Se busca a ' + this.nombre + '! Perdido/a desde el día '
                 + this.fecha + ' última vez visto en las inmediaciones de ' + this.calle_1 +
                 ' y ' + this.calle_2 + ' barrio ' + this.barrio + ' a las ' + this.hora + ' horas.\n'
                 + 'Si lo viste por favor comunícate con ' + this.user_name + '.</p class="card-text">');
@@ -43,6 +44,8 @@ $(document).ready(function () {
                 reportButton.addClass('btn-link');
                 reportButton.addClass('btn-sm');
                 reportButton.attr('onclick', 'reportPost("' + this.id + '")');
+                postLostNew.append(userInfo);
+                postLostNew.append(cardBody);
                 postLostNew.append(reportButton);
                 $('div.posts').append(postLostNew);
             });
