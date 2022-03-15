@@ -65,7 +65,6 @@
                     xfbml      : true,
                     version    : 'v13.0',
                 });
-                var reloadcounter = 0
 
 
                 FB.getLoginStatus(function(response) {
@@ -104,10 +103,6 @@
                 FB.getLoginStatus(function(response) {
                     statusChangeCallback(response);
                 });
-            }
-
-            function reload() {
-                console.log("TESTING");
             }
 
             window.validateUserAccess = function(response) {
@@ -307,8 +302,11 @@
           <li><button class="dropdown-item btn btn-danger btn-small" id="btn-logout" onclick="logout()">Logout</button></li>
         </ul>
       </div>
-      <div class="fb-login-button" id="fb-btn" data-width="" data-size="small" data-button-type="login_with" data-layout="default" data-auto-logout-link="false" data-use-continue-as="false" onclick="reload()"></div>
-
+      <div class="fb-login-button" id="fb-btn" data-width="" data-size="small" data-button-type="login_with" data-layout="default" data-auto-logout-link="false" data-use-continue-as="false"></div>
+      <fb:login-button
+      id="fb-btn"
+      scope="email"
+      onlogin="checkLoginState();"></fb:login-button>
         </div>
       </nav> <!-- navbar-->
 
