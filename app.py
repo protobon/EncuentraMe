@@ -119,10 +119,10 @@ def form_found_pet(user_id):
     if user['estado'] == 'blocked':
         flash('No tienes permisos para realizar una publicación', "error")
         return redirect('/')
-    if not user:
-        flash("Asegúrate de ingresar con tu usuario", "info")
-        return redirect("/")
     if request.method == 'GET':
+        if user['estado'] == 'blocked':
+            flash('No tienes permisos para publicar', "error")
+            return redirect('/')
         return render_template('form_found_pet.html', user_id=user_id)
     if request.method == 'POST':
         tel = ''
@@ -134,7 +134,7 @@ def form_found_pet(user_id):
         estado = "active"
         created_at = datetime.utcnow()
         mascota = request.form['mascota']
-        fecha = request.form['fecha']
+        fecha = date_format(request.form['fecha'])
         hora = request.form['hora']
         calle_1 = request.form['calle_1']
         calle_2 = request.form['calle_2']
