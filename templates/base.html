@@ -4,30 +4,36 @@
     <meta charset="utf-8">
     <meta name="description" content="Si perdiste tu mascota publica ya su foto y ubicación. Sumate a las miles de personas que ya estan buscando mascotas perdidas para reecontrarse con sus seres queridos">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="author" content="Ronald Rivero, Ayrton Cohelo, Andy Ortiz">
+    <meta name="author" content="Ronald Rivero, Ayrton Coelho, Andy Ortiz">
     <meta name="generator" content="Full stack software engineers">
     <meta name="keywords" content="mascotas, animales perdidos, animales en situacion de calle, rescate animal, adopcion de mascotas">
     <meta name="robots" content="index, follow">
     <meta name="googlebot" content="index, follow">
     <meta name="google" content="notranslate">
 
-    <meta name="twitter:card" content="summary" />
-    <meta name="twitter:description" content="Si perdiste tu mascota o encontraste una en situacion de calle publica ahora mismo su foto y ubicacion." />
-    <meta name="twitter:image" content="https://encuentrame.org.xelar.tech/static/img/og/share_tw_01.jpg" />
-    <meta name="twitter:alt" content="encuentrame &copy; un lugar donde conectar personas que han perdido a sus mascotas y a quienes quieren ayudar a encontrarlas" />
-    <meta name="twitter:creator" content="@ralex_uy" />
-    <meta name="twitter:title" content="encuentrame &copy;" />
+    {% block og %}
+        <!-- generic og -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:description" content="Si perdiste tu mascota o encontraste una en situacion de calle publica ahora mismo su foto y ubicacion." />
+        <meta name="twitter:image" content="https://encuentrame.org.xelar.tech/static/img/og/share_tw_01.jpg" />
+        <meta name="twitter:alt" content="encuentrame &copy; un lugar donde conectar personas que han perdido a sus mascotas y a quienes quieren ayudar a encontrarlas" />
+        <meta name="twitter:creator" content="@ralex_uy" />
+        <meta name="twitter:title" content="encuentrame &copy;" />
 
-    <meta property="og:url" content="https://encuentrame.org.xelar.tech">
-    <meta property="og:title" content="encuentrame &copy;">
-    <meta property="og:description" content="Si perdiste tu mascota o encontraste una en situacion de calle publica ahora mismo su foto y ubicacion.">
-    <meta property="og:image" content="https://encuentrame.org.xelar.tech/static/img/og/share_fb_01.jpg">
-    <meta property="og:type" content="website">
-    <meta property="og:locale" content="es_LA">
-    <meta property="fb:app_id" content="1633098193720369">
+        <meta property="og:url" content="https://encuentrame.org.xelar.tech">
+        <meta property="og:title" content="encuentrame &copy;">
+        <meta property="og:description" content="Si perdiste tu mascota o encontraste una en situacion de calle publica ahora mismo su foto y ubicacion.">
+        <meta property="og:image" content="https://encuentrame.org.xelar.tech/static/img/og/share_fb_01.jpg">
+        <meta property="og:type" content="website">
+        <meta property="og:locale" content="es_LA">
+        <meta property="fb:app_id" content="1633098193720369">
+    {% endblock %}
 
+    {% block title %}
     <title>encuentrame</title>
+    {% endblock %}
 
+    {% block styles %}
     <link rel="icon" type="image/x-icon" href="{{url_for('static', filename='img/favicon.png')}}">
 
     <link rel="stylesheet" href="{{ url_for('static', filename='css/normalize.css') }}">
@@ -36,7 +42,9 @@
     <script src="https://kit.fontawesome.com/293c892861.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/footer.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    {% endblock %}
 
+    {% block scripts %}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -48,6 +56,7 @@
 
     gtag('config', 'G-JS2KYPZKWG');
     </script>
+    {% endblock %}
 
     {% block head %}{% endblock %}
 </head>
@@ -116,10 +125,12 @@
                                 let adminReportButton = $(document.createElement('button'));
                                 adminReportButton.addClass('btn');
                                 adminReportButton.addClass('btn-dark');
-                                adminReportButton.attr('onclick', '"blockUser(' + uid + ')"');
+                                adminReportButton.html('Bloquear Usuario');
+                                adminReportButton.attr('onclick', 'blockUser(' + urlUid + ')');
                                 $('header#top').append(adminReportButton);
+                            } else {
+                                window.location.href = "https://encuentrame.org.xelar.tech";
                             }
-                            window.location.href = "https://encuentrame.org.xelar.tech";
                         }
                     } else {
                         window.location.href = "https://encuentrame.org.xelar.tech";
@@ -138,13 +149,18 @@
                 });
             }
 
-            window.blockUser = function(userId) {
-                const user = {id: userId};
-                fetch('https://encuentrame.org.xelar.tech/api/users/', {
+            window.blockUser = async function(userId) {
+                userId = JSON.stringify(userId);
+                const user = { id: userId };
+                const url = 'https://encuentrame.org.xelar.tech/api/users';
+                const response = await fetch(url, {
                     method: 'PUT',
+                    headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify(user)
                 })
                 .catch(err => console.log(err));
+                const data = await response.json();
+                return window.location.reload();
             }
 
             function sendCredentials() {
@@ -207,6 +223,16 @@
                 });
             }
 
+            window.forgivePost = function(postId) {
+                url = 'https://encuentrame.org.xelar.tech/api/posts/' + postId;
+                fetch(url, {
+                    method: 'POST',
+                }).then(() => {
+                    window.location.reload();
+                })
+                .catch(err => console.log(err));
+            }
+
             window.reportPost = function(postId) {
                 FB.getLoginStatus(function(response) {
                     if (response.status === 'connected') {
@@ -256,7 +282,7 @@
 
 
     <div class="collapse" id="navbarToggleExternalContent"> <!-- navbar-->
-        <div class="bg-light p-4">
+        <div class="navbar-links p-4">
             <a href="{{url_for('about')}}" class="navbar-brand d-flex align-items-center">
                 Acerca de
             </a>
@@ -272,15 +298,12 @@
             <span class="navbar-toggler-icon"></span>
           </button>
           <a href="{{url_for('landing')}}" class="navbar-brand d-flex align-items-center">
-        <img id="logo" src="{{ url_for('static', filename='img/logo_pos_trans.svg')}}" alt="encuentrame">
+            <img id="logo" src="{{ url_for('static', filename='img/logo_pos_trans.svg')}}" alt="encuentrame">
     </a>
     <div class="dropstart text-end">
         <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-            <button type="button" class="btn btn-success">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
-  <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"></path>
-  <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"></path>
-</svg>
+            <button type="button" class="btn btn-success btn-user">
+              <i class="fa-regular fa-user"></i>
               </button>
         </a>
         <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
@@ -300,7 +323,7 @@
     {% block body %}{% endblock %}
 
       <div class="container">
-        <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+        <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top u-flowText SocialMedia">
             <div class="col-md-4 d-flex align-items-center">
               <a href="/" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
                 <svg class="bi" width="30" height="24"><use xlink:href="#encuentrame"/></svg>
@@ -316,7 +339,7 @@
 
               <li class="ms-4"><a class="text-muted" href="#"><i class="fa-brands fa-facebook-square"></i></a></li>
 
-              <li class="ms-4"><a class="text-muted" href="#"><i class="fa-solid fa-chevron-up fa-bounce" title="ir al inicio"></i></a><small>subir</small></li>
+              <li class="ms-4"><a class="fixed-bottom" href="#"><i class="fa-solid fa-chevron-up fa-bounce" title="ir al inicio"></i></a><small class="text-muted">subir</small></li>
             </ul> <!-- social media -->
           </footer>
       </div>
