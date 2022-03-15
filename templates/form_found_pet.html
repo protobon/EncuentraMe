@@ -10,37 +10,35 @@
 
 <div class="container">
   <main>
-
     <div class="py-5 text-center">
       <h2>Mascota encontrada</h2>
-      <b id="date--color-input-support">Atención: Este formulario es para quienes encontraron un animal en la calle y quieren publicarlo.</b>
-      <div class="bd-callout bd-callout-warning">
+      <b id="date--color-input-support">Atención: Este formulario es para quienes encontraron un animal en la calle y quieren publicarlo.
         <p class="lead">Si perdiste un animalito y quieres publicarlo, presiona <a href="/{{ user_id }}/lost_pet">aquí.</a></p>
-    </div>
+      </b>
     </div>
 
     <div class="row col-12"> <!--form -->
       <div class="col-12 col-md-10 col-lg-8">
         <form action="/{{ user_id }}/found_pet" method="post" class="form_center needs-validation" id="main_form" enctype="multipart/form-data" novalidate>
           {% with messages = get_flashed_messages(with_categories=true) %}
-          {% if messages %}
-              {% for category, message in messages %}
-                  {% if category == "success" %}
-                      <div class="alert alert-success mb-3" role="alert">
-                          <p>{{ message }}</p>
-                      </div>
-                  {% elif category == "info" %}
-                      <div class="alert alert-info mb-3" role="alert">
-                          <p>{{ message }}</p>
-                      </div>
-                  {% else %}
-                      <div class="alert alert-danger mb-3" role="alert">
-                          <p>{{ message }}</p>
-                      </div>
-                  {% endif %}
-              {% endfor %}
-          {% endif %}
-      {% endwith %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    {% if category == "success" %}
+                        <div class="alert alert-success mb-3" role="alert">
+                            <p>{{ message }}</p>
+                        </div>
+                    {% elif category == "info" %}
+                        <div class="alert alert-info mb-3" role="alert">
+                            <p>{{ message }}</p>
+                        </div>
+                    {% else %}
+                        <div class="alert alert-danger mb-3" role="alert">
+                            <p>{{ message }}</p>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+          {% endwith %}
           <fieldset>
             <h4 class="mb-3">¿Qué encontraste?</h4>
 
@@ -66,73 +64,73 @@
                 <input type="date" class="form-control" name="fecha" id="perdidaDesde" placeholder="dd-mm-yyyy" required>
                 <div class="invalid-feedback">
                   Ingresa la fecha cuando lo encontraste.
-              </div>
-            </div> <!-- fecha encontrado -->
+                </div>
+              </div> <!-- fecha encontrado -->
 
 
-            <div class="col-sm-6"> <!-- donde lo viste 1-->
+              <div class="col-sm-6"> <!-- donde lo viste 1-->
                 <label for="calleUno">¿Dónde lo viste por última vez?</label>
                 <input type="text" id="calleUno" class="form-control" name="calle_1" placeholder="Calle 1" id="ultimaVista" required>
                 <div class="invalid-feedback">
                   Ingresa la calle donde se perdió.
                 </div>
-          </div> <!-- donde lo viste 1-->
+              </div> <!-- donde lo viste 1-->
 
-            <div class="col-sm-6"> <!-- donde lo viste 2-->
-              <label for="calle2" class="form-label" >Esquina</label>
-              <input type="text" class="form-control" id="calle2" name="calle_2" placeholder="Calle 2" required>
+              <div class="col-sm-6"> <!-- donde lo viste 2-->
+                <label for="calle2" class="form-label" >Esquina</label>
+                <input type="text" class="form-control" id="calle2" name="calle_2" placeholder="Calle 2" required>
+                <div class="invalid-feedback">
+                  Ingresa la intersección dónde se perdió.
+                </div>
+              </div> <!-- donde lo viste 2-->
+
+              <div class="col-12"> <!-- barrio -->
+                <label for="barrioNombre" class="form-label">¿En cuál barrio?</label>
+                <input type="text" id="barrioNombre" class="form-control" name="barrio" placeholder="Barrio" required>
+                <div class="invalid-feedback">
+                  Ingresa el barrio donde se perdió.
+                </div>
+              </div> <!-- barrio -->
+
+              <div class="col-12"> <!-- hora -->
+                <label for="horaVisto" class="form-label">¿a que hora?</label>
+                <input type="time" class="form-control" id="horaVisto" name="hora" required>
+                <div class="invalid-feedback">
+                  Ingresa la hora cuándo se perdió.
+                </div>
+              </div> <!-- hora -->
+
+              <div class="col-12"> <!-- telefono -->
+                <label for="telefono" class="form-label">teléfono (opcional)</label>
+                <input type="text" class="form-control" id="telefono" name="telefono" pattern="[0-9]+">
+              </div> <!-- telefono -->
+
+
+              <div class="col-12"> <!-- foto -->
+                <label for="image" class="form-label">Sube una imagen:</label>
+                <input class="form-control" aria-describedby="inputGroupFileAddon03" aria-label="subir" id="image" type="file" name="foto" required>
+                <div class="invalid-feedback">
+                  Sube su foto
+                </div>
+              </div> <!-- foto -->
+
+            </div><!--row g-3-->
+
+            <hr class="my-4">
+            <div class="row g-3">
+              <input type="number" step="any" name="latitude"  id="postLat" required> <!-- google maps-->
+              <input type="number" step="any" name="longitude" id="postLng" required>
               <div class="invalid-feedback">
-                Ingresa la intersección dónde se perdió.
+                Selecciona la ubicación en el mapa.
               </div>
-          </div> <!-- donde lo viste 2-->
+              <div class ="googleMaps">
+                <div id="post_map"></div>
+                <script
+                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBqNj3BPTdCSu9fTtAlj4LSLD5FAidsa7M&callback=initMap&libraries=&v=weekly" async></script> <!-- google maps-->
+              </div>
+            </div> <!-- row g-3-->
 
-          <div class="col-12"> <!-- barrio -->
-            <label for="barrioNombre" class="form-label">¿En cuál barrio?</label>
-            <input type="text" id="barrioNombre" class="form-control" name="barrio" placeholder="Barrio" required>
-            <div class="invalid-feedback">
-              Ingresa el barrio donde se perdió.
-          </div>
-        </div> <!-- barrio -->
-
-          <div class="col-12"> <!-- hora -->
-            <label for="horaVisto" class="form-label">¿a que hora?</label>
-            <input type="time" class="form-control" id="horaVisto" name="hora" required>
-            <div class="invalid-feedback">
-              Ingresa la hora cuándo se perdió.
-          </div>
-        </div> <!-- hora -->
-
-        <div class="col-12"> <!-- telefono -->
-          <label for="telefono" class="form-label">teléfono (opcional)</label>
-          <input type="text" class="form-control" id="telefono" name="telefono" pattern="[0-9]+">
-      </div> <!-- telefono -->
-
-
-        <div class="col-12"> <!-- foto -->
-          <label for="image" class="form-label">Sube una imagen:</label>
-          <input class="form-control" aria-describedby="inputGroupFileAddon03" aria-label="subir" id="image" type="file" name="foto" required>
-          <div class="invalid-feedback">
-            Sube su foto
-        </div>
-      </div> <!-- foto -->
-
-  </div><!--row g-3-->
-
-  <hr class="my-4">
-  <div class="row g-3">
-    <input type="number" step="any" name="latitude"  id="postLat" required> <!-- google maps-->
-    <input type="number" step="any" name="longitude" id="postLng" required>
-    <div class="invalid-feedback">
-      Selecciona la ubicación en el mapa.
-    </div>
-    <div class ="googleMaps">
-    <div id="post_map"></div>
-    <script
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBqNj3BPTdCSu9fTtAlj4LSLD5FAidsa7M&callback=initMap&libraries=&v=weekly" async></script> <!-- google maps-->
-  </div>
-  </div> <!-- row g-3-->
-
-  <hr class="my-4">
+            <hr class="my-4">
 
             <button type="submit" class="w-100 btn btn-primary btn-lg" id="form-submit">Publicar</button>
 
