@@ -53,9 +53,6 @@
 </head>
 
 <body>
-    <div id="fb-root"></div>
-    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v13.0&appId=1633098193720369&autoLogAppEvents=1" nonce="bpCgcH2d">
-    </script>
     <script>
         $(document).ready(function () {
             window.fbAsyncInit = function() {
@@ -303,11 +300,10 @@
         </ul>
       </div>
       <fb:login-button
-      data-button-type="login_with"
-      data-layout="default"
-      id="fb-btn"
-      scope="email"
-      onlogin="checkLoginState();"></fb:login-button>
+          id="fb-btn"
+          scope="email"
+          onlogin="checkLoginState();">
+      </fb:login-button>
         </div>
       </nav> <!-- navbar-->
 
