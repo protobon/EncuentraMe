@@ -89,6 +89,8 @@
                     console.log('Logged in and anthenticated');
                     setElements(true);
                     sendCredentials();
+                    window.location.href = "https://encuentrame.org.xelar.tech";
+
                 } else {
                     console.log('Not authenticated');
                     setElements(false);
@@ -98,7 +100,6 @@
             function checkLoginState() {
                 FB.getLoginStatus(function(response) {
                     statusChangeCallback(response);
-                    window.location.href = "https://encuentrame.org.xelar.tech";
                 });
             }
 
