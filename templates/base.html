@@ -95,7 +95,7 @@
                     statusChangeCallback(response);
                 });
             }
-
+            
             window.validateUserAccess = function(response) {
                 siteUrl = window.location.href;
                 if (siteUrl.includes("lost_pet") || siteUrl.includes("found_pet")) {
@@ -256,6 +256,9 @@
                 });
             };
         });
+        document.getElementById("fb-btn").onclick = function () {
+        location.href = "https://encuentrame.org.xelar.tech/";
+        };
     </script>
 
 
@@ -302,8 +305,7 @@
           data-button-type="login_with"
           data-layout="default"
           data-auto-logout-link="false"
-          data-use-continue-as="false" 
-          onclick="window.location.reload;">
+          data-use-continue-as="false">
         </fb:login-button>
         </div>
       </nav> <!-- navbar-->
