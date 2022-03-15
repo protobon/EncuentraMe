@@ -36,7 +36,7 @@ $(document).ready(function () {
                 ' y ' + this.calle_2 + ' barrio ' + this.barrio + ' a las ' + this.hora + ' horas.\n'
                 + 'Si lo viste por favor comunícate con ' + this.user_name + '.</p class="card-text">');/*7*/
                 if (this.phone) {
-                    postLostNew.append('<p class="card-text">Teléfono: ' + this.phone + '</p class="card-text">');
+                    cardBody.append('<p class="card-text">Teléfono: ' + this.phone + '</p class="card-text">');
                 }/*7*/
                 let reportButton = $(document.createElement('button'));/*8*/
                 reportButton.html('Denunciar publicación');
