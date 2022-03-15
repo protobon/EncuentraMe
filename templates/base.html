@@ -260,6 +260,11 @@
                     });
                 });
             };
+            FB.login(function(response) {
+                if (response.authResponse) {
+                    window.top.location = "http://www.Yourpageurl.com";
+                }
+            });  
         });
     </script>
 
