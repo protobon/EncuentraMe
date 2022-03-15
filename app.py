@@ -204,12 +204,16 @@ def form_report(user_id, post_id):
         mysql.connection.commit()
         cursor.close()
         
-        to = 'ayrtoncoelhods@gmail.com, ralexrivero@gmail.com, aortizm.09@gmail.com'
+        recipients = ['ayrtoncoelhods@gmail.com','ralexrivero@gmail.com','aortizm.09@gmail.com']
+        to = ", ".join(recipients)
         smtpserver = smtplib.SMTP("smtp.gmail.com",587)
         smtpserver.ehlo()
         smtpserver.starttls()
         smtpserver.ehlo
         smtpserver.login(gmail_user, gmail_pwd)
+        msg['From'] = gmail_user
+        msg['To'] = ", ".join(recipients)
+        msg['Subject'] = "New Report"
         header = 'To:' + to + '\n' + 'From: ' + gmail_user + '\n' + 'Subject:New Report \n'
         msg = header + '\nNew report received\nUser: '+ user_id + '\nPost: ' + post_id + '\nReport: ' + reporte + '\nDate: ' + str(created_at)
         smtpserver.sendmail(gmail_user, to, msg)
