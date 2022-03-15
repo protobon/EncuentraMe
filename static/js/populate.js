@@ -26,7 +26,7 @@ $(document).ready(function () {
                 cardImg.addClass('user'); /*2*/
                 cardImg.addClass('card-img-top');/*2*/
                 cardImg.append('<a href="/' + this.id + '"></a>');/*3*/
-                cardImg.find('a').append('<img class="card-img-top" src="/static/images/' + this.foto + '">');/*4*/
+                cardImg.find('a').append('<img class="img-fluid" src="/static/images/' + this.foto + '">');/*4*/
                 let cardBody = $(document.createElement('div'));/*5*/
                 cardBody.addClass('card-body');/*5*/
                 cardBody.append('<h5 class="card-title">' + this.nombre +' perdido/a!</h5>');/*6*/
