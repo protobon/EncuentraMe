@@ -50,8 +50,8 @@ user-select: none;
     width: 720px;
     align-items: center;
 } */
-.pet a img{
-    width:100%;
+.card-img-top a img{
+    max-width:100%;
 }
 
 
