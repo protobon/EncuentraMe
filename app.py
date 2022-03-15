@@ -8,6 +8,8 @@ from flask_mysqldb import MySQL
 import MySQLdb
 import logging
 import smtplib
+from email.mime.text import MIMEText
+
 
 
 
@@ -203,21 +205,18 @@ def form_report(user_id, post_id):
             logfile("form_report(user_id, post_id) - in cursor.execute(INSERT INTO reports):\n" + str(e))
         mysql.connection.commit()
         cursor.close()
-        
         recipients = ['ayrtoncoelhods@gmail.com','ralexrivero@gmail.com','aortizm.09@gmail.com']
-        to = ", ".join(recipients)
         smtpserver = smtplib.SMTP("smtp.gmail.com",587)
-        smtpserver.ehlo()
         smtpserver.starttls()
         smtpserver.ehlo
-        smtpserver.login(gmail_user, gmail_pwd)
+        content = '\nNew report received\nUser: '+ user_id + '\nPost: ' + post_id + '\nReport: ' + reporte + '\nDate: ' + str(created_at)
+        msg = MIMEText(content)
+        msg['Subject'] = "New Report"
         msg['From'] = gmail_user
         msg['To'] = ", ".join(recipients)
-        msg['Subject'] = "New Report"
-        header = 'To:' + to + '\n' + 'From: ' + gmail_user + '\n' + 'Subject:New Report \n'
-        msg = header + '\nNew report received\nUser: '+ user_id + '\nPost: ' + post_id + '\nReport: ' + reporte + '\nDate: ' + str(created_at)
-        smtpserver.sendmail(gmail_user, to, msg)
-        smtpserver.close()
+        smtpserver.login(gmail_user, gmail_pwd)
+        smtpserver.sendmail(gmail_user, recipients, msg.as_string())
+        smtpserver.quit()
         flash('Gracias por denunciar esta publicación, la revisaremos lo antes posible.', "success")
         return redirect('/')
 
