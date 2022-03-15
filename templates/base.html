@@ -63,14 +63,10 @@
                     version    : 'v13.0',
                 });
 
-
                 FB.getLoginStatus(function(response) {
                     statusChangeCallback(response);
                     validateUserAccess(response);
                 });
-
-                
-
             };
 
             (function(d, s, id) {
@@ -86,10 +82,6 @@
                     console.log('Logged in and anthenticated');
                     setElements(true);
                     sendCredentials();
-                    while (reloadcounter < 1) {                        
-                        reloadcounter++;                        
-                        window.location.href = "https://encuentrame.org.xelar.tech";
-                    }
                 } else {
                     console.log('Not authenticated');
                     setElements(false);
@@ -232,12 +224,10 @@
                     $('#fb-btn').hide();
                     $('#btn-logout').show();
                     $('#btn-profile').show();
-                    $('#dropstarttextendright').show();
                 } else {
                     $('#fb-btn').show();
                     $('#btn-logout').hide();
                     $('#btn-profile').hide();
-                    $('#dropstarttextendright').hide();
                 }
             }
 
@@ -284,7 +274,7 @@
           <a href="{{url_for('landing')}}" class="navbar-brand d-flex align-items-center">
         <img id="logo" src="{{ url_for('static', filename='img/logo_pos_trans.svg')}}" alt="encuentrame">
     </a>
-    <div class="dropstart text-end" id="dropstarttextendright">
+    <div class="dropstart text-end">
         <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
             <button type="button" class="btn btn-success">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
@@ -297,13 +287,13 @@
           <li><button class="dropdown-item btn btn-primary" id="btn-profile" onclick="goToProfile()">Perfil</button></li>
           <li><hr class="dropdown-divider"></li>
           <li><button class="dropdown-item btn btn-danger btn-small" id="btn-logout" onclick="logout()">Logout</button></li>
-        </ul>
-      </div>
-      <fb:login-button
+          <fb:login-button
           id="fb-btn"
           scope="email"
           onlogin="checkLoginState();">
       </fb:login-button>
+        </ul>
+      </div>
         </div>
       </nav> <!-- navbar-->
 
