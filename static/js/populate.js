@@ -53,9 +53,6 @@ $(document).ready(function () {
                 $('div.posts').append(individualPost);
             });
 
-
-
-
             $.each(data.found, function () {
                 this.created_at = new Date(this.created_at).toLocaleString('es-UY');
                 let postFoundNew = $(document.createElement('div'));/*1*/
@@ -104,15 +101,17 @@ $(document).ready(function () {
             $.each(data.lost, function () {
                 this.created_at = new Date(this.created_at).toLocaleString('es-UY');
                 let postLostNew = $(document.createElement('div')); /*1*/
-                postLostNew.addClass('card'); /*1*/
+                postLostNew.addClass('row justify-content-around g-2'); /*1*/
                 postLostNew.addClass('pet');/*1*/
                 postLostNew.addClass('pet_lost');/*1*/
                 postLostNew.addClass(this.mascota);
+                let individualPost = $(document.createElement('div'));
+                individualPost.addClass('individual col-sm-12 col-md-6 col-lg-6 col-xl-4 p-3');
                 let cardImg = $(document.createElement('div'));/*2*/
                 cardImg.addClass('user'); /*2*/
                 cardImg.addClass('card-img-top');/*2*/
                 cardImg.append('<a href="/' + this.id + '"></a>');/*3*/
-                cardImg.find('a').append('<img class="card-img-top" src="/static/images/' + this.foto + '">');/*4*/
+                cardImg.find('a').append('<img class="img-fluid" src="/static/images/' + this.foto + '">');/*4*/
                 let cardBody = $(document.createElement('div'));/*5*/
                 cardBody.addClass('card-body');/*5*/
                 cardBody.append('<h5 class="card-title">' + this.nombre +' perdido/a!</h5>');/*6*/
@@ -124,17 +123,17 @@ $(document).ready(function () {
                 if (this.phone) {
                     cardBody.append('<p class="card-text">Teléfono: ' + this.phone + '</p>');
                 }/*7*/
-                postLostNew.append('<a href="https://encuentrame.org.xelar.tech/report/' + this.id + '">Denunciar publicación</a>');
                 let reportButton = $(document.createElement('button'));/*8*/
                 reportButton.html('Denunciar publicación');
                 reportButton.addClass('btn');/*8*/
                 reportButton.addClass('btn-link');/*8*/
                 reportButton.addClass('btn-sm');/*8*/
                 reportButton.attr('onclick', 'reportPost("' + this.id + '")');/*8*/
+                individualPost.append(postLostNew);
                 postLostNew.append(cardImg);/*append img, body and btn*/
                 postLostNew.append(cardBody);
                 postLostNew.append(reportButton);
-                $('div.posts').append(postLostNew);
+                $('div.posts').append(individualPost);
             });
         });
     }
@@ -145,18 +144,21 @@ $(document).ready(function () {
             $.each(data.found, function () {
                 this.created_at = new Date(this.created_at).toLocaleString('es-UY');
                 let postFoundNew = $(document.createElement('div'));/*1*/
-                postFoundNew.addClass('card');
+                postFoundNew.addClass('row justify-content-around g-2');
                 postFoundNew.addClass('pet');
                 postFoundNew.addClass('pet_found');
                 postFoundNew.addClass(this.mascota);
+                let individualPost = $(document.createElement('div'));
+                individualPost.addClass('individual col-sm-12 col-md-6 col-lg-6 col-xl-4 p-3');
+
                 let cardImg = $(document.createElement('div'));
                 cardImg.addClass('user'); /*2*/
                 cardImg.addClass('card-img-top');/*2*/
                 cardImg.append('<a href="/' + this.id + '"></a>');/*3*/
-                cardImg.find('a').append('<img class="card-img-top" src="/static/images/' + this.foto + '">');/*4*/
+                cardImg.find('a').append('<img class="img-fluid" src="/static/images/' + this.foto + '">');/*4*/
                 let cardBody = $(document.createElement('div'));/*5*/
                 cardBody.addClass('card-body');/*5*/
-                cardBody.append('<h5 class="card-title">' + this.nombre +' perdido/a!</h5>');/*6*/
+                cardBody.append('<h5 class="card-title">' + this.nombre +' encontrado/a!</h5>');/*6*/
                 cardBody.append('<p class="card-text">Fecha de publicación: ' + this.created_at +'</p">');/*7*/
                 cardBody.append('<p class="card-text">Se encontró el día ' + this.fecha + ' por barrio '
                 + this.barrio + ' en las inmediaciones de ' + this.calle_1 +
@@ -165,16 +167,17 @@ $(document).ready(function () {
                 if (this.phone) {
                     cardBody.append('<p class="card-text">Teléfono: ' + this.phone + '</p>');
                 }/*7*/
-                postFoundNew.append('<a href="https://encuentrame.org.xelar.tech/report/' + this.id + '">Denunciar publicación</a>');
                 let reportButton = $(document.createElement('button'));
                 reportButton.html('Denunciar publicación');
                 reportButton.addClass('btn');
                 reportButton.addClass('btn-link');
                 reportButton.addClass('btn-sm');
                 reportButton.attr('onclick', 'reportPost("' + this.id + '")');
+                individualPost.append(postFoundNew);
                 postFoundNew.append(cardImg);
                 postFoundNew.append(cardBody);
-                $('div.posts').append(postFoundNew);
+                postFoundNew.append(reportButton);
+                $('div.posts').append(individualPost);
             });
         });
     }
