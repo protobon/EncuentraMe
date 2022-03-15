@@ -289,10 +289,13 @@
           <li><button class="dropdown-item btn btn-danger btn-small" id="btn-logout" onclick="logout()">Logout</button></li>
           <fb:login-button
           id="fb-btn"
+          class="fb-login-button"
           scope="email"
           data-size="small"
           data-button-type="login_with"
           data-layout="default"
+          data-auto-logout-link="false"
+          data-use-continue-as="false" 
           onclick="checkLoginStatus();">
       </fb:login-button>
         </ul>
