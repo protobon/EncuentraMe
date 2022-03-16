@@ -41,6 +41,7 @@ function initMap() {
   .then(response => response.json())
   .then(data => {
     listDict = data
+    console.log(listDict)
       for (let element in data){
         let postLat = data[element].latitude
         let postLng = data[element].longitude
