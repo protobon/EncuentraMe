@@ -43,6 +43,7 @@ function initMap() {
 
     for (let lostAndFound in data){ //I have here a list of lost and list of found pets
       listDict = data[lostAndFound]
+      console.log(listDict)
       for (let element in listDict){
         let postLat = listDict[element].latitude
         let postLng = listDict[element].longitude
