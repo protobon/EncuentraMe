@@ -50,9 +50,14 @@ function initMap() {
         let postPhoto = '<a href="'+postLink+'"> <img src="/static/images/' + listDict[element].foto + '" width="200"> </a>'
         console.log(String(postPhoto))
         latlng = new google.maps.LatLng(postLat , postLng)
+        if (listDict[element].nombre) {
+          postType = "lostMarker";
+        } else {
+          postType = "foundMarker";
+        }
         let posit = {
           position: latlng,
-          type: "info",
+          type: postType,
           content: postPhoto,
         }
         Object.assign(listDict[element], posit)
@@ -64,12 +69,13 @@ function initMap() {
 
 
       //Set icons
-    const iconBase =
-      "https://www.gstatic.com/earth/images/stockicons/190201-2016-animal-paw_4x.png";
     const icons = {
-      info: {
-        icon: iconBase,
+      lostMarker: {
+        icon: "https://raw.githubusercontent.com/ayrton-hbtn/EncuentraMe/map_integration/static/img/lostmarker.png",
       },
+      foundMarker: {
+        icon: "https://raw.githubusercontent.com/ayrton-hbtn/EncuentraMe/map_integration/static/img/foundmarker.png",
+      }
     };
 
     //Create markers based on testing locations.
