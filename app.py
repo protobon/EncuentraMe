@@ -310,8 +310,8 @@ def api_posts():
         del post["estado"]
         del post["user_id"]
     all_posts = lost + found
-    sorted_by_date = sorted(all_posts, key=lambda d: d['created_at'])
-    return jsonify(sorted_by_date)
+    all_posts.sort(key=lambda d: d['created_at'], reverse=True)
+    return jsonify(all_posts)
 
 
 @app.route('/api/posts/lost')
@@ -499,8 +499,8 @@ def api_completed():
     completed_found = list(cursor.fetchall())
     cursor.close()
     resolved = {}
-    all_posts = completed_lost + completed_found
-    resolved["all"] = sorted(all_posts, key=lambda d: d['updated_at'])
+    resolved["all"] = completed_lost + completed_found
+    resolved["all"].sort(key=lambda d: d['created_at'], reverse=True)
     return jsonify(resolved)
 
 
