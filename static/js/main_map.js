@@ -73,18 +73,18 @@ function initMap() {
         name: "Encontrados en la calle"
       }
     };
-    const legend = document.getElementById("legend");
+    // const legend = document.getElementById("legend");
 
-    for (const items in icons) {
-      const typeIc = icons[items];
-      const Iconname = typeIc.name;
-      const Iconicon = typeIc.icon;
-      const div = document.createElement("div");
-      div.innerHTML = '<img src="' + Iconicon + '"> ' + Iconname;
-      legend.appendChild(div);
-    }
+    // for (const items in icons) {
+    //   const typeIc = icons[items];
+    //   const Iconname = typeIc.name;
+    //   const Iconicon = typeIc.icon;
+    //   const div = document.createElement("div");
+    //   div.innerHTML = '<img src="' + Iconicon + '"> ' + Iconname;
+    //   legend.appendChild(div);
+    // }
 
-    map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(legend);
+    // map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(legend);
 
     //Create markers based on testing locations.
     for (let i = 0; i < listofallposts.length; i++) {
