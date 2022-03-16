@@ -35,7 +35,7 @@ function initMap() {
       handleLocationError(false, infoWindow, map.getCenter());
     }
   });
-  var listofallposts = []
+  let listofallposts = []
   fetch('https://encuentrame.org.xelar.tech/api/posts')
   .then(response => response.json())
   .then(data => {
