@@ -69,10 +69,10 @@ function initMap() {
       //Set icons
     const icons = {
       lostMarker: {
-        icon: "https://raw.githubusercontent.com/ayrton-hbtn/EncuentraMe/main/static/img/lostmarker.png",
+        icon: "https://raw.githubusercontent.com/ayrton-hbtn/EncuentraMe/main/static/img/lostmarker2.png",
       },
       foundMarker: {
-        icon: "https://raw.githubusercontent.com/ayrton-hbtn/EncuentraMe/main/static/img/foundmarker.png",
+        icon: "https://raw.githubusercontent.com/ayrton-hbtn/EncuentraMe/main/static/img/foundmarker2.png",
       }
     };
 
