@@ -39,28 +39,28 @@ function initMap() {
   fetch('https://encuentrame.org.xelar.tech/api/posts')
   .then(response => response.json())
   .then(data => {
-    console.log(data)
-      for (let element in data){
-        let postLat = data[element].latitude
-        let postLng = data[element].longitude
-        let postLink = "https://encuentrame.org.xelar.tech/"+ data[element].id
-        let postPhoto = '<a href="'+postLink+'"> <img src="/static/images/' + data[element].foto + '" width="200"> </a>'
-        latlng = new google.maps.LatLng(postLat , postLng)
-        if (data[element].nombre) {
-          postType = "lostMarker";
-        } else {
-          postType = "foundMarker";
-        }
-        let posit = {
-          position: latlng,
-          type: postType,
-          content: postPhoto,
-        }
-        Object.assign(data[element], posit)
-
+    for (let element in data){
+      let postLat = data[element].latitude
+      let postLng = data[element].longitude
+      let postLink = "https://encuentrame.org.xelar.tech/"+ data[element].id
+      let postPhoto = '<a href="'+postLink+'"> <img src="/static/images/' + data[element].foto + '" width="200"> </a>'
+      latlng = new google.maps.LatLng(postLat , postLng)
+      if (data[element].nombre) {
+        postType = "lostMarker";
+      } else {
+        postType = "foundMarker";
       }
-      listofallposts = listofallposts.concat(data)
+      let posit = {
+        position: latlng,
+        type: postType,
+        content: postPhoto,
+      }
+      Object.assign(data[element], posit)
+
+    }
+    listofallposts = listofallposts.concat(data)
   })
+  console.log(listofallposts)
 
     //Set icons
     const icons = {
