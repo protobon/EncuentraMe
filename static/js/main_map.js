@@ -48,11 +48,15 @@ function initMap() {
         let postLng = listDict[element].longitude
         let postLink = "https://encuentrame.org.xelar.tech/"+ listDict[element].id
         let postPhoto = '<a href="'+postLink+'"> <img src="/static/images/' + listDict[element].foto + '" width="200"> </a>'
-        console.log(String(postPhoto))
         latlng = new google.maps.LatLng(postLat , postLng)
+        if (listDict[element].nombre) {
+          postType = "lostMarker";
+        } else {
+          postType = "foundMarker";
+        }
         let posit = {
           position: latlng,
-          type: "info",
+          type: postType,
           content: postPhoto,
         }
         Object.assign(listDict[element], posit)
