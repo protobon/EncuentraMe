@@ -40,17 +40,14 @@ function initMap() {
   fetch('https://encuentrame.org.xelar.tech/api/posts')
   .then(response => response.json())
   .then(data => {
-    console.log(data)
-
-    for (let lostAndFound in data){ //I have here a list of lost and list of found pets
-      listDict = data[lostAndFound]
-      for (let element in listDict){
-        let postLat = listDict[element].latitude
-        let postLng = listDict[element].longitude
-        let postLink = "https://encuentrame.org.xelar.tech/"+ listDict[element].id
-        let postPhoto = '<a href="'+postLink+'"> <img src="/static/images/' + listDict[element].foto + '" width="200"> </a>'
+    listDict = data
+      for (let element in data){
+        let postLat = data[element].latitude
+        let postLng = data[element].longitude
+        let postLink = "https://encuentrame.org.xelar.tech/"+ data[element].id
+        let postPhoto = '<a href="'+postLink+'"> <img src="/static/images/' + data[element].foto + '" width="200"> </a>'
         latlng = new google.maps.LatLng(postLat , postLng)
-        if (listDict[element].nombre) {
+        if (data[element].nombre) {
           postType = "lostMarker";
         } else {
           postType = "foundMarker";
@@ -60,7 +57,7 @@ function initMap() {
           type: postType,
           content: postPhoto,
         }
-        Object.assign(listDict[element], posit)
+        Object.assign(data[element], posit)
 
       }
       listofallposts = listofallposts.concat(listDict)
