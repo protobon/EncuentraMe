@@ -40,8 +40,7 @@ function initMap() {
   fetch('https://encuentrame.org.xelar.tech/api/posts')
   .then(response => response.json())
   .then(data => {
-    listDict = data
-    console.log(listDict)
+    console.log(data)
       for (let element in data){
         let postLat = data[element].latitude
         let postLng = data[element].longitude
