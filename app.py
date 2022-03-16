@@ -1,4 +1,3 @@
-from turtle import update
 from flask import Flask, jsonify, render_template, request, flash, redirect
 from flask_cors import CORS
 import os
