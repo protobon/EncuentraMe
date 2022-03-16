@@ -74,6 +74,7 @@ def form_lost_pet(user_id):
         id = "lost" + str(uuid.uuid4())
         estado = "active"
         created_at = datetime.utcnow()
+        updated_at = created_at
         mascota = request.form['mascota']
         nombre = request.form['nombre']
         fecha = date_format(request.form['fecha'])
@@ -97,8 +98,8 @@ def form_lost_pet(user_id):
             flash('Formatos de imagen soportados: jpg, jpeg, png, jfif.', "info")
             return redirect(request.url)
         try:
-            cursor.execute('INSERT INTO lost_pets VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',
-                           (id, user_id, user['name'], tel, estado, created_at, mascota, nombre, fecha, hora, calle_1, calle_2, barrio, file.filename, latitude, longitude))
+            cursor.execute('INSERT INTO lost_pets VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',
+                           (id, user_id, user['name'], tel, estado, created_at, updated_at, mascota, nombre, fecha, hora, calle_1, calle_2, barrio, file.filename, latitude, longitude))
         except Exception as e:
             flash('Ha ocurrido un error, asegúrese de ingresar los datos correctamente', "error")
             logfile("form_lost_pet(user_id) - in cursor.execute(INSERT INTO lost_pets):\n" + str(e))
@@ -134,6 +135,7 @@ def form_found_pet(user_id):
         id = "found" + str(uuid.uuid4())
         estado = "active"
         created_at = datetime.utcnow()
+        updated_at = created_at
         mascota = request.form['mascota']
         fecha = date_format(request.form['fecha'])
         hora = request.form['hora']
@@ -156,8 +158,8 @@ def form_found_pet(user_id):
             flash('Formatos de imagen soportados: jpg, jpeg, png, jfif.', "info")
             return redirect(request.url)
         try:
-            cursor.execute('INSERT INTO found_pets VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',
-                        (id, user_id, user["name"], tel, estado, created_at, mascota, fecha, hora, calle_1, calle_2, barrio, file.filename, latitude, longitude))
+            cursor.execute('INSERT INTO found_pets VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',
+                        (id, user_id, user["name"], tel, estado, created_at, updated_at, mascota, fecha, hora, calle_1, calle_2, barrio, file.filename, latitude, longitude))
         except Exception as e:
             flash('Ha ocurrido un error, asegúrese de ingresar los datos correctamente', "error")
             logfile("form_found_pet(user_id) - in cursor.execute(INSERT INTO found_pets):\n" + str(e))
