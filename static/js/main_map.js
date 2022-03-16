@@ -36,27 +36,33 @@ function initMap() {
     }
   });
   let listofallposts = []
+  let listDict = []
   fetch('https://encuentrame.org.xelar.tech/api/posts')
   .then(response => response.json())
   .then(data => {
-    for (let element in data){
-      let postLat = data[element].latitude
-      let postLng = data[element].longitude
-      let postLink = "https://encuentrame.org.xelar.tech/"+ data[element].id
-      let postPhoto = '<a href="'+postLink+'"> <img src="/static/images/' + data[element].foto + '" width="200"> </a>'
-      latlng = new google.maps.LatLng(postLat , postLng)
-      if (data[element].nombre) {
-        postType = "lostMarker";
-      } else {
-        postType = "foundMarker";
+    for (let obj in data){
+      listDict = listDict.concat(data[obj])
+      console.log("Checking list after each iteration in data")
+      console.log(listDict)
+      for (let element in listDict) {
+        let postLat = listDict[element].latitude
+        let postLng = listDict[element].longitude
+        let postLink = "https://encuentrame.org.xelar.tech/"+ listDict[element].id
+        let postPhoto = '<a href="'+postLink+'"> <img src="/static/images/' + listDict[element].foto + '" width="200"> </a>'
+        latlng = new google.maps.LatLng(postLat , postLng)
+        if (data[element].nombre) {
+          postType = "lostMarker";
+        } else {
+          postType = "foundMarker";
+        }
+        let posit = {
+          position: latlng,
+          type: postType,
+          content: postPhoto,
+        }
+        Object.assign(listDict[element], posit)
+        listofallposts = listofallposts.concat(listDict[element])
       }
-      let posit = {
-        position: latlng,
-        type: postType,
-        content: postPhoto,
-      }
-      Object.assign(data[element], posit)
-      listofallposts = listofallposts.concat(data[element])
     }
     console.log("Checking list outside loop")
     console.log(listofallposts)
