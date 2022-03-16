@@ -43,12 +43,12 @@ function initMap() {
 
     for (let lostAndFound in data){ //I have here a list of lost and list of found pets
       listDict = data[lostAndFound]
-      console.log(listDict)
       for (let element in listDict){
         let postLat = listDict[element].latitude
         let postLng = listDict[element].longitude
         let postLink = "https://encuentrame.org.xelar.tech/"+ listDict[element].id
         let postPhoto = '<a href="'+postLink+'"> <img src="/static/images/' + listDict[element].foto + '" width="200"> </a>'
+        console.log(String(postPhoto))
         latlng = new google.maps.LatLng(postLat , postLng)
         if (listDict[element].nombre) {
           postType = "lostMarker";
@@ -65,14 +65,16 @@ function initMap() {
       }
       listofallposts = listofallposts.concat(listDict)
     }
+    console.log(listofallposts)
 
-    //Set icons
+
+      //Set icons
     const icons = {
       lostMarker: {
-        icon: "https://raw.githubusercontent.com/ayrton-hbtn/EncuentraMe/main/static/img/lostmarker.png",
+        icon: "https://raw.githubusercontent.com/ayrton-hbtn/EncuentraMe/map_integration/static/img/lostmarker.png",
       },
       foundMarker: {
-        icon: "https://raw.githubusercontent.com/ayrton-hbtn/EncuentraMe/main/static/img/foundmarker.png",
+        icon: "https://raw.githubusercontent.com/ayrton-hbtn/EncuentraMe/map_integration/static/img/foundmarker.png",
       }
     };
 
