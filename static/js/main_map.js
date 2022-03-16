@@ -66,7 +66,6 @@ function initMap() {
     }
     console.log("Checking list outside loop")
     console.log(listofallposts)
-  })
   console.log("Checking list outside fetch")
   console.log(listofallposts)
       //Set icons
@@ -93,6 +92,8 @@ function initMap() {
         infoWindow.open(map, marker);
       });
     };
+  })
+
 };
 
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
