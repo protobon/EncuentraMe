@@ -70,7 +70,7 @@ $(document).ready(function () {
                 cardImg.find('a').append('<img class="img-fluid" src="/static/images/' + this.foto + '">');/*4*/
                 let cardBody = $(document.createElement('div'));/*5*/
                 cardBody.addClass('card-body');/*5*/
-                cardBody.append('<h5 class="card-title">' + this.nombre +' encontrado/a!</h5>');/*6*/
+                cardBody.append('<h5 class="card-title">' + this.mascota +' encontrado/a!</h5>');/*6*/
                 cardBody.append('<p class="card-text">Fecha de publicación: ' + this.created_at +'</p">');/*7*/
                 cardBody.append('<p class="card-text">Se encontró el día ' + this.fecha + ' por barrio '
                 + this.barrio + ' en las inmediaciones de ' + this.calle_1 +
