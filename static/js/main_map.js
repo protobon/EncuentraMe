@@ -55,8 +55,8 @@ function initMap() {
         type: postType,
         content: postPhoto,
       }
+      console.log(postLat)
       Object.assign(data[element], posit)
-      console.log(element)
     }
   })
   console.log(listofallposts)
