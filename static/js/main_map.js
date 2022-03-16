@@ -60,16 +60,15 @@ function initMap() {
       }
       listofallposts = listofallposts.concat(listDict)
     }
-    console.log(listofallposts)
 
-
-      //Set icons
-    const iconBase =
-      "https://www.gstatic.com/earth/images/stockicons/190201-2016-animal-paw_4x.png";
+    //Set icons
     const icons = {
-      info: {
-        icon: iconBase,
+      lostMarker: {
+        icon: "https://raw.githubusercontent.com/ayrton-hbtn/EncuentraMe/map_integration/static/img/lostmarker.png",
       },
+      foundMarker: {
+        icon: "https://raw.githubusercontent.com/ayrton-hbtn/EncuentraMe/map_integration/static/img/foundmarker.png",
+      }
     };
 
     //Create markers based on testing locations.
