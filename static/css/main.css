@@ -23,7 +23,7 @@ user-select: none;
 }
 
 
-#legend {
+/* #legend {
     font-family: Arial, sans-serif;
     background: #fff;
     padding: 0px;
@@ -39,7 +39,7 @@ user-select: none;
   
 #legend img {
     vertical-align: middle;
-}
+} */
 
 /************************/
 /* navbar */
