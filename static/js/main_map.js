@@ -40,6 +40,7 @@ function initMap() {
   fetch('https://encuentrame.org.xelar.tech/api/posts')
   .then(response => response.json())
   .then(data => {
+    console.log(data)
 
     for (let lostAndFound in data){ //I have here a list of lost and list of found pets
       listDict = data[lostAndFound]
