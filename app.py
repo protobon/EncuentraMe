@@ -1,12 +1,13 @@
-from flask import Flask, jsonify, render_template, request, flash, redirect
-from flask_cors import CORS
+import logging
+import MySQLdb
 import os
+import smtplib
 import uuid
 from datetime import datetime, timedelta
+from email.mime.text import MIMEText
+from flask import Flask, jsonify, render_template, request, flash, redirect
+from flask_cors import CORS
 from flask_mysqldb import MySQL
-import MySQLdb
-import logging
-
 
 UPLOAD_FOLDER = 'static/images'
 ALLOWED_EXTENSIONS = {'jpg', 'jpeg', 'png', 'jfif'}
@@ -19,7 +20,8 @@ app.config['MYSQL_USER'] = 'encuentrame'
 app.config['MYSQL_PASSWORD'] = 'password'
 app.config['MYSQL_DB'] = 'encuentraMe'
 app.url_map.strict_slashes = False
-
+gmail_user = 'encuentrame.reports@gmail.com'
+gmail_pwd = 'encuentrame'
 mysql = MySQL(app)
 
 
@@ -199,6 +201,18 @@ def form_report(user_id, post_id):
             logfile("form_report(user_id, post_id) - in cursor.execute(INSERT INTO reports):\n" + str(e))
         mysql.connection.commit()
         cursor.close()
+        recipients = ['ayrtoncoelhods@gmail.com','ralexrivero@gmail.com','aortizm.09@gmail.com']
+        smtpserver = smtplib.SMTP("smtp.gmail.com",587)
+        smtpserver.starttls()
+        smtpserver.ehlo
+        content = '\nNew report received\nUser: '+ user_id + '\nPost: ' + post_id + '\nReport: ' + reporte + '\nDate: ' + str(created_at)
+        msg = MIMEText(content)
+        msg['Subject'] = "New Report"
+        msg['From'] = gmail_user
+        msg['To'] = ", ".join(recipients)
+        smtpserver.login(gmail_user, gmail_pwd)
+        smtpserver.sendmail(gmail_user, recipients, msg.as_string())
+        smtpserver.quit()
         flash('Gracias por denunciar esta publicación, la revisaremos lo antes posible.', "success")
         return redirect('/')
 
