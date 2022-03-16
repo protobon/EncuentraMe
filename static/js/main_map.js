@@ -58,7 +58,7 @@ function initMap() {
       Object.assign(data[element], posit)
       listofallposts = listofallposts.concat(data[element])
     }
-    console.log(listofallposts)
+    console.log(listofallposts[2].position)
 
   })
       //Set icons
