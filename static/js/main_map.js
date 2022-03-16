@@ -75,12 +75,12 @@ function initMap() {
     };
     const legend = document.getElementById("legend");
 
-    for (const key in icons) {
-      const typeIc = icons[key];
-      const name = typeIc.name;
-      const icon = typeIc.icon;
+    for (const items in icons) {
+      const typeIc = icons[items];
+      const Iconname = typeIc.name;
+      const Iconicon = typeIc.icon;
       const div = document.createElement("div");
-      div.innerHTML = '<img src="' + icon + '"> ' + name;
+      div.innerHTML = '<img src="' + Iconicon + '"> ' + Iconname;
       legend.appendChild(div);
     }
 
