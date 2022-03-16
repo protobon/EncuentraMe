@@ -62,7 +62,7 @@ function initMap() {
 
       }
       listofallposts = listofallposts.concat(listDict)
-    }
+    })
 
     //Set icons
     const icons = {
