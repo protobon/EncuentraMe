@@ -35,7 +35,6 @@ function initMap() {
       handleLocationError(false, infoWindow, map.getCenter());
     }
   });
-  var listDict = []
   var listofallposts = []
   fetch('https://encuentrame.org.xelar.tech/api/posts')
   .then(response => response.json())
@@ -60,8 +59,8 @@ function initMap() {
         Object.assign(data[element], posit)
 
       }
-      listofallposts = listofallposts.concat(listDict)
-    })
+      listofallposts = listofallposts.concat(data)
+  })
 
     //Set icons
     const icons = {
@@ -87,8 +86,8 @@ function initMap() {
         infoWindow.open(map, marker);
       });
     };
-  })
 };
+
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
   infoWindow.setPosition(pos);
   infoWindow.setContent(
