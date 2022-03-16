@@ -41,33 +41,31 @@ function initMap() {
   .then(response => response.json())
   .then(data => {
     for (let obj in data){
-      listDict = data[obj]
+      listDict = listDict.concat(data[obj])
       console.log("Checking list after each iteration in data")
       console.log(listDict)
-      for (let element in listDict) {
-        let postLat = listDict[element].latitude
-        let postLng = listDict[element].longitude
-        let postLink = "https://encuentrame.org.xelar.tech/"+ listDict[element].id
-        let postPhoto = '<a href="'+postLink+'"> <img src="/static/images/' + listDict[element].foto + '" width="200"> </a>'
-        latlng = new google.maps.LatLng(postLat , postLng)
-        if (data[element].nombre) {
-          postType = "lostMarker";
-        } else {
-          postType = "foundMarker";
-        }
-        let posit = {
-          position: latlng,
-          type: postType,
-          content: postPhoto,
-        }
-        Object.assign(listDict[element], posit)
-        listofallposts = listofallposts.concat(listDict[element])
+    }
+    for (let element in listDict) {
+      let postLat = listDict[element].latitude
+      let postLng = listDict[element].longitude
+      let postLink = "https://encuentrame.org.xelar.tech/"+ listDict[element].id
+      let postPhoto = '<a href="'+postLink+'"> <img src="/static/images/' + listDict[element].foto + '" width="200"> </a>'
+      latlng = new google.maps.LatLng(postLat , postLng)
+      if (data[element].nombre) {
+        postType = "lostMarker";
+      } else {
+        postType = "foundMarker";
       }
+      let posit = {
+        position: latlng,
+        type: postType,
+        content: postPhoto,
+      }
+      Object.assign(listDict[element], posit)
+      listofallposts = listofallposts.concat(listDict[element])
     }
     console.log("Checking list outside loop")
     console.log(listofallposts)
-  console.log("Checking list outside fetch")
-  console.log(listofallposts)
       //Set icons
     const icons = {
       lostMarker: {
