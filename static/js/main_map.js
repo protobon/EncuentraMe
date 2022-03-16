@@ -58,9 +58,11 @@ function initMap() {
       Object.assign(data[element], posit)
       listofallposts = listofallposts.concat(data[element])
     }
-    console.log((listofallposts[2].position).toString())
-
+    console.log("Checking list outside loop")
+    console.log(listofallposts)
   })
+  console.log("Checking list outside fetch")
+  console.log(listofallposts)
       //Set icons
     const icons = {
       lostMarker: {
