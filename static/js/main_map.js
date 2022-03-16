@@ -55,10 +55,11 @@ function initMap() {
         type: postType,
         content: postPhoto,
       }
-      console.log(postLat)
       Object.assign(data[element], posit)
     }
+    listofallposts = listofallposts.contat(data[element])
   })
+  
   console.log(listofallposts)
 
     //Set icons
