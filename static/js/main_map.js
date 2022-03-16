@@ -56,8 +56,8 @@ function initMap() {
         content: postPhoto,
       }
       Object.assign(data[element], posit)
+      listofallposts = listofallposts.contat(data[element])
     }
-    listofallposts = listofallposts.contat(data[element])
   })
   
   console.log(listofallposts)
