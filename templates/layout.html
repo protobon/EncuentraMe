@@ -27,7 +27,7 @@
     {% endif %}
   {% endwith %}
 
-  <main class="container">
+  <main class="container-fluid">
     <div class="sticky-top feed py-1 text-center container"><!-- filter sticky bar-->
       <div class="filters row">
         <div class="filter col-lg-6 col-md-8 mx-auto">
@@ -47,105 +47,64 @@
       </div>
     </div>
 
-    <div class="card text-center"><!-- navigation choose feed or map-->
-      <div class="card-header">
-        <ul class="nav nav-tabs card-header-tabs">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="true" href="#">Publicaciones</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Mapa</a>
-          </li>
-        </ul>
-      </div>
-    </div><!-- navigation choose feed or map-->
-
     <div class="container-xl justify-content-center overflow-hidden">
       <div class="row">
+
+        <div class="card-header"><!-- select publicaciones or map-->
+          <ul class="nav nav-tabs card-header-tabs" id="nav-list" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="true" href="#nav-publicaciones" role="tab" aria-controls="publicaciones" aria-selected="true">Publicaciones</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#nav-mapa" role="tab" aria-controls="mapa" aria-selected="false">Mapa</a>
+            </li>
+          </ul>
+        </div><!-- select publicaciones or map-->
+
         <div class="animal col-md-12 col-lg-6 col-xl-6">
-          <div class="posts row justify-content-around g-2"><!-- 1 -->
 
-            <div class="individual col-sm-12 col-md-6 col-lg-12 col-xl-12 p-3"><!-- inidvidual post -->
-              <div class="card pet pet_lost"><!-- 1 -->
-                <div class="user card-img-top"><!-- 2 -->
-                  <a href="#"><!-- 3 -->
-                  <img class="img-fluid" src="https://picsum.photos/300/300" alt=""></a><!-- 4 -->
-                </div>
-                <div class="card-body"><!-- 5 -->
-                  <h5 class="card-title">Card title</h5><!-- 6 -->
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p><!-- 7 -->
-                  <a href="#" class="btn btn-primary">Go somewhere</a><!-- 8 -->
-                </div>
+          <div><!-- navigation choose feed or map-->
+
+            <div class="card-body">
+
+              <div class="tab-content">
+                <div class="tab-pane active" id="nav-publicaciones" role="tabpanel"><!-- tab #1 -->
+
+
+                  <div class="posts row justify-content-around g-2"><!-- 1 -->
+
+                    <div class="individual col-sm-12 col-md-6 col-lg-12 col-xl-12 p-3"><!-- inidvidual post -->
+                      <div class="card pet pet_lost"><!-- 1 -->
+                        <div class="user card-img-top"><!-- 2 -->
+                          <a href="#"><!-- 3 -->
+                          <img class="img-fluid" src="https://picsum.photos/300/300" alt=""></a><!-- 4 -->
+                        </div>
+                        <div class="card-body"><!-- 5 -->
+                          <h5 class="card-title">Card title</h5><!-- 6 -->
+                          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p><!-- 7 -->
+                          <a href="#" class="btn btn-primary">Go somewhere</a><!-- 8 -->
+                        </div>
+                      </div>
+                    </div><!-- inidvidual post -->
+
+                  </div>
+                </div><!-- tab #1 -->
+
+                <div class="tab-pane" id="nav-mapa" role="tabpanel" aria-labelledby="mapa"><!-- tab #2 -->
+                  <div class="mapa col-md-12 col-lg-12 col-xl-12" ><!-- map -->
+                    <div class="position-sticky">
+                      <div id="main_map"><!-- Async script executes immediately and must be after any DOM elements used in callback. -->
+                        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBqNj3BPTdCSu9fTtAlj4LSLD5FAidsa7M&callback=initMap&v=weekly" async></script>
+                      </div>
+                    </div>
+                  </div><!-- map -->
+                </div><!-- tab #2 -->
               </div>
-            </div><!-- inidvidual post -->
 
-            <div class="individual col-sm-12 col-md-6 col-lg-12 col-xl-12 p-3"><!-- inidvidual post -->
-              <div class="card pet pet_lost"><!-- 1 -->
-                <div class="user card-img-top"><!-- 2 -->
-                  <a href="#"><!-- 3 -->
-                  <img class="img-fluid" src="https://picsum.photos/300/300" alt=""></a><!-- 4 -->
-                </div>
-                <div class="card-body"><!-- 5 -->
-                  <h5 class="card-title">Card title</h5><!-- 6 -->
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p><!-- 7 -->
-                  <a href="#" class="btn btn-primary">Go somewhere</a><!-- 8 -->
-                </div>
-              </div>
-            </div><!-- inidvidual post -->
-
-            <div class="individual col-sm-12 col-md-6 col-lg-12 col-xl-12 p-3"><!-- inidvidual post -->
-              <div class="card pet pet_lost"><!-- 1 -->
-                <div class="user card-img-top"><!-- 2 -->
-                  <a href="#"><!-- 3 -->
-                  <img class="img-fluid" src="https://picsum.photos/300/300" alt=""></a><!-- 4 -->
-                </div>
-                <div class="card-body"><!-- 5 -->
-                  <h5 class="card-title">Card title</h5><!-- 6 -->
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p><!-- 7 -->
-                  <a href="#" class="btn btn-primary">Go somewhere</a><!-- 8 -->
-                </div>
-              </div>
-            </div><!-- inidvidual post -->
-
-            <div class="individual col-sm-12 col-md-6 col-lg-12 col-xl-12 p-3"><!-- inidvidual post -->
-              <div class="card pet pet_lost"><!-- 1 -->
-                <div class="user card-img-top"><!-- 2 -->
-                  <a href="#"><!-- 3 -->
-                  <img class="img-fluid" src="https://picsum.photos/300/300" alt=""></a><!-- 4 -->
-                </div>
-                <div class="card-body"><!-- 5 -->
-                  <h5 class="card-title">Card title</h5><!-- 6 -->
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p><!-- 7 -->
-                  <a href="#" class="btn btn-primary">Go somewhere</a><!-- 8 -->
-                </div>
-              </div>
-            </div><!-- inidvidual post -->
-
-            <div class="individual col-sm-12 col-md-6 col-lg-12 col-xl-12 p-3"><!-- inidvidual post -->
-              <div class="card pet pet_lost"><!-- 1 -->
-                <div class="user card-img-top"><!-- 2 -->
-                  <a href="#"><!-- 3 -->
-                  <img class="img-fluid" src="https://picsum.photos/300/300" alt=""></a><!-- 4 -->
-                </div>
-                <div class="card-body"><!-- 5 -->
-                  <h5 class="card-title">Card title</h5><!-- 6 -->
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p><!-- 7 -->
-                  <a href="#" class="btn btn-primary">Go somewhere</a><!-- 8 -->
-                </div>
-              </div>
-            </div><!-- inidvidual post -->
-
-
-          </div>
-        </div>
-
-        <div class="mapa col-md-12 col-lg-6 col-xl-6" ><!-- map -->
-          <div class="position-sticky">
-            <div id="main_map"><!-- Async script executes immediately and must be after any DOM elements used in callback. -->
-              <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBqNj3BPTdCSu9fTtAlj4LSLD5FAidsa7M&callback=initMap&v=weekly" async></script>
             </div>
-          </div>
-        </div><!-- map -->
+          </div><!-- navigation choose feed or map-->
+
+        </div>
       </div>
     </div>
   </main>
