@@ -1,3 +1,4 @@
+from turtle import update
 from flask import Flask, jsonify, render_template, request, flash, redirect
 from flask_cors import CORS
 import os
@@ -263,7 +264,10 @@ def landing_page():
 @app.route('/profile/<user_id>')
 def user_profile(user_id):
     """Render user profile with all owner's posts"""
-    return render_template('profile.html')
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute("SELECT * FROM users WHERE id=%s", [user_id])
+    user = list(cursor.fetchall())[0]
+    return render_template('profile.html', user=user)
 
 
 @app.route('/posts/reported')
@@ -290,7 +294,7 @@ def api_posts():
     return jsonify({"lost": lost, "found": found})
 
 
-@app.route('/api/users/', methods=['GET', 'POST', 'PUT'])
+@app.route('/api/users/', methods=['GET', 'POST', 'PUT', 'DELETE'])
 def api_users():
     if request.method == 'GET':
         """Retrieve all users from database and return in JSON format"""
@@ -329,7 +333,7 @@ def api_users():
         mysql.connection.commit()
         cursor.close()
         return jsonify(user)
-    if request.method == 'PUT':
+    if request.method == 'DELETE':
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         user = request.get_json()
         try:
@@ -390,10 +394,13 @@ def api_post_by_id(id):
         cursor.close()
         return jsonify('Publicación activa nuevamente')
     if request.method == 'PUT':
+        updated_at = datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')
         if "lost" in id:
             cursor.execute("UPDATE lost_pets SET estado = 'completed' WHERE id=%s", [id])
+            cursor.execute("UPDATE lost_pets SET updated_at=%s WHERE id=%s", [updated_at, id])
         else:
             cursor.execute("UPDATE found_pets SET estado = 'completed' WHERE id=%s", [id])
+            cursor.execute("UPDATE found_pets SET updated_at=%s WHERE id=%s", [updated_at, id])
         mysql.connection.commit()
         cursor.close()
         return jsonify('¡Felicidades! Nos alegra mucho que hayas encontrado a tu mascota :D')
@@ -440,14 +447,14 @@ def reported_posts():
 def api_completed():
     """Retrieve all completed (resolved) posts in JSON format"""
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    cursor.execute("SELECT * FROM lost_pets WHERE estado = 'completed' ORDER BY created_at DESC")
+    cursor.execute("SELECT * FROM lost_pets WHERE estado = 'completed'")
     completed_lost = list(cursor.fetchall())
-    cursor.execute("SELECT * FROM found_pets WHERE estado = 'completed' ORDER BY created_at DESC")
+    cursor.execute("SELECT * FROM found_pets WHERE estado = 'completed'")
     completed_found = list(cursor.fetchall())
     cursor.close()
     resolved = {}
     all_posts = completed_lost + completed_found
-    resolved["all"] = sorted(all_posts, key=lambda d: d['created_at'])
+    resolved["all"] = sorted(all_posts, key=lambda d: d['updated_at'])
     return jsonify(resolved)
 
 

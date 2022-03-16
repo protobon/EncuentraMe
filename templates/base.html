@@ -155,7 +155,7 @@
                 const user = { id: userId };
                 const url = 'https://encuentrame.org.xelar.tech/api/users';
                 const response = await fetch(url, {
-                    method: 'PUT',
+                    method: 'DELETE',
                     headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify(user)
                 })
