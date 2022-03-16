@@ -55,9 +55,9 @@ function initMap() {
         type: postType,
         content: postPhoto,
       }
-      postObj = Object.assign(data[element], posit)
-      console.log(postObj)
-      console.log(type(postObj))
+      Object.assign(data[element], posit)
+      console.log(data[element])
+      console.log(type((data[element])))
     }
   })
       //Set icons
