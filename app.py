@@ -436,6 +436,22 @@ def reported_posts():
     return jsonify(reports)
 
 
+@app.route('/api/posts/completed')
+def api_completed():
+    """Retrieve all completed (resolved) posts in JSON format"""
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute("SELECT * FROM lost_pets WHERE estado = 'completed' ORDER BY created_at DESC")
+    completed_lost = list(cursor.fetchall())
+    cursor.execute("SELECT * FROM found_pets WHERE estado = 'completed' ORDER BY created_at DESC")
+    completed_found = list(cursor.fetchall())
+    cursor.close()
+    resolved = {}
+    resolved["all"] = completed_lost + completed_found
+    resolved["all"].sort()
+    return jsonify(resolved)
+
+
+
 """ only for test, will be deleted """
 @app.route('/layout')
 def layout():
