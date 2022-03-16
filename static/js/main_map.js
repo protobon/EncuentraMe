@@ -41,7 +41,7 @@ function initMap() {
   .then(response => response.json())
   .then(data => {
     for (let obj in data){
-      listDict = listDict.concat(data[obj])
+      listDict = data[obj]
       console.log("Checking list after each iteration in data")
       console.log(listDict)
       for (let element in listDict) {
