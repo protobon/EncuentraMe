@@ -70,9 +70,11 @@ function initMap() {
     const icons = {
       lostMarker: {
         icon: "https://raw.githubusercontent.com/ayrton-hbtn/EncuentraMe/main/static/img/lostmarker2.png",
+        name: "Perdidos"
       },
       foundMarker: {
         icon: "https://raw.githubusercontent.com/ayrton-hbtn/EncuentraMe/main/static/img/foundmarker2.png",
+        name: "Encontrados en la calle"
       }
     };
 
@@ -102,4 +104,17 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
       : "Error: Your browser doesn't support geolocation."
   );
   infoWindow.open(map);
+  const legend = document.getElementById("legend");
+
+  for (const key in icons) {
+    const type = icons[key];
+    const name = type.name;
+    const icon = type.icon;
+    const div = document.createElement("div");
+
+    div.innerHTML = '<img src="' + icon + '"> ' + name;
+    legend.appendChild(div);
+  }
+
+  map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(legend);
 }
