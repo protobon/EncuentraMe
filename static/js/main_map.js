@@ -58,7 +58,6 @@ function initMap() {
       Object.assign(data[element], posit)
       listofallposts = listofallposts.concat(data[element])
     }
-    console.log(listofallposts)
   })
       //Set icons
     const icons = {
@@ -72,6 +71,7 @@ function initMap() {
 
     //Create markers based on testing locations.
     for (let i = 0; i < listofallposts.length; i++) {
+      console.log(listofallposts[i].position)
       const marker = new google.maps.Marker({
         position: listofallposts[i].position,
         icon: icons[listofallposts[i].type].icon,
