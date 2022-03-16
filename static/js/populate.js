@@ -57,12 +57,23 @@ $(document).ready(function () {
                 cardImg.find('a').append('<img class="img-fluid" src="/static/images/' + this.foto + '">');/*4*/
                 let cardBody = $(document.createElement('div'));/*5*/
                 cardBody.addClass('card-body');/*5*/
-                cardBody.append('<h5 class="card-title">' + this.nombre +' perdido/a!</h5>');/*6*/
+                if (this.nombre) {
+                    cardBody.append('<h5 class="card-title">' + this.nombre +' perdido/a!</h5>');/*6*/
+                } else {
+                    cardBody.append('<h5 class="card-title">' + this.mascota +' encontrado/a!</h5>');/*6*/
+                }
                 cardBody.append('<p class="card-text">Fecha de publicación: ' + this.created_at +'</p">');/*7*/
-                cardBody.append('<p class="card-text">¡Se busca a ' + this.nombre + '! Perdido/a desde el día '
-                + this.fecha + ' última vez visto en las inmediaciones de ' + this.calle_1 +
-                ' y ' + this.calle_2 + ' barrio ' + this.barrio + ' a las ' + this.hora + ' horas.\n'
-                + 'Si lo viste por favor comunícate con ' + this.user_name + '.</p>');/*7*/
+                if (this.nombre) {
+                    cardBody.append('<p class="card-text">¡Se busca a ' + this.nombre + '! Perdido/a desde el día '
+                    + this.fecha + ' última vez visto en las inmediaciones de ' + this.calle_1 +
+                    ' y ' + this.calle_2 + ' barrio ' + this.barrio + ' a las ' + this.hora + ' horas.\n'
+                    + 'Si lo viste por favor comunícate con ' + this.user_name + '.</p>');/*7*/
+                } else {
+                    cardBody.append('<p class="card-text">Se encontró el día ' + this.fecha + ' por barrio '
+                    + this.barrio + ' en las inmediaciones de ' + this.calle_1 +
+                    ' y ' + this.calle_2 + ' a las ' + this.hora + ' horas.\n'
+                    + 'Si es tuyo o sabes de quien puede ser por favor comunícate con ' + this.user_name + '.</p>');
+                }
                 if (this.phone) {
                     cardBody.append('<p class="card-text">Teléfono: ' + this.phone + '</p>');
                 }/*7*/
@@ -145,7 +156,7 @@ $(document).ready(function () {
                 cardImg.find('a').append('<img class="img-fluid" src="/static/images/' + this.foto + '">');/*4*/
                 let cardBody = $(document.createElement('div'));/*5*/
                 cardBody.addClass('card-body');/*5*/
-                cardBody.append('<h5 class="card-title">' + this.nombre +' encontrado/a!</h5>');/*6*/
+                cardBody.append('<h5 class="card-title">' + this.mascota +' encontrado/a!</h5>');/*6*/
                 cardBody.append('<p class="card-text">Fecha de publicación: ' + this.created_at +'</p">');/*7*/
                 cardBody.append('<p class="card-text">Se encontró el día ' + this.fecha + ' por barrio '
                 + this.barrio + ' en las inmediaciones de ' + this.calle_1 +
