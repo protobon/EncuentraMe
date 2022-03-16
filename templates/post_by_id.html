@@ -10,69 +10,66 @@
 {% endblock %}
 
 {% block body %}
-<div id="fb-root"></div>
-<script>
-(function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) return;
-    js = d.createElement(s); js.id = id;
-    js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0";
-    fjs.parentNode.insertBefore(js, fjs);
-} (document, 'script', 'facebook-jssdk'));
-</script>
-<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-<main>
-  <div class="container">
-    <article>
-      <div class="row">
-        <div class="col-sm-6">
-          <div class="card">
-          {% if 'lost' in post['id'] %}
-          <div class="pet lost_pet">
-            <img class="card-img-top" src="{{ post['foto'] }}" alt="foto de mascota perdida">
-            <div class="card-body">
-              <h5 class="card-title">Perdido</h5>
-              <p class="card-text">¡Se busca a <b>{{ post['nombre'] }}</b>! Perdido/a desde el día {{ post['fecha'] }}
-                  última vez visto en las inmediaciones de {{ post['calle_1'] }} y
-                  {{ post['calle_2'] }} barrio {{ post['barrio'] }} a las {{ post['hora'] }}
-                  horas.
-                  Si lo viste por favor comunícate con {{ user["name"] }}.
-              </p>
-            </div>
+  <div id="fb-root"></div>
+    <script>
+      (function(d, s, id) {
+          var js, fjs = d.getElementsByTagName(s)[0];
+          if (d.getElementById(id)) return;
+          js = d.createElement(s); js.id = id;
+          js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0";
+          fjs.parentNode.insertBefore(js, fjs);
+      } (document, 'script', 'facebook-jssdk'));
+    </script>
+  <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+  <main>
+    <div class="container-md">
+        <div class="row justify-content-center">
+          <div class="col-sm-6">
+            <div class="card">
+              {% if 'lost' in post['id'] %}
+                <div class="pet lost_pet">
+                  <img class="card-img-top" src="{{ post['foto'] }}" alt="foto de mascota perdida">
+                  <div class="card-body">
+                    <h5 class="card-title">Perdido</h5>
+                    <p class="card-text">¡Se busca a <b>{{ post['nombre'] }}</b>! Perdido/a desde el día {{ post['fecha'] }}
+                        última vez visto en las inmediaciones de {{ post['calle_1'] }} y
+                        {{ post['calle_2'] }} barrio {{ post['barrio'] }} a las {{ post['hora'] }}
+                        horas.
+                        Si lo viste por favor comunícate con {{ user["name"] }}.
+                    </p>
+                  </div>
+                </div>
           </div>
         </div>
       </div>
-    </div>
-    {% else %}
-        <div class="card">
-          <div class="pet found_pet">
-            <img class="card-img-top" src="{{ post['foto'] }}" alt="foto de mascota encontrada">
-            <div class="card-body">
-              <h5 class="card-title">Encontrado</h5>
-              <p class="card-text">
-                  Se encontró el día {{ post['fecha'] }} por barrio {{ post['barrio'] }} en las inmediaciones
-                  de {{ post['calle_1'] }} y {{ post['calle_2'] }} a las {{ post['hora'] }} horas.
-                  Si es tuyo o sabes de quien puede ser por favor comunícate con {{ user["name"] }}.
-              </p>
+      {% else %}
+          <div class="card">
+            <div class="pet found_pet">
+              <img class="card-img-top" src="{{ post['foto'] }}" alt="foto de mascota encontrada">
+              <div class="card-body">
+                <h5 class="card-title">Encontrado</h5>
+                <p class="card-text">
+                    Se encontró el día {{ post['fecha'] }} por barrio {{ post['barrio'] }} en las inmediaciones
+                    de {{ post['calle_1'] }} y {{ post['calle_2'] }} a las {{ post['hora'] }} horas.
+                    Si es tuyo o sabes de quien puede ser por favor comunícate con {{ user["name"] }}.
+                </p>
+              </div>
             </div>
           </div>
-        </div>
-    {% endif %}
-    </article>
+      {% endif %}
 
-    <div class="share"> <!-- share -->
-        <div class="fb-share-button"
-        data-href="https://encuentrame.org.xelar.tech/{{ post['id'] }}"
-        data-layout="button_count"
-        data-size="large">
-        </div>
-        <a href="https://twitter.com/share?ref_src=twsrc%5Etfw"
-        class="twitter-share-button"
-        data-text="¡Ayúdame a encontrar a mi humano! Ingresa al link para más información #encuentrame"
-        data-size="large">Tweet</a>
-    </div> <!-- share -->
-
-  </div><!-- /.container -->
-
-</main>
+      <div class="share"> <!-- share -->
+          <div class="fb-share-button"
+          data-href="https://encuentrame.org.xelar.tech/{{ post['id'] }}"
+          data-layout="button_count"
+          data-size="large">
+          </div>
+          <a href="https://twitter.com/share?ref_src=twsrc%5Etfw"
+          class="twitter-share-button"
+          data-text="¡Ayúdame a encontrar a mi humano! Ingresa al link para más información #encuentrame"
+          data-size="large">Tweet</a>
+      </div> <!-- share -->
+    </div><!-- /.container -->
+  </main>
 {% endblock %}
