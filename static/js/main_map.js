@@ -56,15 +56,12 @@ function initMap() {
         content: postPhoto,
       }
       Object.assign(data[element], posit)
-      listofallposts = listofallposts.push(JSON.stringify(data[element]))
+      console.log(JSON.stringify(data[element]))
+      console.log(type(JSON.stringify(data[element])))
+
     }
-    console.log(listofallposts)
-
   })
-  
-  console.log(listofallposts)
-
-    //Set icons
+      //Set icons
     const icons = {
       lostMarker: {
         icon: "https://raw.githubusercontent.com/ayrton-hbtn/EncuentraMe/main/static/img/lostmarker.png",
