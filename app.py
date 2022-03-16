@@ -178,11 +178,14 @@ def form_report(user_id, post_id):
     if request.method == 'GET':
         return render_template('form_report.html', user_id=user_id, post_id=post_id)
     if request.method == 'POST':
+        updated_at = datetime.utcnow()
         if "lost" in post_id:
             cursor.execute("UPDATE lost_pets SET estado = 'reported' WHERE id=%s", [post_id])
+            cursor.execute("UPDATE lost_pets SET updated_at=%s WHERE id=%s", [updated_at, post_id])
             cursor.execute('SELECT user_id FROM lost_pets WHERE id=%s', [post_id])
         else:
             cursor.execute("UPDATE found_pets SET estado = 'reported' WHERE id=%s", [post_id])
+            cursor.execute("UPDATE found_pets SET updated_at=%s WHERE id=%s", [updated_at, post_id])
             cursor.execute('SELECT user_id FROM found_pets WHERE id=%s', [post_id])
         try:
             reported_user_id = list(cursor.fetchall())[0]['user_id']
@@ -291,7 +294,7 @@ def moderate_posts():
 # RESTful APIs
 @app.route('/api/posts/')
 def api_posts():
-    """Retrieve all posts from database and return in JSON format"""
+    """Retrieve all posts from database and return a list of dictionaries in JSON format"""
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     cursor.execute("SELECT * FROM lost_pets WHERE estado='active' OR estado='reported' ORDER BY created_at DESC")
     lost = list(cursor.fetchall())
@@ -304,7 +307,35 @@ def api_posts():
     for post in found:
         del post["estado"]
         del post["user_id"]
-    return jsonify({"lost": lost, "found": found})
+    all_posts = lost + found
+    sorted_by_date = sorted(all_posts, key=lambda d: d['created_at'])
+    return jsonify(sorted_by_date)
+
+
+@app.route('/api/posts/lost')
+def api_posts_lost():
+    """Return all lost_pets posts and return a list of dictionaries in JSON format"""
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute("SELECT * FROM lost_pets WHERE estado='active' OR estado='reported' ORDER BY created_at DESC")
+    lost = list(cursor.fetchall())
+    cursor.close()
+    for post in lost:
+        del post["estado"]
+        del post["user_id"]
+    return jsonify(lost)
+
+
+@app.route('/api/posts/found')
+def api_posts_found():
+    """Return all found_pets posts and return a list of dictionaries in JSON format"""
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute("SELECT * FROM found_pets WHERE estado='active' OR estado='reported' ORDER BY created_at DESC")
+    found = list(cursor.fetchall())
+    cursor.close()
+    for post in found:
+        del post["estado"]
+        del post["user_id"]
+    return jsonify(found)
 
 
 @app.route('/api/users/', methods=['GET', 'POST', 'PUT', 'DELETE'])
@@ -407,7 +438,7 @@ def api_post_by_id(id):
         cursor.close()
         return jsonify('Publicación activa nuevamente')
     if request.method == 'PUT':
-        updated_at = datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')
+        updated_at = datetime.utcnow()
         if "lost" in id:
             cursor.execute("UPDATE lost_pets SET estado = 'completed' WHERE id=%s", [id])
             cursor.execute("UPDATE lost_pets SET updated_at=%s WHERE id=%s", [updated_at, id])
