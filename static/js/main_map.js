@@ -59,7 +59,7 @@ function initMap() {
       listofallposts = listofallposts.concat(data[element])
     }
   })
-  console.log(list)
+  console.log(listofallposts)
       //Set icons
     const icons = {
       lostMarker: {
