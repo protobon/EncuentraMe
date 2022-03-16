@@ -1,273 +1,152 @@
 {% extends "base.html" %}
+
 {% block head %}
+
 <script src="{{ url_for('static', filename='js/main_map.js') }}"></script>
-<!-- <style>
-    .publicaciones {
-        background-color: red;
-    }
-    .mapa {
-        background-color: blue;
-        border: 1px solid black;
-        border-radius: 4px;
-    }
-    .landing-intro {
-        background-color: green;
-        font-size: medium;
-    }
-    .animal {
-        background-color: grey;
-        border: 1px solid black;
-        border-radius: 4px;
-    }
-
-.individual {
-    background-color: yellow;
-    border: 1px solid black;
-    border-radius: 4px;
-}
-
-.mapa-imagen {
-    width: 100%;
-}
-
-.card img {
-    width: 100%;
-    height: auto;
-}
-</style> -->
 
 {% endblock %}
 
 {% block body %}
-{% with messages = get_flashed_messages(with_categories=true) %}
+  {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
-        {% for category, message in messages %}
-            {% if category == "success" %}
-                <div class="alert alert-success mb-3" role="alert">
-                    <p>{{ message }}</p>
-                </div>
-            {% elif category == "info" %}
-                <div class="alert alert-info mb-3" role="alert">
-                    <p>{{ message }}</p>
-                </div>
-            {% else %}
-                <div class="alert alert-error mb-3" role="alert">
-                    <p>{{ message }}</p>
-                </div>
-            {% endif %}
-        {% endfor %}
+      {% for category, message in messages %}
+        {% if category == "success" %}
+          <div class="alert alert-success mb-3" role="alert">
+            <p>{{ message }}</p>
+          </div>
+        {% elif category == "info" %}
+          <div class="alert alert-info mb-3" role="alert">
+            <p>{{ message }}</p>
+          </div>
+        {% else %}
+          <div class="alert alert-error mb-3" role="alert">
+            <p>{{ message }}</p>
+          </div>
+        {% endif %}
+      {% endfor %}
     {% endif %}
-{% endwith %}
+  {% endwith %}
 
-<main class="container">
-<div class="sticky-top feed py-1 text-center container">
-    <div class="filters row">
+  <main class="container">
+    <div class="sticky-top feed py-1 text-center container"><!-- filter sticky bar-->
+      <div class="filters row">
         <div class="filter col-lg-6 col-md-8 mx-auto">
-            <button type="button" class="btn btn-success btn-sm" id="all" onclick="refreshFeed()" autofocus>Todos</button>
-            <button type="button" class="btn btn-success btn-sm" id="lost" onclick="refreshLost()">Perdidos</button>
-            <button type="button" class="btn btn-success btn-sm" id="found" onclick="refreshFound()">Encontrados</button>
+          <button type="button" class="btn btn-success btn-sm" id="all" onclick="refreshFeed()" autofocus>Todos</button>
+          <button type="button" class="btn btn-success btn-sm" id="lost" onclick="refreshLost()">Perdidos</button>
+          <button type="button" class="btn btn-success btn-sm" id="found" onclick="refreshFound()">Encontrados</button>
         </div>
         <div class="selectAnimal">
-            <input type="radio" name="animal-selection" id="todos" value="Todos" checked>Todos</input>
-            <input type="radio" name="animal-selection" id="perritos" value="Perritos">Perritos</input>
-            <input type="radio" name="animal-selection" id="gatitos" value="Gatitos">Gatitos</input>
-            <p id="show"></p>
+          <input type="radio" name="animal-selection" id="todos" value="Todos" checked>Todos</input>
+          <input type="radio" name="animal-selection" id="perritos" value="Perritos">Perritos</input>
+          <input type="radio" name="animal-selection" id="gatitos" value="Gatitos">Gatitos</input>
+          <p id="show"></p>
         </div>
         <div class="post">
-            <a id="post" class="btn btn-primary my-2" role="button">Publicar</a>
+          <a id="post" class="btn btn-primary my-2" role="button">Publicar</a>
         </div>
+      </div>
     </div>
-</div>
 
-<div class="card text-center"><!-- navigation -->
-  <div class="card-header">
-    <ul class="nav nav-tabs card-header-tabs">
-      <li class="nav-item">
-        <a class="nav-link active" aria-current="true" href="#">Publicaciones</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Mapa</a>
-      </li>
-    </ul>
-  </div>
-</div><!-- navigation -->
+    <div class="card text-center"><!-- navigation choose feed or map-->
+      <div class="card-header">
+        <ul class="nav nav-tabs card-header-tabs">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="true" href="#">Publicaciones</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Mapa</a>
+          </li>
+        </ul>
+      </div>
+    </div><!-- navigation choose feed or map-->
 
-<div class="container-xl justify-content-center overflow-hidden">
-    <div class="row ">
+    <div class="container-xl justify-content-center overflow-hidden">
+      <div class="row">
         <div class="animal col-md-12 col-lg-6 col-xl-6">
-            <div class="posts row justify-content-around g-2"><!-- 1 -->
+          <div class="posts row justify-content-around g-2"><!-- 1 -->
 
-                <div class="individual col-sm-12 col-md-6 col-lg-12 col-xl-12 p-3"><!-- inidvidual post -->
-                    <div class="card pet pet_lost"><!-- 1 -->
-                        <div class="user card-img-top"><!-- 2 -->
-                            <a href="#"><!-- 3 -->
-                            <img class="img-fluid" src="https://picsum.photos/300/300" alt=""></a><!-- 4 -->
-                        </div>
-                        <div class="card-body"><!-- 5 -->
-                            <h5 class="card-title">Card title</h5><!-- 6 -->
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p><!-- 7 -->
-                            <a href="#" class="btn btn-primary">Go somewhere</a><!-- 8 -->
-                        </div>
-                    </div>
-                </div><!-- inidvidual post -->
-
-                <div class="individual col-sm-12 col-md-6 col-lg-12 col-xl-12 p-3"><!-- inidvidual post -->
-                    <div class="card pet pet_lost"><!-- 1 -->
-                        <div class="user card-img-top"><!-- 2 -->
-                            <a href="#"><!-- 3 -->
-                            <img class="img-fluid" src="https://picsum.photos/300/300" alt=""></a><!-- 4 -->
-                        </div>
-                        <div class="card-body"><!-- 5 -->
-                            <h5 class="card-title">Card title</h5><!-- 6 -->
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p><!-- 7 -->
-                            <a href="#" class="btn btn-primary">Go somewhere</a><!-- 8 -->
-                        </div>
-                    </div>
-                </div><!-- inidvidual post -->
-
-                <div class="individual col-sm-12 col-md-6 col-lg-12 col-xl-12 p-3"><!-- inidvidual post -->
-                    <div class="card pet pet_lost"><!-- 1 -->
-                        <div class="user card-img-top"><!-- 2 -->
-                            <a href="#"><!-- 3 -->
-                            <img class="img-fluid" src="https://picsum.photos/300/300" alt=""></a><!-- 4 -->
-                        </div>
-                        <div class="card-body"><!-- 5 -->
-                            <h5 class="card-title">Card title</h5><!-- 6 -->
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p><!-- 7 -->
-                            <a href="#" class="btn btn-primary">Go somewhere</a><!-- 8 -->
-                        </div>
-                    </div>
-                </div><!-- inidvidual post -->
-
-                <div class="individual col-sm-12 col-md-6 col-lg-12 col-xl-12 p-3"><!-- inidvidual post -->
-                    <div class="card pet pet_lost"><!-- 1 -->
-                        <div class="user card-img-top"><!-- 2 -->
-                            <a href="#"><!-- 3 -->
-                            <img class="img-fluid" src="https://picsum.photos/300/300" alt=""></a><!-- 4 -->
-                        </div>
-                        <div class="card-body"><!-- 5 -->
-                            <h5 class="card-title">Card title</h5><!-- 6 -->
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p><!-- 7 -->
-                            <a href="#" class="btn btn-primary">Go somewhere</a><!-- 8 -->
-                        </div>
-                    </div>
-                </div><!-- inidvidual post -->
-
-                <div class="individual col-sm-12 col-md-6 col-lg-12 col-xl-12 p-3"><!-- inidvidual post -->
-                    <div class="card pet pet_lost"><!-- 1 -->
-                        <div class="user card-img-top"><!-- 2 -->
-                            <a href="#"><!-- 3 -->
-                            <img class="img-fluid" src="https://picsum.photos/300/300" alt=""></a><!-- 4 -->
-                        </div>
-                        <div class="card-body"><!-- 5 -->
-                            <h5 class="card-title">Card title</h5><!-- 6 -->
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p><!-- 7 -->
-                            <a href="#" class="btn btn-primary">Go somewhere</a><!-- 8 -->
-                        </div>
-                    </div>
-                </div><!-- inidvidual post -->
-
-                <div class="individual col-sm-12 col-md-6 col-lg-12 col-xl-12 p-3"><!-- inidvidual post -->
-                    <div class="card pet pet_lost"><!-- 1 -->
-                        <div class="user card-img-top"><!-- 2 -->
-                            <a href="#"><!-- 3 -->
-                            <img class="img-fluid" src="https://picsum.photos/300/300" alt=""></a><!-- 4 -->
-                        </div>
-                        <div class="card-body"><!-- 5 -->
-                            <h5 class="card-title">Card title</h5><!-- 6 -->
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p><!-- 7 -->
-                            <a href="#" class="btn btn-primary">Go somewhere</a><!-- 8 -->
-                        </div>
-                    </div>
-                </div><!-- inidvidual post -->
-
-                <div class="individual col-sm-12 col-md-6 col-lg-12 col-xl-12 p-3"><!-- inidvidual post -->
-                    <div class="card pet pet_lost"><!-- 1 -->
-                        <div class="user card-img-top"><!-- 2 -->
-                            <a href="#"><!-- 3 -->
-                            <img class="img-fluid" src="https://picsum.photos/300/300" alt=""></a><!-- 4 -->
-                        </div>
-                        <div class="card-body"><!-- 5 -->
-                            <h5 class="card-title">Card title</h5><!-- 6 -->
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p><!-- 7 -->
-                            <a href="#" class="btn btn-primary">Go somewhere</a><!-- 8 -->
-                        </div>
-                    </div>
-                </div><!-- inidvidual post -->
-
-
-                <div class="individual col-sm-12 col-md-6 col-lg-12 col-xl-12 p-3"><!-- inidvidual post -->
-                    <div class="card pet pet_lost"><!-- 1 -->
-                        <div class="user card-img-top"><!-- 2 -->
-                            <a href="#"><!-- 3 -->
-                            <img class="img-fluid" src="https://picsum.photos/300/300" alt=""></a><!-- 4 -->
-                        </div>
-                        <div class="card-body"><!-- 5 -->
-                            <h5 class="card-title">Card title</h5><!-- 6 -->
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p><!-- 7 -->
-                            <a href="#" class="btn btn-primary">Go somewhere</a><!-- 8 -->
-                        </div>
-                    </div>
-                </div><!-- inidvidual post -->
-
-
-                <div class="individual col-sm-12 col-md-6 col-lg-12 col-xl-12 p-3"><!-- inidvidual post -->
-                    <div class="card pet pet_lost"><!-- 1 -->
-                        <div class="user card-img-top"><!-- 2 -->
-                            <a href="#"><!-- 3 -->
-                            <img class="img-fluid" src="https://picsum.photos/300/300" alt=""></a><!-- 4 -->
-                        </div>
-                        <div class="card-body"><!-- 5 -->
-                            <h5 class="card-title">Card title</h5><!-- 6 -->
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p><!-- 7 -->
-                            <a href="#" class="btn btn-primary">Go somewhere</a><!-- 8 -->
-                        </div>
-                    </div>
-                </div><!-- inidvidual post -->
-
-
-                <div class="individual col-sm-12 col-md-6 col-lg-12 col-xl-12 p-3"><!-- inidvidual post -->
-                    <div class="card pet pet_lost"><!-- 1 -->
-                        <div class="user card-img-top"><!-- 2 -->
-                            <a href="#"><!-- 3 -->
-                            <img class="img-fluid" src="https://picsum.photos/300/300" alt=""></a><!-- 4 -->
-                        </div>
-                        <div class="card-body"><!-- 5 -->
-                            <h5 class="card-title">Card title</h5><!-- 6 -->
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p><!-- 7 -->
-                            <a href="#" class="btn btn-primary">Go somewhere</a><!-- 8 -->
-                        </div>
-                    </div>
-                </div><!-- inidvidual post -->
-
-
-                <div class="individual col-sm-12 col-md-6 col-lg-12 col-xl-12 p-3"><!-- inidvidual post -->
-                    <div class="card pet pet_lost"><!-- 1 -->
-                        <div class="user card-img-top"><!-- 2 -->
-                            <a href="#"><!-- 3 -->
-                            <img class="img-fluid" src="https://picsum.photos/300/300" alt=""></a><!-- 4 -->
-                        </div>
-                        <div class="card-body"><!-- 5 -->
-                            <h5 class="card-title">Card title</h5><!-- 6 -->
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p><!-- 7 -->
-                            <a href="#" class="btn btn-primary">Go somewhere</a><!-- 8 -->
-                        </div>
-                    </div>
-                </div><!-- inidvidual post -->
-
-
-            </div>
-        </div>
-
-        <div class="mapa col-md-12 col-lg-6 col-xl-6" >
-            <div class="position-sticky" style="top: 2rem;">
-                <div id="main_map">
-                    <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
-                    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBqNj3BPTdCSu9fTtAlj4LSLD5FAidsa7M&callback=initMap&v=weekly" async></script>
+            <div class="individual col-sm-12 col-md-6 col-lg-12 col-xl-12 p-3"><!-- inidvidual post -->
+              <div class="card pet pet_lost"><!-- 1 -->
+                <div class="user card-img-top"><!-- 2 -->
+                  <a href="#"><!-- 3 -->
+                  <img class="img-fluid" src="https://picsum.photos/300/300" alt=""></a><!-- 4 -->
                 </div>
-            </div>
+                <div class="card-body"><!-- 5 -->
+                  <h5 class="card-title">Card title</h5><!-- 6 -->
+                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p><!-- 7 -->
+                  <a href="#" class="btn btn-primary">Go somewhere</a><!-- 8 -->
+                </div>
+              </div>
+            </div><!-- inidvidual post -->
+
+            <div class="individual col-sm-12 col-md-6 col-lg-12 col-xl-12 p-3"><!-- inidvidual post -->
+              <div class="card pet pet_lost"><!-- 1 -->
+                <div class="user card-img-top"><!-- 2 -->
+                  <a href="#"><!-- 3 -->
+                  <img class="img-fluid" src="https://picsum.photos/300/300" alt=""></a><!-- 4 -->
+                </div>
+                <div class="card-body"><!-- 5 -->
+                  <h5 class="card-title">Card title</h5><!-- 6 -->
+                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p><!-- 7 -->
+                  <a href="#" class="btn btn-primary">Go somewhere</a><!-- 8 -->
+                </div>
+              </div>
+            </div><!-- inidvidual post -->
+
+            <div class="individual col-sm-12 col-md-6 col-lg-12 col-xl-12 p-3"><!-- inidvidual post -->
+              <div class="card pet pet_lost"><!-- 1 -->
+                <div class="user card-img-top"><!-- 2 -->
+                  <a href="#"><!-- 3 -->
+                  <img class="img-fluid" src="https://picsum.photos/300/300" alt=""></a><!-- 4 -->
+                </div>
+                <div class="card-body"><!-- 5 -->
+                  <h5 class="card-title">Card title</h5><!-- 6 -->
+                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p><!-- 7 -->
+                  <a href="#" class="btn btn-primary">Go somewhere</a><!-- 8 -->
+                </div>
+              </div>
+            </div><!-- inidvidual post -->
+
+            <div class="individual col-sm-12 col-md-6 col-lg-12 col-xl-12 p-3"><!-- inidvidual post -->
+              <div class="card pet pet_lost"><!-- 1 -->
+                <div class="user card-img-top"><!-- 2 -->
+                  <a href="#"><!-- 3 -->
+                  <img class="img-fluid" src="https://picsum.photos/300/300" alt=""></a><!-- 4 -->
+                </div>
+                <div class="card-body"><!-- 5 -->
+                  <h5 class="card-title">Card title</h5><!-- 6 -->
+                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p><!-- 7 -->
+                  <a href="#" class="btn btn-primary">Go somewhere</a><!-- 8 -->
+                </div>
+              </div>
+            </div><!-- inidvidual post -->
+
+            <div class="individual col-sm-12 col-md-6 col-lg-12 col-xl-12 p-3"><!-- inidvidual post -->
+              <div class="card pet pet_lost"><!-- 1 -->
+                <div class="user card-img-top"><!-- 2 -->
+                  <a href="#"><!-- 3 -->
+                  <img class="img-fluid" src="https://picsum.photos/300/300" alt=""></a><!-- 4 -->
+                </div>
+                <div class="card-body"><!-- 5 -->
+                  <h5 class="card-title">Card title</h5><!-- 6 -->
+                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p><!-- 7 -->
+                  <a href="#" class="btn btn-primary">Go somewhere</a><!-- 8 -->
+                </div>
+              </div>
+            </div><!-- inidvidual post -->
+
+
+          </div>
         </div>
+
+        <div class="mapa col-md-12 col-lg-6 col-xl-6" ><!-- map -->
+          <div class="position-sticky">
+            <div id="main_map"><!-- Async script executes immediately and must be after any DOM elements used in callback. -->
+              <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBqNj3BPTdCSu9fTtAlj4LSLD5FAidsa7M&callback=initMap&v=weekly" async></script>
+            </div>
+          </div>
+        </div><!-- map -->
+      </div>
     </div>
-</div>
-</main>
+  </main>
 {% endblock %}
