@@ -42,8 +42,6 @@ function initMap() {
   .then(data => {
     for (let obj in data){
       listDict = listDict.concat(data[obj])
-      console.log("Checking list after each iteration in data")
-      console.log(listDict)
     }
     for (let element in listDict) {
       let postLat = listDict[element].latitude
@@ -64,8 +62,6 @@ function initMap() {
       Object.assign(listDict[element], posit)
       listofallposts = listofallposts.concat(listDict[element])
     }
-    console.log("Checking list outside loop")
-    console.log(listofallposts)
       //Set icons
     const icons = {
       lostMarker: {
@@ -93,7 +89,17 @@ function initMap() {
       });
     };
   })
+  const legend = document.getElementById("legend");
 
+  for (const key in icons) {
+    const typeIc = icons[key];
+    const name = typeIc.name;
+    const icon = typeIc.icon;
+    const div = document.createElement("div");
+    div.innerHTML = '<img src="' + icon + '"> ' + name;
+    legend.appendChild(div);
+  }
+  map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(legend);
 };
 
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
@@ -104,17 +110,4 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
       : "Error: Your browser doesn't support geolocation."
   );
   infoWindow.open(map);
-  const legend = document.getElementById("legend");
-
-  for (const key in icons) {
-    const type = icons[key];
-    const name = type.name;
-    const icon = type.icon;
-    const div = document.createElement("div");
-
-    div.innerHTML = '<img src="' + icon + '"> ' + name;
-    legend.appendChild(div);
-  }
-
-  map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(legend);
 }
