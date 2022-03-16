@@ -58,7 +58,7 @@ $(document).ready(function () {
             $.each(all_posts, function () {
                 this.created_at = new Date(this.created_at).toLocaleString('es-UY');
                 let post = $(document.createElement('div')); /*1*/
-                post.addClass('row justify-content-around g-2'); /*1*/
+                post.addClass('card row justify-content-around g-2'); /*1*/
                 post.addClass('pet pet_lost');/*1*/
                 post.addClass(this.mascota);
                 let individualPost = $(document.createElement('div'));
@@ -112,7 +112,7 @@ $(document).ready(function () {
             $.each(all_posts_lost, function () {
                 this.created_at = new Date(this.created_at).toLocaleString('es-UY');
                 let postLostNew = $(document.createElement('div')); /*1*/
-                postLostNew.addClass('row justify-content-around g-2'); /*1*/
+                postLostNew.addClass('card row justify-content-around g-2'); /*1*/
                 postLostNew.addClass('pet');/*1*/
                 postLostNew.addClass('pet_lost');/*1*/
                 postLostNew.addClass(this.mascota);
@@ -155,7 +155,7 @@ $(document).ready(function () {
             $.each(all_posts_found, function () {
                 this.created_at = new Date(this.created_at).toLocaleString('es-UY');
                 let postFoundNew = $(document.createElement('div'));/*1*/
-                postFoundNew.addClass('row justify-content-around g-2');
+                postFoundNew.addClass('card row justify-content-around g-2');
                 postFoundNew.addClass('pet');
                 postFoundNew.addClass('pet_found');
                 postFoundNew.addClass(this.mascota);
@@ -200,7 +200,7 @@ $(document).ready(function () {
             // $.each(all_posts_resolved, function () {
             //     this.created_at = new Date(this.created_at).toLocaleString('es-UY');
             //     let post = $(document.createElement('div')); /*1*/
-            //     post.addClass('row justify-content-around g-2'); /*1*/
+            //     post.addClass('card row justify-content-around g-2'); /*1*/
             //     post.addClass('pet pet_lost');/*1*/
             //     post.addClass(this.mascota);
             //     let individualPost = $(document.createElement('div'));
