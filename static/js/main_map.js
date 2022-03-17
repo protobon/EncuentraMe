@@ -35,48 +35,56 @@ function initMap() {
       handleLocationError(false, infoWindow, map.getCenter());
     }
   });
-  var listDict = []
-  var listofallposts = []
+  let listofallposts = []
+  let listDict = []
   fetch('https://encuentrame.org.xelar.tech/api/posts')
   .then(response => response.json())
   .then(data => {
-
-    for (let lostAndFound in data){ //I have here a list of lost and list of found pets
-      listDict = data[lostAndFound]
-      for (let element in listDict){
-        let postLat = listDict[element].latitude
-        let postLng = listDict[element].longitude
-        let postLink = "https://encuentrame.org.xelar.tech/"+ listDict[element].id
-        let postPhoto = '<a href="'+postLink+'"> <img src="/static/images/' + listDict[element].foto + '" width="200"> </a>'
-        console.log(String(postPhoto))
-        latlng = new google.maps.LatLng(postLat , postLng)
-        if (listDict[element].nombre) {
-          postType = "lostMarker";
-        } else {
-          postType = "foundMarker";
-        }
-        let posit = {
-          position: latlng,
-          type: postType,
-          content: postPhoto,
-        }
-        Object.assign(listDict[element], posit)
-
-      }
-      listofallposts = listofallposts.concat(listDict)
+    for (let obj in data){
+      listDict = listDict.concat(data[obj])
     }
-    console.log(listofallposts)
-
-
+    for (let element in listDict) {
+      let postLat = listDict[element].latitude
+      let postLng = listDict[element].longitude
+      let postLink = "https://encuentrame.org.xelar.tech/"+ listDict[element].id
+      let postPhoto = '<a href="'+postLink+'"> <img src="/static/images/' + listDict[element].foto + '" width="200"> </a>'
+      latlng = new google.maps.LatLng(postLat , postLng)
+      if (data[element].nombre) {
+        postType = "lostMarker";
+      } else {
+        postType = "foundMarker";
+      }
+      let posit = {
+        position: latlng,
+        type: postType,
+        content: postPhoto,
+      }
+      Object.assign(listDict[element], posit)
+      listofallposts = listofallposts.concat(listDict[element])
+    }
       //Set icons
     const icons = {
       lostMarker: {
-        icon: "https://raw.githubusercontent.com/ayrton-hbtn/EncuentraMe/map_integration/static/img/lostmarker.png",
+        icon: "https://raw.githubusercontent.com/ayrton-hbtn/EncuentraMe/main/static/img/lostmarker2.png",
+        name: "Perdidos"
       },
       foundMarker: {
-        icon: "https://raw.githubusercontent.com/ayrton-hbtn/EncuentraMe/map_integration/static/img/foundmarker.png",
+        icon: "https://raw.githubusercontent.com/ayrton-hbtn/EncuentraMe/main/static/img/foundmarker2.png",
+        name: "Encontrados en la calle"
       }
     };
+    // const legend = document.getElementById("legend");
+
+    // for (const items in icons) {
+    //   const typeIc = icons[items];
+    //   const Iconname = typeIc.name;
+    //   const Iconicon = typeIc.icon;
+    //   const div = document.createElement("div");
+    //   div.innerHTML = '<img src="' + Iconicon + '"> ' + Iconname;
+    //   legend.appendChild(div);
+    // }
+
+    // map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(legend);
 
     //Create markers based on testing locations.
     for (let i = 0; i < listofallposts.length; i++) {
@@ -94,6 +102,7 @@ function initMap() {
     };
   })
 };
+
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
   infoWindow.setPosition(pos);
   infoWindow.setContent(

@@ -1,194 +1,75 @@
-<!DOCTYPE html>
-<html class="no-js" lang="es">
-<head>
-    <meta charset="utf-8">
-    <meta name="description" content="Si perdiste tu mascota publica ya su foto y ubicación. Sumate a las miles de personas que ya estan buscando mascotas perdidas para reecontrarse con sus seres queridos">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="author" content="Ronald Rivero, Ayrton Cohelo, Andy Ortiz">
-    <meta name="generator" content="Full stack software engineers">
-    <meta name="keywords" content="mascotas, animales perdidos, animales en situacion de calle, rescate animal, adopcion de mascotas">
-    <meta name="robots" content="index, follow">
-    <meta name="googlebot" content="index, follow">
-    <meta name="google" content="notranslate">
+{% extends "base.html" %}
 
-    <meta property="og:url"           content="https://encuentrame.org.xelar.tech/{{ post['id'] }}" />
-    <meta property="og:type"          content="article" />
-    <meta property="og:title"         content="EncuentraMe" />
-    <meta property="og:description"   content="¡Ayúdame a encontrar a mi humano! Ingresa al link para más información" />
-    <meta property="og:image"         content="https://encuentrame.org.xelar.tech/{{ post['foto'] }}" />
+{% block og %}
+  <!-- if post_by_id use this og-->
+  <meta property="og:url"           content="https://encuentrame.org.xelar.tech/{{ post['id'] }}" />
+  <meta property="og:type"          content="article" />
+  <meta property="og:title"         content="EncuentraMe" />
+  <meta property="og:description"   content="¡Ayúdame a encontrar a mi humano! Ingresa al link para más información" />
+  <meta property="og:image"         content="https://encuentrame.org.xelar.tech/{{ post['foto'] }}" />
+{% endblock %}
 
-    <title>encuentrame</title>
-
-    <link rel="icon" type="image/x-icon" href="{{url_for('static', filename='img/favicon.png')}}">
-
-<!-- toggle for production environment -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/normalize.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/main_cookies.css') }}">
-    <script src="https://kit.fontawesome.com/293c892861.js" crossorigin="anonymous"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/footer.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/carousel.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
-
-<!-- toggle for local development -->
-<!--     <link rel="stylesheet" href="../static/css/normalize.css">
-    <link rel="stylesheet" href="../static/css/main_cookies.css">
-    <script src="https://kit.fontawesome.com/293c892861.js" crossorigin="anonymous"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <link rel="stylesheet" href="../static/css/footer.css">
-    <link rel="stylesheet" href="../static/css/carousel.css">
-    <link rel="stylesheet" href="../static/css/main.css"> -->
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
-
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JS2KYPZKWG"></script>
+{% block body %}
+  <div id="fb-root"></div>
     <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'G-JS2KYPZKWG');
+      (function(d, s, id) {
+          var js, fjs = d.getElementsByTagName(s)[0];
+          if (d.getElementById(id)) return;
+          js = d.createElement(s); js.id = id;
+          js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0";
+          fjs.parentNode.insertBefore(js, fjs);
+      } (document, 'script', 'facebook-jssdk'));
     </script>
-</head>
+  <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-<body>
-<header>
-
-    <div class="collapse" id="navbarToggleExternalContent"> <!-- navbar--> <!-- menu links -->
-      <div class="bg-light p-4">
-        <div class="bg-light p-4">
-          <a href="{{url_for('about')}}" class="navbar-brand d-flex align-items-center">
-              Acerca de
-          </a>
-          <a href="{{url_for('politica')}}" class="navbar-brand d-flex align-items-center">
-              Politica de privacidad
-          </a>
+  <main>
+    <div class="container-md">
+        <div class="row justify-content-center">
+          <div class="col-sm-6">
+            <div class="card">
+              {% if 'lost' in post['id'] %}
+                <div class="pet lost_pet">
+                  <img class="card-img-top" src="{{ post['foto'] }}" alt="foto de mascota perdida">
+                  <div class="card-body">
+                    <h5 class="card-title">Perdido</h5>
+                    <p class="card-text">¡Se busca a <b>{{ post['nombre'] }}</b>! Perdido/a desde el día {{ post['fecha'] }}
+                        última vez visto en las inmediaciones de {{ post['calle_1'] }} y
+                        {{ post['calle_2'] }} barrio {{ post['barrio'] }} a las {{ post['hora'] }}
+                        horas.
+                        Si lo viste por favor comunícate con {{ user["name"] }}.
+                    </p>
+                  </div>
+                </div>
+          </div>
+        </div>
       </div>
-      </div>
-    </div> <!-- menu links -->
-
-    <nav class="navbar navbar-light bg-light">
-      <div class="container-fluid">
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <a href="{{url_for('landing')}}" class="navbar-brand d-flex align-items-center">
-      <img id="logo" src="../static/img/logo_pos_trans.svg" alt="encuentrame"></a>
-  <div class="dropstart text-end">
-      <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-          <button type="button" class="btn btn-success">
-            <i class="fa-regular fa-user"></i>
-            </button>
-      </a>
-      <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
-        <li><button class="dropdown-item btn btn-primary" id="btn-profile" onclick="goToProfile()">Perfil</button></li>
-        <li><hr class="dropdown-divider"></li>
-        <li><button class="dropdown-item btn btn-danger btn-small" id="btn-logout" onclick="logout()">Logout</button></li>
-        <fb:login-button
-        id="fb-btn"
-        scope="email"
-        onlogin="checkLoginState();">
-    </fb:login-button>
-      </ul>
-    </div>
-      </div>
-    </nav> <!-- navbar-->
-  </header>
-
-<main>
-  <div class="container">
-
-    <div id="fb-root"></div>
-    <script>
-    (function(d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) return;
-        js = d.createElement(s); js.id = id;
-        js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0";
-        fjs.parentNode.insertBefore(js, fjs);
-    } (document, 'script', 'facebook-jssdk'));
-    </script>
-    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-    <article>
-      <div class="row">
-        <div class="col-sm-6">
+      {% else %}
           <div class="card">
-          {% if 'lost' in post['id'] %}
-          <div class="pet lost_pet">
-            <img class="card-img-top" src="{{ post['foto'] }}" alt="foto de mascota perdida">
-            <div class="card-body">
-              <h5 class="card-title">Perdido</h5>
-              <p class="card-text">¡Se busca a <b>{{ post['nombre'] }}</b>! Perdido/a desde el día {{ post['fecha'] }}
-                  última vez visto en las inmediaciones de {{ post['calle_1'] }} y
-                  {{ post['calle_2'] }} barrio {{ post['barrio'] }} a las {{ post['hora'] }}
-                  horas.
-                  Si lo viste por favor comunícate con {{ user["name"] }}.
-              </p>
+            <div class="pet found_pet">
+              <img class="card-img-top" src="{{ post['foto'] }}" alt="foto de mascota encontrada">
+              <div class="card-body">
+                <h5 class="card-title">Encontrado</h5>
+                <p class="card-text">
+                    Se encontró el día {{ post['fecha'] }} por barrio {{ post['barrio'] }} en las inmediaciones
+                    de {{ post['calle_1'] }} y {{ post['calle_2'] }} a las {{ post['hora'] }} horas.
+                    Si es tuyo o sabes de quien puede ser por favor comunícate con {{ user["name"] }}.
+                </p>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
-    {% else %}
-        <div class="card">
-          <div class="pet found_pet">
-            <img class="card-img-top" src="{{ post['foto'] }}" alt="foto de mascota encontrada">
-            <div class="card-body">
-              <h5 class="card-title">Encontrado</h5>
-              <p class="card-text">
-                  Se encontró el día {{ post['fecha'] }} por barrio {{ post['barrio'] }} en las inmediaciones
-                  de {{ post['calle_1'] }} y {{ post['calle_2'] }} a las {{ post['hora'] }} horas.
-                  Si es tuyo o sabes de quien puede ser por favor comunícate con {{ user["name"] }}.
-              </p>
-            </div>
+      {% endif %}
+
+      <div class="share"> <!-- share -->
+          <div class="fb-share-button"
+          data-href="https://encuentrame.org.xelar.tech/{{ post['id'] }}"
+          data-layout="button_count"
+          data-size="large">
           </div>
-        </div>
-    {% endif %}
-    </article>
-
-    <div class="share"> <!-- share -->
-        <div class="fb-share-button"
-        data-href="https://encuentrame.org.xelar.tech/{{ post['id'] }}"
-        data-layout="button_count"
-        data-size="large">
-        </div>
-        <a href="https://twitter.com/share?ref_src=twsrc%5Etfw"
-        class="twitter-share-button"
-        data-text="¡Ayúdame a encontrar a mi humano! Ingresa al link para más información #EncuentraMe"
-        data-size="large">Tweet</a>
-    </div> <!-- share -->
-
-  </div><!-- /.container -->
-
-</main>
-<div class="container"> <!--footer -->
-  <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
-    <div class="col-md-4 d-flex align-items-center">
-      <a href="/" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
-        <svg class="bi" width="30" height="24"><use xlink:href="#encuentrame"/></svg>
-      </a>
-      <span class="text-muted">&copy; 2022 encuentrame</span>
-    </div>
-
-    <ul class="nav col-md-4 justify-content-end list-unstyled d-flex"> <!-- social media -->
-
-      <li class="ms-4"><a class="text-muted" href="#"><i class="fa-brands fa-twitter"></i></a></li>
-
-      <li class="ms-4"><a class="text-muted" href="#"><i class="fa-brands fa-instagram"></i></a></li>
-
-      <li class="ms-4"><a class="text-muted" href="#"><i class="fa-brands fa-facebook-square"></i></a></li>
-
-      <li class="ms-4"><a class="text-muted" href="#"><i class="fa-solid fa-chevron-up fa-bounce" title="ir al inicio"></i></a><small>subir</small></li>
-    </ul> <!-- social media -->
-  </footer>
-</div>
-
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js" data-cfasync="false"></script>
-
-  </body>
-</html>
+          <a href="https://twitter.com/share?ref_src=twsrc%5Etfw"
+          class="twitter-share-button"
+          data-text="¡Ayúdame a encontrar a mi humano! Ingresa al link para más información #encuentrame"
+          data-size="large">Tweet</a>
+      </div> <!-- share -->
+    </div><!-- /.container -->
+  </main>
+{% endblock %}

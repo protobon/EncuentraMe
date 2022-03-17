@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<!-- Home -->
+<url>
+  <loc>https://encuentrame.org.xelar.tech/</loc>
+  <lastmod>2022-03-13T05:34:02+00:00</lastmod>
+  <priority>1.00</priority>
+</url>
+<!-- About -->
+<url>
+  <loc>https://encuentrame.org.xelar.tech/about</loc>
+  <lastmod>2022-03-13T05:34:02+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<!-- Privacy policy -->
+<url>
+  <loc>https://encuentrame.org.xelar.tech/politica_de_privacidad</loc>
+  <lastmod>2022-03-13T05:34:02+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+
+
+</urlset>

@@ -3,7 +3,10 @@
 
 # TEAM
 
-    <name> -- <role> -- <twitter>
+    <Andy Ortiz> -- <Backend, Google API, Project Manager> -- <twitter>
+    <Ayrton Coelho> -- <Backend, Facebook API> -- <twitter>
+    <Ronald Rivero> -- <Devops, Frontend> -- <twitter>
+
 
 # THANKS
 
@@ -11,5 +14,10 @@
 
 # TECHNOLOGY COLOPHON
 
-    CSS3, HTML5
-    Apache Server Configs, jQuery, Modernizr, Normalize.css
+    HTML5, CSS, JS, Jquery
+    Python 3
+    bash
+    SQL
+    Facebook API, Google API
+    AWS EC2, Ubuntu Pro 20.04, Flask, Jinja, mysql, Gunicorn, SSL/TLS
+    Bootstrap 5, FontAwesome, Modernizr, Normalize.css

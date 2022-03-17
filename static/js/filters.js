@@ -37,6 +37,8 @@ $(document).ready(function () {
         $('#lost').removeClass("btn-success");
         $('#found').addClass("btn-outline-success");
         $('#found').removeClass("btn-success");
+        $('#resolved').addClass("btn-outline-success");
+        $('#resolved').removeClass("btn-success");
     });
     $('#lost').click(function() {
         $('#lost').addClass("btn-success");
@@ -45,10 +47,24 @@ $(document).ready(function () {
         $('#all').removeClass("btn-success");
         $('#found').addClass("btn-outline-success");
         $('#found').removeClass("btn-success");
+        $('#resolved').addClass("btn-outline-success");
+        $('#resolved').removeClass("btn-success");
     });
     $('#found').click(function() {
         $('#found').addClass("btn-success");
         $('#found').removeClass("btn-outline-success");
+        $('#all').addClass("btn-outline-success");
+        $('#all').removeClass("btn-success");
+        $('#lost').addClass("btn-outline-success");
+        $('#lost').removeClass("btn-success");
+        $('#resolved').addClass("btn-outline-success");
+        $('#resolved').removeClass("btn-success");
+    });
+    $('#resolved').click(function() {
+        $('#resolved').addClass("btn-success");
+        $('#resolved').removeClass("btn-outline-success");
+        $('#found').addClass("btn-outline-success");
+        $('#found').removeClass("btn-success");
         $('#all').addClass("btn-outline-success");
         $('#all').removeClass("btn-success");
         $('#lost').addClass("btn-outline-success");
