@@ -51,16 +51,24 @@ $(document).ready(function () {
         }
     }
 
+    async function getUserLink(uid) {
+        try {
+            const response = await fetch("https://encuentrame.org.xelar.tech/api/users/" + uid);
+            if (!response.ok) {
+                throw new Error(`Error! status: ${response.status}`);
+            }
+            const user = await response.json();
+            return (user);
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
     window.refreshFeed = function() {
         fetchAllPosts().then(function(all_posts) {
             $('div.posts').empty();
             $('#todos').prop('checked', true);
             $.each(all_posts, function () {
-                async function getUserLink() {
-                    const user_res = await fetch('https://encuentrame.org.xelar.tech/api/users/' + this.user_id);
-                    const user = await user_res.json();
-                    return user.fb_profile;
-                }
                 this.created_at = new Date(this.created_at).toLocaleString('es-UY');
                 let post = $(document.createElement('div')); /*1*/
                 post.addClass('card row justify-content-around g-2'); /*1*/
@@ -85,17 +93,28 @@ $(document).ready(function () {
                     cardBody.append('<h5 class="card-title">' + this.mascota + ' encontrado/a!</h5>');/*6*/
                 }
                 cardBody.append('<p class="card-text">Fecha de publicación: ' + this.created_at +'</p">');/*7*/
-                const user_profile = getUserLink();
+                const user_id = this.user_id;
+                const fecha = this.fecha;
+                const calle_1 = this.calle_1;
+                const calle_2 = this.calle_2;
+                const barrio = this.barrio;
+                const hora = this.hora;
+                const user_name = this.user_name;
                 if (this.nombre) {
-                    cardBody.append('<p class="card-text">¡Se busca a ' + this.nombre + '! Perdido/a desde el día '
-                    + this.fecha + ' última vez visto en las inmediaciones de ' + this.calle_1 +
-                    ' y ' + this.calle_2 + ' barrio ' + this.barrio + ' a las ' + this.hora + ' horas.\n'
-                    + 'Si lo viste por favor comunícate con <a target="_blank" href="' + user_profile + '">' + this.user_name + '</a>.</p>');/*7*/
+                    const nombre = this.nombre;
+                    getUserLink(user_id).then(function(user) {
+                        cardBody.append('<p class="card-text">¡Se busca a ' + nombre + '! Perdido/a desde el día '
+                        + fecha + ' última vez visto en las inmediaciones de ' + calle_1 + ' y ' + calle_2 + ' barrio '
+                        + barrio + ' a las ' + hora + ' horas.\n' + 'Si lo viste por favor comunícate con\
+                        <a target="_blank" href="' + user.fb_profile + '">' + user_name + '</a>.</p>');/*7*/
+                    });
                 } else {
-                    cardBody.append('<p class="card-text">Se encontró el día ' + this.fecha + ' por barrio '
-                    + this.barrio + ' en las inmediaciones de ' + this.calle_1 +
-                    ' y ' + this.calle_2 + ' a las ' + this.hora + ' horas.\n'
-                    + 'Si es tuyo o sabes de quien puede ser por favor comunícate con <a target="_blank" href="' + user_profile + '">' + this.user_name + '</a>.</p>');
+                    getUserLink(user_id).then(function(user) {
+                        cardBody.append('<p class="card-text">Se encontró el día ' + fecha + ' por barrio '
+                        + barrio + ' en las inmediaciones de ' + calle_1 + ' y ' + calle_2 + ' a las '
+                        + hora + ' horas.\n' + 'Si es tuyo o sabes de quien puede ser por favor comunícate con\
+                        <a target="_blank" href="' + user.fb_profile + '">' + user_name + '</a>.</p>');
+                    });
                 }
                 if (this.phone) {
                     cardBody.append('<p class="card-text">Teléfono: ' + this.phone + '</p>');
@@ -120,11 +139,6 @@ $(document).ready(function () {
             $('div.posts').empty();
             $('#todos').prop('checked', true);
             $.each(all_posts_lost, function () {
-                async function getUserLink() {
-                    const user_res = await fetch('https://encuentrame.org.xelar.tech/api/users/' + this.user_id);
-                    const user = await user_res.json();
-                    return user.fb_profile;
-                }
                 this.created_at = new Date(this.created_at).toLocaleString('es-UY');
                 let postLostNew = $(document.createElement('div')); /*1*/
                 postLostNew.addClass('card row justify-content-around g-2'); /*1*/
@@ -142,11 +156,20 @@ $(document).ready(function () {
                 cardBody.addClass('card-body');/*5*/
                 cardBody.append('<h5 class="card-title">' + this.nombre +' perdido/a!</h5>');/*6*/
                 cardBody.append('<p class="card-text">Fecha de publicación: ' + this.created_at +'</p">');/*7*/
-                const user_profile = getUserLink();
-                cardBody.append('<p class="card-text">¡Se busca a ' + this.nombre + '! Perdido/a desde el día '
-                + this.fecha + ' última vez visto en las inmediaciones de ' + this.calle_1 +
-                ' y ' + this.calle_2 + ' barrio ' + this.barrio + ' a las ' + this.hora + ' horas.\n'
-                + 'Si lo viste por favor comunícate con <a target="_blank" href="' + user_profile + '">' + this.user_name + '</a>.</p>');/*7*/
+                const nombre = this.nombre;
+                const user_id = this.user_id;
+                const fecha = this.fecha;
+                const calle_1 = this.calle_1;
+                const calle_2 = this.calle_2;
+                const barrio = this.barrio;
+                const hora = this.hora;
+                const user_name = this.user_name;
+                getUserLink(user_id).then(function(user) {
+                    cardBody.append('<p class="card-text">¡Se busca a ' + nombre + '! Perdido/a desde el día '
+                    + fecha + ' última vez visto en las inmediaciones de ' + calle_1 + ' y ' + calle_2 + ' barrio '
+                    + barrio + ' a las ' + hora + ' horas.\n' + 'Si lo viste por favor comunícate con\
+                    <a target="_blank" href="' + user.fb_profile + '">' + user_name + '</a>.</p>');/*7*/
+                });
                 if (this.phone) {
                     cardBody.append('<p class="card-text">Teléfono: ' + this.phone + '</p>');
                 }/*7*/
@@ -169,11 +192,6 @@ $(document).ready(function () {
             $('div.posts').empty();
             $('#todos').prop('checked', true);
             $.each(all_posts_found, function () {
-                async function getUserLink() {
-                    const user_res = await fetch('https://encuentrame.org.xelar.tech/api/users/' + this.user_id);
-                    const user = await user_res.json();
-                    return user.fb_profile;
-                }
                 this.created_at = new Date(this.created_at).toLocaleString('es-UY');
                 let postFoundNew = $(document.createElement('div'));/*1*/
                 postFoundNew.addClass('card row justify-content-around g-2');
@@ -192,11 +210,19 @@ $(document).ready(function () {
                 cardBody.addClass('card-body');/*5*/
                 cardBody.append('<h5 class="card-title">' + this.mascota +' encontrado/a!</h5>');/*6*/
                 cardBody.append('<p class="card-text">Fecha de publicación: ' + this.created_at +'</p">');/*7*/
-                const user_profile = getUserLink();
-                cardBody.append('<p class="card-text">Se encontró el día ' + this.fecha + ' por barrio '
-                + this.barrio + ' en las inmediaciones de ' + this.calle_1 +
-                ' y ' + this.calle_2 + ' a las ' + this.hora + ' horas.\n'
-                + 'Si es tuyo o sabes de quien puede ser por favor comunícate con <a target="_blank" href="' + user_profile + '">' + this.user_name + '</a>.</p>');
+                const user_id = this.user_id;
+                const fecha = this.fecha;
+                const calle_1 = this.calle_1;
+                const calle_2 = this.calle_2;
+                const barrio = this.barrio;
+                const hora = this.hora;
+                const user_name = this.user_name;
+                getUserLink(user_id).then(function(user) {
+                    cardBody.append('<p class="card-text">Se encontró el día ' + fecha + ' por barrio '
+                    + barrio + ' en las inmediaciones de ' + calle_1 + ' y ' + calle_2 + ' a las '
+                    + hora + ' horas.\n' + 'Si es tuyo o sabes de quien puede ser por favor comunícate con\
+                    <a target="_blank" href="' + user.fb_profile + '">' + user_name + '</a>.</p>');
+                });
                 if (this.phone) {
                     cardBody.append('<p class="card-text">Teléfono: ' + this.phone + '</p>');
                 }/*7*/
