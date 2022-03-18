@@ -346,7 +346,7 @@ def api_users():
         """Retrieve all users from database and return in JSON format"""
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         try:
-            cursor.execute('SELECT name, email, estado FROM users')
+            cursor.execute('SELECT name, email, estado, fb_profile FROM users')
         except Exception as e:
             logfile("/api/users GET - in SELECT:\n" + str(e))
         users = list(cursor.fetchall())
