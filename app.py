@@ -247,7 +247,7 @@ def show_single_post(id):
     except Exception as e:
         logfile("show_single_post:\n" + str(e))
         pass
-    cursor.execute("SELECT name FROM users WHERE id=%s", [post['user_id']])
+    cursor.execute("SELECT name, fb_profile FROM users WHERE id=%s", [post['user_id']])
     try:
         result = list(cursor.fetchall())
         if len(result) >= 1:
