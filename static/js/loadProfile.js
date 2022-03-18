@@ -49,6 +49,7 @@ $(document).ready(function () {
             });
             $.each(data.found, function () {
                 let postFoundNew = $(document.createElement('div'));
+                postFoundNew.addClass('card');
                 postFoundNew.addClass('pet');
                 postFoundNew.addClass('pet_found');
                 postFoundNew.addClass(this.mascota);
@@ -57,7 +58,7 @@ $(document).ready(function () {
                 postFoundNew.append('<p>Se encontró el día ' + this.fecha + ' por barrio '
                 + this.barrio + ' en las inmediaciones de ' + this.calle_1 +
                 ' y ' + this.calle_2 + ' a las ' + this.hora + ' horas.\n'
-                + 'Si es tuyo o sabes de quien puede ser por favor comunícate con Usuario.</p>');
+                + 'Si es tuyo o sabes de quien puede ser por favor comunícate con ' + this.user_name + '.</p>');
                 let buttonsDiv = $(document.createElement('div'));
                 buttonsDiv.addClass('buttons');
                 let deleteButton = $(document.createElement('button'));
