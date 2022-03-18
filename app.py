@@ -305,10 +305,8 @@ def api_posts():
     cursor.close()
     for post in lost:
         del post["estado"]
-        del post["user_id"]
     for post in found:
         del post["estado"]
-        del post["user_id"]
     all_posts = lost + found
     all_posts.sort(key=lambda d: d['created_at'], reverse=True)
     return jsonify(all_posts)
@@ -323,7 +321,6 @@ def api_posts_lost():
     cursor.close()
     for post in lost:
         del post["estado"]
-        del post["user_id"]
     return jsonify(lost)
 
 
@@ -336,7 +333,6 @@ def api_posts_found():
     cursor.close()
     for post in found:
         del post["estado"]
-        del post["user_id"]
     return jsonify(found)
 
 
@@ -502,6 +498,14 @@ def api_completed():
     all_posts_completed.sort(key=lambda d: d['created_at'], reverse=True)
     return jsonify(all_posts_completed)
 
+
+@app.route('/api/users/<user_id>')
+def api_user_by_id(user_id):
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute('SELECT name, email, fb_profile FROM users WHERE id=%s', [user_id])
+    user = list(cursor.fetchall())[0]
+    cursor.close()
+    return jsonify(user)
 
 
 """ only for test, will be deleted """
