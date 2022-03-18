@@ -27,7 +27,7 @@ $(document).ready(function () {
                 postLostNew.append('<p>¡Se busca a ' + this.nombre + '! Perdido/a desde el día '
                 + this.fecha + ' última vez visto en las inmediaciones de ' + this.calle_1 +
                 ' y ' + this.calle_2 + ' barrio ' + this.barrio + ' a las ' + this.hora + ' horas.\n'
-                + 'Si lo viste por favor comunícate con Usuario.</p>');
+                + 'Si lo viste por favor comunícate con ' + this.user_name + '.</p>');
                 let buttonsDiv = $(document.createElement('div'));
                 buttonsDiv.addClass('buttons');
                 let deleteButton = $(document.createElement('button'));
