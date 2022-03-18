@@ -372,7 +372,7 @@ def api_users():
             logfile(str(e))
             return jsonify(str(e))
         try:
-            cursor.execute('INSERT INTO users VALUES (%s, %s, %s, %s, %s)', (user['id'], user['name'], user['email'], 'active', user['link']))
+            cursor.execute('INSERT INTO users VALUES (%s, %s, %s, %s, %s, %s)', (user['id'], user['name'], user['email'], '', 'active', user['link']))
         except Exception as e:
             logfile("/api/users - INSERT USER:\n" + str(e))
             return jsonify('User already saved')
