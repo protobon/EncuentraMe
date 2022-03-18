@@ -84,12 +84,12 @@ $(document).ready(function () {
                     cardBody.append('<p class="card-text">¡Se busca a ' + this.nombre + '! Perdido/a desde el día '
                     + this.fecha + ' última vez visto en las inmediaciones de ' + this.calle_1 +
                     ' y ' + this.calle_2 + ' barrio ' + this.barrio + ' a las ' + this.hora + ' horas.\n'
-                    + 'Si lo viste por favor comunícate con <a href="' + this.fb_profile + '">' + this.user_name + '</a>.</p>');/*7*/
+                    + 'Si lo viste por favor comunícate con <a target="_blank" href="' + this.fb_profile + '">' + this.user_name + '</a>.</p>');/*7*/
                 } else {
                     cardBody.append('<p class="card-text">Se encontró el día ' + this.fecha + ' por barrio '
                     + this.barrio + ' en las inmediaciones de ' + this.calle_1 +
                     ' y ' + this.calle_2 + ' a las ' + this.hora + ' horas.\n'
-                    + 'Si es tuyo o sabes de quien puede ser por favor comunícate con <a href="' + this.fb_profile + '">' + this.user_name + '</a>.</p>');
+                    + 'Si es tuyo o sabes de quien puede ser por favor comunícate con <a target="_blank" href="' + this.fb_profile + '">' + this.user_name + '</a>.</p>');
                 }
                 if (this.phone) {
                     cardBody.append('<p class="card-text">Teléfono: ' + this.phone + '</p>');
@@ -134,7 +134,7 @@ $(document).ready(function () {
                 cardBody.append('<p class="card-text">¡Se busca a ' + this.nombre + '! Perdido/a desde el día '
                 + this.fecha + ' última vez visto en las inmediaciones de ' + this.calle_1 +
                 ' y ' + this.calle_2 + ' barrio ' + this.barrio + ' a las ' + this.hora + ' horas.\n'
-                + 'Si lo viste por favor comunícate con <a href="' + this.fb_profile + '">' + this.user_name + '</a>.</p>');/*7*/
+                + 'Si lo viste por favor comunícate con <a target="_blank" href="' + this.fb_profile + '">' + this.user_name + '</a>.</p>');/*7*/
                 if (this.phone) {
                     cardBody.append('<p class="card-text">Teléfono: ' + this.phone + '</p>');
                 }/*7*/
@@ -178,7 +178,7 @@ $(document).ready(function () {
                 cardBody.append('<p class="card-text">Se encontró el día ' + this.fecha + ' por barrio '
                 + this.barrio + ' en las inmediaciones de ' + this.calle_1 +
                 ' y ' + this.calle_2 + ' a las ' + this.hora + ' horas.\n'
-                + 'Si es tuyo o sabes de quien puede ser por favor comunícate con <a href="' + this.fb_profile + '">' + this.user_name + '</a>.</p>');
+                + 'Si es tuyo o sabes de quien puede ser por favor comunícate con <a target="_blank" href="' + this.fb_profile + '">' + this.user_name + '</a>.</p>');
                 if (this.phone) {
                     cardBody.append('<p class="card-text">Teléfono: ' + this.phone + '</p>');
                 }/*7*/
