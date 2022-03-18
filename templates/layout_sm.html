@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+
+{% block head %}
+<script src="{{ url_for('static', filename='js/main_map.js') }}"></script>
+{% endblock %}
+
+{% block body %}
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            {% if category == "success" %}
+                <div class="alert alert-success mb-3" role="alert">
+                    <p>{{ message }}</p>
+                </div>
+            {% elif category == "info" %}
+                <div class="alert alert-info mb-3" role="alert">
+                    <p>{{ message }}</p>
+                </div>
+            {% else %}
+                <div class="alert alert-error mb-3" role="alert">
+                    <p>{{ message }}</p>
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
+<div class="sticky-top feed py-1 text-center container">
+    <div class="filters row">
+        <div class="filter col-lg-6 col-md-8 mx-auto">
+            <button type="button" class="btn btn-success btn-sm" id="all" onclick="refreshFeed()" autofocus>Todos</button>
+            <button type="button" class="btn btn-success btn-sm" id="lost" onclick="refreshLost()">Perdidos</button>
+            <button type="button" class="btn btn-success btn-sm" id="found" onclick="refreshFound()">Encontrados</button>
+            <button type="button" class="btn btn-success btn-sm" id="resolved" onclick="refreshResolved()">Resueltos</button>
+        </div>
+        <div class="selectAnimal">
+            <input type="radio" name="animal-selection" id="todos" value="Todos" checked>Todos</input>
+            <input type="radio" name="animal-selection" id="perritos" value="Perritos">Perritos</input>
+            <input type="radio" name="animal-selection" id="gatitos" value="Gatitos">Gatitos</input>
+            <p id="show"></p>
+        </div>
+        <div class="post">
+            <a id="post" class="btn btn-primary my-2" role="button">Publicar</a>
+        </div>
+    </div>
+</div>
+
+
+<div class="container-xl justify-content-center overflow-hidden">
+    <div class="row">
+
+        <div class="card-header"><!-- select publicaciones or map-->
+            <ul class="nav nav-tabs card-header-tabs" id="nav-list" role="tablist">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="true" href="#nav-publicaciones" role="tab" aria-controls="publicaciones" aria-selected="true">Publicaciones</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#nav-mapa" role="tab" aria-controls="mapa" aria-selected="false">Mapa</a>
+              </li>
+            </ul>
+        </div><!-- select publicaciones or map-->
+        <div class="clearfix"></div>
+
+        <div class="card-body"><!-- card-body -->
+            <div class="tab-content">
+              <div class="tab-pane active" id="nav-publicaciones" role="tabpanel"><!-- tab #1 -->
+                <div class="animal col-md-12 col-lg-6 col-xl-6">
+                    <div class="posts row justify-content-around g-2"><!-- feed --><!-- column 1 -->
+                        <!-- individual post here -->
+                          <div class="individual col-sm-12 col-md-6 col-lg-12 col-xl-12 p-3">
+                            <div class="card row justify-content-around g-2 pet pet_lost perro">
+                              <div class="user card-img-top">
+                                <a href="">
+                                  <img class="img-fluid" src="https://picsum.photos/200/300">
+                                </a>
+                              </div>
+                              <div class="card-body">
+                                <h5 class="card-title">perro encontrado/a!</h5>
+                                <p class="card-text">Fecha de publicación: 16/3/2022 10:31:57</p>
+                                <p class="card-text">Se encontró el día 15/03/2022 por barrio Palermo en las inmediaciones de Maldonado y Yaro a las 20:15 horas. Si es tuyo o sabes de quien puede ser por favor comunícate con Andres Ortiz.</p>
+                              </div>
+                              <button class="btn btn-link btn-sm">Denunciar publicación</button>
+                            </div>
+                        </div>
+                    </div> <!-- feed --><!-- column 1 -->
+                    <div class="mapa col-md-12 col-lg-12 col-xl-12"><!-- column 2 -->
+                        <!-- map here -->
+                    </div><!-- column 2 -->
+                </div>
+              </div><!-- tab #1 -->
+
+                <div class="tab-pane" id="nav-mapa" role="tabpanel" aria-labelledby="mapa"><!-- tab #2 -->
+                    <div class="mapa col-md-12 col-lg-12 col-xl-12">
+                        <div id="main_map">
+                            <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
+                            <script
+                                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBqNj3BPTdCSu9fTtAlj4LSLD5FAidsa7M&callback=initMap&v=weekly"
+                                async
+                            ></script>
+                        </div>
+                    </div>
+                </div><!-- tab #2 -->
+            </div><!-- tab-content -->
+
+        </div><!-- card-body -->
+    </div><!-- row -->
+</div><!-- container-xl -->
+
+<script src="{{ url_for('static', filename='js/filters.js') }}"></script>
+<script src="{{ url_for('static', filename='js/populate.js') }}"></script>
+
+{% endblock %}
