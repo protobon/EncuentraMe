@@ -295,37 +295,37 @@
     </div><!-- navbar links-->
 
       <nav class="navbar navbar-light bg-light"><!-- navbar-->
-    <div class="container-fluid">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-            </button>
-            <a href="{{url_for('landing')}}" class="navbar-brand d-flex align-items-center">
-                <img id="logo" src="{{ url_for('static', filename='img/logo_pos_trans.svg')}}" alt="encuentrame">
-            </a>
-        <div class="dropstart text-end" id="dropstarttextendright">
-            <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-            <button type="button" class="btn btn-success btn-user">
-              <i class="fa-regular fa-user"></i>
-            </button>
-            </a>
-            <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
-                <li><button class="dropdown-item btn btn-primary" id="btn-profile" onclick="goToProfile()">Perfil</button></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><button class="dropdown-item btn btn-danger btn-small" id="btn-logout" onclick="logout()">Logout</button></li>
-            </ul>
+        <div class="container-fluid">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <a href="{{url_for('landing')}}" class="navbar-brand d-flex align-items-center">
+                    <img id="logo" src="{{ url_for('static', filename='img/logo_pos_trans.svg')}}" alt="encuentrame">
+                </a>
+            <div class="dropstart text-end" id="dropstarttextendright">
+                <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                <button type="button" class="btn btn-success btn-user">
+                    <i class="fa-regular fa-user"></i>
+                </button>
+                </a>
+                <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
+                    <li><button class="dropdown-item btn btn-primary" id="btn-profile" onclick="goToProfile()">Perfil</button></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><button class="dropdown-item btn btn-danger btn-small" id="btn-logout" onclick="logout()">Logout</button></li>
+                </ul>
+            </div>
+            <fb:login-button
+                id="fb-btn"
+                class="fb-login-button"
+                scope="email"
+                data-size="small"
+                data-button-type="login_with"
+                data-layout="default"
+                data-auto-logout-link="false"
+                data-use-continue-as="false"
+                onlogin="window.location.reload();">
+            </fb:login-button>
         </div>
-        <fb:login-button
-            id="fb-btn"
-            class="fb-login-button"
-            scope="email"
-            data-size="small"
-            data-button-type="login_with"
-            data-layout="default"
-            data-auto-logout-link="false"
-            data-use-continue-as="false"
-            onlogin="window.location.reload();">
-        </fb:login-button>
-    </div>
       </nav><!-- navbar-->
     </div>
     {% block body %}{% endblock %}
