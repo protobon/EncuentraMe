@@ -516,6 +516,10 @@ def api_user_by_id(user_id):
 def layout():
     return render_template('layout.html')
 
+""" only for test, will be deleted """
+@app.route('/layout_form')
+def layout_form():
+    return render_template('layout_form.html')
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0")
