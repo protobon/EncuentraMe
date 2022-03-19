@@ -150,5 +150,44 @@ posts {
 }
 
 .bd-callout-warning {
-    border-left-color: #f0ad4e;
+    border-left-color: #ff6961;
 }
+
+/*************************/
+/* form */
+.form-check-input:checked {
+    background-color: #009574;
+    border-color: #009574;
+}
+
+.form-check-input:focus {
+    box-shadow: #009574;
+}
+
+/* submit button */
+
+.enc-btn-submit {
+    color: #fff;
+    background-color: #009574;
+    border-color: #009574;
+}
+
+.enc-btn-submit:active {
+    color: #fff;
+    background-color: #009574;
+    border-color: #009574;
+}
+
+.enc-btn-submit:hover {
+    color: #fff;
+    background-color: #006948;
+    border-color: #006948;
+}
+
+.enc-btn-submit:focus {
+    color: #eee;
+    background-color: #009574;
+    border-color: #009574;
+    box-shadow: 0 0 0 0.2rem rgba(77, 199, 144, 0.5);
+}
+
