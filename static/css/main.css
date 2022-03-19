@@ -137,3 +137,18 @@ posts {
 #main_map {
     border-radius: 4px;
 }
+
+/*************************/
+/* docs */
+
+.bd-callout {
+    padding: 0.75rem;
+    margin-bottom: 1.25rem;
+    border: 1px solid #eee;
+    border-left-width: .25rem;
+    border-radius: .25rem;
+}
+
+.bd-callout-warning {
+    border-left-color: #f0ad4e;
+}

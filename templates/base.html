@@ -60,7 +60,7 @@
       {% block head %}{% endblock %}
     </head>
 
-<body>
+<body class="bg-light">
     <div class="container">
       <script>
         $(document).ready(function () {
@@ -282,49 +282,56 @@
         });
       </script>
 
-
-    <div class="collapse" id="navbarToggleExternalContent"><!-- navbar links-->
-        <div class="navbar-links p-4">
-            <a href="{{url_for('about')}}" class="navbar-brand d-flex align-items-center">
-                Acerca de
+<nav class="navbar navbar-expand-xxl navbar-light bg-light" aria-label="encuentrame navbar">
+    <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExampleXxl" aria-controls="navbarsExampleXxl" aria-expanded="false" aria-label="Toggle navigation"><!-- toggler -->
+            <span class="navbar-toggler-icon"></span>
+          </button><!-- toggler -->
+        <a href="{{url_for('landing')}}" class="navbar-brand d-flex align-items-center"><!-- brand -->
+            <img id="logo" src="{{ url_for('static', filename='img/logo_pos_trans.svg')}}" alt="encuentrame">
+        </a><!-- brand -->
+        <div class="dropstart text-end" id="dropstarttextendright">
+            <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+            <button type="button" class="btn btn-success btn-user">
+                <i class="fa-regular fa-user"></i>
+            </button>
             </a>
-            <a href="{{url_for('politica')}}" class="navbar-brand d-flex align-items-center">
-                Politica de privacidad
-            </a>
+            <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
+                <li><button class="dropdown-item btn btn-primary" id="btn-profile" onclick="goToProfile()">Perfil</button></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><button class="dropdown-item btn btn-danger btn-small" id="btn-logout" onclick="logout()">Logout</button></li>
+            </ul>
         </div>
-    </div><!-- navbar links-->
+        <fb:login-button
+            id="fb-btn"
+            class="fb-login-button"
+            scope="email"
+            data-size="small"
+            data-button-type="login_with"
+            data-layout="default"
+            data-auto-logout-link="false"
+            data-use-continue-as="false"
+            onlogin="window.location.reload();">
+        </fb:login-button>
+      <div class="collapse navbar-collapse" id="navbarsExampleXxl">
+        <ul class="navbar-nav me-auto mb-2 mb-xl-0">
+          <li class="nav-item">
+            <a class="nav-link" href="{{url_for('politica')}}">Politica de privacidad</a><!-- navbar links-->
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{url_for('about')}}">Acerca de</a><!-- navbar links-->
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+
 
       <nav class="navbar navbar-light bg-light"><!-- navbar-->
         <div class="container-fluid">
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <a href="{{url_for('landing')}}" class="navbar-brand d-flex align-items-center">
-                    <img id="logo" src="{{ url_for('static', filename='img/logo_pos_trans.svg')}}" alt="encuentrame">
-                </a>
-            <div class="dropstart text-end" id="dropstarttextendright">
-                <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                <button type="button" class="btn btn-success btn-user">
-                    <i class="fa-regular fa-user"></i>
-                </button>
-                </a>
-                <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
-                    <li><button class="dropdown-item btn btn-primary" id="btn-profile" onclick="goToProfile()">Perfil</button></li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li><button class="dropdown-item btn btn-danger btn-small" id="btn-logout" onclick="logout()">Logout</button></li>
-                </ul>
-            </div>
-            <fb:login-button
-                id="fb-btn"
-                class="fb-login-button"
-                scope="email"
-                data-size="small"
-                data-button-type="login_with"
-                data-layout="default"
-                data-auto-logout-link="false"
-                data-use-continue-as="false"
-                onlogin="window.location.reload();">
-            </fb:login-button>
+
+
         </div>
       </nav><!-- navbar-->
     </div>
