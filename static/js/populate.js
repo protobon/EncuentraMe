@@ -79,12 +79,12 @@ $(document).ready(function () {
                 }
                 post.addClass(this.mascota);
                 let individualPost = $(document.createElement('div'));
-                individualPost.addClass('individual col-sm-12 col-md-6 col-lg-12 col-xl-12 p-3');
+                individualPost.addClass('individual col-sm-12 col-md-6 col-lg-12 col-xl-12 p-2');
                 let cardImg = $(document.createElement('div'));/*2*/
                 cardImg.addClass('user'); /*2*/
                 cardImg.addClass('card-img-top');/*2*/
                 cardImg.append('<a href="/' + this.id + '"></a>');/*3*/
-                cardImg.find('a').append('<img class="img-fluid" src="/static/images/' + this.foto + '">');/*4*/
+                cardImg.find('a').append('<img class="img-fluid rounded" src="/static/images/' + this.foto + '">');/*4*/
                 let cardBody = $(document.createElement('div'));/*5*/
                 cardBody.addClass('card-body');/*5*/
                 if (this.nombre) {
@@ -146,12 +146,12 @@ $(document).ready(function () {
                 postLostNew.addClass('pet_lost');/*1*/
                 postLostNew.addClass(this.mascota);
                 let individualPost = $(document.createElement('div'));
-                individualPost.addClass('individual col-sm-12 col-md-6 col-lg-12 col-xl-12 p-3');
+                individualPost.addClass('individual col-sm-12 col-md-6 col-lg-12 col-xl-12 p-2');
                 let cardImg = $(document.createElement('div'));/*2*/
                 cardImg.addClass('user'); /*2*/
                 cardImg.addClass('card-img-top');/*2*/
                 cardImg.append('<a href="/' + this.id + '"></a>');/*3*/
-                cardImg.find('a').append('<img class="img-fluid" src="/static/images/' + this.foto + '">');/*4*/
+                cardImg.find('a').append('<img class="img-fluid rounded" src="/static/images/' + this.foto + '">');/*4*/
                 let cardBody = $(document.createElement('div'));/*5*/
                 cardBody.addClass('card-body');/*5*/
                 cardBody.append('<h5 class="card-title">' + this.nombre +' perdido/a!</h5>');/*6*/
@@ -199,13 +199,13 @@ $(document).ready(function () {
                 postFoundNew.addClass('pet_found');
                 postFoundNew.addClass(this.mascota);
                 let individualPost = $(document.createElement('div'));
-                individualPost.addClass('individual col-sm-12 col-md-6 col-lg-12 col-xl-12 p-3');
+                individualPost.addClass('individual col-sm-12 col-md-6 col-lg-12 col-xl-12 p-2');
 
                 let cardImg = $(document.createElement('div'));
                 cardImg.addClass('user'); /*2*/
                 cardImg.addClass('card-img-top');/*2*/
                 cardImg.append('<a href="/' + this.id + '"></a>');/*3*/
-                cardImg.find('a').append('<img class="img-fluid" src="/static/images/' + this.foto + '">');/*4*/
+                cardImg.find('a').append('<img class="img-fluid rounded" src="/static/images/' + this.foto + '">');/*4*/
                 let cardBody = $(document.createElement('div'));/*5*/
                 cardBody.addClass('card-body');/*5*/
                 cardBody.append('<h5 class="card-title">' + this.mascota +' encontrado/a!</h5>');/*6*/
@@ -251,12 +251,12 @@ $(document).ready(function () {
                 post.addClass('pet pet_resolved');/*1*/
                 post.addClass(this.mascota);
                 let individualPost = $(document.createElement('div'));
-                individualPost.addClass('individual col-sm-12 col-md-6 col-lg-12 col-xl-12 p-3');
+                individualPost.addClass('individual col-sm-12 col-md-6 col-lg-12 col-xl-12 p-2');
                 let cardImg = $(document.createElement('div'));/*2*/
                 cardImg.addClass('user'); /*2*/
                 cardImg.addClass('card-img-top');/*2*/
                 cardImg.append('<a href="/' + this.id + '"></a>');/*3*/
-                cardImg.find('a').append('<img class="img-fluid" src="/static/images/' + this.foto + '">');/*4*/
+                cardImg.find('a').append('<img class="img-fluid rounded" src="/static/images/' + this.foto + '">');/*4*/
                 let cardBody = $(document.createElement('div'));/*5*/
                 cardBody.addClass('card-body');/*5*/
                 cardBody.append('<h5 class="card-title">Encontré a mi familia!</h5>');/*6*/

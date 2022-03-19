@@ -32,11 +32,11 @@ user-select: none;
     width:10px;
     height:10px;
 }
-  
+
 #legend h3 {
     margin-top: 0;
 }
-  
+
 #legend img {
     vertical-align: middle;
 } */
@@ -134,3 +134,6 @@ posts {
     font-size: 1.5rem;
 }
 
+#main_map {
+    border-radius: 4px;
+}
