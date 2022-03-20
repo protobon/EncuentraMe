@@ -138,6 +138,11 @@ posts {
     border-radius: 0.3rem;
 }
 
+.enc-float-chevron {
+    right: 2rem;
+    bottom: 2rem;
+}
+
 /*************************/
 /* docs */
 
