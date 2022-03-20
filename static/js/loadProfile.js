@@ -17,17 +17,27 @@ $(document).ready(function () {
     window.loadProfile = function() {
         fetchUserPosts().then(function(data) {
             $.each(data.lost, function () {
+                this.created_at = new Date(this.created_at).toLocaleString('es-UY');
                 let postLostNew = $(document.createElement('div'));
-                postLostNew.addClass('card');
+                postLostNew.addClass('card row justify-content-around g-2');
                 postLostNew.addClass('pet');
                 postLostNew.addClass('pet_lost');
                 postLostNew.addClass(this.mascota);
-                postLostNew.append('<a href="/' + this.id + '"></a>');
-                postLostNew.find('a').append('<img src="/static/images/' + this.foto + '">');
-                postLostNew.append('<p>¡Se busca a ' + this.nombre + '! Perdido/a desde el día '
+                let individualPost = $(document.createElement('div'));
+                individualPost.addClass('individual col-sm-12 col-md-6 col-lg-12 col-xl-12 p-3');
+                let cardImg = $(document.createElement('div'));
+                cardImg.addClass('user');
+                cardImg.addClass('card-img-top');
+                cardImg.append('<a href="/' + this.id + '"></a>');
+                cardImg.find('a').append('<img class="img-fluid" src="/static/images/' + this.foto + '">');
+                let cardBody = $(document.createElement('div'));
+                cardBody.addClass('card-body');
+                cardBody.append('<h5 class="card-title">' + this.nombre +' perdido/a!</h5>');
+                cardBody.append('<p class="card-text">Fecha de publicación: ' + this.created_at +'</p">');
+                cardBody.append('<p>¡Se busca a ' + this.nombre + '! Perdido/a desde el día '
                 + this.fecha + ' última vez visto en las inmediaciones de ' + this.calle_1 +
                 ' y ' + this.calle_2 + ' barrio ' + this.barrio + ' a las ' + this.hora + ' horas.\n'
-                + 'Si lo viste por favor comunícate con Usuario.</p>');
+                + 'Si lo viste por favor comunícate con ' + this.user_name + '.</p>');
                 let buttonsDiv = $(document.createElement('div'));
                 buttonsDiv.addClass('buttons');
                 let deleteButton = $(document.createElement('button'));
@@ -44,20 +54,34 @@ $(document).ready(function () {
                 updateButton.html('¡Tengo a mi mascota!');
                 updateButton.attr('onclick', 'resolvePost("' + this.id +'")');
                 buttonsDiv.append(updateButton);
-                postLostNew.append(buttonsDiv);
-                $('article.posts').append(postLostNew);
+                cardBody.append(buttonsDiv);
+                individualPost.append(postLostNew);
+                postLostNew.append(cardImg);/*append img, body and btn*/
+                postLostNew.append(cardBody);
+                $('article.posts').append(individualPost);
             });
             $.each(data.found, function () {
+                this.created_at = new Date(this.created_at).toLocaleString('es-UY');
                 let postFoundNew = $(document.createElement('div'));
+                postFoundNew.addClass('card row justify-content-around g-2');
                 postFoundNew.addClass('pet');
                 postFoundNew.addClass('pet_found');
                 postFoundNew.addClass(this.mascota);
-                postFoundNew.append('<a href="/' + this.id + '"></a>');
-                postFoundNew.find('a').append('<img src="/static/images/' + this.foto + '">');
-                postFoundNew.append('<p>Se encontró el día ' + this.fecha + ' por barrio '
+                let individualPost = $(document.createElement('div'));
+                individualPost.addClass('individual col-sm-12 col-md-6 col-lg-12 col-xl-12 p-3');
+                let cardImg = $(document.createElement('div'));
+                cardImg.addClass('user');
+                cardImg.addClass('card-img-top');
+                cardImg.append('<a href="/' + this.id + '"></a>');
+                cardImg.find('a').append('<img class="img-fluid" src="/static/images/' + this.foto + '">');
+                let cardBody = $(document.createElement('div'));
+                cardBody.addClass('card-body');
+                cardBody.append('<h5 class="card-title">' + this.mascota +' encontrado/a!</h5>');
+                cardBody.append('<p class="card-text">Fecha de publicación: ' + this.created_at +'</p">');
+                cardBody.append('<p>Se encontró el día ' + this.fecha + ' por barrio '
                 + this.barrio + ' en las inmediaciones de ' + this.calle_1 +
                 ' y ' + this.calle_2 + ' a las ' + this.hora + ' horas.\n'
-                + 'Si es tuyo o sabes de quien puede ser por favor comunícate con Usuario.</p>');
+                + 'Si es tuyo o sabes de quien puede ser por favor comunícate con ' + this.user_name + '.</p>');
                 let buttonsDiv = $(document.createElement('div'));
                 buttonsDiv.addClass('buttons');
                 let deleteButton = $(document.createElement('button'));
@@ -74,8 +98,11 @@ $(document).ready(function () {
                 updateButton.html('¡Tengo a mi mascota!');
                 updateButton.attr('onclick', 'resolvePost("' + this.id +'")');
                 buttonsDiv.append(updateButton);
-                postFoundNew.append(buttonsDiv);
-                $('article.posts').append(postFoundNew);
+                cardBody.append(buttonsDiv);
+                individualPost.append(postFoundNew);
+                postFoundNew.append(cardImg);/*append img, body and btn*/
+                postFoundNew.append(cardBody);
+                $('article.posts').append(individualPost);
             });
         });
     }

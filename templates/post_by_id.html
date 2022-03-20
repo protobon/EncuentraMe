@@ -36,7 +36,7 @@
                         última vez visto en las inmediaciones de {{ post['calle_1'] }} y
                         {{ post['calle_2'] }} barrio {{ post['barrio'] }} a las {{ post['hora'] }}
                         horas.
-                        Si lo viste por favor comunícate con {{ user["name"] }}.
+                        Si lo viste por favor comunícate con <a href="{{ user['fb_profile'] }}" target="_blank">{{ user["name"] }}</a>.
                     </p>
                   </div>
                 </div>
@@ -52,7 +52,7 @@
                 <p class="card-text">
                     Se encontró el día {{ post['fecha'] }} por barrio {{ post['barrio'] }} en las inmediaciones
                     de {{ post['calle_1'] }} y {{ post['calle_2'] }} a las {{ post['hora'] }} horas.
-                    Si es tuyo o sabes de quien puede ser por favor comunícate con {{ user["name"] }}.
+                    Si es tuyo o sabes de quien puede ser por favor comunícate con <a href="{{ user['fb_profile'] }}" target="_blank">{{ user["name"] }}</a>.
                 </p>
               </div>
             </div>

@@ -247,7 +247,7 @@ def show_single_post(id):
     except Exception as e:
         logfile("show_single_post:\n" + str(e))
         pass
-    cursor.execute("SELECT name FROM users WHERE id=%s", [post['user_id']])
+    cursor.execute("SELECT name, fb_profile FROM users WHERE id=%s", [post['user_id']])
     try:
         result = list(cursor.fetchall())
         if len(result) >= 1:
@@ -305,10 +305,8 @@ def api_posts():
     cursor.close()
     for post in lost:
         del post["estado"]
-        del post["user_id"]
     for post in found:
         del post["estado"]
-        del post["user_id"]
     all_posts = lost + found
     all_posts.sort(key=lambda d: d['created_at'], reverse=True)
     return jsonify(all_posts)
@@ -323,7 +321,6 @@ def api_posts_lost():
     cursor.close()
     for post in lost:
         del post["estado"]
-        del post["user_id"]
     return jsonify(lost)
 
 
@@ -336,7 +333,6 @@ def api_posts_found():
     cursor.close()
     for post in found:
         del post["estado"]
-        del post["user_id"]
     return jsonify(found)
 
 
@@ -346,7 +342,7 @@ def api_users():
         """Retrieve all users from database and return in JSON format"""
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         try:
-            cursor.execute('SELECT name, email, estado FROM users')
+            cursor.execute('SELECT name, email, estado, fb_profile FROM users')
         except Exception as e:
             logfile("/api/users GET - in SELECT:\n" + str(e))
         users = list(cursor.fetchall())
@@ -372,7 +368,7 @@ def api_users():
             logfile(str(e))
             return jsonify(str(e))
         try:
-            cursor.execute('INSERT INTO users VALUES (%s, %s, %s, %s)', (user['id'], user['name'], user['email'], 'active'))
+            cursor.execute('INSERT INTO users VALUES (%s, %s, %s, %s, %s, %s)', (user['id'], user['name'], user['email'], '', 'active', user['link']))
         except Exception as e:
             logfile("/api/users - INSERT USER:\n" + str(e))
             return jsonify('User already saved')
@@ -398,9 +394,9 @@ def api_users():
 def api_user_posts(user_id):
     """Retrieve all posts from user by user_id and return in JSON format"""
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    cursor.execute('SELECT * FROM lost_pets WHERE user_id=%s AND estado=%s', [user_id, "active"])
+    cursor.execute('SELECT * FROM lost_pets WHERE user_id=%s AND estado!=%s AND estado!=%s ORDER BY created_at DESC', [user_id, "resolved", "removed"])
     lost = list(cursor.fetchall())
-    cursor.execute('SELECT * FROM found_pets WHERE user_id=%s AND estado=%s', [user_id, "active"])
+    cursor.execute('SELECT * FROM found_pets WHERE user_id=%s AND estado!=%s AND estado!=%s ORDER BY created_at DESC', [user_id, "resolved", "removed"])
     found = list(cursor.fetchall())
     cursor.close()
     for post in lost:
@@ -502,6 +498,14 @@ def api_completed():
     all_posts_completed.sort(key=lambda d: d['created_at'], reverse=True)
     return jsonify(all_posts_completed)
 
+
+@app.route('/api/users/<user_id>')
+def api_user_by_id(user_id):
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute('SELECT name, email, fb_profile FROM users WHERE id=%s', [user_id])
+    user = list(cursor.fetchall())[0]
+    cursor.close()
+    return jsonify(user)
 
 
 """ only for test, will be deleted """
