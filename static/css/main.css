@@ -276,7 +276,7 @@ posts {
 /* link alert */
 
 .enc-alert-link {
-    color: #009574;
+    color: #789dca;
 }
 
 /* politica */
@@ -290,4 +290,15 @@ posts {
 .politica h2 {
     color: #789dca;
     font-size: 1.5rem;
+}
+
+
+/****************************/
+/* about */
+
+.about h1 {
+    margin-top: 1rem;
+    font-size: 1.7rem;
+    font-weight: bold;
+    color: #789dca;
 }
