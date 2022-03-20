@@ -161,7 +161,7 @@ posts {
 }
 
 .form-check-input:focus {
-    box-shadow: #009574;
+    box-shadow: 0 0 0 0.2rem rgba(77, 199, 144, 0.5);
 }
 
 /* submit button */
