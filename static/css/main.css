@@ -174,7 +174,7 @@ posts {
 .footer {
     background-color: #F5F5F6;
 }
-
+.enc-social-card-i,
 .SocialMedia ul li i{
     color: #006F98;
     padding: .5rem;
@@ -182,7 +182,7 @@ posts {
     margin: auto;
     padding: auto;
 }
-
+.enc-social-card-i:hover,
 .SocialMedia ul li i:hover{
     color: #fefefe;
     background-color: #006F98;
@@ -191,7 +191,7 @@ posts {
     border-radius: .375rem;
     transition: all .2s ease-in-out;
 }
-
+.enc-social-card-i:link,
 .SocialMedia ul li i:link{
     transition: all .2s ease-in-out;
     margin: auto;
@@ -303,6 +303,13 @@ posts {
     color: #789dca;
 }
 
+.about h2 {
+    color: #789dca;
+    font-size: 1.6rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
 /************************/
 /* brand */
 
@@ -310,4 +317,11 @@ posts {
     font-size: 1.1rem;
     font-weight: bold;
     color: #009574;
+}
+
+.enc-social-card i{
+    background-color: #f5f5f5;
+    border-radius: .375rem;
+    padding: .5rem;
+    margin-bottom: 1rem;
 }
