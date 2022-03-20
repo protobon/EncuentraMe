@@ -10,6 +10,19 @@
 
 >[visit website](https://encuentrame.org.xelar.tech)
 
+## Description
+
+The main objective of our application is to bring help to pet owners that are looking for their pets.
+We use a post system that shows every pet that is currently missing or pets founds in the street, integrating Google Maps API to show each post location and Facebook API for user identification.
+
+In this initial version of our application you will find three filters on the home page, "Perdidos" that contains posts made by pet owners that register their missing pet info with the location of the last time it was seen;  "Encontrados" that contains posts made when you find a pet in the street and it is lost, it also uses the location functionality to register the exact point where the pet was seen, and by last, "Resueltos" that shows the post of pets that are finally reunited with their families.
+
+We include in this version, the possibilities to moderate posts, i.e., a user that creates a post, can "Delete" their posts and also notify if the pet was found, that way it will be removed from the active list of pets and moved to the "Resueltos" section. 
+
+In addition, the functionality of report publication is added, to report if a post violates our terms and conditions, or if it makes reference to a pet that is not from the post creation. The admins can take down a post that violates the rules and also can block users in case it is required.
+
+In the future, we'd like to include additional functionalities including contacting Veterinaries and Shelters for pet care and adoptions. 
+
 ## Trello project
 
 [![Portfolio Project](https://img.shields.io/static/v1?label=&message=Project%20Portfolio&color=2F333A&logo=Trello&labelColor=0052CC)](https://trello.com/b/iS9gBOQm/portfolio-project)
@@ -204,45 +217,6 @@ optional
 ``python hello.py``
 
 ubuntu@ip-172-31-23-111:~$ curl http://172.31.23.111:8000/
-<h1 style='color:blue'>Hello Andy & Ayrton!</h1>ubuntu@ip-172-31-23-111:~$
-
-config gunicorn
-``gunicorn --bind 0.0.0.0:8000 wsgi:app``
-
-deactivate virtual environment
-``deactivate``
-
-create a file in /etc/systemd/system
-``sudo vim hello.service``
-
-start the service
-``sudo systemctl start hello``
-``sudo systemctl enable hello``
-
-test service
-``sudo systemctl status hello``
-
-configure nginx
-
-``sudo vim /etc/nginx/sites-available/hello``
-
-vincular el servicio
-
-``sudo ln -s /etc/nginx/sites-available/hello /etc/nginx/sites-enabled``
-
-revision de sintaxis
-
-``sudo nginx -t``
-
-restart nginx
-
-``sudo systemctl restart nginx``
-
-clean port
-
-``sudo ufw delete allow 5000``
-``sudo ufw allow 'Nginx Full'``
-
 ***************************
 
 ``sudo vim /etc/nginx/nginx.conf``
