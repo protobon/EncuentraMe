@@ -128,6 +128,25 @@ posts {
 
 .SocialMedia ul li i{
     color: #006F98;
+    padding: .5rem;
+    transition: all .2s ease-in-out;
+    margin: auto;
+    padding: auto;
+}
+
+.SocialMedia ul li i:hover{
+    color: #fefefe;
+    background-color: #006F98;
+    padding: .5rem;
+    border: #006f98;
+    border-radius: .375rem;
+    transition: all .2s ease-in-out;
+}
+
+.SocialMedia ul li i:link{
+    transition: all .2s ease-in-out;
+    margin: auto;
+    padding: auto;
 }
 
 .u-flowText ul li i{
@@ -139,10 +158,15 @@ posts {
 }
 
 .enc-float-chevron {
+    position:fixed;
+    z-index: 1030;
     right: 2rem;
     bottom: 2rem;
 }
 
+.enc-front {
+    z-index: 1200;
+}
 /*************************/
 /* docs */
 
