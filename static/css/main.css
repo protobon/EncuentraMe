@@ -273,3 +273,15 @@ posts {
     color: #009574;
 }
 
+/* politica */
+
+.politica h1 {
+    font-size: 1.7rem;
+    font-weight: bold;
+    color: #789dca;
+}
+
+.politica h2 {
+    color: #789dca;
+    font-size: 1.5rem;
+}
