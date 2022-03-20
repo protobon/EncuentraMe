@@ -167,27 +167,37 @@ posts {
 /* submit button */
 
 .enc-btn-submit {
+    transition: ease-in-out 0.2s;
     color: #fff;
     background-color: #009574;
     border-color: #009574;
 }
 
 .enc-btn-submit:active {
+    transition: ease-in-out 0.2s;
     color: #fff;
     background-color: #009574;
     border-color: #009574;
 }
 
 .enc-btn-submit:hover {
+    transition: ease-in-out 0.2s;
     color: #fff;
     background-color: #006948;
     border-color: #006948;
 }
 
 .enc-btn-submit:focus {
+    transition: ease-in-out 0.2s;
     color: #eee;
     background-color: #009574;
     border-color: #009574;
     box-shadow: 0 0 0 0.2rem rgba(77, 199, 144, 0.5);
+}
+
+/* link alert */
+
+.enc-alert-link {
+    color: #009574;
 }
 
