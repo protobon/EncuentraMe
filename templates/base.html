@@ -60,9 +60,7 @@
       {% block head %}{% endblock %}
     </head>
 
-<body>
-    <div id="fb-root"></div>
-    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v13.0&appId=1633098193720369&autoLogAppEvents=1" nonce="nXVIuQx5"></script>
+<body class="bg-light">
     <div class="container">
       <script>
         $(document).ready(function () {
@@ -284,30 +282,18 @@
         });
       </script>
 
-
-    <div class="collapse" id="navbarToggleExternalContent"><!-- navbar links-->
-        <div class="navbar-links p-4">
-            <a href="{{url_for('about')}}" class="navbar-brand d-flex align-items-center">
-                Acerca de
-            </a>
-            <a href="{{url_for('politica')}}" class="navbar-brand d-flex align-items-center">
-                Politica de privacidad
-            </a>
-        </div>
-    </div><!-- navbar links-->
-
-      <nav class="navbar navbar-light bg-light"><!-- navbar-->
+<nav class="navbar navbar-expand-xxl navbar-light bg-light" aria-label="encuentrame navbar">
     <div class="container-fluid">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExampleXxl" aria-controls="navbarsExampleXxl" aria-expanded="false" aria-label="Toggle navigation"><!-- toggler -->
             <span class="navbar-toggler-icon"></span>
-            </button>
-            <a href="{{url_for('landing')}}" class="navbar-brand d-flex align-items-center">
-                <img id="logo" src="{{ url_for('static', filename='img/logo_pos_trans.svg')}}" alt="encuentrame">
-            </a>
+          </button><!-- toggler -->
+        <a href="{{url_for('landing')}}" class="navbar-brand d-flex align-items-center"><!-- brand -->
+            <img id="logo" src="{{ url_for('static', filename='img/logo_pos_trans.svg')}}" alt="encuentrame">
+        </a><!-- brand -->
         <div class="dropstart text-end" id="dropstarttextendright">
             <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
             <button type="button" class="btn btn-success btn-user">
-              <i class="fa-regular fa-user"></i>
+                <i class="fa-regular fa-user"></i>
             </button>
             </a>
             <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
@@ -316,17 +302,7 @@
                 <li><button class="dropdown-item btn btn-danger btn-small" id="btn-logout" onclick="logout()">Logout</button></li>
             </ul>
         </div>
-        <div class="fb-login-button"
-        id="fb-btn"
-        data-width=""
-        data-size="small"
-        data-button-type="continue_with"
-        data-layout="rounded"
-        data-auto-logout-link="false"
-        data-use-continue-as="false"
-        onlogin="window.location.reload();">
-        </div>
-        <!-- <fb:login-button
+        <fb:login-button
             id="fb-btn"
             class="fb-login-button"
             scope="email"
@@ -336,52 +312,59 @@
             data-auto-logout-link="false"
             data-use-continue-as="false"
             onlogin="window.location.reload();">
-        </fb:login-button> -->
+        </fb:login-button>
+      <div class="collapse navbar-collapse" id="navbarsExampleXxl">
+        <ul class="navbar-nav me-auto mb-2 mb-xl-0">
+          <li class="nav-item">
+            <a class="nav-link" href="{{url_for('politica')}}">Politica de privacidad</a><!-- navbar links-->
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{url_for('about')}}">Acerca de</a><!-- navbar links-->
+          </li>
+        </ul>
+      </div>
     </div>
+  </nav>
+
+      <nav class="navbar navbar-light bg-light"><!-- navbar-->
+        <div class="container-fluid">
+
+        </div>
       </nav><!-- navbar-->
     </div>
     {% block body %}{% endblock %}
 
-    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top u-flowText SocialMedia">
+    <footer class="d-flex flex-wrap justify-content-evenly align-items-center py-3 my-4 border-top u-flowText SocialMedia">
       <div class="col-md-4 d-flex align-items-center">
         <a href="/" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
           <svg class="bi" width="30" height="24"><use xlink:href="#encuentrame"/></svg>
         </a>
-        <span class="text-muted">&copy; 2022 encuentrame</span>
+        <span data-bs-toggle="tooltip" data-bs-placement="top" title="encuentrame">&copy; 2022 encuentrame</span>
       </div>
-        <ul class="nav col-md-4 justify-content-end list-unstyled d-flex"> <!-- social media -->
-          <li class="ms-4"><a class="text-muted" href="#"><i class="fa-brands fa-twitter"></i></a></li>
-          <li class="ms-4"><a class="text-muted" href="#"><i class="fa-brands fa-instagram"></i></a></li>
-          <li class="ms-4"><a class="text-muted" href="#"><i class="fa-brands fa-facebook-square"></i></a></li>
-          <li class="ms-4"><a class="fixed-bottom" href="#"><i class="fa-solid fa-chevron-up fa-bounce" title="ir al inicio"></i></a><small class="text-muted">subir</small></li>
+        <ul class="nav col-md-4 justify-content-end list-unstyled d-flex px-1"> <!-- social media -->
+          <li class="ms-4"><a class="enc-front" href="#"><i class="fa-brands fa-twitter" data-bs-toggle="tooltip" data-bs-placement="top" title="seguinos en twitter"></i></a></li>
+          <li class="ms-4"><a href="#" class="enc-front"><i class="fa-brands fa-instagram" data-bs-toggle="tooltip" data-bs-placement="top" title="seguinos en instagram"></i></a></li>
+          <li class="ms-4"><a href="#" class="enc-front"><i class="fa-brands fa-facebook-square" data-bs-toggle="tooltip" data-bs-placement="top" title="sumate a nuestra fan page"></i></a></li>
+          <li class="ms-4"><a class="text-end enc-float-chevron" href="#"><i class="fa-solid fa-chevron-up fa-bounce" data-bs-toggle="tooltip" data-bs-placement="left" title="ir al inicio" ></i></a></li>
         </ul> <!-- social media -->
     </footer>
+
+    <section class="cookies"><!-- cookies section-->
+        <p class="cookies_txt">Usamos cookies para mejorar tu experiencia en nuestro sitio</p>
+        <div class="cookies__botones">
+            <a class="cookies__boton cookies__boton--no">permitir</a>
+            <a class="cookies__boton cookies__boton--si">cancelar</a>
+        </div>
+    </section>
+
+    <!-- generate code here-->
+    <div id="nuevosScripts"></div><!-- cookies section-->
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js" data-cfasync="false"></script>
-    <script>
-      window.cookieconsent.initialise({
-        "palette": {
-          "popup": {
-            "background": "#edeff5",
-            "text": "#838391"
-          },
-          "button": {
-            "background": "#4b81e8"
-          }
-        },
-        "type": "opt-out",
-        "content": {
-          "message": "Usamos cookies para que tengas la mejor experiencia",
-          "dismiss": "Ok",
-          "deny": "Cancelar",
-          "link": "Política de cookies",
-          "href": "politica-de-cookies.html"
-        }
-      });
-    </script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/cookies.js') }}"></script>
 {% block end_javascripts %}
 {% endblock %}
   </body>

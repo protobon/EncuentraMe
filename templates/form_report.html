@@ -2,39 +2,56 @@
 {% block head %}
 {% endblock %}
 {% block body %}
-<form action="/{{ user_id }}/report/{{ post_id }}" method="post" class="form_center" id="main_form">
-{% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-        {% for category, message in messages %}
-            {% if category == "success" %}
-                <div class="alert alert-success mb-3" role="alert">
-                    <p>{{ message }}</p>
+<div class="container-xl">
+    <main>
+        <div class="row justify-content-center text-center">
+            <div class="col-12 col-md-10 col-lg-8 bd-callout bd-callout-warning">
+                <h2>Denunciar publicación</h2>
+                <p class="text-start">Este formulario sirve para denunciar una publicación que no cumpla con el propósito de la plataforma, es decir publicar contenido destinado a la búsqueda de animales perdidos.</p>
+                <p class="text-start">Por favor, envíanos un reporte detallando el motivo de la denuncia si y solo si:</p>
+                <div class="list-group enc-moderate-list-g">
+                    <ul>
+                        <li class="list-group-item">La foto no contiene un animalito.</li>
+                        <li class="list-group-item">La foto tiene contenido obsceno o gore (No ATP).</li>
+                        <li class="list-group-item">El contenido de la publicación contiene palabras obscenas o sin sentido.</li>
+                        <li class="list-group-item">Es una publicación duplicada (SPAM)</li>
+                    </ul>
                 </div>
-            {% elif category == "info" %}
-                <div class="alert alert-info mb-3" role="alert">
-                    <p>{{ message }}</p>
-                </div>
-            {% else %}
-                <div class="alert alert-danger mb-3" role="alert">
-                    <p>{{ message }}</p>
-                </div>
-            {% endif %}
-        {% endfor %}
-    {% endif %}
-{% endwith %}
-<p>Este formulario sirve para denunciar una publicación que no cumpla con el propósito de
-    la plataforma, es decir publicar contenido destinado a la búsqueda de animales perdidos.
-    Por favor, envíanos un reporte detallando el motivo de la denuncia si y solo si:
-</p>
-<ul>
-    <li>La foto no contiene un animalito.</li>
-    <li>La foto tiene contenido obsceno o gore (No ATP).</li>
-    <li>El contenido de la publicación contiene palabras obscenas o sin sentido.</li>
-    <li>Es una publicación duplicada (SPAM)</li>
-</ul>
-<br>
-<label for="reporte">Por favor, danos una descripción del reporte:</label>
-<textarea name="reporte" cols="40" rows="20" minlength="10" maxlength="256"></textarea>
-<button type="submit" class="btn btn-primary" id="form-submit">Enviar</button>
-</form>
+
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-sm-12 col-md-10 col-lg-10">
+                <form action="/{{ user_id }}/report/{{ post_id }}" method="post" class="form_center" id="main_form">
+                        {% with messages = get_flashed_messages(with_categories=true) %}
+                        {% if messages %}
+                            {% for category, message in messages %}
+                                {% if category == "success" %}
+                                    <div class="alert alert-success mb-3" role="alert">
+                                        <p>{{ message }}</p>
+                                    </div>
+                                {% elif category == "info" %}
+                                    <div class="alert alert-info mb-3" role="alert">
+                                        <p>{{ message }}</p>
+                                    </div>
+                                {% else %}
+                                    <div class="alert alert-danger mb-3" role="alert">
+                                        <p>{{ message }}</p>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+                    <div class="col-12 form-floating">
+                        <textarea name="reporte" class="form-control enc-textarea" placeholder="describa su denuncia lo mas claro posible" id="floatingTextarea"></textarea>
+                        <label for="floatingTextarea">Por favor, danos una descripción del reporte</label>
+                        <button type="submit" class="btn btn-primary enc-btn-sub-pink" id="form-submit">Enviar</button>
+                      </div>
+                </form>
+            </div>
+              </div>
+        </div>
+    </main>
+</div>
+
 {% endblock %}

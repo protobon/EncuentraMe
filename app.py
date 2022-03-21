@@ -206,11 +206,11 @@ def form_report(user_id, post_id):
             logfile("form_report(user_id, post_id) - in cursor.execute(INSERT INTO reports):\n" + str(e))
         mysql.connection.commit()
         cursor.close()
-        recipients = ['ayrtoncoelhods@gmail.com','ralexrivero@gmail.com','aortizm.09@gmail.com']
+        recipients = ['ayrtoncoelhods@gmail.com','ralexrivero@gmail.com','aortizm.09@gmail.com','3283@holbertonschool.com','3282@holbertonschool.com']
         smtpserver = smtplib.SMTP("smtp.gmail.com",587)
         smtpserver.starttls()
         smtpserver.ehlo
-        content = '\nNew report received\nUser: '+ user_id + '\nPost: ' + post_id + '\nReport: ' + reporte + '\nDate: ' + str(created_at)
+        content = '\nNew report received\nUser: '+ user_id + '\nPost: ' + 'https://encuentrame.org.xelar.tech/'+post_id + '\nReport: ' + reporte + '\nDate: ' + str(created_at) + '\nReports: https://encuentrame.org.xelar.tech/posts/reported'
         msg = MIMEText(content)
         msg['Subject'] = "New Report"
         msg['From'] = gmail_user
@@ -342,7 +342,7 @@ def api_users():
         """Retrieve all users from database and return in JSON format"""
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         try:
-            cursor.execute('SELECT name, email, estado, fb_profile FROM users')
+            cursor.execute('SELECT name, email, estado FROM users')
         except Exception as e:
             logfile("/api/users GET - in SELECT:\n" + str(e))
         users = list(cursor.fetchall())
@@ -367,8 +367,11 @@ def api_users():
         except Exception as e:
             logfile(str(e))
             return jsonify(str(e))
+        link = ''
+        if "link" in user.keys():
+            link = user['link']
         try:
-            cursor.execute('INSERT INTO users VALUES (%s, %s, %s, %s, %s, %s)', (user['id'], user['name'], user['email'], '', 'active', user['link']))
+            cursor.execute('INSERT INTO users VALUES (%s, %s, %s, %s, %s, %s)', (user['id'], user['name'], user['email'], '', 'active', link))
         except Exception as e:
             logfile("/api/users - INSERT USER:\n" + str(e))
             return jsonify('User already saved')
@@ -509,10 +512,26 @@ def api_user_by_id(user_id):
 
 
 """ only for test, will be deleted """
-@app.route('/layout')
+
+
+""" @app.route('/layout')
 def layout():
     return render_template('layout.html')
+@app.route('/layout_form')
+def layout_form():
+    return render_template('layout_form.html')
 
+@app.route('/layout_form_found')
+def layout_form_found():
+    return render_template('layout_form_found.html')
+
+@app.route('/layout_form_report')
+def layout_form_report():
+    return render_template('form_report.html') """
+
+@app.route('/layout_profile')
+def layout_profile():
+    return render_template('layout_profile.html')
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0")

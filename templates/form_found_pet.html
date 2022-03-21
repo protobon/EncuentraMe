@@ -8,18 +8,19 @@
 
 {% block body %}
 
-<div class="container">
+<div class="container-xl">
   <main>
-    <div class="py-5 text-center">
-      <h2>Mascota encontrada</h2>
-      <b id="date--color-input-support">Atención: Este formulario es para quienes encontraron un animal en la calle y quieren publicarlo.
-        <p class="lead">Si perdiste un animalito y quieres publicarlo, presiona <a href="/{{ user_id }}/lost_pet">aquí.</a></p>
-      </b>
+    <div class="row justify-content-center text-center">
+      <div class="col-12 col-md-10 col-lg-8 bd-callout bd-callout-warning">
+        <h2>Mascota encontrada</h2>
+        <b>Atención: Este formulario es para quienes encontraron un animal en la calle y quieren publicarlo.</b>
+        <p>Si perdiste un animalito y quieres publicarlo, presiona <a class="alert-link enc-alert-link" href="/{{ user_id }}/lost_pet">aquí.</a></p>
+      </div>
     </div>
 
-    <div class="row col-12"> <!--form -->
+    <div class="row justify-content-center"> <!--form -->
       <div class="col-12 col-md-10 col-lg-8">
-        <form action="/{{ user_id }}/found_pet" method="post" class="form_center needs-validation" id="main_form" enctype="multipart/form-data" novalidate>
+        <form action="/{{ user_id }}/found_pet" method="post" class="needs-validation" id="main_form" enctype="multipart/form-data" novalidate>
           {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
                 {% for category, message in messages %}
@@ -39,17 +40,17 @@
                 {% endfor %}
             {% endif %}
           {% endwith %}
-          <fieldset>
+          <fieldset class="row gy-2">
             <h4 class="mb-3">¿Qué encontraste?</h4>
 
-            <div class="my-3"><!-- radio check perro-->
+            <div class="col-auto"><!-- radio check perro-->
               <div class="form-check">
                 <input type="radio" class="form-check-input" name="mascota" value="perro" id="perro" checked required>
                 <label for="perro">Perro</label>
               </div>
             </div><!-- radio check perro-->
 
-            <div class="my-3"><!-- radio check gato-->
+            <div class="col-auto"><!-- radio check gato-->
               <div class="form-check">
                 <input type="radio" class="form-check-input" name="mascota" value="gato" id="gato">
                 <label for="gato">Gato</label>
@@ -58,29 +59,27 @@
 
             <hr class="my-4">
 
-            <div class="row g-3">
-              <div class="col-12"> <!-- fecha encontrado -->
-                <label for="perdidaDesde">¿Cuándo lo encontraste?</label>
+              <div class="col-12 p-2"> <!-- fecha encontrado -->
+                <label for="perdidaDesde" class="form-label">¿Cuándo lo encontraste?</label>
                 <input type="date" class="form-control" name="fecha" id="perdidaDesde" placeholder="dd-mm-yyyy" required>
                 <div class="invalid-feedback">
                   Ingresa la fecha cuando lo encontraste.
                 </div>
               </div> <!-- fecha encontrado -->
 
-
-              <div class="col-sm-6"> <!-- donde lo viste 1-->
-                <label for="calleUno">¿Dónde lo viste por última vez?</label>
-                <input type="text" id="calleUno" class="form-control" name="calle_1" placeholder="Calle 1" id="ultimaVista" required>
+              <div class="col-md-6"> <!-- donde lo viste 1-->
+                <label for="calle1" class="form-label">¿Dónde lo viste por última vez?</label>
+                <input type="text" id="calle1" class="form-control" name="calle_1" placeholder="Calle 1" id="ultimaVista" required>
                 <div class="invalid-feedback">
-                  Ingresa la calle donde se perdió.
+                  Ingresa la calle donde lo viste.
                 </div>
               </div> <!-- donde lo viste 1-->
 
-              <div class="col-sm-6"> <!-- donde lo viste 2-->
-                <label for="calle2" class="form-label" >Esquina</label>
+              <div class="col-md-6"> <!-- donde lo viste 2-->
+                <label for="calle2" class="form-label">Esquina</label>
                 <input type="text" class="form-control" id="calle2" name="calle_2" placeholder="Calle 2" required>
                 <div class="invalid-feedback">
-                  Ingresa la intersección dónde se perdió.
+                  Ingresa la intersección dónde lo viste.
                 </div>
               </div> <!-- donde lo viste 2-->
 
@@ -105,7 +104,6 @@
                 <input type="text" class="form-control" id="telefono" name="telefono" pattern="[0-9]+">
               </div> <!-- telefono -->
 
-
               <div class="col-12"> <!-- foto -->
                 <label for="image" class="form-label">Sube una imagen:</label>
                 <input class="form-control" aria-describedby="inputGroupFileAddon03" aria-label="subir" id="image" type="file" name="foto" required>
@@ -114,26 +112,25 @@
                 </div>
               </div> <!-- foto -->
 
-            </div><!--row g-3-->
-
             <hr class="my-4">
-            <div class="row g-3">
+
+            <div class="row g-2">
               <input type="number" step="any" name="latitude"  id="postLat" required> <!-- google maps-->
               <input type="number" step="any" name="longitude" id="postLng" required>
               <div class="invalid-feedback">
                 Selecciona la ubicación en el mapa.
               </div>
-              <div class ="googleMaps">
-                <div id="post_map"></div>
+              <div class="googleMaps">
+                <div class="border-map" id="post_map"></div>
                 <script
                 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBqNj3BPTdCSu9fTtAlj4LSLD5FAidsa7M&callback=initMap&libraries=&v=weekly" async></script> <!-- google maps-->
               </div>
-            </div> <!-- row g-3-->
+            </div> <!-- row g-2-->
 
             <hr class="my-4">
-
-            <button type="submit" class="w-100 btn btn-primary btn-lg" id="form-submit">Publicar</button>
-
+            <div class="col">
+              <button type="submit" class="w-100 btn btn-primary btn-lg enc-btn-submit" id="form-submit">Publicar</button>
+            </div>
           </fieldset>
         </form>
       </div>

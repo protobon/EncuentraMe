@@ -42,14 +42,14 @@ $(document).ready(function () {
                 buttonsDiv.addClass('buttons');
                 let deleteButton = $(document.createElement('button'));
                 deleteButton.addClass('btn');
-                deleteButton.addClass('btn-danger');
+                deleteButton.addClass('enc-btn-danger');
                 deleteButton.attr('type', 'button');
                 deleteButton.html('Eliminar');
                 deleteButton.attr('onclick', 'deletePost("' + this.id + '")');
                 buttonsDiv.append(deleteButton);
                 let updateButton = $(document.createElement('button'));
                 updateButton.addClass('btn');
-                updateButton.addClass('btn-info');
+                updateButton.addClass('enc-btn-happy');
                 updateButton.attr('type', 'button');
                 updateButton.html('¡Tengo a mi mascota!');
                 updateButton.attr('onclick', 'resolvePost("' + this.id +'")');
@@ -58,7 +58,7 @@ $(document).ready(function () {
                 individualPost.append(postLostNew);
                 postLostNew.append(cardImg);/*append img, body and btn*/
                 postLostNew.append(cardBody);
-                $('article.posts').append(individualPost);
+                $('div.posts').append(individualPost);
             });
             $.each(data.found, function () {
                 this.created_at = new Date(this.created_at).toLocaleString('es-UY');
@@ -86,14 +86,14 @@ $(document).ready(function () {
                 buttonsDiv.addClass('buttons');
                 let deleteButton = $(document.createElement('button'));
                 deleteButton.addClass('btn');
-                deleteButton.addClass('btn-danger');
+                deleteButton.addClass('enc-btn-danger');
                 deleteButton.attr('type', 'button');
                 deleteButton.html('Eliminar');
                 deleteButton.attr('onclick', 'deletePost("' + this.id + '")');
                 buttonsDiv.append(deleteButton);
                 let updateButton = $(document.createElement('button'));
                 updateButton.addClass('btn');
-                updateButton.addClass('btn-info');
+                updateButton.addClass('enc-btn-happy');
                 updateButton.attr('type', 'button');
                 updateButton.html('¡Tengo a mi mascota!');
                 updateButton.attr('onclick', 'resolvePost("' + this.id +'")');
@@ -102,7 +102,7 @@ $(document).ready(function () {
                 individualPost.append(postFoundNew);
                 postFoundNew.append(cardImg);/*append img, body and btn*/
                 postFoundNew.append(cardBody);
-                $('article.posts').append(individualPost);
+                $('div.posts').append(individualPost);
             });
         });
     }

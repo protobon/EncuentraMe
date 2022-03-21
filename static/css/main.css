@@ -32,11 +32,11 @@ user-select: none;
     width:10px;
     height:10px;
 }
-  
+
 #legend h3 {
     margin-top: 0;
 }
-  
+
 #legend img {
     vertical-align: middle;
 } */
@@ -61,6 +61,15 @@ user-select: none;
 .dropstart::before {
     color: #006948;
 }
+
+
+/* dropdown menu, dropdown loggin items */
+
+.dropdown-menu {
+    z-index: 1021;
+}
+
+
 
 /***********************************************************************************************/
 /*  posts                                                                                     */
@@ -90,6 +99,59 @@ user-select: none;
 /*******************/
 /* filter */
 
+.enc-filter {
+    background-color: #e1e2e1;
+    padding: .5rem;
+}
+
+.enc-filter-btn {
+    color: #fdfdfd;
+}
+
+.enc-filter-header {
+    background-color: #009d71 !important;
+    padding: .5rem;
+}
+/* accordion collapse */
+.enc-filter-header:focus {
+    border-color: #57bd9e !important;
+    box-shadow: 0 0 0 0.25rem rgba(142, 220, 185, 0.5) !important;
+    transition: all .15s ease-in-out;
+}
+
+.enc-filter-header:hover {
+    border-color: #2ca880 !important;
+}
+
+.enc-filter-header:not(.collapsed)::after {
+    color: #fdfdfd;
+}
+
+.enc-filter-header::after {
+    color: #fdfdfd;
+}
+
+.filter {
+    padding: .5rem;
+    border:1px solid rgba(255, 255, 255, 0.5);
+    border-radius: .375rem;
+}
+
+.selectAnimal {
+    margin: 0;
+    padding: .5rem;
+    border: 1px solid rgba(0,187, 144, 0.5);
+    border-radius: .375rem;
+}
+
+
+.enc-btn-submit-filter:focus {
+    color: #fff;
+    background-color: #51caa3;
+    border-color: #009874;
+    box-shadow: 0 0 0 0.25rem rgb(13, 153, 110, 0.5);
+}
+
 /********************/
 /* general overflow */
 
@@ -112,9 +174,6 @@ user-select: none;
 /*******************/
 /* feed */
 
-.feed {
-    background-color: #E1E2E1;
-}
 posts {
     padding-top: 2rem;
 }
@@ -125,12 +184,366 @@ posts {
 .footer {
     background-color: #F5F5F6;
 }
-
 .SocialMedia ul li i{
     color: #006F98;
+    padding: .5rem;
+    transition: all .2s ease-in-out;
+    margin: auto;
+    padding: auto;
+}
+
+.SocialMedia ul li i:hover{
+    color: #fefefe;
+    background-color: #006F98;
+    padding: .5rem;
+    border: #006f98;
+    border-radius: .375rem;
+    transition: all .2s ease-in-out;
+}
+
+.SocialMedia ul li i:link{
+    transition: all .2s ease-in-out;
+    margin: auto;
+    padding: auto;
 }
 
 .u-flowText ul li i{
     font-size: 1.5rem;
 }
 
+.border-map {
+    border-radius: 0.3rem;
+}
+
+.enc-float-chevron {
+    position:fixed;
+    z-index: 1030;
+    right: 2rem;
+    bottom: 2rem;
+}
+
+.enc-front {
+    z-index: 1200;
+}
+/*************************/
+/* docs */
+
+.bd-callout {
+    padding: 0.75rem;
+    margin-bottom: 1.25rem;
+    border: 1px solid #eee;
+    border-left-width: .25rem;
+    border-radius: .25rem;
+}
+
+.bd-callout-warning {
+    border-left-color: #ff6961;
+}
+
+/*************************/
+/* form */
+.form-check-input:checked {
+    background-color: #009574;
+    border-color: #009574;
+}
+
+.form-check-input:focus {
+    box-shadow: 0 0 0 0.2rem rgba(77, 199, 144, 0.5);
+}
+
+/* submit button */
+
+.enc-btn-submit {
+    transition: ease-in-out 0.2s;
+    color: #fff;
+    background-color: #009574;
+    border-color: #009574;
+}
+
+.enc-btn-submit:active {
+    transition: ease-in-out 0.2s;
+    color: #fff;
+    background-color: #009574;
+    border-color: #009574;
+}
+
+.enc-btn-submit:hover {
+    transition: ease-in-out 0.2s;
+    color: #fff;
+    background-color: #006948;
+    border-color: #006948;
+}
+
+.enc-btn-submit:focus {
+    transition: ease-in-out 0.2s;
+    color: #eee;
+    background-color: #009574;
+    border-color: #009574;
+    box-shadow: 0 0 0 0.2rem rgba(77, 199, 144, 0.5);
+}
+
+/* link alert */
+
+.enc-alert-link {
+    color: #789dca;
+}
+
+/* politica */
+
+.politica h1 {
+    font-size: 1.7rem;
+    font-weight: bold;
+    color: #789dca;
+}
+
+.politica h2 {
+    color: #789dca;
+    font-size: 1.5rem;
+}
+
+
+/****************************/
+/* about */
+
+.about h1 {
+    margin-top: 1rem;
+    font-size: 1.7rem;
+    font-weight: bold;
+    color: #789dca;
+}
+
+.about h2 {
+    color: #789dca;
+    font-size: 1.6rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+/************************/
+/* brand */
+
+.enc-brand-name {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #009574;
+}
+
+.enc-social-card-i{
+    color: #006F98;
+    font-size: 1.2rem;
+    padding: .25rem;
+    transition: all .2s ease-in-out;
+    margin: auto;
+    padding: auto;
+}
+.enc-social-card-i:hover{
+    color: #009574;
+    padding: .25rem;
+    border-radius: .375rem;
+    box-shadow: 1px 1px 0.25rem rgba(156, 156, 156, 0.5);
+    transition: all .2s ease-in-out;
+}
+.enc-social-card-i:link{
+    transition: all .2s ease-in-out;
+    margin: auto;
+    padding: auto;
+}
+
+.enc-profile-img {
+    margin: 1rem;
+    border-radius: .5rem;
+    width: auto;
+}
+
+.enc-slide-img {
+    width: 100%;
+    height: auto;
+}
+
+.enc-featurette-gif {
+    border-radius: 0.5rem;
+    box-shadow: 1px 1px 0.25rem rgba(156, 156, 156, 0.5);
+}
+
+/************************/
+/* moderate */
+.enc-moderate-list-g ul li {
+    list-style: none;
+    text-align: left;
+    padding: .25rem 1rem;
+}
+
+/************************/
+/* brand buttons */
+
+/* pink */
+.enc-btn-sub-pink {
+    display: inline-block;
+    font-weight: 400;
+    line-height: 1.5;
+    text-align: center;
+    text-decoration:none;
+    vertical-align: middle;
+    cursor: pointer;
+    background: #006f98;
+    border: 1px solid transparent;
+    font-size: 1rem;
+    border-radius: .25rem;
+    padding: .375rem .75rem;
+    margin: .5rem;
+    color: #eaeaea;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+.enc-btn-sub-pink:active {
+    color: #fff;
+    background-color: #00446a;
+    border-color: #00446a;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+.enc-btn-sub-pink:hover {
+    color: #fff;
+    background-color: #007dab;
+    border-color: #007dab;
+    box-shadow: 0 0 0 0.25rem rgb(79, 157, 201, .5);
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+.enc-btn-sub-pink:focus {
+    color: #fff;
+    background-color: #007dab;
+    border-color: #007dab;
+    box-shadow: 0 0 0 0.25rem rgba(79, 157, 201, .5);
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+/* blue */
+
+.enc-btn-sub-blue {
+    display: inline-block;
+    font-weight: 400;
+    line-height: 1.5;
+    text-align: center;
+    text-decoration:none;
+    vertical-align: middle;
+    cursor: pointer;
+    background: #006f98;
+    border: 1px solid transparent;
+    font-size: 1rem;
+    border-radius: .25rem;
+    padding: .375rem .75rem;
+    margin: .5rem;
+    color: #eaeaea;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+.enc-btn-sub-blue:active {
+    color: #fff;
+    background-color: #00446a;
+    border-color: #00446a;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+.enc-btn-sub-blue:hover {
+    color: #fff;
+    background-color: #007dab;
+    border-color: #007dab;
+    box-shadow: 0 0 0 0.25rem rgb(79, 157, 201, .5);
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+.enc-btn-sub-blue:focus {
+    color: #fff;
+    background-color: #007dab;
+    border-color: #007dab;
+    box-shadow: 0 0 0 0.25rem rgba(79, 157, 201, .5);
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+/* green */
+.enc-btn-sub-green {
+    display: inline-block;
+    font-weight: 400;
+    line-height: 1.5;
+    text-align: center;
+    text-decoration:none;
+    vertical-align: middle;
+    cursor: pointer;
+    background: #57bd9e;
+    border: 1px solid transparent;
+    font-size: 0.75rem;
+    border-radius: .25rem;
+    padding: .375rem .75rem;
+    margin: .25rem;
+    color: #eaeaea;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+.enc-btn-sub-green:active {
+    color: #fff;
+    background-color: #53ca98;
+    border-color: #53ca98;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+.enc-btn-sub-green:hover {
+    color: #fff;
+    background-color: #2ca880;
+    border-color: #2ca880;
+    box-shadow: 0 0 0 0.25rem rgb(142, 220, 185, .5);
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+.enc-btn-sub-green:focus {
+    color: #fff;
+    background-color: #53ca98;
+    border-color: #53ca98;
+    box-shadow: 0 0 0 0.25rem rgba(142, 220, 185, .5);
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+/************************/
+/* profile */
+
+.enc-h1 {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #789dca;
+}
+
+.enc-btn-happy {
+    display: inline-block;
+    font-weight: 400;
+    line-height: 1.5;
+    text-align: center;
+    text-decoration:none;
+    vertical-align: middle;
+    cursor: pointer;
+    background: #006f98;
+    border: 1px solid transparent;
+    font-size: 1rem;
+    border-radius: .25rem;
+    padding: .375rem .75rem;
+    margin: .5rem;
+    color: #eaeaea;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+.enc-btn-danger {
+    display: inline-block;
+    font-weight: 400;
+    line-height: 1.5;
+    text-align: center;
+    text-decoration:none;
+    vertical-align: middle;
+    cursor: pointer;
+    background: #006f98;
+    border: 1px solid transparent;
+    font-size: 1rem;
+    border-radius: .25rem;
+    padding: .375rem .75rem;
+    margin: .5rem;
+    color: #eaeaea;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}

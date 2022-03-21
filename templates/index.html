@@ -25,35 +25,48 @@
     {% endif %}
 {% endwith %}
 
-<div class="sticky-top feed py-1 text-center container">
-    <div class="filters row">
-        <div class="filter col-lg-6 col-md-8 mx-auto">
-            <button type="button" class="btn btn-success btn-sm" id="all" onclick="refreshFeed()" autofocus>Todos</button>
-            <button type="button" class="btn btn-success btn-sm" id="lost" onclick="refreshLost()">Perdidos</button>
-            <button type="button" class="btn btn-success btn-sm" id="found" onclick="refreshFound()">Encontrados</button>
-            <button type="button" class="btn btn-success btn-sm" id="resolved" onclick="refreshResolved()">Resueltos</button>
+<div class="container-lg sticky-top feed py-1 text-center container">
+    <div class="filters row justify-content-center accordion" id="accordionPanelsStayOpen"><!-- accordion filter-->
+        <div class="accordion-item">
+            <h2 class="accordion-header row" id="panelsStayOpen-headingOne"><!-- header -->
+            <button class="accordion-button enc-filter-header" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                <i class="fa-solid fa-filter enc-filter-btn" data-bs-toggle="tooltip" data-bs-placement="bottom" title="aplicar filtro"></i>
+            </button>
+            </h2><!-- header -->
+            <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
+            <div class="accordion-body enc-filter row">
+                <div class="filter col-lg-4 col-md-6 col-sm-5 mx-auto">
+                    <button type="button" class="btn btn-success btn-sm enc-btn-submit-filter enc-btn-sub-green" id="all" onclick="refreshFeed()" autofocus>Todos</button>
+                    <button type="button" class="btn btn-success btn-sm enc-btn-sumbit-filter enc-btn-sub-green" id="lost" onclick="refreshLost()">Perdidos</button>
+                    <button type="button" class="btn btn-success btn-sm enc-btn-sumbit-filter enc-btn-sub-green" id="found" onclick="refreshFound()">Encontrados</button>
+                    <button type="button" class="btn btn-success btn-sm enc-btn-sumbit-filter enc-btn-sub-green" id="resolved" onclick="refreshResolved()">Resueltos</button>
+                </div>
+                <div class="selectAnimal col-lg-4 col-md-6 mx-auto">
+                    <label for="todos">Todos</label>
+                    <input class="form-check-input" type="radio" name="animal-selection" id="todos" value="Todos" checked>
+                    <label for="perritos">Perritos</label>
+                    <input class="form-check-input" type="radio" name="animal-selection" id="perritos" value="Perritos">
+                    <label for="gatitos">Gatitos</label>
+                    <input class="form-check-input" type="radio" name="animal-selection" id="gatitos" value="Gatitos">
+                    <p id="show"></p>
+                </div>
+                <div class="post">
+                    <a id="post" class="btn btn-primary enc-btn-sub-blue my-2" role="button">Publicar</a>
+                </div>
+            </div>
+            </div>
         </div>
-        <div class="selectAnimal">
-            <input type="radio" name="animal-selection" id="todos" value="Todos" checked>Todos</input>
-            <input type="radio" name="animal-selection" id="perritos" value="Perritos">Perritos</input>
-            <input type="radio" name="animal-selection" id="gatitos" value="Gatitos">Gatitos</input>
-            <p id="show"></p>
-        </div>
-        <div class="post">
-            <a id="post" class="btn btn-primary my-2" role="button">Publicar</a>
-        </div>
-    </div>
+    </div><!-- accordion filter -->
 </div>
 
-
-<div class="container-xl justify-content-center overflow-hidden">
+<div class="container-xl justify-content-center overflow-hidden g-0">
     <div class="card-header"><!-- select publicaciones or map-->
         <ul class="nav nav-tabs card-header-tabs" id="nav-list" role="tablist">
             <li class="nav-item">
-                <a class="nav-link active" aria-current="true" href="#nav-publicaciones" role="tab" aria-controls="publicaciones" aria-selected="true">Publicaciones</a>
+                <a class="nav-link active" aria-current="true" href="#nav-publicaciones" role="tab" aria-controls="publicaciones" aria-selected="true" data-bs-toggle="tooltip" data-bs-placement="top" title="mostrar publicaciones">Publicaciones</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#nav-mapa" role="tab" aria-controls="mapa" aria-selected="false">Mapa</a>
+                <a class="nav-link" href="#nav-mapa" role="tab" aria-controls="mapa" aria-selected="false" data-bs-toggle="tooltip" data-bs-placement="top" title="mostrar mapa">Mapa</a>
             </li>
         </ul>
     </div><!-- select publicaciones or map-->
@@ -62,14 +75,14 @@
         <div class="tab-content">
             <div class="tab-pane active" id="nav-publicaciones" role="tabpanel"><!-- tab #1 -->
                 <div class="row">
-                    <div class="animal col-md-12 col-lg-6 col-xl-6">
+                    <div class="animal col-md-12 col-lg-12 col-xl-12">
                         <div class="posts row justify-content-around g-2"><!-- feed --><!-- column 1 -->
                             <!-- individual post here-->
                         </div> <!-- feed --><!-- column 1 -->
                     </div>
-                    <div id="feed_map" class="mapa col-md-12 col-lg-6 col-xl-6"><!-- column 2 -->
+                    <div id="feed_map" class="mapa col-md-12 col-lg-12 col-xl-12 g-0"><!-- column 2 -->
                         <!-- map here -->
-                        <div id="main_map">
+                        <div class="border-map" id="main_map">
                             <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
                             <script
                                 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBqNj3BPTdCSu9fTtAlj4LSLD5FAidsa7M&callback=initMap&v=weekly"
