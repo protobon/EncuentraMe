@@ -210,7 +210,7 @@ def form_report(user_id, post_id):
         smtpserver = smtplib.SMTP("smtp.gmail.com",587)
         smtpserver.starttls()
         smtpserver.ehlo
-        content = '\nNew report received\nUser: '+ user_id + '\nPost: ' + post_id + '\nReport: ' + reporte + '\nDate: ' + str(created_at)
+        content = '\nNew report received\nUser: '+ user_id + '\nPost: ' + 'https://encuentrame.org.xelar.tech/'+post_id + '\nReport: ' + reporte + '\nDate: ' + str(created_at)
         msg = MIMEText(content)
         msg['Subject'] = "New Report"
         msg['From'] = gmail_user
