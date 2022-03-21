@@ -521,6 +521,11 @@ def layout():
 def layout_form():
     return render_template('layout_form.html')
 
+""" only for test, will be deleted """
+@app.route('/layout_form_found')
+def layout_form_found():
+    return render_template('layout_form_found.html')
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0")
 else:
