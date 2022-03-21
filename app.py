@@ -523,11 +523,15 @@ def layout_form():
 
 @app.route('/layout_form_found')
 def layout_form_found():
-    return render_template('layout_form_found.html') """
+    return render_template('layout_form_found.html')
 
 @app.route('/layout_form_report')
 def layout_form_report():
-    return render_template('form_report.html')
+    return render_template('form_report.html') """
+
+@app.route('/post_by_id')
+def post_by_id():
+    return render_template('post_by_id.html')
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0")

@@ -24,13 +24,11 @@
         {% endfor %}
     {% endif %}
 {% endwith %}
-<div class="container">
-  <div class="feed row">
-    <div class="">
-      <h1>{{ user["name"] }} - Mis publicaciones</h1>
-      <article class="posts col-sm-6">
+<div class="container-xl">
+  <div class="feed row align-content-center">
+      <h1 class="enc-h1">{{ user["name"] }} - Mis publicaciones</h1>
+      <article class="posts col-6">
       </article>
-    </div>
   </div>
 </div>
 <script src="{{ url_for('static', filename='js/loadProfile.js') }}"></script>
