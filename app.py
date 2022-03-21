@@ -529,9 +529,9 @@ def layout_form_found():
 def layout_form_report():
     return render_template('form_report.html') """
 
-@app.route('/post_by_id')
-def post_by_id():
-    return render_template('post_by_id.html')
+@app.route('/layout_profile')
+def layout_profile():
+    return render_template('layout_profile.html')
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0")

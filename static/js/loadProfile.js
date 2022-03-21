@@ -58,7 +58,7 @@ $(document).ready(function () {
                 individualPost.append(postLostNew);
                 postLostNew.append(cardImg);/*append img, body and btn*/
                 postLostNew.append(cardBody);
-                $('article.posts').append(individualPost);
+                $('div.posts').append(individualPost);
             });
             $.each(data.found, function () {
                 this.created_at = new Date(this.created_at).toLocaleString('es-UY');
@@ -102,7 +102,7 @@ $(document).ready(function () {
                 individualPost.append(postFoundNew);
                 postFoundNew.append(cardImg);/*append img, body and btn*/
                 postFoundNew.append(cardBody);
-                $('article.posts').append(individualPost);
+                $('div.posts').append(individualPost);
             });
         });
     }
