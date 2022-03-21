@@ -354,3 +354,57 @@ posts {
     border-radius: 0.5rem;
     box-shadow: 1px 1px 0.25rem rgba(156, 156, 156, 0.5);
 }
+
+/************************/
+/* moderate */
+.enc-moderate-list-g ul li {
+    list-style: none;
+    text-align: left;
+    padding: .25rem 1rem;
+}
+
+.enc-textarea {
+}
+/************************/
+/* brand buttons */
+
+.enc-btn-sub-pink {
+    display: inline-block;
+    font-weight: 400;
+    line-height: 1.5;
+    text-align: center;
+    text-decoration:none;
+    vertical-align: middle;
+    cursor: pointer;
+    background: #006f98;
+    border: 1px solid transparent;
+    font-size: 1rem;
+    border-radius: .25rem;
+    padding: .375rem .75rem;
+    margin: .5rem;
+    color: #eaeaea;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+.enc-btn-sub-pink:active {
+    color: #fff;
+    background-color: #00446a;
+    border-color: #00446a;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+.enc-btn-sub-pink:hover {
+    color: #fff;
+    background-color: #007dab;
+    border-color: #007dab;
+    box-shadow: 0 0 0 0.25rem rgb(79, 157, 201, .5);
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+.enc-btn-sub-pink:focus {
+    color: #fff;
+    background-color: #007dab;
+    border-color: #007dab;
+    box-shadow: 0 0 0 0.25rem rgba(79, 157, 201, .5);
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}

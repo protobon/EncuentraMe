@@ -512,19 +512,22 @@ def api_user_by_id(user_id):
 
 
 """ only for test, will be deleted """
-@app.route('/layout')
+
+
+""" @app.route('/layout')
 def layout():
     return render_template('layout.html')
-
-""" only for test, will be deleted """
 @app.route('/layout_form')
 def layout_form():
     return render_template('layout_form.html')
 
-""" only for test, will be deleted """
 @app.route('/layout_form_found')
 def layout_form_found():
-    return render_template('layout_form_found.html')
+    return render_template('layout_form_found.html') """
+
+@app.route('/layout_form_report')
+def layout_form_report():
+    return render_template('form_report.html')
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0")
