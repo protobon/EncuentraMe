@@ -16,7 +16,7 @@
     </div>
     <div class="carousel-inner"><!-- slides -->
       <div class="carousel-item active"><!-- img 1-->
-        <img class="bd-placeholder-img" width="100%" height="360px" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false" src="https://picsum.photos/980/360" alt="Tareas de trello">
+        <img class="bd-placeholder-img"  aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false" src="{{ url_for('static', filename='img/landing/landing_hero_xl_01.jpg')}}" alt="Tareas de trello">
 
         <div class="container">
           <div class="carousel-caption text-start">
@@ -27,7 +27,7 @@
         </div>
       </div><!-- img 1-->
       <div class="carousel-item"><!-- img 2-->
-        <img class="bd-placeholder-img" width="100%" height="360px" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false" src="https://picsum.photos/980/360" alt="Tareas de trello">
+        <img class="bd-placeholder-img"  aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false" src="{{ url_for('static', filename='img/landing/landing_hero_xl_02.jpg')}}" alt="Tareas de trello">
 
         <div class="container">
           <div class="carousel-caption">
@@ -38,12 +38,7 @@
         </div>
       </div><!-- img 2-->
       <div class="carousel-item"><!-- img 3-->
-        <picture>
-          <source media="(max-width: 576px)" srcset="https://picsum.photos/576/360" />
-          <source media="(min-width: 768px)" srcset="https://picsum.photos/768/360" />
-          <source media="(min-width: 992px)" srcset="https://picsum.photos/992/360" />
-          <img class="bd-placeholder-img" width="100%" height="360px" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false" src="{{ url_for('static', filename='img/landing/landing_hero_xl_01.jpg')}}" alt="Tareas de trello">
-        </picture>
+          <img class="bd-placeholder-img enc-slide-img"  aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false" src="{{ url_for('static', filename='img/landing/landing_hero_xl_03.jpg')}}" alt="Tareas de trello">
 
         <div class="container">
           <div class="carousel-caption text-end">
@@ -70,7 +65,9 @@
       <p class="landing-intro"> <span class="enc-brand-name">encuentrame</span> encuentrame tuvo sus primeros latidos en la madrugada justo después de navidad, cuando uno de los creadores estaba caminando rumbo a casa y se consiguió con una gatita claramente perdida, quizá se habia asustado con los fuegos artificiales, salió corriendo y terminó lejos de su hogar, perdida y asustada. Le tomó una foto y la subió a las redes sociales con la esperanza de que compartieran su publicación y el dueño la encontrara, pero no había mucho mas que pudiera hacer.</p>
 
       <p>Conversando sobre el tema, nos dimos cuenta que ese era un problema real, actual y además un problema para el que podíamos presentar una solucion, o al menos brindar ayuda combinando los conocimientos adquiridos estos ultimos 9 meses en <a class="enc-alert-link" href="https://holbertonschool.uy/" target="_blank" data-bs-toggle="tooltip" data-bs-placement="top" title="conoce mas sobre Holberton School Uruguay" >Holberton School</a>, con la tecnología actual, la capacidad de difusion de las redes sociales y nuestro amor por los animales.</p>
+
       <p>es que dia tras dia aparecen mas historias y publicaciones sobre animales perdidos, los vemos incluso en fotos en las paradas de autobus o en los arboles, pero pocas veces sabemos cuanto tiempo ha pasado desde que se perdió o si ya fue encontrado. </p>
+
       <p>Decidimos tomar acción y nuestro deseo fue tomando forma día tras día, hasta llegar a lo que es hoy. Una plataforma destinada a ayudar a personas que buscan a sus mascotas perdidas facilitando la comunicación entre los usuarios de nuestra comunidad. Así como incentivando a publicar y compartir animalitos que encontramos perdidos en las calles a diario, para buscarles una familia y un hogar.</p>
     </div>
 
