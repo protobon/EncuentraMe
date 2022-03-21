@@ -206,11 +206,11 @@ def form_report(user_id, post_id):
             logfile("form_report(user_id, post_id) - in cursor.execute(INSERT INTO reports):\n" + str(e))
         mysql.connection.commit()
         cursor.close()
-        recipients = ['ayrtoncoelhods@gmail.com','ralexrivero@gmail.com','aortizm.09@gmail.com']
+        recipients = ['ayrtoncoelhods@gmail.com','ralexrivero@gmail.com','aortizm.09@gmail.com','3283@holbertonschool.com','3282@holbertonschool.com']
         smtpserver = smtplib.SMTP("smtp.gmail.com",587)
         smtpserver.starttls()
         smtpserver.ehlo
-        content = '\nNew report received\nUser: '+ user_id + '\nPost: ' + 'https://encuentrame.org.xelar.tech/'+post_id + '\nReport: ' + reporte + '\nDate: ' + str(created_at)
+        content = '\nNew report received\nUser: '+ user_id + '\nPost: ' + 'https://encuentrame.org.xelar.tech/'+post_id + '\nReport: ' + reporte + '\nDate: ' + str(created_at) + '\nReports: https://encuentrame.org.xelar.tech/posts/reported'
         msg = MIMEText(content)
         msg['Subject'] = "New Report"
         msg['From'] = gmail_user
