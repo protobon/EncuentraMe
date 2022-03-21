@@ -338,3 +338,14 @@ posts {
     margin: auto;
     padding: auto;
 }
+
+.card img {
+    margin: 1rem;
+    border-radius: .5rem;
+    width: auto;
+}
+
+.enc-slide-img {
+    width: 100%;
+    height: auto;
+}
