@@ -10,15 +10,15 @@
 
 <div class="container-xl">
   <main>
-    <div class="text-center">
-      <div class="bd-callout bd-callout-warning">
+    <div class="row justify-content-center text-center">
+      <div class="col-12 col-md-10 col-lg-8 bd-callout bd-callout-warning">
         <h2>Mascota perdida</h2>
         <b>Atención: Este formulario es para quienes perdieron su mascota y quieren encontrarla.</b>
         <p>Si encontraste un animalito en la calle y quieres publicarlo, presiona <a class="alert-link enc-alert-link" href="/{{ user_id }}/found_pet">aquí.</a></p>
       </div>
     </div>
 
-    <div class="row"> <!--form -->
+    <div class="row justify-content-center"> <!--form -->
       <div class="col-12 col-md-10 col-lg-8">
         <form action="/{{ user_id }}/lost_pet" method="post" class="needs-validation" id="main_form" enctype="multipart/form-data" novalidate>
           {% with messages = get_flashed_messages(with_categories=true) %}<!-- alert -->
