@@ -77,9 +77,9 @@ $(document).ready(function () {
                 } else {
                     post.addClass('pet pet_found');/*1*/
                 }
-                post.addClass(this.mascota);
                 let individualPost = $(document.createElement('div'));
                 individualPost.addClass('individual col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-4 p-2');
+                individualPost.addClass(this.mascota);
                 let cardImg = $(document.createElement('div'));/*2*/
                 cardImg.addClass('user'); /*2*/
                 cardImg.addClass('card-img-top');/*2*/
@@ -144,9 +144,9 @@ $(document).ready(function () {
                 postLostNew.addClass('card row justify-content-around g-2'); /*1*/
                 postLostNew.addClass('pet');/*1*/
                 postLostNew.addClass('pet_lost');/*1*/
-                postLostNew.addClass(this.mascota);
                 let individualPost = $(document.createElement('div'));
                 individualPost.addClass('individual col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-4 p-2');
+                individualPost.addClass(this.mascota);
                 let cardImg = $(document.createElement('div'));/*2*/
                 cardImg.addClass('user'); /*2*/
                 cardImg.addClass('card-img-top');/*2*/
@@ -197,10 +197,9 @@ $(document).ready(function () {
                 postFoundNew.addClass('card row justify-content-around g-2');
                 postFoundNew.addClass('pet');
                 postFoundNew.addClass('pet_found');
-                postFoundNew.addClass(this.mascota);
                 let individualPost = $(document.createElement('div'));
                 individualPost.addClass('individual col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-4 p-2');
-
+                individualPost.addClass(this.mascota);
                 let cardImg = $(document.createElement('div'));
                 cardImg.addClass('user'); /*2*/
                 cardImg.addClass('card-img-top');/*2*/
@@ -249,9 +248,9 @@ $(document).ready(function () {
                 let post = $(document.createElement('div')); /*1*/
                 post.addClass('card row justify-content-around g-2'); /*1*/
                 post.addClass('pet pet_resolved');/*1*/
-                post.addClass(this.mascota);
                 let individualPost = $(document.createElement('div'));
                 individualPost.addClass('individual col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-4 p-2');
+                individualPost.addClass(this.mascota);
                 let cardImg = $(document.createElement('div'));/*2*/
                 cardImg.addClass('user'); /*2*/
                 cardImg.addClass('card-img-top');/*2*/
