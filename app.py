@@ -434,6 +434,7 @@ def api_post_by_id(id):
             cursor.execute("UPDATE found_pets SET updated_at=%s WHERE id=%s", [updated_at, id])
         mysql.connection.commit()
         cursor.close()
+        flash('¡Felicidades! Nos alegra mucho que hayas encontrado a tu mascota :D', "success")
         return jsonify('¡Felicidades! Nos alegra mucho que hayas encontrado a tu mascota :D')
     if request.method == 'DELETE':
         if "lost" in id:
@@ -442,6 +443,7 @@ def api_post_by_id(id):
             cursor.execute("UPDATE found_pets SET estado = 'removed' WHERE id=%s", [id])
         mysql.connection.commit()
         cursor.close()
+        flash('Publicación eliminada correctamente', "info")
         return jsonify('Publicación eliminada correctamente')
 
 
