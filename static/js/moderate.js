@@ -43,9 +43,12 @@ $(document).ready(function () {
                 post.addClass('card row justify-content-around col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-4 p-2 g-2');
                 post.addClass('pet');
                 post.addClass('pet-found');
+                let cardImg = $(document.createElement('div'));/*2*/
+                cardImg.addClass('user'); /*2*/
+                cardImg.addClass('card-img-top');/*2*/
+                cardImg.append('<img class="img-fluid rounded" src="/static/images/' + this.foto + '">');
                 post.append('<h3>' + this.user_name + '</h3>');
                 post.append('<p>' + this.user_id + '</p>');
-                post.append('<img class="img-fluid rounded" src="/static/images/' + this.foto + '">');
                 post.append('<p>' + this.created_at + '</p>');
                 $.each(this.comments, function() {
                     post.append('<p>' + this + '</p>');
