@@ -275,11 +275,6 @@ def politica():
     return render_template('politica_de_privacidad.html')
 
 
-@app.route('/landing')
-def landing_page():
-    return render_template('landing.html')
-
-
 @app.route('/profile/<user_id>')
 def user_profile(user_id):
     """Render user profile with all owner's posts"""
@@ -501,28 +496,6 @@ def api_user_by_id(user_id):
     cursor.close()
     return jsonify(user)
 
-
-""" only for test, will be deleted """
-
-
-""" @app.route('/layout')
-def layout():
-    return render_template('layout.html')
-@app.route('/layout_form')
-def layout_form():
-    return render_template('layout_form.html')
-
-@app.route('/layout_form_found')
-def layout_form_found():
-    return render_template('layout_form_found.html')
-
-@app.route('/layout_form_report')
-def layout_form_report():
-    return render_template('form_report.html') """
-
-@app.route('/layout_profile')
-def layout_profile():
-    return render_template('layout_profile.html')
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0")
