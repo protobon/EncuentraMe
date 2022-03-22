@@ -480,9 +480,9 @@ def reported_posts():
 def api_completed():
     """Retrieve all completed (resolved) posts in JSON format"""
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    cursor.execute("SELECT * FROM lost_pets WHERE estado = 'completed'")
+    cursor.execute("SELECT * FROM lost_pets WHERE estado = 'resolved'")
     completed_lost = list(cursor.fetchall())
-    cursor.execute("SELECT * FROM found_pets WHERE estado = 'completed'")
+    cursor.execute("SELECT * FROM found_pets WHERE estado = 'resolved'")
     completed_found = list(cursor.fetchall())
     cursor.close()
     all_posts_completed = completed_lost + completed_found
