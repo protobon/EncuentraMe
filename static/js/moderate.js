@@ -10,8 +10,8 @@ $(document).ready(function () {
                 let post = $(document.createElement('div'));
                 post.addClass('pet');
                 post.addClass('pet-lost');
-                post.append('<h3>' + this.user_name + '</h3>');
-                post.append('<p>' + this.user_id + '</p>');
+                post.append('<a href="https://encuentrame.org.xelar.tech/profile' + this.user_id + '"></a>');
+                post.find('a').append('<h3>' + this.user_name + '</h3>');
                 post.append(';<img src="/static/images/' + this.foto + '">');
                 post.append('<p>' + this.created_at + '</p>');
                 $.each(this.comments, function() {
