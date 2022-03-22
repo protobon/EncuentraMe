@@ -61,6 +61,8 @@
     </head>
 
 <body class="bg-light">
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v13.0&appId=1633098193720369&autoLogAppEvents=1" nonce="nXVIuQx5"></script>
     <div class="container">
       <script>
         $(document).ready(function () {
@@ -302,17 +304,16 @@
                 <li><button class="dropdown-item btn btn-danger btn-small" id="btn-logout" onclick="logout()">Logout</button></li>
             </ul>
         </div>
-        <fb:login-button
+        <div class="fb-login-button"
             id="fb-btn"
-            class="fb-login-button"
-            scope="email"
             data-size="small"
-            data-button-type="login_with"
-            data-layout="default"
+            data-scope="email,user_link"
+            data-button-type="continue_with"
+            data-layout="rounded"
             data-auto-logout-link="false"
             data-use-continue-as="false"
             onlogin="window.location.reload();">
-        </fb:login-button>
+        </div>
       <div class="collapse navbar-collapse" id="navbarsExampleXxl">
         <ul class="navbar-nav me-auto mb-2 mb-xl-0">
           <li class="nav-item">

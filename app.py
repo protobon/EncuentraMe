@@ -9,6 +9,7 @@ from flask import Flask, jsonify, render_template, request, flash, redirect
 from flask_cors import CORS
 from flask_mysqldb import MySQL
 
+
 UPLOAD_FOLDER = 'static/images'
 ALLOWED_EXTENSIONS = {'jpg', 'jpeg', 'png', 'jfif'}
 app = Flask(__name__)
@@ -274,11 +275,6 @@ def politica():
     return render_template('politica_de_privacidad.html')
 
 
-@app.route('/landing')
-def landing_page():
-    return render_template('landing.html')
-
-
 @app.route('/profile/<user_id>')
 def user_profile(user_id):
     """Render user profile with all owner's posts"""
@@ -336,18 +332,8 @@ def api_posts_found():
     return jsonify(found)
 
 
-@app.route('/api/users/', methods=['GET', 'POST', 'PUT', 'DELETE'])
+@app.route('/api/users/', methods=['POST', 'PUT', 'DELETE'])
 def api_users():
-    if request.method == 'GET':
-        """Retrieve all users from database and return in JSON format"""
-        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        try:
-            cursor.execute('SELECT name, email, estado FROM users')
-        except Exception as e:
-            logfile("/api/users GET - in SELECT:\n" + str(e))
-        users = list(cursor.fetchall())
-        cursor.close()
-        return jsonify(users)
     if request.method == 'POST':
         """Stores new user into database"""
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
@@ -510,28 +496,6 @@ def api_user_by_id(user_id):
     cursor.close()
     return jsonify(user)
 
-
-""" only for test, will be deleted """
-
-
-""" @app.route('/layout')
-def layout():
-    return render_template('layout.html')
-@app.route('/layout_form')
-def layout_form():
-    return render_template('layout_form.html')
-
-@app.route('/layout_form_found')
-def layout_form_found():
-    return render_template('layout_form_found.html')
-
-@app.route('/layout_form_report')
-def layout_form_report():
-    return render_template('form_report.html') """
-
-@app.route('/layout_profile')
-def layout_profile():
-    return render_template('layout_profile.html')
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0")
