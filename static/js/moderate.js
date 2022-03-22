@@ -8,7 +8,7 @@ $(document).ready(function () {
         fetchReports().then(function(data) {
             $.each(data.lost, function() {
                 let post = $(document.createElement('div'));
-                postLostNew.addClass('card row justify-content-around g-2');
+                post.addClass('card row justify-content-around g-2');
                 post.addClass('pet');
                 post.addClass('pet-lost');
                 post.append('<a href="https://encuentrame.org.xelar.tech/profile' + this.user_id + '"></a>');
@@ -36,7 +36,7 @@ $(document).ready(function () {
             });
             $.each(data.found, function() {
                 let post = $(document.createElement('div'));
-                postLostNew.addClass('card row justify-content-around g-2');
+                post.addClass('card row justify-content-around g-2');
                 post.addClass('pet');
                 post.addClass('pet-found');
                 post.append('<h3>' + this.user_name + '</h3>');
