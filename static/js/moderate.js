@@ -9,7 +9,7 @@ $(document).ready(function () {
             $.each(data.lost, function() {
                 let post = $(document.createElement('div'));
                 post.addClass('pet');
-                post.addClass('pet-lost');
+                post.addClass('card pet-lost');
                 post.append('<a href="https://encuentrame.org.xelar.tech/profile/' + this.user_id + '"></a>');
                 post.find('a').append('<h3>' + this.user_name + '</h3>');
                 post.append(';<img src="/static/images/' + this.foto + '">');
@@ -36,7 +36,7 @@ $(document).ready(function () {
             $.each(data.found, function() {
                 let post = $(document.createElement('div'));
                 post.addClass('pet');
-                post.addClass('pet-found');
+                post.addClass('card pet-found');
                 post.append('<h3>' + this.user_name + '</h3>');
                 post.append('<p>' + this.user_id + '</p>');
                 post.append('<img src="/static/images/' + this.foto + '">');
