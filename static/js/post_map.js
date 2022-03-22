@@ -31,6 +31,7 @@ function initMap() {
           infoWindow.setContent("Location found.");
           infoWindow.open(map);
           marker.setPosition(pos);
+          map.setCenter(pos);
           $("#postLat").val(pos.lat.toFixed(6));
           $("#postLng").val(pos.lng.toFixed(6));
         },
@@ -50,7 +51,6 @@ function initMap() {
     google.maps.event.addListener(marker,'drag', function(event){
       $("#postLat").val(event.latLng.lat().toFixed(6));
       $("#postLng").val(event.latLng.lng().toFixed(6));
-      map.panTo(event.latLng);
     });
 
       // markers can only be keyboard focusable when they have click listeners
