@@ -13,6 +13,7 @@ function initMap() {
     position: new google.maps.LatLng(a , b),
     map: map,
     draggable: true,
+    gestureHandling: "none"
     });
     //Create markers based on testing locations.
   const locationButton = document.createElement("button");
