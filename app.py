@@ -9,6 +9,7 @@ from flask import Flask, jsonify, render_template, request, flash, redirect
 from flask_cors import CORS
 from flask_mysqldb import MySQL
 
+
 UPLOAD_FOLDER = 'static/images'
 ALLOWED_EXTENSIONS = {'jpg', 'jpeg', 'png', 'jfif'}
 app = Flask(__name__)
