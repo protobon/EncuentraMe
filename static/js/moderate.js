@@ -11,7 +11,10 @@ $(document).ready(function () {
                 post.addClass('card row justify-content-around col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-4 p-2 g-2');
                 post.addClass('pet');
                 post.addClass('pet-lost');
-                post.append('<a href="https://encuentrame.org.xelar.tech/profile/' + this.user_id + '"></a>');
+                let cardImg = $(document.createElement('div'));/*2*/
+                cardImg.addClass('user'); /*2*/
+                cardImg.addClass('card-img-top');/*2*/
+                cardImg.append('<a href="https://encuentrame.org.xelar.tech/profile/' + this.user_id + '"></a>');
                 post.find('a').append('<h3>' + this.user_name + '</h3>');
                 post.append('<img class="img-fluid rounded" src="/static/images/' + this.foto + '">');
                 post.append('<p>' + this.created_at + '</p>');
@@ -31,6 +34,7 @@ $(document).ready(function () {
                 forgiveButton.attr('type', 'button');
                 forgiveButton.html('Perdonar');
                 forgiveButton.attr('onclick', 'forgivePost("' + this.id + '")');
+                post.append(cardImg);
                 post.append(forgiveButton);
                 $('div.posts').append(post);
             });
