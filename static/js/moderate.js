@@ -66,6 +66,7 @@ $(document).ready(function () {
                 forgiveButton.attr('type', 'button');
                 forgiveButton.html('Perdonar');
                 forgiveButton.attr('onclick', 'forgivePost("' + this.id + '")');
+                post.append(cardImg);
                 post.append(forgiveButton);
                 $('div.posts').append(post);
             });
