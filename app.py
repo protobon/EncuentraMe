@@ -486,7 +486,7 @@ def api_completed():
     completed_found = list(cursor.fetchall())
     cursor.close()
     all_posts_completed = completed_lost + completed_found
-    all_posts_completed.sort(key=lambda d: d['created_at'], reverse=True)
+    all_posts_completed.sort(key=lambda d: d['updated_at'], reverse=True)
     return jsonify(all_posts_completed)
 
 
