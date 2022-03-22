@@ -46,14 +46,14 @@ $(document).ready(function () {
                 });
                 let deleteButton = $(document.createElement('button'));
                 deleteButton.addClass('btn');
-                deleteButton.addClass('btn-danger');
+                deleteButton.addClass('enc-btn-danger');
                 deleteButton.attr('type', 'button');
                 deleteButton.html('Eliminar');
                 deleteButton.attr('onclick', 'deletePost("' + this.id + '")');
                 post.append(deleteButton);
                 let forgiveButton = $(document.createElement('button'));
                 forgiveButton.addClass('btn');
-                forgiveButton.addClass('btn-primary');
+                forgiveButton.addClass('enc-btn-danger');
                 forgiveButton.attr('type', 'button');
                 forgiveButton.html('Perdonar');
                 forgiveButton.attr('onclick', 'forgivePost("' + this.id + '")');
