@@ -35,8 +35,8 @@ $(document).ready(function () {
                 forgiveButton.html('Perdonar');
                 forgiveButton.attr('onclick', 'forgivePost("' + this.id + '")');
                 cardBody.append(cardImg);
+                cardBody.append(forgiveButton);
                 post.append(cardBody);
-                post.append(forgiveButton);
                 $('div.posts').append(post);
             });
             $.each(data.found, function() {
@@ -70,7 +70,8 @@ $(document).ready(function () {
                 forgiveButton.html('Perdonar');
                 forgiveButton.attr('onclick', 'forgivePost("' + this.id + '")');
                 cardBody.append(cardImg);
-                post.append(forgiveButton);
+                cardBody.append(forgiveButton);
+                post.append(cardBody);
                 $('div.posts').append(post);
             });
         });
