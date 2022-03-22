@@ -141,7 +141,7 @@ $(document).ready(function () {
             $.each(all_posts_lost, function () {
                 this.created_at = new Date(this.created_at).toLocaleString('es-UY');
                 let postLostNew = $(document.createElement('div')); /*1*/
-                postLostNew.addClass('card row justify-content-around g-2'); /*1*/
+                postLostNew.addClass('card g-2'); /*1*/
                 postLostNew.addClass('pet');/*1*/
                 postLostNew.addClass('pet_lost');/*1*/
                 postLostNew.addClass(this.mascota);
