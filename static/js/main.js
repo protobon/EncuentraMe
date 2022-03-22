@@ -6,6 +6,8 @@ const tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
 const myModal = document.getElementById('myModal');
 const myInput = document.getElementById('myInput');
 
-myModal.addEventListener('shown.bs.modal', function () {
-  myInput.focus();
-});
+if (myModal) {
+  myModal.addEventListener('shown.bs.modal', function () {
+    myInput.focus();
+  });
+}
