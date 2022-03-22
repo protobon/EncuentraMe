@@ -427,10 +427,10 @@ def api_post_by_id(id):
     if request.method == 'PUT':
         updated_at = datetime.utcnow()
         if "lost" in id:
-            cursor.execute("UPDATE lost_pets SET estado = 'completed' WHERE id=%s", [id])
+            cursor.execute("UPDATE lost_pets SET estado = 'resolved' WHERE id=%s", [id])
             cursor.execute("UPDATE lost_pets SET updated_at=%s WHERE id=%s", [updated_at, id])
         else:
-            cursor.execute("UPDATE found_pets SET estado = 'completed' WHERE id=%s", [id])
+            cursor.execute("UPDATE found_pets SET estado = 'resolved' WHERE id=%s", [id])
             cursor.execute("UPDATE found_pets SET updated_at=%s WHERE id=%s", [updated_at, id])
         mysql.connection.commit()
         cursor.close()
