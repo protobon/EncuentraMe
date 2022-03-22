@@ -339,16 +339,6 @@ def api_posts_found():
 
 @app.route('/api/users/', methods=['POST', 'PUT', 'DELETE'])
 def api_users():
-    # if request.method == 'GET':
-    #     """Retrieve all users from database and return in JSON format"""
-    #     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    #     try:
-    #         cursor.execute('SELECT name, email, estado FROM users')
-    #     except Exception as e:
-    #         logfile("/api/users GET - in SELECT:\n" + str(e))
-    #     users = list(cursor.fetchall())
-    #     cursor.close()
-    #     return jsonify(users)
     if request.method == 'POST':
         """Stores new user into database"""
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
