@@ -31,7 +31,6 @@ function initMap() {
           infoWindow.setContent("Location found.");
           infoWindow.open(map);
           marker.setPosition(pos);
-          map.setCenter(pos);
           $("#postLat").val(pos.lat.toFixed(6));
           $("#postLng").val(pos.lng.toFixed(6));
         },
