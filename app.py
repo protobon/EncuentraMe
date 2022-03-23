@@ -274,6 +274,13 @@ def about():
 def politica():
     return render_template('politica_de_privacidad.html')
 
+@app.route('/politica_de_cookies')
+def cookies():
+    return render_template('politica_de_cookies.html')
+
+@app.route('/aviso_legal')
+def aviso():
+    return render_template('aviso_legal.html')
 
 @app.route('/profile/<user_id>')
 def user_profile(user_id):
